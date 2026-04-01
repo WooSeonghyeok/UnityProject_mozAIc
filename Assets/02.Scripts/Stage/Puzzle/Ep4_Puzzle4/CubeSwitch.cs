@@ -54,25 +54,25 @@ public class CubeSwitch : MonoBehaviour
         {
             switch (curCube.condition)
             {
-                case PuzzleCube.switchCondition.near:
+                case PE4_Puzzle4_Cube.switchCondition.near:
                     if (Mathf.Abs(cubeList[n].column - curCube.column) + Mathf.Abs(cubeList[n].row - curCube.row) <= 1)  //자기 자신 + 이웃한 발판(전후좌우 1칸씩)
                     {
                         switchObjects.Add(cubeList[n]);
                     }
                     break;
-                case PuzzleCube.switchCondition.row:
+                case PE4_Puzzle4_Cube.switchCondition.row:
                     if (cubeList[n].row == curCube.row)  // 행 값이 같으면
                     {
                         switchObjects.Add(cubeList[n]);
                     }
                     break;
-                case PuzzleCube.switchCondition.column:
+                case PE4_Puzzle4_Cube.switchCondition.column:
                     if (cubeList[n].column == curCube.column)  // 열 값이 같으면
                     {
                         switchObjects.Add(cubeList[n]);
                     }
                     break;
-                case PuzzleCube.switchCondition.color:
+                case PE4_Puzzle4_Cube.switchCondition.color:
                     if (cubeList[n].cubeColor == curCube.cubeColor)  // 색상이 같으면
                     {
                         switchObjects.Add(cubeList[n]);

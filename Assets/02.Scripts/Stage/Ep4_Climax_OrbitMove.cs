@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Stage4Climax_OrbitMove : MonoBehaviour
+public class Ep4_Climax_OrbitMove : MonoBehaviour
 {
     public float rotSpd;
     public float dist;

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class Stage4CutsceneManager : MonoBehaviour
+public class Ep4_CutsceneManager : MonoBehaviour
 {
     private readonly string playerTag = "Player";
     private PlayerInput user;

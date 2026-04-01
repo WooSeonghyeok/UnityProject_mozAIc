@@ -1,6 +1,6 @@
 ﻿namespace PuzzleInfo
 {
-    public class PuzzleCube
+    public class PE4_Puzzle4_Cube
     {
         public int id;
         public int[] place = new int[2];

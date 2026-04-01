@@ -15,7 +15,7 @@ public class PuzzleCubeCtrl : MonoBehaviour
     public bool isRed;
     public bool isGreen;
     public bool isBlue;
-    public PuzzleCube.switchCondition condition;
+    public PE4_Puzzle4_Cube.switchCondition condition;
     public Material CondMaterial_near;
     public Material CondMaterial_row;
     public Material CondMaterial_column;
@@ -101,17 +101,17 @@ public class PuzzleCubeCtrl : MonoBehaviour
         cube.GetComponent<Renderer>().material.color = cubeColor;
         OnColorChanged?.Invoke();
     }
-    public Material CondSetup(PuzzleCube.switchCondition cond)
+    public Material CondSetup(PE4_Puzzle4_Cube.switchCondition cond)
     {
         switch (cond)
         {
-            case PuzzleCube.switchCondition.near:
+            case PE4_Puzzle4_Cube.switchCondition.near:
                 return CondMaterial_near;
-            case PuzzleCube.switchCondition.column:
+            case PE4_Puzzle4_Cube.switchCondition.column:
                 return CondMaterial_column;
-            case PuzzleCube.switchCondition.row:
+            case PE4_Puzzle4_Cube.switchCondition.row:
                 return CondMaterial_row;
-            case PuzzleCube.switchCondition.color:
+            case PE4_Puzzle4_Cube.switchCondition.color:
                 return CondMaterial_color;
             default:
                 return null;

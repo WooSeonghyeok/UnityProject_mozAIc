@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 public class PuzzleCubeData : MonoBehaviour
 {
-    public PuzzleCubeObj cubeData;
+    public EP4_Puzzle4_CubeObj cubeData;
 }

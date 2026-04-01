@@ -22,7 +22,7 @@ public class Puzzle4Manager : MonoBehaviour
     private int switch_total = 0;
     private int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
-    public Stage4CutsceneManager cutsceneManager;
+    public Ep4_CutsceneManager cutsceneManager;
     public SaveDataObj curData;
     void Awake()
     {

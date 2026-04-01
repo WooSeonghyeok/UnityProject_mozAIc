@@ -7,7 +7,7 @@ public class PuzzleInit : EditorWindow
 {
     public TextAsset puzzle_stage4;
     public DefaultAsset cubeDataFolder;
-    public PuzzleCubeObj[] targetObjects;
+    public EP4_Puzzle4_CubeObj[] targetObjects;
     private Vector2 scrollPos;
     [MenuItem("Tools/PuzzleCube CSV Importer")]
     public static void ShowWindow()
@@ -50,7 +50,7 @@ public class PuzzleInit : EditorWindow
         string folderPath = AssetDatabase.GetAssetPath(cubeDataFolder);
         string[] guids = AssetDatabase.FindAssets("t:PuzzleCubeObj", new[] { folderPath });
         targetObjects = guids
-            .Select(guid => AssetDatabase.LoadAssetAtPath<PuzzleCubeObj>(AssetDatabase.GUIDToAssetPath(guid)))
+            .Select(guid => AssetDatabase.LoadAssetAtPath<EP4_Puzzle4_CubeObj>(AssetDatabase.GUIDToAssetPath(guid)))
             .OrderBy(obj => obj.name) // 이름 순 정렬 (원하면 index 순 정렬도 가능)
             .ToArray();
         Debug.Log($"{targetObjects.Length}개의 PuzzleCubeObj를 로드했습니다.");
@@ -73,13 +73,13 @@ public class PuzzleInit : EditorWindow
                 Debug.LogWarning($"CSV 줄 {i}는 ScriptableObject 배열 범위를 초과함");
                 break;
             }
-            PuzzleCubeObj obj = targetObjects[i];
+            EP4_Puzzle4_CubeObj obj = targetObjects[i];
             obj.place[0] = int.Parse(cols[1]);
             obj.place[1] = int.Parse(cols[2]);
             obj.colorBool[0] = cols[3].ToUpper() == "TRUE";
             obj.colorBool[1] = cols[4].ToUpper() == "TRUE";
             obj.colorBool[2] = cols[5].ToUpper() == "TRUE";
-            obj.cond = Enum.Parse<PuzzleCube.switchCondition>(cols[6]);
+            obj.cond = Enum.Parse<PE4_Puzzle4_Cube.switchCondition>(cols[6]);
             obj.value = int.Parse(cols[7]);
             EditorUtility.SetDirty(obj);
         }
