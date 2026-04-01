@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-public class LobbyManager : MonoBehaviour
+public class EP0_LobbyManager : MonoBehaviour
 {
-    public static LobbyManager instance;
+    public static EP0_LobbyManager instance;
     private readonly string playerTag = "Player";
     InteractManager userAct;
     public GameObject AbilitySelectPanel;
