@@ -1,0 +1,1774 @@
+fileFormatVersion: 2
+guid: ff84b963a5ec9b649852ff18ab3f466f
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 16 - Defaultp
+    second: {fileID: 2100000, guid: 95f7e18e4d52f9f40827b8ea3311b9eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #62238073
+    second: {fileID: 2100000, guid: 96a6504ee5909b743a7a747284638e96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #62238373
+    second: {fileID: 2100000, guid: f7a6c9b21cb1e474e8d3f6d88156b44c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #62238374
+    second: {fileID: 2100000, guid: 98de085bd48b8aa4bab1091f9772ddcf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material__158thj
+    second: {fileID: 2100000, guid: 7ba7f1e73a433e248be28d6e9cfe52cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: y
+    second: {fileID: 2100000, guid: 27f7353b8404d6e4290cb173130c471b, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 15
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Podium(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 02ertyergdg
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01eryertyer
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01sertyert
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01ryty
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01tytyryrt
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01drty
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01drtyyts
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01yyy
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01dffgydf
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01tfgtrtf
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02rh
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02fdfgj
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 02
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 02 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shape 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Scale 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Rotation 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shape Instance 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Position Object 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Birth 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Render 01 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 02 8
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: futyu
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: futyutyu
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rturt6u
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rstrtr
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyrtyr
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryyr
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryr5y
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ertyry
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyrr
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyryryr
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyryry
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryryr
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 01
+      parentName: Podium(Clone)
+      position: {x: -3.1201816, y: -0.52936304, z: -10.466384}
+      rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+      scale: {x: 15.999999, y: 15.999999, z: 15.999999}
+    - name: Particle View 01 8
+      parentName: Podium(Clone)
+      position: {x: 786.56146, y: -0.52936304, z: -10.466384}
+      rotation: {x: 1, y: 0, z: 0, w: -0.0000000059624403}
+      scale: {x: -15.999999, y: -15.999999, z: -15.999999}
+    - name: Display 02 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 02 7
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 01 7
+      parentName: Podium(Clone)
+      position: {x: -6.185661, y: 0.016057521, z: -8.671749}
+      rotation: {x: -0.50000006, y: -0.49999997, z: -0.49999997, w: 0.50000006}
+      scale: {x: 0.21000001, y: 0.21000001, z: 0.21000001}
+    - name: Display 003
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 003
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 004
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 004
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 002
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 003
+      parentName: Podium(Clone)
+      position: {x: 39.360912, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 005
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 005
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 006
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 006
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 003
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 004
+      parentName: Podium(Clone)
+      position: {x: 26.886032, y: -12.395836, z: -2018.9307}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 005
+      parentName: Podium(Clone)
+      position: {x: -7.123387, y: 0.016057521, z: -670.61346}
+      rotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+      scale: {x: 0.21000001, y: 0.21000001, z: 0.21000001}
+    - name: Particle View 02ertyergdg001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01eryertyer001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01sertyert001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01ryty001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01tytyryrt001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01drty001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01drtyyts001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01yyy001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01dffgydf001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01tfgtrtf001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02rh001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02fdfgj001
+      parentName: Podium(Clone)
+      position: {x: 1457.6202, y: -12.395847, z: -1764.1478}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 007
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 007
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 008
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 008
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 004
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 006
+      parentName: Podium(Clone)
+      position: {x: 3900.077, y: -12.395847, z: -1637.7119}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 02 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shape 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Scale 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Rotation 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shape Instance 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Position Object 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Birth 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Render 01 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 02 6
+      parentName: Podium(Clone)
+      position: {x: 1573.436, y: 8.6629366e-14, z: -315.12833}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: futyu001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: futyutyu001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rturt6u001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rstrtr001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyrtyr001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryyr001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryr5y001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ertyry001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyrr001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyryryr001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyryry001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryryr001
+      parentName: Podium(Clone)
+      position: {x: 1562.7665, y: -12.395847, z: -1212.0798}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 007
+      parentName: Podium(Clone)
+      position: {x: -3.1201816, y: -0.52936304, z: -10.466384}
+      rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+      scale: {x: 15.999999, y: 15.999999, z: 15.999999}
+    - name: Particle View 01 6
+      parentName: Podium(Clone)
+      position: {x: 786.56146, y: -0.52936304, z: -10.466384}
+      rotation: {x: 1, y: 0, z: 0, w: -0.0000000059624403}
+      scale: {x: -15.999999, y: -15.999999, z: -15.999999}
+    - name: Display 02 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 02 5
+      parentName: Podium(Clone)
+      position: {x: 27.82376, y: -12.395836, z: -1356.9889}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 01 5
+      parentName: Podium(Clone)
+      position: {x: -6.185661, y: 0.016057521, z: -8.671749}
+      rotation: {x: -0.50000006, y: -0.49999997, z: -0.49999997, w: 0.50000006}
+      scale: {x: 0.21000001, y: 0.21000001, z: 0.21000001}
+    - name: Display 009
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 009
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 010
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 010
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 005
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 008
+      parentName: Podium(Clone)
+      position: {x: 2351.7273, y: -12.395836, z: -1374.7086}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 011
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 011
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 012
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 012
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 013
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 013
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 014
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 014
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 015
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 015
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 016
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 016
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 017
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 017
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 018
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 018
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 019
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 019
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 020
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 020
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 021
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 021
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 022
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 022
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 023
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 023
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 024
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 024
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 025
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 025
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 026
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 026
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 027
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 027
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 028
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 028
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 029
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 029
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 030
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 030
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 031
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 031
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 032
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 032
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 033
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 033
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 034
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 034
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Action Recovery
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 01 4
+      parentName: Podium(Clone)
+      position: {x: 5.045209, y: 0.20328264, z: 1.0280207}
+      rotation: {x: 0.000000099748014, y: -0.7071067, z: 0.000000099748, w: 0.7071068}
+      scale: {x: 0.0627, y: 0.0627, z: 0.0627}
+    - name: Display 035
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 035
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 036
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 036
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 006
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 009
+      parentName: Podium(Clone)
+      position: {x: 50.64123, y: -12.395837, z: -1380.0161}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 02ertyergdg002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01eryertyer002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01sertyert002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01ryty002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01tytyryrt002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01drty002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01drtyyts002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01yyy002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01dffgydf002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01tfgtrtf002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02rh002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02fdfgj002
+      parentName: Podium(Clone)
+      position: {x: 2310.208, y: -12.395847, z: -1768.6853}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 02 4
+      parentName: Podium(Clone)
+      position: {x: 4752.6646, y: -12.395847, z: -1642.2493}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 02 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 02 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shape 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Scale 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Rotation 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shape Instance 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Position Object 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Birth 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Event 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Render 01 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 02 3
+      parentName: Podium(Clone)
+      position: {x: 2426.0234, y: 0, z: -319.66574}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: futyu002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: futyutyu002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rturt6u002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rstrtr002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyrtyr002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryyr002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryr5y002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ertyry002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyrr002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyryryr002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: rtyryry002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: ryryryr002
+      parentName: Podium(Clone)
+      position: {x: 2415.354, y: -12.395847, z: -1216.6172}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 010
+      parentName: Podium(Clone)
+      position: {x: 849.46735, y: -0.52936304, z: -15.003735}
+      rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+      scale: {x: 15.999999, y: 15.999999, z: 15.999999}
+    - name: Particle View 01 3
+      parentName: Podium(Clone)
+      position: {x: 1639.149, y: -0.52936304, z: -15.003735}
+      rotation: {x: 1, y: 0, z: 0, w: -0.0000000059624403}
+      scale: {x: -15.999999, y: -15.999999, z: -15.999999}
+    - name: Display 02 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 02 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 01 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 02 2
+      parentName: Podium(Clone)
+      position: {x: 880.4113, y: -12.395836, z: -1361.5264}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 01 2
+      parentName: Podium(Clone)
+      position: {x: 846.40186, y: 0.016057521, z: -13.2091}
+      rotation: {x: -0.50000006, y: -0.49999997, z: -0.49999997, w: 0.50000006}
+      scale: {x: 0.21000001, y: 0.21000001, z: 0.21000001}
+    - name: Display 037
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 037
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Scale 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Rotation 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Shape Instance 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Position Object 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Display 038
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Birth 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Event 038
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Render 007
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 011
+      parentName: Podium(Clone)
+      position: {x: 891.9485, y: -12.395836, z: -1379.246}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 3, y: 3, z: 3}
+    - name: Particle View 01 1
+      parentName: Podium(Clone)
+      position: {x: -602.11774, y: 0, z: -3.6069686}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Display 02 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Event 02 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Shape 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Scale 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Rotation 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Shape Instance 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Position Object 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Display 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Birth 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Event 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Render 01 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Particle View 02 1
+      parentName: Podium(Clone)
+      position: {x: -200.55661, y: 8.397975, z: 122.73881}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Group140
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box058
+      parentName: Group140
+      position: {x: 0.014693143, y: 0.112057835, z: 0.4579215}
+      rotation: {x: 0, y: 0, z: 0.71325046, w: 0.70090926}
+      scale: {x: 1.152, y: 1.152, z: 1.152}
+    - name: Box33
+      parentName: Group140
+      position: {x: -0, y: 0.06763031, z: 0.4599679}
+      rotation: {x: -0.18613486, y: 0, z: -0, w: 0.9825242}
+      scale: {x: 1.152, y: 1.152, z: 1.152}
+    - name: Box18
+      parentName: Group140
+      position: {x: 0.006235084, y: 0.0010319137, z: -0.8520971}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.152, y: 1.152, z: 1.152}
+    - name: Box35
+      parentName: Group140
+      position: {x: 0.3597433, y: -0.2919647, z: -0.8520971}
+      rotation: {x: 0, y: 0, z: 0.71325046, w: 0.70090926}
+      scale: {x: 1.152, y: 1.152, z: 1.152}
+    - name: Box34
+      parentName: Group140
+      position: {x: -0.3265133, y: -0.2919647, z: -0.8520971}
+      rotation: {x: 0, y: 0, z: 0.71325046, w: 0.70090926}
+      scale: {x: 1.152, y: 1.152, z: 1.152}
+    - name: Box32
+      parentName: Group140
+      position: {x: -0, y: -0.02002494, z: -0.8520971}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.152, y: 1.152, z: 1.152}
+    - name: Podium
+      parentName: Podium(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box7633
+      parentName: Podium
+      position: {x: -0, y: -0.3046896, z: -0.76199985}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box7637
+      parentName: Podium
+      position: {x: 0.5192212, y: 0.03242934, z: -0.76199985}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box7635
+      parentName: Podium
+      position: {x: -0, y: 0.001884696, z: 0.42473024}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box7634
+      parentName: Podium
+      position: {x: -0, y: 0.001884696, z: -0.76199985}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box7636
+      parentName: Podium
+      position: {x: -0.5262498, y: 0.03242934, z: -0.76199985}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 15
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
