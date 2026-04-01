@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.srcnalt.openai-unity": "https://kdt-gitlab.elice.io/unity_track/class3/openai-unity_helpy.git",
     "com.unity.cinemachine": "2.10.7",
     "com.unity.collab-proxy": "2.11.4",
     "com.unity.feature.development": "1.0.1",

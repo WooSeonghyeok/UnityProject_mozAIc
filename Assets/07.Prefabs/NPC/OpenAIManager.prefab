@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4359635292319528451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143848122300554685}
+  - component: {fileID: 6953571745335777917}
+  - component: {fileID: 6388144808068555681}
+  m_Layer: 0
+  m_Name: OpenAIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1143848122300554685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359635292319528451}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.761408, y: -2.6205616, z: -17.609076}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6953571745335777917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359635292319528451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1257b2c4047a2438da9a000a0153a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatPanel: {fileID: 0}
+  serverChat: {fileID: 6388144808068555681}
+  followCam: {fileID: 0}
+  playerMovement: {fileID: 0}
+  speechBubbleRoot: {fileID: 0}
+  speechBubbleText: {fileID: 0}
+  speechBubbleDuration: 5
+  isTalking: 0
+--- !u!114 &6388144808068555681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359635292319528451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6138456431891f4ca1aae2c0a00f03b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 0}
+  contentParent: {fileID: 0}
+  scrollRect: {fileID: 0}
+  chatTextObject: {fileID: 940963796700030791, guid: 9aaedc0269eb95444816c85540a8d3d2, type: 3}
+  userColor: {r: 0, g: 0, b: 0, a: 1}
+  chatColor: {r: 0, g: 0.065425396, b: 1, a: 1}
+  userName: "\uB098"
+  serverName: "\uC11C\uBC84"
+  model: helpy-pro
+  currentNpcData: {fileID: 0}
+  positiveWords:
+  - "\uCD5C\uACE0\uC758 \uCE5C\uAD6C"
+  negativeWords: []
+  PositiveAffinity: 50
+  NegativeAffinity: -10
+  AffinityText: {fileID: 0}

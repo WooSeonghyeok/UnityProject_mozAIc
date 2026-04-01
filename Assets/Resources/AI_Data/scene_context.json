@@ -1,0 +1,158 @@
+[
+    {
+        "sceneId": "ep_00",
+        "sceneName": "기억의 틈새",
+        "episodeId": "ep_00",
+        "mood": "공허함, 흐릿함, 붕괴 직전의 정적",
+        "goal": "플레이어가 잃어버린 세계와 기억 복원의 출발점을 마주한다",
+        "recoveredElement": "none",
+        "missingElements": [ "memory", "color", "sound" ],
+        "visualState": {
+            "blur": "very_high",
+            "saturation": "almost_grayscale",
+            "bgm": "very_faint",
+            "environmentSound": "none"
+        },
+        "allowedTopics": [
+            "기억 상실",
+            "흩어진 조각",
+            "첫 번째 문",
+            "별 조각"
+        ],
+        "bannedTopics": [
+            "후반부 진실",
+            "중심 존재의 정체 확정"
+        ],
+        "specialRules": [
+            "모든 존재는 불완전하게 보인다",
+            "문장과 목소리는 파편처럼 느껴져야 한다"
+        ]
+    },
+    {
+        "sceneId": "ep_01_field_cave_village",
+        "sceneName": "별을 헤는 소녀의 마을",
+        "episodeId": "ep_01",
+        "mood": "흐릿함, 익숙함, 따뜻한 그리움",
+        "goal": "별 조각 5개를 모으고 루나와의 추억을 복원한다",
+        "recoveredElement": "memory",
+        "missingElements": [ "color", "sound" ],
+        "visualState": {
+            "blur": "high",
+            "saturation": "low",
+            "bgm": "faint",
+            "environmentSound": "none"
+        },
+        "allowedTopics": [
+            "별",
+            "마을",
+            "추억",
+            "소꿉친구",
+            "약속",
+            "동굴"
+        ],
+        "bannedTopics": [
+            "EP.2 이후의 관계 정체",
+            "최종 자아 통합"
+        ],
+        "specialRules": [
+            "초반에는 발소리와 환경음이 거의 없다",
+            "별 조각을 모을수록 블러가 감소한다",
+            "루나는 장면과 감정 위주로 기억을 말한다",
+            "{MemoryRevealStage.Partial}에서는 더 이상 가기 두렵다며 혼자 가라고 한다",
+            "퍼즐을 클리어한 뒤에는 밤 하늘의 별을 바라보며 고맙다고 말한다 "
+        ]
+    },
+    {
+        "sceneId": "ep_02_studio",
+        "sceneName": "색을 잃은 작업실",
+        "episodeId": "ep_02",
+        "mood": "정적, 몰입, 미완성의 열정",
+        "goal": "시점 퍼즐과 색 조합 퍼즐을 통해 색채와 꿈의 기억을 복원한다",
+        "recoveredElement": "color",
+        "missingElements": [ "sound" ],
+        "visualState": {
+            "blur": "medium",
+            "saturation": "very_low_to_recovering",
+            "bgm": "present",
+            "environmentSound": "light_studio_noise_only"
+        },
+        "allowedTopics": [
+            "그림",
+            "구도",
+            "색",
+            "꿈",
+            "동료",
+            "작업실"
+        ],
+        "bannedTopics": [
+            "EP.3 연인 관계 스포일러",
+            "최종 엔딩"
+        ],
+        "specialRules": [
+            "퍼즐 성공 시 부분적으로 채도가 회복된다",
+            "화가는 감정보다 그림의 언어로 말한다"
+        ]
+    },
+    {
+        "sceneId": "ep_03_hall",
+        "sceneName": "멈춰버린 공연장",
+        "episodeId": "ep_03",
+        "mood": "고요함, 떨림, 미완성의 고백",
+        "goal": "악보 조각과 음악 점프맵을 통해 소리와 사랑의 기억을 복원한다",
+        "recoveredElement": "sound",
+        "missingElements": [],
+        "visualState": {
+            "blur": "low",
+            "saturation": "restored",
+            "bgm": "layered_restore",
+            "environmentSound": "initially_missing_then_returning"
+        },
+        "allowedTopics": [
+            "노래",
+            "연인",
+            "고백",
+            "공연장",
+            "멜로디",
+            "악보"
+        ],
+        "bannedTopics": [
+            "EP.4 중심 존재의 정체",
+            "최종 엔딩 조건"
+        ],
+        "specialRules": [
+            "악보 조각 획득 시 BGM에 악기 레이어가 추가된다",
+            "음악가는 말보다 음악에 비유해 감정을 드러낸다"
+        ]
+    },
+    {
+        "sceneId": "ep_04_core",
+        "sceneName": "기억의 중심",
+        "episodeId": "ep_04",
+        "mood": "혼란, 회수, 수용, 재탄생 직전의 고요",
+        "goal": "흩어진 기억을 하나의 삶으로 정리하고 중심 존재와 통합한다",
+        "recoveredElement": "identity",
+        "missingElements": [],
+        "visualState": {
+            "blur": "stable",
+            "saturation": "full",
+            "bgm": "themes_combined",
+            "environmentSound": "all_elements_merged"
+        },
+        "allowedTopics": [
+            "삶",
+            "기억",
+            "자기 수용",
+            "추억",
+            "꿈",
+            "사랑",
+            "통합"
+        ],
+        "bannedTopics": [
+            "불필요한 메타 발언"
+        ],
+        "specialRules": [
+            "별빛, 물감, 음표 요소가 함께 등장한다",
+            "공간은 흔들리지만 중심으로 갈수록 선명해진다"
+        ]
+    }
+]
