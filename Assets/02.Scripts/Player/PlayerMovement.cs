@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
     private readonly int hashJump = Animator.StringToHash("Jump");
     private readonly int hashCanMove = Animator.StringToHash("CanMove");
     private readonly int hashIsSliding = Animator.StringToHash("IsSliding");
-    private IceSlideRigidbody iceSlide;  // 슬라이딩 참조
+    /*private IceSlideRigidbody iceSlide;*/  // 슬라이딩 참조
 
     // 바닥 검사 결과를 담아둘 버퍼
     private Collider[] groundHits = new Collider[10];
-    public GameObject InteractMark;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -57,8 +57,7 @@ public class PlayerMovement : MonoBehaviour
         yaw = transform.eulerAngles.y;  // 초기 회전값 설정
         capsuleCollider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
-        iceSlide = GetComponent<IceSlideRigidbody>();
-        InteractMark.SetActive(false);
+        //iceSlide = GetComponent<IceSlideRigidbody>();
     }
 
         // 외부(ChatNPCManager)에서 호출해서 이동 잠금/해제를 제어
@@ -185,10 +184,7 @@ public class PlayerMovement : MonoBehaviour
         // CameraTarget 회전 (상하만)
         cameraTarget.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
-    public void InteractableMark(bool b)
-    {
-        InteractMark.SetActive(b);
-    }
+
     void CheckGround()
     {
         // groundCheck가 비어 있으면 안전하게 종료
@@ -270,20 +266,20 @@ public class PlayerMovement : MonoBehaviour
 
         // 슬라이딩 스크립트가 활성화된 동안에는
         // PlayerMovement 쪽에서 Movement 상태를 절대 건드리지 않음
-        if (iceSlide != null && iceSlide.enabled)
-        {
-            // 실제 슬라이딩 중이 아닐 때는 Idle 유지
-            animator.SetBool(hashCanMove, false);
-            animator.SetBool(hashIsGrounded, true);
+        //if (iceSlide != null && iceSlide.enabled)
+        //{
+        //    // 실제 슬라이딩 중이 아닐 때는 Idle 유지
+        //    animator.SetBool(hashCanMove, false);
+        //    animator.SetBool(hashIsGrounded, true);
 
-            // 아직 미끄러지기 전이라면 Speed도 0으로 유지
-            if (!iceSlide.IsSliding())
-            {
-                animator.SetFloat(hashSpeed, 0f);
-            }
+        //    // 아직 미끄러지기 전이라면 Speed도 0으로 유지
+        //    if (!iceSlide.IsSliding())
+        //    {
+        //        animator.SetFloat(hashSpeed, 0f);
+        //    }
 
-            return;
-        }
+        //    return;
+        //}
 
         // 이동 입력이 있는지 확인
         bool hasMoveInput = input.moveInput.sqrMagnitude > 0.01f;
@@ -377,6 +373,7 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         cameraTarget.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
+
     void OnDrawGizmosSelected()
     {
         if (groundCheck == null)

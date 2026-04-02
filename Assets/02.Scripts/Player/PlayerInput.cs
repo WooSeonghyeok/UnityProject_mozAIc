@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,18 +9,20 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public Vector2 lookInput;  // 마우스 입력값 저장
     [HideInInspector] public bool isSprint;      // 달리기 여부
     [HideInInspector] public bool jumpTriggered; // 점프 입력이 들어왔는지 저장
-    public event Action Interact;
-    public bool isJumpLock = false;
-    public bool isLookLock = false;
+
+    public CameraSwitcher cameraSwitcher; // 🔥 추가
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
+
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (isLookLock) return;
         lookInput = context.ReadValue<Vector2>();
     }
+
     public void OnSprint(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -29,20 +30,29 @@ public class PlayerInput : MonoBehaviour
         else if (context.canceled)
             isSprint = false;
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (isJumpLock) return;
         // 스페이스바를 눌렀을 때 1회성 점프 입력 발생
         if (context.started)
         {
             jumpTriggered = true;
         }
     }
-    public void OnInteract(InputAction.CallbackContext context)
+
+    public void OnRightClick(InputAction.CallbackContext context)
     {
+        // 🔥 우클릭 입력을 CameraSwitcher로 전달
         if (context.started)
         {
-            Interact?.Invoke();
+            if (cameraSwitcher != null)
+            {
+                cameraSwitcher.ToggleCamera();
+            }
+            else
+            {
+                Debug.LogWarning("CameraSwitcher 연결 안됨!");
+            }
         }
     }
 }
