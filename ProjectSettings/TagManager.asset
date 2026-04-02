@@ -3,17 +3,32 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Puzzle4_Switch
+  - SavePoint
+  - Checkpoint
+  - OpeningMid
+  - OpeningExit
+  - StageSelect
+  - Puzzle4Zone
+  - Puzzle4Retry
+  - GoalPoint
+  - Stage4EndPoint
+  - EndingPoint
+  - Puzzle1_Exit
+  - Puzzle1_Entrance
+  - Puzzle1_Obstacle
+  - AbilitySelect
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - GROUND
   - Water
   - UI
-  - 
-  - 
-  - 
+  - OBSTACLE
+  - PLAYER
+  - NPC
   - 
   - 
   - 

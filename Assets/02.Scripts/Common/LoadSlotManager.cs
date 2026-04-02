@@ -32,17 +32,15 @@ public class LoadSlotManager : MonoBehaviour
     }
     public void LastCheckpoint()
     {
-        int lastStage = -1;
-        int lastCheckpoint = -1;
-        for (int i = 0; i < slotData.StageLock.Count; i++)
+        int lastStage = 0;
+        if(slotData != null)
         {
-            if (!slotData.StageLock[i].stageLock) lastStage = i;
-            for (int j = 0; j < slotData.StageLock[i].CheckpointLock.Count; j++)
-            {
-                if (!slotData.StageLock[i].CheckpointLock[j].cpLock) lastCheckpoint = j;
-            }
+            if (slotData.ep4_open) lastStage = 4;
+            else if(slotData.ep3_open) lastStage = 3;
+            else if(slotData.ep2_open) lastStage = 2;
+            else if(slotData.ep1_open) lastStage = 1;
         }
-        slotCheck.text = $"Stage {lastStage} - {lastCheckpoint}";
+        slotCheck.text = $"Stage {lastStage}";
     }
     public void SaveGame(int slotID)
     {

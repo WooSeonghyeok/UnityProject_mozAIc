@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PuzzleManager : MonoBehaviour
+public class EP2_PuzzleManager : MonoBehaviour
 {
-    public static PuzzleManager Instance;
+    public static EP2_PuzzleManager Instance;
 
     // 🔥 퍼즐 클리어 상태
     public bool spaceClear = false;

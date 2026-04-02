@@ -70,14 +70,14 @@ public class PaintingPortal : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         yield return StartCoroutine(FadeToWhite());
 
-        if (PuzzleManager.Instance != null)
+        if (EP2_PuzzleManager.Instance != null)
         {
             if (returnType == PortalReturnType.Space)
-                PuzzleManager.Instance.spawnType = "Space";
+                EP2_PuzzleManager.Instance.spawnType = "Space";
             else if (returnType == PortalReturnType.Paint)
-                PuzzleManager.Instance.spawnType = "Paint";
+                EP2_PuzzleManager.Instance.spawnType = "Paint";
             else
-                PuzzleManager.Instance.spawnType = "Default";
+                EP2_PuzzleManager.Instance.spawnType = "Default";
         }
 
         SceneManager.LoadScene(nextScene);

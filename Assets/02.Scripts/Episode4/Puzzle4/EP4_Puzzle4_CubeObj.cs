@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static PuzzleInfo.PE4_Puzzle4_Cube;
+using static PuzzleInfo.EP4_Puzzle4_Cube;
 [CreateAssetMenu(fileName = "PuzzleCube", menuName = "Create CubeData", order = 1)]
 public class EP4_Puzzle4_CubeObj : ScriptableObject
 {

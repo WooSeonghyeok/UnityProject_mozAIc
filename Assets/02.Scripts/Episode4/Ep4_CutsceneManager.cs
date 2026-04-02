@@ -28,7 +28,7 @@ public class Ep4_CutsceneManager : MonoBehaviour
         curSaveData = SaveManager.ReadCurJSON();
         coreCam.Priority = 1;
         gazeCam.Priority = 1;
-        S3CP0.S3CP0FirstCheck += Stage4FirstEnter;
+        S3CP0.S3FirstCheck += Stage4FirstEnter;
         climaxOrbit.SetActive(false);
         EndOrbit.SetActive(false);
     }

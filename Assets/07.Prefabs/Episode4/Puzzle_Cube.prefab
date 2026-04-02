@@ -119,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1462699050679077715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2999af83ce9c71f43885fbac6d5a5633, type: 3}
+  m_Script: {fileID: 11500000, guid: 056909bafd837174bb67df4cc6cea658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cubeData: {fileID: 11400000, guid: e720803006f13ee4e90c6d6a0413ae98, type: 2}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 7355286144217202873}
   - component: {fileID: 2417944007597357196}
   - component: {fileID: 7259018892507274655}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1036,12 +1036,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4403766659189292656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9740eadc67b32334abe1b59a40956d57, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f450c35e1dd2f74e80876b900e67a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curCube: {fileID: 8283436728958104042}
+  curCube: {fileID: 0}
   cubeList: []
   switchObjects: []
   switchContact: 0
   source: {fileID: 0}
-  switchClip: {fileID: 8300000, guid: 56c30ae9dabfb5c4fbe6a8650e99c1bd, type: 3}
+  switchClip: {fileID: 0}

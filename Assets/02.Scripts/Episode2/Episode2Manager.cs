@@ -23,12 +23,12 @@ public class Episode2Manager : MonoBehaviour
     // 🔥 이미 존재하는 가구 → 즉시 표시
     void ApplyImmediateState()
     {
-        if (PuzzleManager.Instance.spaceClear && PuzzleManager.Instance.spaceFurnitureSpawned)
+        if (EP2_PuzzleManager.Instance.spaceClear && EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
         {
             ActivateFurniture(spaceFurniture, false);
         }
 
-        if (PuzzleManager.Instance.paintClear && PuzzleManager.Instance.paintFurnitureSpawned)
+        if (EP2_PuzzleManager.Instance.paintClear && EP2_PuzzleManager.Instance.paintFurnitureSpawned)
         {
             ActivateFurniture(paintFurniture, false);
         }
@@ -40,21 +40,21 @@ public class Episode2Manager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Space
-        if (PuzzleManager.Instance.spaceClear && !PuzzleManager.Instance.spaceFurnitureSpawned)
+        if (EP2_PuzzleManager.Instance.spaceClear && !EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
         {
             ActivateFurniture(spaceFurniture, true);
-            PuzzleManager.Instance.spaceFurnitureSpawned = true;
+            EP2_PuzzleManager.Instance.spaceFurnitureSpawned = true;
         }
 
         // Paint
-        if (PuzzleManager.Instance.paintClear && !PuzzleManager.Instance.paintFurnitureSpawned)
+        if (EP2_PuzzleManager.Instance.paintClear && !EP2_PuzzleManager.Instance.paintFurnitureSpawned)
         {
             ActivateFurniture(paintFurniture, true);
-            PuzzleManager.Instance.paintFurnitureSpawned = true;
+            EP2_PuzzleManager.Instance.paintFurnitureSpawned = true;
         }
 
         // 둘 다 클리어
-        if (PuzzleManager.Instance.AllClear())
+        if (EP2_PuzzleManager.Instance.AllClear())
         {
             if (finalObject != null)
             {

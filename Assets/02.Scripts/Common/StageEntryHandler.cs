@@ -36,7 +36,7 @@ public class StageEntryHandler : MonoBehaviour
         /* Checkpoint_Plane 찾기 */
         var allPlanes = FindObjectsOfType<Checkpoint_Plane>();
         if (allPlanes == null || allPlanes.Length == 0) yield break;
-        var target = allPlanes.FirstOrDefault(p => p.stageNum == selectedStage && p.cpNum == selectedCP);
+        var target = allPlanes.FirstOrDefault(p => p.cpNum == selectedCP);
         if (target == null) yield break;
         /* 플레이어 찾기 (Player 태그 필요) */
         var playerGO = GameObject.FindGameObjectWithTag("Player");

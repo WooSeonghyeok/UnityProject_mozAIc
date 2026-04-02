@@ -1,41 +1,31 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class ExitTrigger : MonoBehaviour
 {
-    [Header("ÀÌµ¿ÇÒ ¾À ÀÌ¸§")]
+    [Header("ì´ë™í•  ì”¬ ì´ë¦„")]
     [SerializeField] private string nextSceneName;
-
-    [Header("¹® ¿­¸² È®ÀÎ¿ë")]
+    [Header("ë¬¸ ì—´ë¦¼ í™•ì¸ìš©")]
     [SerializeField] private DoorOpen doorOpen;
-
-    [Header("Áßº¹ ÀÌµ¿ ¹æÁö")]
+    [Header("ì¤‘ë³µ ì´ë™ ë°©ì§€")]
     [SerializeField] private bool onlyOnce = true;
-
     private bool _moved = false;
-
     private void Reset()
     {
         var col = GetComponent<Collider>();
         if (col != null)
             col.isTrigger = true;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (_moved && onlyOnce) return;
         if (!other.CompareTag("Player")) return;
-
-        // ¹®ÀÌ ¾ÆÁ÷ ¾È ¿­·ÈÀ¸¸é Åë°ú ºÒ°¡
-        if (doorOpen != null && !doorOpen.IsOpen)
-            return;
-
+        // ë¬¸ì´ ì•„ì§ ì•ˆ ì—´ë ¸ìœ¼ë©´ í†µê³¼ ë¶ˆê°€
+        if (doorOpen != null && !doorOpen.IsOpen) return;
         if (string.IsNullOrEmpty(nextSceneName))
         {
-            Debug.LogWarning("[ExitTrigger] nextSceneNameÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("[ExitTrigger] nextSceneNameì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
-
         _moved = true;
         SceneManager.LoadScene(nextSceneName);
     }

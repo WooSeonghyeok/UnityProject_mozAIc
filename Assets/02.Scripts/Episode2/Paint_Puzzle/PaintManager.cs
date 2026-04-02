@@ -33,11 +33,12 @@ public class PaintManager : MonoBehaviour
         isActivated = true;
 
         // 🔥 퍼즐 매니저에 클리어 전달 (핵심)
-        PuzzleManager.Instance.SolvePaintPuzzle();
+        EP2_PuzzleManager.Instance.SolvePaintPuzzle();
 
         if (activateObject != null)
         {
             activateObject.SetActive(true);
+            SaveManager.instance.curData.ep2_paintClear = true;
         }
 
         Debug.Log("Paint 퍼즐 클리어!");

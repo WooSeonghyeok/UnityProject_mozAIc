@@ -19,6 +19,7 @@ public class SpacePuzzleController : MonoBehaviour
         {
             ActivatePortal();
             isActivated = true;
+            SaveManager.instance.curData.ep2_spaceClear = true;
         }
     }
 
@@ -31,6 +32,6 @@ public class SpacePuzzleController : MonoBehaviour
             portalPrefab.SetActive(true);
 
         // 🔥 상태 저장 (핵심!)
-        PuzzleManager.Instance.SolveSpacePuzzle();
+        EP2_PuzzleManager.Instance.SolveSpacePuzzle();
     }
 }

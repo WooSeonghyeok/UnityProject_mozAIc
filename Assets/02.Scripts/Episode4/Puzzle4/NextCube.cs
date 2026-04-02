@@ -2,9 +2,9 @@
 public class NextCube : MonoBehaviour
 {
     private BoxCollider col;
-    private PuzzleCubeCtrl curCube;
-    private PuzzleCubeCtrl[] cubeList;
-    [SerializeField] private PuzzleCubeCtrl nextCube;
+    private EP4_Puzzle4_CubeCtrl curCube;
+    private EP4_Puzzle4_CubeCtrl[] cubeList;
+    [SerializeField] private EP4_Puzzle4_CubeCtrl nextCube;
     public enum CubeDir { west, east, north, south }
     public CubeDir dir;
     private int nextX;
@@ -12,8 +12,8 @@ public class NextCube : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<BoxCollider>();
-        curCube = GetComponentInParent<PuzzleCubeCtrl>();
-        cubeList = GameObject.Find("CubePuzzle").GetComponentsInChildren<PuzzleCubeCtrl>();
+        curCube = GetComponentInParent<EP4_Puzzle4_CubeCtrl>();
+        cubeList = GameObject.Find("CubePuzzle").GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
     }
     private void Start()
     {

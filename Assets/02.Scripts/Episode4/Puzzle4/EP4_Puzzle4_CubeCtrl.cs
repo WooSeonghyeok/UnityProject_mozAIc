@@ -1,21 +1,21 @@
 ﻿using PuzzleInfo;
 using System;
 using UnityEngine;
-public class PuzzleCubeCtrl : MonoBehaviour
+public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
 {
     public GameObject cube;
     private Transform tr;
     public Rigidbody rb;
     public Color cubeColor;
     public GameObject colorSwitch;
-    public PuzzleCubeData data;
+    public EP4_Puzzle4_CubeData data;
     public int ID;
     public int row;
     public int column;
     public bool isRed;
     public bool isGreen;
     public bool isBlue;
-    public PE4_Puzzle4_Cube.switchCondition condition;
+    public EP4_Puzzle4_Cube.switchCondition condition;
     public Material CondMaterial_near;
     public Material CondMaterial_row;
     public Material CondMaterial_column;
@@ -37,7 +37,7 @@ public class PuzzleCubeCtrl : MonoBehaviour
     }
     void Awake()
     {
-        data = GetComponent<PuzzleCubeData>();
+        data = GetComponent<EP4_Puzzle4_CubeData>();
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         CubeDataSetup();
@@ -101,17 +101,17 @@ public class PuzzleCubeCtrl : MonoBehaviour
         cube.GetComponent<Renderer>().material.color = cubeColor;
         OnColorChanged?.Invoke();
     }
-    public Material CondSetup(PE4_Puzzle4_Cube.switchCondition cond)
+    public Material CondSetup(EP4_Puzzle4_Cube.switchCondition cond)
     {
         switch (cond)
         {
-            case PE4_Puzzle4_Cube.switchCondition.near:
+            case EP4_Puzzle4_Cube.switchCondition.near:
                 return CondMaterial_near;
-            case PE4_Puzzle4_Cube.switchCondition.column:
+            case EP4_Puzzle4_Cube.switchCondition.column:
                 return CondMaterial_column;
-            case PE4_Puzzle4_Cube.switchCondition.row:
+            case EP4_Puzzle4_Cube.switchCondition.row:
                 return CondMaterial_row;
-            case PE4_Puzzle4_Cube.switchCondition.color:
+            case EP4_Puzzle4_Cube.switchCondition.color:
                 return CondMaterial_color;
             default:
                 return null;

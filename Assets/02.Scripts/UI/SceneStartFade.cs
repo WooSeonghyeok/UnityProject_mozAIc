@@ -1,17 +1,14 @@
-using UnityEngine;
-
+ï»¿using UnityEngine;
 public class SceneStartFade : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log("¾À ½ÃÀÛ - Fade ½ÇÇàµÊ");
-
+        Debug.Log("ì”¬ ì‹œì‘ - Fade ì‹¤í–‰ë¨");
         if (FadeManager.Instance == null)
         {
-            Debug.LogError("FadeManager ¾øÀ½!");
+            Debug.LogError("FadeManager ì—†ìŒ!");
             return;
         }
-
         StartCoroutine(FadeManager.Instance.FadeIn(1.5f));
     }
 }

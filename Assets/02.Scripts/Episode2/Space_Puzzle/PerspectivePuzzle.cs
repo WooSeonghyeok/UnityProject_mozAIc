@@ -223,10 +223,10 @@ public class PerspectivePuzzle : MonoBehaviour
             completeObject.SetActive(true);
         }
 
-        if (PuzzleManager.Instance != null)
+        if (EP2_PuzzleManager.Instance != null)
         {
-            PuzzleManager.Instance.spaceClear = true;
-            PuzzleManager.Instance.SolveSpacePuzzle();
+            EP2_PuzzleManager.Instance.spaceClear = true;
+            EP2_PuzzleManager.Instance.SolveSpacePuzzle();
         }
     }
 

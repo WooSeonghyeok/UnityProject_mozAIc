@@ -25,8 +25,20 @@ public class SaveManager : MonoBehaviour
         SaveDataObj newData = new SaveDataObj();
         newData.ID = (byte)slotNumber;
         newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        newData.MemoryPoint = curData.MemoryPoint;
-        newData.StageLock = curData.StageLock;
+        newData.memoryPoint = curData.memoryPoint;
+        newData.ep1_open = curData.ep1_open;
+        newData.ep1_isCaveUnlocked = curData.ep1_isCaveUnlocked;
+        newData.ep1_isPuzzleCleared = curData.ep1_isPuzzleCleared;
+        newData.ep2_open = curData.ep2_open;
+        newData.ep2_paintClear = curData.ep2_paintClear;
+        newData.ep2_spaceClear = curData.ep2_spaceClear;
+        newData.ep3_open = curData.ep3_open;
+        newData.ep3_paperClear = curData.ep3_paperClear;
+        newData.ep3_jumpClear = curData.ep3_jumpClear;
+        newData.ep4_open = curData.ep4_open;
+        newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
+        newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
+        newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.MemoryTag = curData.MemoryTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData,true);
@@ -65,30 +77,20 @@ public class SaveManager : MonoBehaviour
     {
         dataObj.ID = 0;
         dataObj.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        dataObj.StageLock = new List<IsStageLock>();
-        for (int i = 0; i < 4; i++)
-        {
-            IsStageLock stage = new()
-            {
-                stageID = i,
-                stageLock = true,
-                CheckpointLock = new List<IsCPLock>()  // CheckpointLock 초기화
-            };
-            for (int j = 0; j <= i; j++)
-            {
-                IsCPLock cp = new()
-                {
-                    CheckpointID = j,
-                    cpLock = true
-                };
-                stage.CheckpointLock.Add(cp);
-            }
-            dataObj.StageLock.Add(stage);
-        }
-        //첫 스테이지의 시작 체크포인트는 열림 (임시로 3번 스테이지의 첫 체크포인트)
-        dataObj.StageLock[3].stageLock = false;
-        dataObj.StageLock[3].CheckpointLock[0].cpLock = false;
-        dataObj.MemoryPoint = 0;
+        dataObj.ep1_open = false;
+        dataObj.ep1_isCaveUnlocked = false;
+        dataObj.ep1_isPuzzleCleared = false;
+        dataObj.ep2_open = false;
+        dataObj.ep2_paintClear = false;
+        dataObj.ep2_spaceClear = false;
+        dataObj.ep3_open = false;
+        dataObj.ep3_paperClear = false;
+        dataObj.ep3_jumpClear = false;
+        dataObj.ep4_open = false;
+        dataObj.ep4_puzzle1Clear = false;
+        dataObj.ep4_puzzle2Clear = false;
+        dataObj.ep4_puzzle3Clear = false;
+        dataObj.memoryPoint = 0;
         dataObj.MemoryTag = new List<IsTagGet>();
         for (int i = 0; i < dataObj.MemoryTag.Count; i++)
         {
@@ -109,8 +111,20 @@ public class SaveManager : MonoBehaviour
         SaveDataObj newData = new SaveDataObj();
         newData.ID = curData.ID;
         newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        newData.MemoryPoint = curData.MemoryPoint;
-        newData.StageLock = curData.StageLock;
+        newData.ep1_open = curData.ep1_open;
+        newData.ep1_isCaveUnlocked = curData.ep1_isCaveUnlocked;
+        newData.ep1_isPuzzleCleared = curData.ep1_isPuzzleCleared;
+        newData.ep2_open = curData.ep2_open;
+        newData.ep2_paintClear = curData.ep2_paintClear;
+        newData.ep2_spaceClear = curData.ep2_spaceClear;
+        newData.ep3_open = curData.ep3_open;
+        newData.ep3_paperClear = curData.ep3_paperClear;
+        newData.ep3_jumpClear = curData.ep3_jumpClear;
+        newData.ep4_open = curData.ep4_open;
+        newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
+        newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
+        newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
+        newData.memoryPoint = curData.memoryPoint;
         newData.MemoryTag = curData.MemoryTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData, true);

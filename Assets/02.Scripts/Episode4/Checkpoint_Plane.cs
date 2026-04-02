@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Checkpoint_Plane : MonoBehaviour
 {
-    public int stageNum;  //0-base이므로 스테이지 값에서 1을 빼서 입력
     public int cpNum;
     public Transform spawnPos;
     public bool isCheck = false;
     private readonly string playerTag = "Player";
-    public event Action S3CP0FirstCheck;
+    public event Action S3FirstCheck;
     public static Dictionary<int, Dictionary<int, bool>> cpProgress = new Dictionary<int, Dictionary<int, bool>>();
     private void OnTriggerEnter(Collider other)
     {
@@ -16,26 +15,32 @@ public class Checkpoint_Plane : MonoBehaviour
         {
             isCheck = true;
             SaveCheckpointProgress();
-            if(stageNum == 3 && cpNum == 0)
+            if(cpNum == 0)
             {
-                S3CP0FirstCheck?.Invoke();
+                S3FirstCheck?.Invoke();
             }
         }
     }
     private void SaveCheckpointProgress()
     {
-        if (!cpProgress.ContainsKey(stageNum))
+        if (!cpProgress.ContainsKey(3))
         {
-            cpProgress[stageNum] = new Dictionary<int, bool>();
+            cpProgress[3] = new Dictionary<int, bool>();
         }
-        cpProgress[stageNum][cpNum] = true;
-        SaveManager.instance.curData.StageLock[stageNum].CheckpointLock[cpNum].cpLock = !cpProgress[stageNum][cpNum];
-    }
-    public static bool IsCheckpointCleared(int stageNum, int cpNum)
-    {
-        if (cpProgress.ContainsKey(stageNum) && cpProgress[stageNum].ContainsKey(cpNum))
+        cpProgress[3][cpNum] = true;
+        switch (cpNum)
         {
-            return cpProgress[stageNum][cpNum];
+            case 0: SaveManager.instance.curData.ep4_open = !cpProgress[3][0]; break;
+            case 1: SaveManager.instance.curData.ep4_puzzle1Clear = !cpProgress[3][1]; break;
+            case 2: SaveManager.instance.curData.ep4_puzzle2Clear = !cpProgress[3][2]; break;
+            case 3: SaveManager.instance.curData.ep4_puzzle3Clear = !cpProgress[3][3]; break;
+        }
+    }
+    public static bool IsCheckpointCleared(int cpNum)
+    {
+        if (cpProgress.ContainsKey(3) && cpProgress[3].ContainsKey(cpNum))
+        {
+            return cpProgress[3][cpNum];
         }
         return false;
     }

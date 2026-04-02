@@ -3,7 +3,7 @@ using PuzzleInfo;
 using UnityEditor;
 using System;
 using System.Linq;
-public class PuzzleInit : EditorWindow
+public class EP4_PuzzleInit : EditorWindow
 {
     public TextAsset puzzle_stage4;
     public DefaultAsset cubeDataFolder;
@@ -12,7 +12,7 @@ public class PuzzleInit : EditorWindow
     [MenuItem("Tools/PuzzleCube CSV Importer")]
     public static void ShowWindow()
     {
-        GetWindow<PuzzleInit>("PuzzleCube CSV Importer");
+        GetWindow<EP4_PuzzleInit>("PuzzleCube CSV Importer");
     }
     private void OnGUI()
     {
@@ -48,7 +48,7 @@ public class PuzzleInit : EditorWindow
             return;
         }
         string folderPath = AssetDatabase.GetAssetPath(cubeDataFolder);
-        string[] guids = AssetDatabase.FindAssets("t:PuzzleCubeObj", new[] { folderPath });
+        string[] guids = AssetDatabase.FindAssets("t:EP4_Puzzle4_CubeObj", new[] { folderPath });
         targetObjects = guids
             .Select(guid => AssetDatabase.LoadAssetAtPath<EP4_Puzzle4_CubeObj>(AssetDatabase.GUIDToAssetPath(guid)))
             .OrderBy(obj => obj.name) // 이름 순 정렬 (원하면 index 순 정렬도 가능)
@@ -79,7 +79,7 @@ public class PuzzleInit : EditorWindow
             obj.colorBool[0] = cols[3].ToUpper() == "TRUE";
             obj.colorBool[1] = cols[4].ToUpper() == "TRUE";
             obj.colorBool[2] = cols[5].ToUpper() == "TRUE";
-            obj.cond = Enum.Parse<PE4_Puzzle4_Cube.switchCondition>(cols[6]);
+            obj.cond = Enum.Parse<EP4_Puzzle4_Cube.switchCondition>(cols[6]);
             obj.value = int.Parse(cols[7]);
             EditorUtility.SetDirty(obj);
         }

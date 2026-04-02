@@ -6,9 +6,9 @@ public class Puzzle4Manager : MonoBehaviour
     public static Puzzle4Manager instance;
     private PlayerMovement user;
     public GameObject cubes;
-    private CubeSwitch[] cswitch;
-    private PuzzleCubeCtrl[] acube;
-    public PuzzleCubeCtrl lastCube;
+    private EP4_CubeSwitch[] cswitch;
+    private EP4_Puzzle4_CubeCtrl[] acube;
+    public EP4_Puzzle4_CubeCtrl lastCube;
     public Transform retryPos;
     private readonly string playerTag = "Player";
     public Text switchText;
@@ -30,8 +30,8 @@ public class Puzzle4Manager : MonoBehaviour
         if (instance != this) Destroy(instance);
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
         puzzleZone4Col = gameObject.GetComponent<BoxCollider>();
-        cswitch = cubes.GetComponentsInChildren<CubeSwitch>();
-        acube = cubes.GetComponentsInChildren<PuzzleCubeCtrl>();
+        cswitch = cubes.GetComponentsInChildren<EP4_CubeSwitch>();
+        acube = cubes.GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
@@ -47,7 +47,7 @@ public class Puzzle4Manager : MonoBehaviour
             puzzleZone4Col.isTrigger = true;
         if (cswitch != null)
         {
-            foreach (CubeSwitch c in cswitch)
+            foreach (EP4_CubeSwitch c in cswitch)
             {
                 c.SwitchClick += Switch_CountUp;
             }
@@ -109,7 +109,7 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         EndingConditionData.memory_reconstruction_rate -= Mathf.RoundToInt(switch_total*0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
         EndingConditionData.memory_reconstruction_rate -= retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
-        curData.MemoryPoint = EndingConditionData.memory_reconstruction_rate;
+        curData.memoryPoint = EndingConditionData.memory_reconstruction_rate;
         Debug.Log($"최종점수: {EndingConditionData.memory_reconstruction_rate}");
         if(egoSync == 1f)  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
         {
@@ -131,7 +131,7 @@ public class Puzzle4Manager : MonoBehaviour
             return;
         }
         int count = 0;
-        foreach (PuzzleCubeCtrl c in acube)
+        foreach (EP4_Puzzle4_CubeCtrl c in acube)
         {
             if (c != null && c.cubeColor == lastCube.cubeColor) count++;
         }
