@@ -67,6 +67,7 @@ public class FinalPianoInteraction : MonoBehaviour
     public void PlayCutsceneThenMusic()
     {
         PlayRandomMusic();
+        SaveManager.instance.curData.ep4_open = true;
     }
     // 현재 재생 중인 곡을 멈추고 싶을 때 사용할 수 있는 함수
     public void StopMusic()

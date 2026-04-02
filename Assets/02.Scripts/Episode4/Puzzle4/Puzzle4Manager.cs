@@ -109,7 +109,7 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         EndingConditionData.memory_reconstruction_rate -= Mathf.RoundToInt(switch_total*0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
         EndingConditionData.memory_reconstruction_rate -= retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
-        curData.memoryPoint = EndingConditionData.memory_reconstruction_rate;
+        curData.memory_reconstruction_rate = EndingConditionData.memory_reconstruction_rate;
         Debug.Log($"최종점수: {EndingConditionData.memory_reconstruction_rate}");
         if(egoSync == 1f)  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
         {

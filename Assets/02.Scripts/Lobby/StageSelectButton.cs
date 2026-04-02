@@ -50,13 +50,13 @@ public class StageSelectButton : MonoBehaviour
     }
     public void Refresh()
     {
-        curData = SaveManager.ReadCurJSON();
+        curData = SaveManager.instance.curData;
         switch (StageNumber)
         {
-            case 0: isLock = curData.ep1_open; break;
-            case 1: isLock = curData.ep2_open; break;
-            case 2: isLock = curData.ep3_open; break;
-            case 3: isLock = curData.ep4_open; break;
+            case 0: isLock = !curData.ep1_open; break;
+            case 1: isLock = !curData.ep2_open; break;
+            case 2: isLock = !curData.ep3_open; break;
+            case 3: isLock = !curData.ep4_open; break;
         }
         if (stageName != null) stageName.text = $"Stage {StageNumber + 1}";
         SelectImgCheck();

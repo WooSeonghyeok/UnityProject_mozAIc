@@ -1,4 +1,4 @@
-using System;
+癤퓎sing System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +22,5 @@ public class AiPromptRuleData
     public bool forceMaintainTone;
     public List<string> forbiddenStyles;
     public List<string> globalRules;
-
-    // JsonUtility는 Dictionary를 바로 파싱하기 불편해서 리스트로 받는 쪽이 안전함
     public List<HintRuleEntry> hintRules;
 }

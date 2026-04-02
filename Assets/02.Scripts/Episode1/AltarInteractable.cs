@@ -16,12 +16,17 @@ public class AltarInteractable : MonoBehaviour
     {
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
     }
+    private void OnEnable()
+    {
+        user.Interact += AltarInteract;
+    }
+    private void OnDisable()
+    {
+        user.Interact -= AltarInteract;
+    }
     private void Start()
     {
-        user.Interact += Interact;
-        // 시작 시 UI 꺼두기
-        if (interactionUI != null)
-            interactionUI.SetActive(false);
+        if (interactionUI != null) interactionUI.SetActive(false);  // 시작 시 UI 꺼두기
     }
     private void Update()
     {
@@ -39,7 +44,7 @@ public class AltarInteractable : MonoBehaviour
             interactionUI.SetActive(true);
         }
     }
-    public void Interact()  // 제단 상호작용 실행
+    public void AltarInteract()  // 제단 상호작용 실행
     {
         if (puzzleManager.isPuzzleCleared) return;
         if (currentPlayerCollector == null || puzzleManager == null) return;

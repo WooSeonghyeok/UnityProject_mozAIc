@@ -58,6 +58,7 @@ public class GameManager_Ep1 : MonoBehaviour
         // 이미 처리했으면 중복 실행 방지
         if (isCaveUnlocked) return;
         isCaveUnlocked = true;
+        SaveManager.instance.curData.ep1_isCaveUnlocked = true;
         // 동굴이 열리면 루나의 기억 단계를 한 단계 올림
         if (lunaNpcData != null)
         {
@@ -70,6 +71,7 @@ public class GameManager_Ep1 : MonoBehaviour
         // 이미 처리했으면 중복 실행 방지
         if (isPuzzleCleared) return;
         isPuzzleCleared = true;
+        SaveManager.instance.curData.ep1_isPuzzleCleared = true;
         // 퍼즐이 클리어되면 루나 기억 단계를 더 올림
         if (lunaNpcData != null)
         {

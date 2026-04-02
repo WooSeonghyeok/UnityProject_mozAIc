@@ -10,12 +10,10 @@ public class Ep_3Manager : MonoBehaviour
     /// 에피소드 3 전체에서 단 하나만 유지되는 싱글톤 인스턴스.
     /// </summary>
     public static Ep_3Manager Instance { get; private set; }
-
     [Header("스테이지 결과")]
     [SerializeField] private Ep3StageResult stage3_1Result = new Ep3StageResult();
     [SerializeField] private Ep3StageResult stage3_2Result = new Ep3StageResult();
     [SerializeField] private Ep3StageResult stage3_3Result = new Ep3StageResult();
-
     [Header("진엔딩 필수 태그")]
     [SerializeField]
     private List<string> requiredTrueEndingTags = new List<string>()
@@ -29,20 +27,16 @@ public class Ep_3Manager : MonoBehaviour
         "self_voice",
         "split_self"
     };
-
     [Header("엔딩 결과")]
     [SerializeField] private Ep3EndingType currentEndingType = Ep3EndingType.None;
     [SerializeField] private Ep3EndingStateData cachedEndingStateData;
-
     /// <summary>
     /// 현재 캐시된 엔딩 판정 결과가 유효한지 여부.
     /// </summary>
     private bool isEvaluated = false;
-
     public Ep3EndingType CurrentEndingType => currentEndingType;
     public Ep3EndingStateData CachedEndingStateData => cachedEndingStateData;
     public bool IsEvaluated => isEvaluated;
-
     /// <summary>
     /// 싱글톤 초기화.
     /// 이미 다른 인스턴스가 있으면 자신은 파괴하고,
@@ -55,19 +49,14 @@ public class Ep_3Manager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // 씬 로드/유지 시 중복 AudioListener가 있으면 런타임에서 정리
-        RemoveDuplicateAudioListeners();
+        RemoveDuplicateAudioListeners();  // 씬 로드/유지 시 중복 AudioListener가 있으면 런타임에서 정리
     }
-
     private void RemoveDuplicateAudioListeners()
     {
         var listeners = FindObjectsOfType<AudioListener>();
         if (listeners == null || listeners.Length <= 1) return;
-
         bool kept = false;
         foreach (var l in listeners)
         {
@@ -77,14 +66,11 @@ public class Ep_3Manager : MonoBehaviour
                 kept = true;
                 continue;
             }
-
-            // 중복 리스너는 컴포넌트만 제거
-            Destroy(l);
+            Destroy(l);  // 중복 리스너는 컴포넌트만 제거
         }
 
         Debug.Log($"[Ep_3Manager] 중복 AudioListener 정리 완료. 남은 리스너 수: {FindObjectsOfType<AudioListener>().Length}");
     }
-
     // -----------------------------
     // 로비/AI 공통 기록
     // -----------------------------
@@ -99,7 +85,6 @@ public class Ep_3Manager : MonoBehaviour
     {
         Debug.Log($"[Ep_3Manager] AI 상호작용 +{count}");
     }
-
     // -----------------------------
     // 3-1 결과 보고
     // -----------------------------
@@ -114,7 +99,6 @@ public class Ep_3Manager : MonoBehaviour
         InvalidateEndingEvaluation();
         Debug.Log("[Ep_3Manager] 3-1 결과 저장 완료");
     }
-
     // -----------------------------
     // 3-2 결과 보고
     // -----------------------------
@@ -129,7 +113,6 @@ public class Ep_3Manager : MonoBehaviour
         InvalidateEndingEvaluation();
         Debug.Log("[Ep_3Manager] 3-2 결과 저장 완료");
     }
-
     // -----------------------------
     // 3-3 결과 보고
     // -----------------------------
@@ -167,56 +150,43 @@ public class Ep_3Manager : MonoBehaviour
         {
             return cachedEndingStateData;
         }
-
         Ep3EndingStateData data = new Ep3EndingStateData();
-
         data.totalRelationScore =
             stage3_1Result.relationScore +
             stage3_2Result.relationScore +
             stage3_3Result.relationScore;
-
         data.totalPuzzleScore =
             stage3_1Result.puzzleScore +
             stage3_2Result.puzzleScore +
             stage3_3Result.puzzleScore;
-
         data.totalEmotionScore =
             stage3_1Result.emotionScore +
             stage3_2Result.emotionScore +
             stage3_3Result.emotionScore;
-
         data.totalHintCount =
             stage3_1Result.hintCount +
             stage3_2Result.hintCount +
             stage3_3Result.hintCount;
-
         data.totalHintIntensity =
             stage3_1Result.hintIntensity +
             stage3_2Result.hintIntensity +
             stage3_3Result.hintIntensity;
-
         data.totalAIInteractionCount =
             stage3_1Result.aiInteractionCount +
             stage3_2Result.aiInteractionCount +
             stage3_3Result.aiInteractionCount;
-
         HashSet<string> tagSet = new HashSet<string>();
-
         AddTagsToSet(tagSet, stage3_1Result.collectedTags);
         AddTagsToSet(tagSet, stage3_2Result.collectedTags);
         AddTagsToSet(tagSet, stage3_3Result.collectedTags);
-
         data.collectedTags = new List<string>(tagSet);
-
         // 현재 구조에서는 기억 재구성률을 세 종류 점수 합으로 계산한다.
         // 이후 밸런스 조정이 필요하면 가중치를 두는 방식으로 확장할 수 있다.
         data.totalMemoryReconstructionRate =
             data.totalRelationScore +
             data.totalPuzzleScore +
             data.totalEmotionScore;
-
         bool hasAllRequiredTags = true;
-
         foreach (string requiredTag in requiredTrueEndingTags)
         {
             if (!tagSet.Contains(requiredTag))
@@ -225,7 +195,6 @@ public class Ep_3Manager : MonoBehaviour
                 data.missingRequiredTags.Add(requiredTag);
             }
         }
-
         if (data.totalMemoryReconstructionRate >= 80 && hasAllRequiredTags)
         {
             data.endingType = Ep3EndingType.True;
@@ -234,17 +203,13 @@ public class Ep_3Manager : MonoBehaviour
         {
             data.endingType = Ep3EndingType.Normal;
         }
-
         currentEndingType = data.endingType;
         cachedEndingStateData = data;
         isEvaluated = true;
-
         Debug.Log($"[Ep_3Manager] 엔딩 판정 완료: {currentEndingType}");
         Debug.Log($"[Ep_3Manager] 기억 재구성률: {data.totalMemoryReconstructionRate}");
-
         return data;
     }
-
     /// <summary>
     /// 태그 목록을 HashSet에 추가한다.
     /// null 방어를 함께 처리해 호출부가 간단하게 유지되도록 한다.
@@ -258,7 +223,6 @@ public class Ep_3Manager : MonoBehaviour
             set.Add(tag);
         }
     }
-
     /// <summary>
     /// 엔딩 판정 캐시를 무효화한다.
     /// 
@@ -271,7 +235,6 @@ public class Ep_3Manager : MonoBehaviour
         currentEndingType = Ep3EndingType.None;
         cachedEndingStateData = null;
     }
-
     /// <summary>
     /// 모든 스테이지가 클리어 상태로 보고되었는지 확인한다.
     /// 최종 엔딩 화면 진입 가능 여부를 체크할 때 사용할 수 있다.
@@ -282,7 +245,6 @@ public class Ep_3Manager : MonoBehaviour
                stage3_2Result.isCleared &&
                stage3_3Result.isCleared;
     }
-
     /// <summary>
     /// 디버그용 전체 상태 초기화.
     /// 인스펙터 우클릭 ContextMenu에서 직접 호출 가능하다.
@@ -293,9 +255,7 @@ public class Ep_3Manager : MonoBehaviour
         stage3_1Result = new Ep3StageResult();
         stage3_2Result = new Ep3StageResult();
         stage3_3Result = new Ep3StageResult();
-
         InvalidateEndingEvaluation();
-
         Debug.Log("[Ep_3Manager] 에피소드 3 데이터 초기화");
     }
 }

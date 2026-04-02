@@ -26,7 +26,7 @@ public class StageEntryHandler : MonoBehaviour
     {
         int selectedStage = StageSelectionData.SelectedStage;
         int selectedCP = StageSelectionData.SelectedCP;
-        string selectedName = $"Stage{selectedStage + 1}";
+        string selectedName = $"Episode{selectedStage+1}_Scene";
         if (scene.name != selectedName) return;
         StartCoroutine(StartSpawn(selectedStage, selectedCP));
     }

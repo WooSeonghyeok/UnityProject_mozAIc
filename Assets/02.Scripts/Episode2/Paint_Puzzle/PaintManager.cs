@@ -38,7 +38,6 @@ public class PaintManager : MonoBehaviour
         if (activateObject != null)
         {
             activateObject.SetActive(true);
-            SaveManager.instance.curData.ep2_paintClear = true;
         }
 
         Debug.Log("Paint 퍼즐 클리어!");

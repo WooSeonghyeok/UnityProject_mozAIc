@@ -3,7 +3,6 @@
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.SceneManagement;
-
     /// <summary>
     /// 벽에 붙이는 심볼(상호작용 오브젝트).
     /// - 입력 처리 책임을 플레이어 인풋 스크립트에 두지 않고,
@@ -27,40 +26,38 @@
         {
             user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         }
-        private void Start()
+        private void OnEnable()
         {
-            user.Interact += PerformInteraction;
+            user.Interact += SymbolInteract;
+        }
+        private void OnDisable()
+        {
+            user.Interact -= SymbolInteract;
         }
         private void Reset()
         {
             var col = GetComponent<Collider>();
             if (col != null) col.isTrigger = true;
         }
-
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
             _playerInRange = true;
         }
-
         private void OnTriggerExit(Collider other)
         {
             if (!other.CompareTag("Player")) return;
             _playerInRange = false;
         }
-
         private void Update()
         {
             if (!_playerInRange) return;
         }
-
-        // 외부에서 직접 호출할 필요가 있으면 public으로 유지
-        public void Interact()
+        public void SymbolInteract()  // 외부에서 직접 호출할 필요가 있으면 public으로 유지
         {
             if (!_playerInRange) return;
             PerformInteraction();
         }
-
         private void PerformInteraction()
         {
             if (useSceneName)

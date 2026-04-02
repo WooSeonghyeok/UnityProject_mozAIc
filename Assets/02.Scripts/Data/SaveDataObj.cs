@@ -19,8 +19,9 @@ public class SaveDataObj
     public bool ep4_puzzle1Clear;
     public bool ep4_puzzle2Clear;
     public bool ep4_puzzle3Clear;
-    public int memoryPoint;
+    public int memory_reconstruction_rate;
     public List<IsTagGet> MemoryTag;
+    /* 연출 사용 여부 확인 데이터 */
     public bool isFirstEnterAtS3CP0;
 }
 public class IsTagGet

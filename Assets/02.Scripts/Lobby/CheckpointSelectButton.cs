@@ -66,20 +66,20 @@ private void OnEnable()
     }
     public void Refresh()
     {
-        curData = SaveManager.ReadCurJSON();
+        curData = SaveManager.instance.curData;
         switch (StageNumber)
         {
-            case 0: isLock = curData.ep1_open; break;
-            case 1: isLock = curData.ep2_open; break;
-            case 2: isLock = curData.ep3_open; break;
+            case 0: isLock = !curData.ep1_open; break;
+            case 1: isLock = !curData.ep2_open; break;
+            case 2: isLock = !curData.ep3_open; break;
             case 3:
                 {
                     switch (cpNum)
                     {
-                        case 0: isLock = curData.ep4_open; break;
-                        case 1: isLock = curData.ep4_puzzle1Clear; break;
-                        case 2: isLock = curData.ep4_puzzle2Clear; break;
-                        case 3: isLock = curData.ep4_puzzle3Clear; break;
+                        case 0: isLock = !curData.ep4_open; break;
+                        case 1: isLock = !curData.ep4_puzzle1Clear; break;
+                        case 2: isLock = !curData.ep4_puzzle2Clear; break;
+                        case 3: isLock = !curData.ep4_puzzle3Clear; break;
                     }
                 }
                 break;

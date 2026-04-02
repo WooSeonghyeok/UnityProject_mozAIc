@@ -25,7 +25,7 @@ public class SaveManager : MonoBehaviour
         SaveDataObj newData = new SaveDataObj();
         newData.ID = (byte)slotNumber;
         newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        newData.memoryPoint = curData.memoryPoint;
+        newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
         newData.ep1_open = curData.ep1_open;
         newData.ep1_isCaveUnlocked = curData.ep1_isCaveUnlocked;
         newData.ep1_isPuzzleCleared = curData.ep1_isPuzzleCleared;
@@ -90,7 +90,7 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memoryPoint = 0;
+        dataObj.memory_reconstruction_rate = 0;
         dataObj.MemoryTag = new List<IsTagGet>();
         for (int i = 0; i < dataObj.MemoryTag.Count; i++)
         {
@@ -124,7 +124,7 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
-        newData.memoryPoint = curData.memoryPoint;
+        newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
         newData.MemoryTag = curData.MemoryTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData, true);

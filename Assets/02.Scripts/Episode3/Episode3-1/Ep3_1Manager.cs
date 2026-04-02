@@ -38,7 +38,7 @@ public class Ep3_1Manager : MonoBehaviour
         if (collectedPieceCount >= requiredPieceCount && !_allPiecesEventRaised)
         {
             _allPiecesEventRaised = true;
-
+            SaveManager.instance.curData.ep3_paperClear = true;
             // 인스펙터에서 연결한 리스너들을 호출 (PuzzleComplete 등)
             try
             {
@@ -84,7 +84,6 @@ public class Ep3_1Manager : MonoBehaviour
     {
         if (isCleared) return;
         isCleared = true;
-        SaveManager.instance.curData.ep3_paperClear = true;
         Ep3StageResult result = new Ep3StageResult();
         result.isCleared = true;
         result.relationScore = 15;

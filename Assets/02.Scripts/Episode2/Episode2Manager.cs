@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Data.SqlTypes;
 
 public class Episode2Manager : MonoBehaviour
 {
@@ -19,40 +20,32 @@ public class Episode2Manager : MonoBehaviour
         ApplyImmediateState(); // 🔥 먼저 바로 적용
         StartCoroutine(ApplyDelayedState()); // 🔥 나중 연출
     }
-
-    // 🔥 이미 존재하는 가구 → 즉시 표시
-    void ApplyImmediateState()
+    void ApplyImmediateState()  // 🔥 이미 존재하는 가구 → 즉시 표시
     {
         if (EP2_PuzzleManager.Instance.spaceClear && EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
         {
             ActivateFurniture(spaceFurniture, false);
         }
-
         if (EP2_PuzzleManager.Instance.paintClear && EP2_PuzzleManager.Instance.paintFurnitureSpawned)
         {
             ActivateFurniture(paintFurniture, false);
         }
     }
-
-    // 🔥 새로 등장하는 가구 → delay + 연출
-    IEnumerator ApplyDelayedState()
+    IEnumerator ApplyDelayedState()  // 🔥 새로 등장하는 가구 → delay + 연출
     {
         yield return new WaitForSeconds(delay);
-
         // Space
         if (EP2_PuzzleManager.Instance.spaceClear && !EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
         {
             ActivateFurniture(spaceFurniture, true);
             EP2_PuzzleManager.Instance.spaceFurnitureSpawned = true;
         }
-
         // Paint
         if (EP2_PuzzleManager.Instance.paintClear && !EP2_PuzzleManager.Instance.paintFurnitureSpawned)
         {
             ActivateFurniture(paintFurniture, true);
             EP2_PuzzleManager.Instance.paintFurnitureSpawned = true;
         }
-
         // 둘 다 클리어
         if (EP2_PuzzleManager.Instance.AllClear())
         {
@@ -60,9 +53,9 @@ public class Episode2Manager : MonoBehaviour
             {
                 finalObject.SetActive(true);
             }
+            SaveManager.instance.curData.ep3_open = EP2_PuzzleManager.Instance.AllClear();
         }
     }
-
     void ActivateFurniture(GameObject[] furnitureList, bool playEffect)
     {
         foreach (var obj in furnitureList)

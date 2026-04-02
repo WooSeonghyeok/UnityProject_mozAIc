@@ -67,6 +67,11 @@ public class OpeningManager : MonoBehaviour
     {
         user.isSprint = false;  //달리기 불가
     }
+    void OnDisable()
+    {
+        InteractManager.Instance.OpeningMid -= OpeningMid;
+        InteractManager.Instance.OpeningGoal -= OpeningEnd;
+    }
     IEnumerator DarkEnter()
     {
         yield return new WaitForSecondsRealtime(2f);
@@ -143,8 +148,9 @@ public class OpeningManager : MonoBehaviour
         yield return oneSec;
         StartCoroutine(TalkSay(openingText, "첫번째 기억이 당신을 부르고 있다"));
         user.isJumpLock = false;
+        SaveManager.instance.curData.ep1_open = true;
         yield return halfSec;
-        SceneManager.LoadScene("Stage1");
+        SceneManager.LoadScene("Episode1_Scene");
     }
     private void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
     {

@@ -57,7 +57,6 @@ public class Ep3_3Manager : MonoBehaviour
     {
         if (isFinished) return;
         isFinished = true;
-        SaveManager.instance.curData.ep4_open = true;
         Ep3StageResult result = new Ep3StageResult();
         result.isCleared = true;
         result.relationScore = 10;
