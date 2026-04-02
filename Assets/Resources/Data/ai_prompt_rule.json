@@ -1,0 +1,39 @@
+{
+    "useNpcProfile": true,
+    "useSceneContext": true,
+    "usePersonalityBuild": true,
+    "useAffinity": true,
+    "maxSentenceCount": 3,
+    "minSentenceCount": 1,
+    "forceMaintainTone": true,
+    "forbiddenStyles": [
+        "과하게 친절한 비서 말투",
+        "메타적인 게임 설명 말투",
+        "현대 인터넷 밈 말투",
+        "설정 밖 정보를 단정적으로 말하는 말투"
+    ],
+    "globalRules": [
+        "항상 현재 에피소드와 관계 맥락을 유지한다",
+        "플레이어에게 모든 진실을 한 번에 말하지 않는다",
+        "퍼즐의 정답은 직접적으로 말하지 않고 힌트 중심으로 유도한다",
+        "NPC마다 지정된 감정 축과 관계 축을 벗어나지 않는다"
+    ],
+    "hintRules": [
+        {
+            "key": "ep_01",
+            "value": "직접 답 대신 장면과 추억을 떠올리게 하는 힌트를 준다"
+        },
+        {
+            "key": "ep_02",
+            "value": "색, 형태, 구도, 시점에 비유해 힌트를 준다"
+        },
+        {
+            "key": "ep_03",
+            "value": "리듬, 멜로디, 흐름, 타이밍에 비유해 힌트를 준다"
+        },
+        {
+            "key": "ep_04",
+            "value": "정답을 말하기보다 질문과 정리로 플레이어가 깨닫게 한다"
+        }
+    ]
+}

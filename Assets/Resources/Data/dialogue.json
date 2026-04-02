@@ -1,0 +1,156 @@
+[
+    {
+        "dialogueId": "ep0_voice_01",
+        "episodeId": "ep_00",
+        "sceneId": "ep_00",
+        "speakerId": "npc_ep4_core",
+        "dialogueType": "voice",
+        "text": "잊은 게 아니야. 흩어진 거야.",
+        "emotionTag": "calm",
+        "conditionGroupId": "always",
+        "eventGroupId": "ep0_voice"
+    },
+    {
+        "dialogueId": "ep0_voice_02",
+        "episodeId": "ep_00",
+        "sceneId": "ep_00",
+        "speakerId": "npc_ep4_core",
+        "dialogueType": "voice",
+        "text": "사라지기 전에… 이어 붙여.",
+        "emotionTag": "guiding",
+        "conditionGroupId": "always",
+        "eventGroupId": "ep0_voice"
+    },
+    {
+        "dialogueId": "ep1_intro_01",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "intro",
+        "text": "어라... 너는!?",
+        "emotionTag": "soft",
+        "conditionGroupId": "always",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep1_intro_02",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "intro",
+        "text": "왜 이렇게 반갑지?",
+        "emotionTag": "curious",
+        "conditionGroupId": "always",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep1_hint_after_first_star_01",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "first_star_hint",
+        "text": "하나 찾았네! 나머지 별들은 다리 건너편에서 찾아보자.",
+        "emotionTag": "guiding",
+        "conditionGroupId": "first_star_collected",
+        "eventGroupId": "field_hint"
+    },
+    {
+        "dialogueId": "ep1_all_star_hint_01",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "all_star_collected_hint",
+        "text": "저기에 뭔가 변화가 생긴 것 같아! 나를 따라와.",
+        "emotionTag": "guiding",
+        "conditionGroupId": "all_star_collected",
+        "eventGroupId": "portal_sequence"
+    },
+    {
+        "dialogueId": "ep1_cave_intro_01",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "cave_after_talk",
+        "text": "이제부턴 혼자 가야 해... 부디 내 기억을 찾아줘.",
+        "emotionTag": "sad_guiding",
+        "conditionGroupId": "cave_entered",
+        "eventGroupId": "cave_talk"
+    },
+    {
+        "dialogueId": "ep1_clear_01",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "clear",
+        "text": "내 이름은 루나였고.. 너는 나랑 같이 별을 세던 아이였어.",
+        "emotionTag": "memory_restored",
+        "conditionGroupId": "episode_clear",
+        "eventGroupId": "memory_recovered"
+    },
+    {
+        "dialogueId": "ep2_intro_01",
+        "episodeId": "ep_02",
+        "sceneId": "ep_02_studio",
+        "speakerId": "npc_ep2_painter",
+        "dialogueType": "intro",
+        "text": "나는 뭘 그리고 있었던 걸까. 혼자였는지도 잘 모르겠어.",
+        "emotionTag": "lost",
+        "conditionGroupId": "always",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep2_clear_01",
+        "episodeId": "ep_02",
+        "sceneId": "ep_02_studio",
+        "speakerId": "npc_ep2_painter",
+        "dialogueType": "clear",
+        "text": "너는 내 동료였어. 같이 그리고, 같이 고민하고… 같이 끝까지 가려고 했던 사람.",
+        "emotionTag": "recognition",
+        "conditionGroupId": "episode_clear",
+        "eventGroupId": "memory_recovered"
+    },
+    {
+        "dialogueId": "ep3_intro_01",
+        "episodeId": "ep_03",
+        "sceneId": "ep_03_hall",
+        "speakerId": "npc_ep3_musician",
+        "dialogueType": "intro",
+        "text": "왜 이렇게, 이 노래가 너한테 닿아야 했다는 기분이 들지?",
+        "emotionTag": "shaken",
+        "conditionGroupId": "always",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep3_clear_01",
+        "episodeId": "ep_03",
+        "sceneId": "ep_03_hall",
+        "speakerId": "npc_ep3_musician",
+        "dialogueType": "clear",
+        "text": "너는 내 연인이었어. 내가 가장 들려주고 싶었던 사람.",
+        "emotionTag": "confession",
+        "conditionGroupId": "episode_clear",
+        "eventGroupId": "memory_recovered"
+    },
+    {
+        "dialogueId": "ep4_intro_01",
+        "episodeId": "ep_04",
+        "sceneId": "ep_04_core",
+        "speakerId": "npc_ep4_core",
+        "dialogueType": "intro",
+        "text": "기억을 되찾는 건 끝났어. 이제는 네가 그걸 네 삶으로 받아들일 차례야.",
+        "emotionTag": "guiding",
+        "conditionGroupId": "all_episode_clear",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep4_final_01",
+        "episodeId": "ep_04",
+        "sceneId": "ep_04_core",
+        "speakerId": "npc_ep4_core",
+        "dialogueType": "ending",
+        "text": "나는 네가 놓아둔 마지막 조각이야. 네가 다시 돌아올 때까지, 여기 남아 있었어.",
+        "emotionTag": "truth",
+        "conditionGroupId": "ending_ready",
+        "eventGroupId": "finale"
+    }
+]

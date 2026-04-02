@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+public class SaveManager : MonoBehaviour
+{
+    public static SaveManager instance;
+    public SaveDataObj curData;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+        curData = ReadCurJSON();
+    }
+    public string GetSavePath(int slot)
+    {
+        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
+    }
+    public void CreateSaveData(int slotNumber)
+    {
+        SaveDataObj newData = new SaveDataObj();
+        newData.ID = (byte)slotNumber;
+        newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        newData.MemoryPoint = curData.MemoryPoint;
+        newData.StageLock = curData.StageLock;
+        newData.MemoryTag = curData.MemoryTag;
+        newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
+        string json = JsonUtility.ToJson(newData,true);
+        File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
+        SaveUIManager.instance.CloseSavePopup();
+        StartCoroutine(SaveUIManager.instance.SaveAlarm());
+    }
+    public SaveDataObj LoadSaveData(int slotNumber)
+    {
+        string path = GetSavePath(slotNumber);
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning($"세이브 파일 없음: {path}");
+            return null;
+        }
+        string json = File.ReadAllText(path);
+        SaveDataObj data = JsonUtility.FromJson<SaveDataObj>(json);
+        return data;
+    }
+    public static SaveDataObj ReadCurJSON()
+    {
+        SaveDataObj newData = new SaveDataObj();
+        string path = Path.Combine(Application.persistentDataPath, $"CurData.json");
+        if (!File.Exists(path))  //아직 파일이 없는 상태인 경우 기본 파일을 생성
+        {
+            SaveDataObj defaultSave = new SaveDataObj();
+            CreateCurData(path, defaultSave);
+            return defaultSave;
+        }
+        string jsonFile = File.ReadAllText(path);
+        newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
+        return newData;
+    }
+    public static void CreateCurData(string path, SaveDataObj dataObj)
+    {
+        dataObj.ID = 0;
+        dataObj.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        dataObj.StageLock = new List<IsStageLock>();
+        for (int i = 0; i < 4; i++)
+        {
+            IsStageLock stage = new()
+            {
+                stageID = i,
+                stageLock = true,
+                CheckpointLock = new List<IsCPLock>()  // CheckpointLock 초기화
+            };
+            for (int j = 0; j <= i; j++)
+            {
+                IsCPLock cp = new()
+                {
+                    CheckpointID = j,
+                    cpLock = true
+                };
+                stage.CheckpointLock.Add(cp);
+            }
+            dataObj.StageLock.Add(stage);
+        }
+        //첫 스테이지의 시작 체크포인트는 열림 (임시로 3번 스테이지의 첫 체크포인트)
+        dataObj.StageLock[3].stageLock = false;
+        dataObj.StageLock[3].CheckpointLock[0].cpLock = false;
+        dataObj.MemoryPoint = 0;
+        dataObj.MemoryTag = new List<IsTagGet>();
+        for (int i = 0; i < dataObj.MemoryTag.Count; i++)
+        {
+            IsTagGet tag = new();
+            switch (i)
+            {
+                case 0: tag.TagName = "self_voice"; break;
+            }
+            tag.tagGet = false;
+            dataObj.MemoryTag.Add(tag);
+        }
+        dataObj.isFirstEnterAtS3CP0 = false;
+        string json = JsonUtility.ToJson(dataObj, true);
+        File.WriteAllText(path, json);
+    }
+    public void WriteCurJSON()
+    {
+        SaveDataObj newData = new SaveDataObj();
+        newData.ID = curData.ID;
+        newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        newData.MemoryPoint = curData.MemoryPoint;
+        newData.StageLock = curData.StageLock;
+        newData.MemoryTag = curData.MemoryTag;
+        newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
+        string json = JsonUtility.ToJson(newData, true);
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신
+    }
+}
