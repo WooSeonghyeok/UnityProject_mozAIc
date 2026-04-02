@@ -116,7 +116,7 @@ public class Puzzle4Manager : MonoBehaviour
             EndingConditionData.self_voice = true;
             foreach (IsTagGet lastTag in curData.MemoryTag)
             {
-                if (lastTag.TagName == "MemoryTag_Stage4_Puzzle4") lastTag.tagGet = true;
+                if (lastTag.TagName == "self_voice") lastTag.tagGet = true;
             }
             Debug.Log($"마지막 기억 획득!");
         }

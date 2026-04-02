@@ -345,7 +345,19 @@ MonoBehaviour:
     m_ActionId: b47bfd15-8bc5-4e46-9661-f9aec0e00a64
     m_ActionName: Player/RightClick[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3875565683174984039}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8953d5d2-ef0b-49b8-9473-c9a7ca74beaa
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:

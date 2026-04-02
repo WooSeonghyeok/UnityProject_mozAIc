@@ -1043,5 +1043,5 @@ MonoBehaviour:
   cubeList: []
   switchObjects: []
   switchContact: 0
-  source: {fileID: 0}
-  switchClip: {fileID: 0}
+  source: {fileID: 3370673835735951489}
+  switchClip: {fileID: 8300000, guid: 56c30ae9dabfb5c4fbe6a8650e99c1bd, type: 3}
