@@ -25,6 +25,9 @@ public class GameManager_Ep1 : MonoBehaviour
     [Header("동굴 진입 상태")]
     public bool hasEnteredCave = false;
 
+    [Header("에피소드 종료 포탈")]
+    [SerializeField] private EndPortal_Ep1 episodeEndPortal;
+
     private void Awake()
     {
         // 싱글톤 초기화
@@ -48,6 +51,12 @@ public class GameManager_Ep1 : MonoBehaviour
         else
         {
             Debug.LogWarning("[GameManager_Ep1] lunaNpcData가 연결되지 않았습니다.");
+        }
+
+        // 시작 시 포탈은 반드시 비활성화
+        if (episodeEndPortal != null)
+        {
+            episodeEndPortal.SetPortalActive(false);
         }
     }
     public void OnFirstStarCollected()
@@ -95,6 +104,16 @@ public class GameManager_Ep1 : MonoBehaviour
             lunaNpcData.SetRevealStage(puzzleClearStage);
             Debug.Log($"[GameManager_Ep1] 퍼즐 클리어 -> 루나 기억 단계 상승: {puzzleClearStage}");
         }
+
+        // 퍼즐 클리어 후 에피소드 종료 포탈 활성화
+        if (episodeEndPortal != null)
+        {
+            episodeEndPortal.SetPortalActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager_Ep1] episodeEndPortal이 연결되지 않았습니다.");
+        }
     }
 
     public void OnEnterCave()
@@ -118,7 +137,8 @@ public class GameManager_Ep1 : MonoBehaviour
         lunaNpcData.SetRevealStage(newStage);
         Debug.Log($"[GameManager_Ep1] 수동 단계 변경: {newStage}");
     }
-    //아직 진엔딩 여부를 설정하지 않아서 일단 강렬한 기억 단계까지만 구현, 진엔딩 달성 시 fullMemoryStage로 변경
+
+    // 현재는 진엔딩 달성 여부가 없으므로 퍼즐 클리어 시 바로 완전한 기억으로 넘어가도록 구현
     private IEnumerator RecoverFullMemory()
     {
         yield return new WaitForSeconds(2f); // 연출 시간
