@@ -1,28 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class IceSlideRigidbody : MonoBehaviour
 {
     [Header("이동 설정")]
     public float slideSpeed = 15f;              // 미끄러지는 속도
     public float stopDistance = 0.6f;           // 장애물 앞에서 멈출 검사 거리
-
     [Header("충돌 검사 설정")]
     public float castHeight = 0.5f;             // SphereCast를 쏘는 높이
     public float castRadius = 0.25f;            // SphereCast 반지름
     public LayerMask obstacleLayer;             // 기둥, 벽 등 장애물 레이어
-
     [Header("회전 설정")]
     public bool rotateToMoveDirection = true;   // 이동 시작할 때 바라보는 방향도 바꿀지
-
     private Rigidbody rb;
     private Animator animator;
     private readonly int hashIsSliding = Animator.StringToHash("IsSliding");
     private bool isSliding = false;                 // 현재 미끄러지는 중인지
     private Vector3 slideDirection = Vector3.zero;  // 현재 미끄러지는 방향
-
+    private PlayerInput user;
+    private readonly string playerTag = "Player";
     // 입력 단계 관리
     // 0 : 첫 입력 (W만 가능)
     // 1 : 두 번째 입력 (A,D만 가능)
@@ -31,6 +26,7 @@ public class IceSlideRigidbody : MonoBehaviour
 
     private void Awake()
     {
+        user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -59,7 +55,6 @@ public class IceSlideRigidbody : MonoBehaviour
     {
         // 이미 미끄러지는 중이면 입력을 받지 않음
         if (isSliding) return;
-
         if (inputPhase == 0)
         {
             HandleFirstInput();
@@ -73,7 +68,6 @@ public class IceSlideRigidbody : MonoBehaviour
             HandleNormalInput();
         }
     }
-
     private void FixedUpdate()
     {
         // 미끄러지는 중일 때만 이동 처리
@@ -81,65 +75,47 @@ public class IceSlideRigidbody : MonoBehaviour
 
         SlideMove();
     }
-
-    // 첫 입력 (W만 가능)
-    void HandleFirstInput()
+    void HandleFirstInput()  // 첫 입력 (W만 가능)
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (user.moveInput.x != 0 || user.moveInput.y < 0) return;
+        StartSlideFromDirection(transform.forward);
+        if (isSliding)
         {
-            StartSlideFromDirection(transform.forward);
-
-            if (isSliding)
-            {
-                inputPhase = 1;
-            }
+            inputPhase = 1;
         }
     }
-
-    // 두 번째 입력 (A,D만 가능)
-    void HandleSecondInput()
+    void HandleSecondInput()  // 두 번째 입력 (A,D만 가능)
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (user.moveInput.y == 0 && user.moveInput.x != 0)
         {
-            StartSlideFromDirection(-transform.right);
-
-            if (isSliding)
-            {
-                inputPhase = 2;
-            }
+            StartSlideFromDirection(transform.right * Mathf.Sign(user.moveInput.x));
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        if (isSliding)
         {
-            StartSlideFromDirection(transform.right);
-
-            if (isSliding)
-            {
-                inputPhase = 2;
-            }
+            inputPhase = 2;
         }
     }
-
     // 이후 입력 (모두 가능)
     void HandleNormalInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (user.moveInput.y > 0 && user.moveInput.x == 0)
         {
             StartSlideFromDirection(transform.forward);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (user.moveInput.y < 0 && user.moveInput.x == 0)
         {
             StartSlideFromDirection(-transform.forward);
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (user.moveInput.y == 0 && user.moveInput.x < 0)
         {
             StartSlideFromDirection(-transform.right);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (user.moveInput.y == 0 && user.moveInput.x > 0)
         {
             StartSlideFromDirection(transform.right);
         }
+        else return;
     }
-
     /// <summary>
     /// 입력 또는 외부 지정 방향으로 슬라이딩 시작
     /// </summary>

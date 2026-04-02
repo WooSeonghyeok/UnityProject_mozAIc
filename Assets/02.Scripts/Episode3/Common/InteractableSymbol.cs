@@ -16,16 +16,21 @@
         [Tooltip("체크하면 sceneName을 사용하여 SceneManager.LoadScene 호출")]
         [SerializeField] private bool useSceneName = true;
         [SerializeField] private string sceneNameValue;
-
         [Header("키 설정")]
         [Tooltip("범위 내 플레이어가 누르면 상호작용이 발생하는 키")]
-        [SerializeField] private KeyCode interactionKey = KeyCode.E;
-
+        private PlayerInput user;
+        private readonly string playerTag = "Player";
         [Header("디자이너 훅 (인스펙터에서 연결)")]
         [SerializeField] private UnityEvent onInteract;
-
         private bool _playerInRange = false;
-
+        private void Awake()
+        {
+            user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
+        }
+        private void Start()
+        {
+            user.Interact += PerformInteraction;
+        }
         private void Reset()
         {
             var col = GetComponent<Collider>();
@@ -47,12 +52,6 @@
         private void Update()
         {
             if (!_playerInRange) return;
-
-            // 플레이어가 범위 내에 있고 interactionKey를 누르면 상호작용 실행
-            if (Input.GetKeyDown(interactionKey))
-            {
-                PerformInteraction();
-            }
         }
 
         // 외부에서 직접 호출할 필요가 있으면 public으로 유지
