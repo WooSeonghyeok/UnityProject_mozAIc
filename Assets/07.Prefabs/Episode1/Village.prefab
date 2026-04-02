@@ -48950,7 +48950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5599398943092106271}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Benches_Crates_Lanterns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83886,7 +83886,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1059486278425202545}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93324,6 +93324,10 @@ MonoBehaviour:
   exitOffset: 6
   reEnterDelay: 1
   virtualCam: {fileID: 0}
+  useCutscene: 1
+  requirePuzzleClear: 0
+  playCutsceneOnlyOnce: 1
+  cutscenePlayer: {fileID: 0}
 --- !u!4 &3652322243562339436 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7041565151082363975, guid: f05f928639f2c674c9dfc9e546f13455, type: 3}

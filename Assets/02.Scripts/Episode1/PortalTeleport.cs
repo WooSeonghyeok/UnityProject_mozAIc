@@ -15,10 +15,19 @@ public class PortalTeleport : MonoBehaviour
     [Header("카메라")]
     public CinemachineVirtualCamera virtualCam; // 따라오는 가상 카메라 연결
 
+    [Header("컷씬 설정")]
+    public bool useCutscene = false;            // 컷씬 사용 여부
+    public bool requirePuzzleClear = false;     // 퍼즐 클리어 후에만 컷씬 실행할지
+    public bool playCutsceneOnlyOnce = true;    // 컷씬 1회만 재생할지
+    public CutsceneImagePlayer cutscenePlayer;  // 컷씬 이미지 플레이어 연결
+
     private bool canTeleport = true;
 
     private void OnTriggerEnter(Collider other)
     {
+        // 컷씬이 재생 중이면 순간이동 방지
+        if (cutscenePlayer != null && cutscenePlayer.IsPlaying) return;
+
         // 현재 포탈이 텔레포트 가능한 상태가 아니면 무시
         if (!canTeleport) return;
 
@@ -81,8 +90,37 @@ public class PortalTeleport : MonoBehaviour
 
         // 현재 포탈도 잠깐 비활성 처리
         StartCoroutine(DisableTeleportTemporarily());
+
+        // 컷씬 재생
+        if (useCutscene && cutscenePlayer != null)
+        {
+            cutscenePlayer.PlayCutscene();
+        }
+        // 컷씬 조건 확인 후 재생
+        TryPlayCutscene();
     }
 
+    private void TryPlayCutscene()
+    {
+        if (!useCutscene || cutscenePlayer == null)
+            return;
+
+        // 퍼즐 클리어 후에만 재생해야 하는 포탈이면 검사
+        if (requirePuzzleClear)
+        {
+            if (GameManager_Ep1.Instance == null)
+                return;
+
+            if (!GameManager_Ep1.Instance.isPuzzleCleared)
+                return;
+        }
+
+        // 한 번만 재생하는 설정이면 중복 실행 방지
+        if (playCutsceneOnlyOnce)
+            return;
+
+        cutscenePlayer.PlayCutscene();
+    }
     IEnumerator DisableTeleportTemporarily()
     {
         canTeleport = false;
