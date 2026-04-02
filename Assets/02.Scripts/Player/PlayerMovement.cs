@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
     // 바닥 검사 결과를 담아둘 버퍼
     private Collider[] groundHits = new Collider[10];
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -373,7 +372,6 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         cameraTarget.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
-
     void OnDrawGizmosSelected()
     {
         if (groundCheck == null)

@@ -144,7 +144,7 @@ public class OpeningManager : MonoBehaviour
         StartCoroutine(TalkSay(openingText, "첫번째 기억이 당신을 부르고 있다"));
         user.isJumpLock = false;
         yield return halfSec;
-        SceneManager.LoadScene("LobbyScene");
+        SceneManager.LoadScene("Stage1");
     }
     private void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
     {

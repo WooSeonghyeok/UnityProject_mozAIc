@@ -157,6 +157,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4562294050804687373}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6599143563698338417}
   m_SourcePrefab: {fileID: 100100000, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
 --- !u!1 &131537319511755451 stripped
 GameObject:
@@ -302,6 +305,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a48861d1-4f3f-487a-97f8-2f96e10be164
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b47bfd15-8bc5-4e46-9661-f9aec0e00a64
+    m_ActionName: Player/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8953d5d2-ef0b-49b8-9473-c9a7ca74beaa
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b97331ad-5c2a-4dbe-bf69-745c02cdd8ce
+    m_ActionName: UI/Quit[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -325,6 +340,7 @@ MonoBehaviour:
   jumpTriggered: 0
   isJumpLock: 0
   isLookLock: 0
+  cameraSwitcher: {fileID: 0}
 --- !u!114 &4653631203317125790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +373,6 @@ MonoBehaviour:
     m_Bits: 0
   groundCheck: {fileID: 6964038136470087476}
   groundCheckRadius: 0.25
-  InteractMark: {fileID: 0}
 --- !u!114 &6677180464451491598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +406,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectedStars: []
+--- !u!114 &6599143563698338417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131537319511755451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5258d4f9bdafc344185a30ef35504041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cpPlace: {fileID: 0}
 --- !u!4 &763501777856548865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}

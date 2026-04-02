@@ -809,6 +809,7 @@ MonoBehaviour:
     MemoryTag:
     - TagName: self_voice
       tagGet: 0
+    isFirstEnterAtS3CP0: 0
   LoadPopup: {fileID: 1385672306}
   OptionPopup: {fileID: 1917414014}
   CreditPopup: {fileID: 1288746662}
@@ -952,7 +953,11 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: c8ccc7c5-6d4c-454e-b98a-9fd31979d4c8
+    m_ActionId: b47bfd15-8bc5-4e46-9661-f9aec0e00a64
+    m_ActionName: Player/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8953d5d2-ef0b-49b8-9473-c9a7ca74beaa
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
@@ -968,11 +973,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 0bde0e4e-0b02-4af5-9cfb-7bf1b4351acc
+    m_ActionId: b97331ad-5c2a-4dbe-bf69-745c02cdd8ce
     m_ActionName: UI/Quit[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: ac2e22a9-fdeb-45e7-a57e-ffc8d848fa52
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &716309306
@@ -1373,6 +1378,7 @@ MonoBehaviour:
     StageLock: []
     MemoryPoint: 0
     MemoryTag: []
+    isFirstEnterAtS3CP0: 0
 --- !u!4 &1279683756
 Transform:
   m_ObjectHideFlags: 0

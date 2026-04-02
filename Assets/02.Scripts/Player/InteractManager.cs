@@ -84,7 +84,6 @@ public class InteractManager : MonoBehaviour
         {
             gateContact = true;
             cpPlace = other.GetComponentInParent<Checkpoint_Plane>();
-            userMove.InteractableMark(true);
         }
         if (other.gameObject.CompareTag(goalTag))
         {
@@ -102,7 +101,6 @@ public class InteractManager : MonoBehaviour
         if (other.gameObject.CompareTag(saveTag))
         {
             saveContact = true;
-            userMove.InteractableMark(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -119,7 +117,6 @@ public class InteractManager : MonoBehaviour
         {
             gateContact = false;
             cpPlace = null;
-            if (user != null) userMove.InteractableMark(false);
         }
         if (other.CompareTag(puzzle4Tag))
         {
@@ -129,7 +126,6 @@ public class InteractManager : MonoBehaviour
         if (other.gameObject.CompareTag(saveTag))
         {
             saveContact = false;
-            if (user != null) userMove.InteractableMark(false);
         }
     }
     public void UseCheckPoint()

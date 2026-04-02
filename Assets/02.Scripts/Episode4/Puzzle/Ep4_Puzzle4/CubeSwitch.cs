@@ -34,7 +34,6 @@ public class CubeSwitch : MonoBehaviour
         if (curCube != null && other.gameObject.CompareTag("Player"))
         {
             switchContact = true;
-            userMove.InteractableMark(true);
             ConditionCheck();
         }
     }
@@ -90,7 +89,6 @@ public class CubeSwitch : MonoBehaviour
                 switchObjects.Remove(cubeList[n]);
             }
             switchContact = false;
-            userMove.InteractableMark(false);
         }
     }
 }
