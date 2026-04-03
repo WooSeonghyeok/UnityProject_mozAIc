@@ -786,6 +786,7 @@ MonoBehaviour:
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
     memory_reconstruction_rate: 0
+    MemoryTag: []
     isFirstEnterAtS3CP0: 0
   LoadPopup: {fileID: 1385672306}
   OptionPopup: {fileID: 1917414014}
@@ -1366,6 +1367,23 @@ MonoBehaviour:
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
     memory_reconstruction_rate: 0
+    MemoryTag:
+    - TagName: shared_childhood
+      tagGet: 0
+    - TagName: star_promise
+      tagGet: 0
+    - TagName: shared_dream
+      tagGet: 0
+    - TagName: co_creation
+      tagGet: 0
+    - TagName: unfinished_confession
+      tagGet: 0
+    - TagName: lover_memory
+      tagGet: 0
+    - TagName: self_voice
+      tagGet: 0
+    - TagName: split_self
+      tagGet: 0
     isFirstEnterAtS3CP0: 0
 --- !u!4 &1279683756
 Transform:

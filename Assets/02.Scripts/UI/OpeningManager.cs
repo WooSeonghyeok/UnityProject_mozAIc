@@ -17,19 +17,16 @@ public class OpeningManager : MonoBehaviour
     private PlayerInput user;
     private PlayerMovement userMove;
     public Light midFlash;
-    public CinemachineVirtualCamera vCam_shake;
     public Image blackboard;
     private WaitForSecondsRealtime oneSec;
     private WaitForSecondsRealtime halfSec;
     public RawImage openLight;
     public Text openingText;
     public Text talkText;
+    public CutsceneImagePlayer OpeningMidCutscene;
     public GameObject openingMidGate;
     private bool isMidtalkOn = false;
-    public Image EndImage1;
-    public Image EndImage2;
-    public Image EndImage3;
-    public Image EndImage4;
+    public CutsceneImagePlayer OpeningEndCutscene;
     private void Awake()
     {
         source = GetComponent<AudioSource>();
@@ -38,17 +35,12 @@ public class OpeningManager : MonoBehaviour
         oneSec = new WaitForSecondsRealtime(1f);
         halfSec = new WaitForSecondsRealtime(0.5f);
         midFlash.enabled = false;
-        vCam_shake.Priority = 1;
         blackboard.enabled = true;
         openLight.enabled = false;
         openingText.enabled = false;
         talkText.enabled = false;
         openingMidGate.SetActive(false);
         isMidtalkOn = false;
-        EndImage1.enabled = false;
-        EndImage2.enabled = false;
-        EndImage3.enabled = false;
-        EndImage4.enabled = false;
     }
     void OnEnable()
     {
@@ -112,10 +104,8 @@ public class OpeningManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.3f);
         pp_Volume.profile = pp_Volume_black;
         midFlash.enabled = false;
-        vCam_shake.Priority = 11;
-        yield return new WaitForSecondsRealtime(2f);
-        vCam_shake.Priority = 1;
-        yield return oneSec;
+        OpeningMidCutscene.PlayCutscene();
+        yield return new WaitForSecondsRealtime(3f);
         StartCoroutine(TalkSay(talkText, "잊은 게 아니야"));
         yield return oneSec;
         StartCoroutine(TalkSay(talkText, "흩어진 거야"));
@@ -136,14 +126,8 @@ public class OpeningManager : MonoBehaviour
     public IEnumerator EnterLobby()
     {
         UserCtrl(false);
-        StartCoroutine(ImageFlash(EndImage1,0.4f));
-        yield return halfSec;
-        StartCoroutine(ImageFlash(EndImage2, 0.45f));
-        yield return halfSec;
-        StartCoroutine(ImageFlash(EndImage3, 0.3f));
-        yield return halfSec;
-        StartCoroutine(ImageFlash(EndImage4, 0.35f));
-        yield return oneSec;
+        OpeningEndCutscene.PlayCutscene();
+        yield return new WaitForSecondsRealtime(2f);
         StartCoroutine(TalkSay(openingText,"가장 먼저 남아 있던 것은 추억이었다"));
         yield return oneSec;
         StartCoroutine(TalkSay(openingText, "첫번째 기억이 당신을 부르고 있다"));

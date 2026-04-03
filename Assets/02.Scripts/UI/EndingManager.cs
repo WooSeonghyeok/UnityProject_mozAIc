@@ -29,13 +29,13 @@ public class EndingManager : MonoBehaviour
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
         bool ReconstructionRateCond = EndingConditionData.memory_reconstruction_rate >= EndingPoint();
-        bool allTags = EndingConditionData.shared_childhood && EndingConditionData.star_promise && EndingConditionData.shared_dream && EndingConditionData.co_creation
-                    && EndingConditionData.unfinished_confession && EndingConditionData.lover_memory && EndingConditionData.self_voice && EndingConditionData.split_self;
-        isCompleteEnding = ReconstructionRateCond && allTags ;
+        bool trueEndTags = EndingConditionData.shared_childhood && EndingConditionData.shared_dream
+                    && EndingConditionData.unfinished_confession && EndingConditionData.self_voice;
+        isCompleteEnding = ReconstructionRateCond && trueEndTags ;
     }
     public static int EndingPoint()
     {
-        string path = Path.Combine(Application.dataPath, "JSON/EndingRule.json");
+        string path = Path.Combine(Application.dataPath, "Resources/Data/ending_rule.json");
         if (!File.Exists(path))
         {
             Debug.LogError("EndingRule.json 파일을 찾을 수 없습니다: " + path);
