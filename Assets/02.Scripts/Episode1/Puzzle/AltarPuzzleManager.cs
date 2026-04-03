@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -243,20 +243,15 @@ public class AltarPuzzleManager : MonoBehaviour
     {
         isPuzzleCleared = true;
         isPuzzleActive = false;
-
         if (source != null && successClip != null)
         {
             source.PlayOneShot(successClip, 1f);
         }
-
-        if (infoText != null)
-            infoText.text = "별이 감사를 표합니다";
-
+        if (infoText != null) infoText.text = "별이 감사를 표합니다";
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].SetInteractable(false);
         }
-
         Debug.Log("제단 퍼즐 성공");
         StartCoroutine(ClearSequence());
     }
@@ -362,25 +357,17 @@ public class AltarPuzzleManager : MonoBehaviour
                     0f,
                     fadeSpeed * Time.deltaTime
                 );
-
                 yield return null;
             }
-
             puzzleVolume.weight = 0f;
         }
-        // 퍼즐 클리어 순간 맵의 머터리얼을 그라디언트 텍스처로 교체
-        ApplyGradientTexture();
-
-        // 퍼즐 클리어 순간 스카이박스를 별 하늘로 교체
-        ApplySkybox(clearedSkybox);
-
+        ApplyGradientTexture();  // 퍼즐 클리어 순간 맵의 머터리얼을 그라디언트 텍스처로 교체
+        ApplySkybox(clearedSkybox);  // 퍼즐 클리어 순간 스카이박스를 별 하늘로 교체
         yield return clearWs;
-
-        ClosePuzzle();
-
         if (GameManager_Ep1.Instance != null)
         {
             GameManager_Ep1.Instance.OnPuzzleCleared();
         }
+        ClosePuzzle();
     }
 }

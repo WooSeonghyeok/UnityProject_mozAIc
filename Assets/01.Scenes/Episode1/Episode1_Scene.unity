@@ -1724,6 +1724,10 @@ PrefabInstance:
       propertyPath: lunaNpcData
       value: 
       objectReference: {fileID: 1706671242}
+    - target: {fileID: 3195725257424490045, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
+      propertyPath: episodeEndPortal
+      value: 
+      objectReference: {fileID: 5015323781659492234}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3893,6 +3897,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5253920004970094858, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
+      propertyPath: nextSceneName
+      value: LobbyScene
+      objectReference: {fileID: 0}
     - target: {fileID: 5260298300419574608, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -5017,6 +5025,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7700668357879354547, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7706367068607436173, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -5666,6 +5678,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
+--- !u!114 &5015323781659492234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5253920004970094858, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
+  m_PrefabInstance: {fileID: 5015323781659492233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546defcfe59ac3c4ba92745e1e0fb6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7665950561763148665
 PrefabInstance:
   m_ObjectHideFlags: 0

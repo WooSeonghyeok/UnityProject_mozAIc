@@ -19,13 +19,8 @@ public class GameManager_Ep1 : MonoBehaviour
     public bool hasPlayedFirstStarHint = false;
     [Header("동굴 진입 상태")]
     public bool hasEnteredCave = false;
-<<<<<<< HEAD
-=======
-
-    [Header("���Ǽҵ� ���� ��Ż")]
+    [Header("출구 포탈 활성화 상태")]
     [SerializeField] private EndPortal_Ep1 episodeEndPortal;
-
->>>>>>> main
     private void Awake()
     {
         // 싱글톤 초기화
@@ -48,8 +43,7 @@ public class GameManager_Ep1 : MonoBehaviour
         {
             Debug.LogWarning("[GameManager_Ep1] lunaNpcData가 연결되지 않았습니다.");
         }
-
-        // ���� �� ��Ż�� �ݵ�� ��Ȱ��ȭ
+        // 게임 시작 시 출구 포탈 비활성화
         if (episodeEndPortal != null)
         {
             episodeEndPortal.SetPortalActive(false);
@@ -91,15 +85,14 @@ public class GameManager_Ep1 : MonoBehaviour
             lunaNpcData.SetRevealStage(puzzleClearStage);
             Debug.Log($"[GameManager_Ep1] 퍼즐 클리어 -> 루나 기억 단계 상승: {puzzleClearStage}");
         }
-
-        // ���� Ŭ���� �� ���Ǽҵ� ���� ��Ż Ȱ��ȭ
+        // 모든 퍼즐을 클리어한 후에 출구 포탈을 활성화
         if (episodeEndPortal != null)
         {
             episodeEndPortal.SetPortalActive(true);
         }
         else
         {
-            Debug.LogWarning("[GameManager_Ep1] episodeEndPortal�� ������� �ʾҽ��ϴ�.");
+            Debug.LogWarning("[GameManager_Ep1] episodeEndPortal 오브젝트를 찾을 수 없습니다.");
         }
     }
     public void OnEnterCave()
