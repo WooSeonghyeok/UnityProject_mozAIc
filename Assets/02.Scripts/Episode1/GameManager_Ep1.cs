@@ -21,6 +21,9 @@ public class GameManager_Ep1 : MonoBehaviour
     public bool hasEnteredCave = false;
     [Header("출구 포탈 활성화 상태")]
     [SerializeField] private EndPortal_Ep1 episodeEndPortal;
+    [Header("컷씬 연결")]
+    [SerializeField] private CutsceneImagePlayer caveEnterCutscenePlayer;
+    [SerializeField] private CutsceneImagePlayer puzzleClearCutscenePlayer;
     private void Awake()
     {
         // 싱글톤 초기화
@@ -93,6 +96,15 @@ public class GameManager_Ep1 : MonoBehaviour
         else
         {
             Debug.LogWarning("[GameManager_Ep1] episodeEndPortal 오브젝트를 찾을 수 없습니다.");
+        }
+        // 퍼즐 클리어 컷씬 재생
+        if (puzzleClearCutscenePlayer != null)
+        {
+            puzzleClearCutscenePlayer.PlayCutscene();
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager_Ep1] puzzleClearCutscenePlayer가 연결되지 않았습니다.");
         }
     }
     public void OnEnterCave()

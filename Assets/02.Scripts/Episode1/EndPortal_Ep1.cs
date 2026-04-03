@@ -20,9 +20,15 @@ public class EndPortal_Ep1 : MonoBehaviour
     public void SetPortalActive(bool active)
     {
         isActivated = active;
+        Debug.Log($"[EpisodePortal] SetPortalActive 호출됨 / active = {active}");
         if (portalTrigger != null)  // 트리거 콜라이더 활성/비활성
         {
             portalTrigger.enabled = active;
+            Debug.Log($"[EpisodePortal] portalTrigger.enabled = {portalTrigger.enabled}");
+        }
+        else
+        {
+            Debug.LogWarning("[EpisodePortal] portalTrigger가 연결되지 않았습니다.");
         }
         if (portalParticles != null)  // 파티클 재생/정지
         {
@@ -40,6 +46,10 @@ public class EndPortal_Ep1 : MonoBehaviour
                     portalParticles[i].gameObject.SetActive(false);
                 }
             }
+        }
+        else
+        {
+            Debug.LogWarning("[EpisodePortal] portalParticles가 연결되지 않았습니다.");
         }
         // 포탈 오브젝트 전체를 꺼버리면 스크립트도 같이 꺼질 수 있으므로
         // 필요 시 비주얼 자식만 끄는 식으로 운영하는 게 안전함

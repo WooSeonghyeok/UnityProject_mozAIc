@@ -50,13 +50,6 @@ public class CutsceneImagePlayer : MonoBehaviour
             if (cutsceneImage != null && cutsceneSprites[i] != null)
             {
                 cutsceneImage.sprite = cutsceneSprites[i];
-                //// 이미지가 바뀔 때마다 원본 비율 기준으로 Aspect Ratio 갱신
-                //if (aspectFitter != null)
-                //{
-                //    float width = cutsceneSprites[i].rect.width;
-                //    float height = cutsceneSprites[i].rect.height;
-                //    aspectFitter.aspectRatio = width / height;
-                //}
             }
             yield return StartCoroutine(Fade(0f, 1f));  // 첫 이미지도 자연스럽게 보이도록 페이드 인
             yield return new WaitForSeconds(imageShowTime);  // 이미지 유지 시간
