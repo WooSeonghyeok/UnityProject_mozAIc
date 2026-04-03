@@ -119,6 +119,7 @@ public class GameManager_Ep1 : MonoBehaviour
         if (lunaNpcData != null)
         {
             lunaNpcData.SetRevealStage(fullMemoryStage);
+            SaveManager.instance.curData.MemoryTag[1].tagGet = true;  //"star_promise" 플래그를 회수
             Debug.Log("[GameManager_Ep1] 완전 기억 복원 완료");
         }
     }

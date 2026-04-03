@@ -97,7 +97,14 @@ public class SaveManager : MonoBehaviour
             IsTagGet tag = new();
             switch (i)
             {
-                case 0: tag.TagName = "self_voice"; break;
+                case 0: tag.TagName = "shared_childhood"; break;
+                case 1: tag.TagName = "star_promise"; break;
+                case 2: tag.TagName = "shared_dream"; break;
+                case 3: tag.TagName = "co_creation"; break;
+                case 4: tag.TagName = "unfinished_confession"; break;
+                case 5: tag.TagName = "lover_memory"; break;
+                case 6: tag.TagName = "self_voice"; break;
+                case 7: tag.TagName = "split_self"; break;
             }
             tag.tagGet = false;
             dataObj.MemoryTag.Add(tag);

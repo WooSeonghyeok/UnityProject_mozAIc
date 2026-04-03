@@ -29,7 +29,9 @@ public class EndingManager : MonoBehaviour
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
         bool ReconstructionRateCond = EndingConditionData.memory_reconstruction_rate >= EndingPoint();
-        isCompleteEnding = ReconstructionRateCond && EndingConditionData.self_voice;
+        bool allTags = EndingConditionData.shared_childhood && EndingConditionData.star_promise && EndingConditionData.shared_dream && EndingConditionData.co_creation
+                    && EndingConditionData.unfinished_confession && EndingConditionData.lover_memory && EndingConditionData.self_voice && EndingConditionData.split_self;
+        isCompleteEnding = ReconstructionRateCond && allTags ;
     }
     public static int EndingPoint()
     {
