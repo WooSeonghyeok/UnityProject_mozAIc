@@ -1917,10 +1917,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 653010222407328565, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4757196920363845579, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
       propertyPath: m_Name
       value: Village
@@ -1985,10 +1981,6 @@ PrefabInstance:
       propertyPath: playerCollector
       value: 
       objectReference: {fileID: 1993392850}
-    - target: {fileID: 9105252339679663136, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -97,15 +97,6 @@ public class GameManager_Ep1 : MonoBehaviour
         {
             Debug.LogWarning("[GameManager_Ep1] episodeEndPortal 오브젝트를 찾을 수 없습니다.");
         }
-        // 퍼즐 클리어 컷씬 재생
-        if (puzzleClearCutscenePlayer != null)
-        {
-            puzzleClearCutscenePlayer.PlayCutscene();
-        }
-        else
-        {
-            Debug.LogWarning("[GameManager_Ep1] puzzleClearCutscenePlayer가 연결되지 않았습니다.");
-        }
     }
     public void OnEnterCave()
     {
