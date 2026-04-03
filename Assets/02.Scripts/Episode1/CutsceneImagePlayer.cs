@@ -15,6 +15,8 @@ public class CutsceneImagePlayer : MonoBehaviour
     [Header("플레이어 제어")]
     [SerializeField] private PlayerMovement playerMovement; // 플레이어 이동 잠금용
     private AspectRatioFitter aspectFitter;
+    [Header("엔딩 컷씬")]
+    [SerializeField] private bool isEndCutscene = false;              // 엔딩 컷씬이면 페이드 아웃 안함
     private bool isPlaying = false;
     public bool IsPlaying => isPlaying;
     private void Awake()
@@ -55,8 +57,15 @@ public class CutsceneImagePlayer : MonoBehaviour
                 yield return StartCoroutine(Fade(1f, 0f));
             }
         }
-        yield return StartCoroutine(Fade(1f, 0f));  // 마지막 이미지 종료 후 페이드 아웃
-        if (cutscenePanel != null)  cutscenePanel.SetActive(false);  // 컷씬 종료
+        if (!isEndCutscene)
+        {
+            yield return StartCoroutine(Fade(1f, 0f));  // 마지막 이미지 종료 후 페이드 아웃
+            if (cutscenePanel != null) cutscenePanel.SetActive(false);  // 컷씬 종료
+        }
+        else
+        {
+            SetImageAlpha(1f);  // 엔딩 컷씬이면 마지막 이미지 완전히 보이도록 유지
+        }
         if (playerMovement != null)  // 플레이어 이동 다시 허용
         {
             playerMovement.SetMoveLock(false);

@@ -12,6 +12,9 @@ public class EndPortal_Ep1 : MonoBehaviour
     [Header("참조")]
     [SerializeField] private Collider portalTrigger;
     [SerializeField] private ParticleSystem[] portalParticles;
+    [Header("컷씬")]
+    [SerializeField] private CutsceneImagePlayer cutscenePlayer;
+    private bool isSequencePlaying = false;
     private void Awake()
     {
         // 시작 시 포탈은 비활성화
@@ -57,14 +60,32 @@ public class EndPortal_Ep1 : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (!isActivated) return;  // 활성화되지 않은 포탈은 무시
+        if (!isActivated) return;                 // 활성화되지 않은 포탈은 무시
+        if (isSequencePlaying) return;            // 중복 진입 방지
         if (!other.CompareTag("Player")) return;  // 플레이어만 포탈 진입 가능
-        if (SaveManager.instance != null) SaveManager.instance.curData.ep2_open = true;  //포탈 이용 시 "다음 스테이지 오픈" 정보를 세이브
-        // 다음 씬으로 전환
-        if (!string.IsNullOrEmpty(nextSceneName))
+        
+        StartCoroutine(PortalSequence());
+    }
+    private IEnumerator PortalSequence()
+    {
+        isSequencePlaying = true;
+
+        // 다음 스테이지 오픈 정보 저장
+        if (SaveManager.instance != null) SaveManager.instance.curData.ep2_open = true;
+        // 포탈 재진입 방지
+        if (portalTrigger != null) portalTrigger.enabled = false;
+        // 컷씬이 연결되어 있으면 먼저 재생
+        if (cutscenePlayer != null)
         {
-            SceneManager.LoadScene(nextSceneName);
+            cutscenePlayer.PlayCutscene();
+            // 컷씬이 끝날 때까지 대기
+            while (cutscenePlayer.IsPlaying)
+            {
+                yield return null;
+            }
         }
+        // 컷씬 종료 후 다음 씬으로 이동
+        if (!string.IsNullOrEmpty(nextSceneName)) SceneManager.LoadScene(nextSceneName);
         else
         {
             Debug.LogWarning("[EpisodePortal] nextSceneName이 비어 있습니다.");
