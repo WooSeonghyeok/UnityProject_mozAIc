@@ -148,7 +148,7 @@ public class OpeningManager : MonoBehaviour
         yield return oneSec;
         StartCoroutine(TalkSay(openingText, "첫번째 기억이 당신을 부르고 있다"));
         user.isJumpLock = false;
-        SaveManager.instance.curData.ep1_open = true;
+        if (SaveManager.instance != null) SaveManager.instance.curData.ep1_open = true;  //Start 신을 거치지 않은 경우 SaveManager가 null이므로 유효성 체크
         yield return halfSec;
         SceneManager.LoadScene("Episode1_Scene");
     }

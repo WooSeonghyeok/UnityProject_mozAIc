@@ -63,7 +63,7 @@ public class Ep3_2Manager : MonoBehaviour
     {
         if (isStageFinished) return;
         isStageFinished = true;
-        SaveManager.instance.curData.ep3_jumpClear = true;
+        if (SaveManager.instance != null) SaveManager.instance.curData.ep3_jumpClear = true;
         Ep3StageResult result = new Ep3StageResult();
         result.isCleared = true;
         result.relationScore = 0;

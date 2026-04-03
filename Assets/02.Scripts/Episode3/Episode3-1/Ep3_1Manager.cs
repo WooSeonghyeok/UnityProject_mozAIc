@@ -38,7 +38,7 @@ public class Ep3_1Manager : MonoBehaviour
         if (collectedPieceCount >= requiredPieceCount && !_allPiecesEventRaised)
         {
             _allPiecesEventRaised = true;
-            SaveManager.instance.curData.ep3_paperClear = true;
+            if (SaveManager.instance != null) SaveManager.instance.curData.ep3_paperClear = true;
             // 인스펙터에서 연결한 리스너들을 호출 (PuzzleComplete 등)
             try
             {
