@@ -48,6 +48,7 @@ public class LoadSlotManager : MonoBehaviour
     }
     public void LoadGame()
     {
+        if (SaveManager.instance == null) return;
         slotData = SaveManager.instance.LoadSaveData(slotIdx);
         if (slotData == null)
         {

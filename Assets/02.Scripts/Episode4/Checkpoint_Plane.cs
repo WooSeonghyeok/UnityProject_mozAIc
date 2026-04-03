@@ -23,6 +23,7 @@ public class Checkpoint_Plane : MonoBehaviour
     }
     private void SaveCheckpointProgress()
     {
+        if (SaveManager.instance == null) return;
         if (!cpProgress.ContainsKey(3))
         {
             cpProgress[3] = new Dictionary<int, bool>();

@@ -53,7 +53,7 @@ public class Episode2Manager : MonoBehaviour
             {
                 finalObject.SetActive(true);
             }
-            SaveManager.instance.curData.ep3_open = EP2_PuzzleManager.Instance.AllClear();
+            if (SaveManager.instance != null) SaveManager.instance.curData.ep3_open = EP2_PuzzleManager.Instance.AllClear();
         }
     }
     void ActivateFurniture(GameObject[] furnitureList, bool playEffect)

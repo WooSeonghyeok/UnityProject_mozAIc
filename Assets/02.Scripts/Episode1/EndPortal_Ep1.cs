@@ -49,7 +49,7 @@ public class EndPortal_Ep1 : MonoBehaviour
     {
         if (!isActivated) return;  // 활성화되지 않은 포탈은 무시
         if (!other.CompareTag("Player")) return;  // 플레이어만 포탈 진입 가능
-        SaveManager.instance.curData.ep2_open = true;  //포탈 이용 시 다음 스테이지 오픈 처리를 먼저 실행
+        if (SaveManager.instance != null) SaveManager.instance.curData.ep2_open = true;  //포탈 이용 시 "다음 스테이지 오픈" 정보를 세이브
         // 다음 씬으로 전환
         if (!string.IsNullOrEmpty(nextSceneName))
         {
