@@ -42,9 +42,6 @@ public class CutsceneImagePlayer : MonoBehaviour
         {
             playerMovement.SetMoveLock(true);  // PlayerMovement에 있는 이동 잠금 함수
         }
-        // 마우스 커서를 보여주고 고정 해제
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         for (int i = 0; i < cutsceneSprites.Length; i++)
         {
             if (cutsceneImage != null && cutsceneSprites[i] != null)
@@ -64,8 +61,7 @@ public class CutsceneImagePlayer : MonoBehaviour
         {
             playerMovement.SetMoveLock(false);
         }
-        Cursor.lockState = CursorLockMode.Locked;  // 다시 게임 커서 상태로 복귀
-        Cursor.visible = false;
+        
         isPlaying = false;
     }
     private IEnumerator Fade(float startAlpha, float endAlpha)  // 전체 컷씬 패널을 서서히 투명/불투명하게 만드는 코루틴
