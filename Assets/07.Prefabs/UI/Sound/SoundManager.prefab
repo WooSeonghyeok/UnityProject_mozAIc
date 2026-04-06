@@ -438,7 +438,7 @@ MonoBehaviour:
   sfxSource: {fileID: 7546765425923134473}
   masterVolume: 1
   bgmVolume: 1
-  ambientVolume: 1
+  ambientVolume: 0.5
   uiVolume: 1
   sfxVolume: 1
   useRandomPitchForSFX: 1
@@ -446,7 +446,7 @@ MonoBehaviour:
   sfxPitchMax: 1.05
   bgmEntries:
   - type: 1
-    clip: {fileID: 8300000, guid: 625fd547d7c5d2f43897649d08847dfe, type: 3}
+    clip: {fileID: 8300000, guid: 41695a5611128214da3511dd8fb3c7d2, type: 3}
   - type: 2
     clip: {fileID: 0}
   - type: 3
@@ -458,7 +458,7 @@ MonoBehaviour:
   - type: 6
     clip: {fileID: 8300000, guid: 44b599a0612bf1b46963a1aa82bdd634, type: 3}
   - type: 7
-    clip: {fileID: 8300000, guid: 44b599a0612bf1b46963a1aa82bdd634, type: 3}
+    clip: {fileID: 8300000, guid: 321e7bde7aa443c4c8f4a15d957dba6c, type: 3}
   - type: 8
     clip: {fileID: 8300000, guid: 44b599a0612bf1b46963a1aa82bdd634, type: 3}
   - type: 9
@@ -498,7 +498,53 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a53819cc521b1f24689b00c663d8fbb4, type: 3}
   uiEntries:
   - type: 1
-    clips: []
-  sfxEntries: []
+    clips:
+    - {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+    - {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+  - type: 3
+    clips:
+    - {fileID: 8300000, guid: dc6614beca09347ec9b258f12d154bdd, type: 3}
+    - {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+  - type: 2
+    clips:
+    - {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+    - {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  - type: 5
+    clips:
+    - {fileID: 8300000, guid: c5e2a73ad4706440f93bf05df0b465fe, type: 3}
+    - {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+  - type: 6
+    clips:
+    - {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
+    - {fileID: 8300000, guid: 79e6baad2fd414b82a6d49ce1568d2e5, type: 3}
+  - type: 4
+    clips:
+    - {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
+    - {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
+  sfxEntries:
+  - type: 4
+    clips:
+    - {fileID: 8300000, guid: adcac75087a17704ca6c0c3b15bc3aa5, type: 3}
+  - type: 9
+    clips:
+    - {fileID: 8300000, guid: 34f9cbd28a9740349b6cc2f5e280dda3, type: 3}
+  - type: 7
+    clips:
+    - {fileID: 8300000, guid: 324a8dc9744c98c4b880b613b1c1b121, type: 3}
+  - type: 8
+    clips:
+    - {fileID: 8300000, guid: 0f5cddc9ff2b9cb4eae089d5d1282542, type: 3}
+  - type: 17
+    clips:
+    - {fileID: 8300000, guid: 76a1fbeeddb9a324c9409b207ea2861b, type: 3}
+  - type: 18
+    clips:
+    - {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
+  - type: 5
+    clips:
+    - {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
+  - type: 11
+    clips:
+    - {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
   useAutoSceneBGM: 1
   useAutoSceneAmbient: 1

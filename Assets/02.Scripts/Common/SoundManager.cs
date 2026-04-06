@@ -101,6 +101,7 @@ public class SoundManager : MonoBehaviour
         Ep3_1_DoorPass,
         Ep3_2_TileActive,
         Ep3_2_TileStepCorrect,
+        Ep3_2_TileStepWrong,
 
         // 에피소드 4 전용
         Ep4_Last_LeverPull,
@@ -421,12 +422,18 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public void PlayBGM(BGMType type, bool loop = true)
     {
-        if (type == BGMType.None) return;
         if (bgmSource == null) return;
 
-        if (!bgmDict.TryGetValue(type, out AudioClip clip))
+        if (type == BGMType.None)
         {
-            Debug.LogWarning($"[SoundManager] BGM 클립이 등록되지 않음: {type}");
+            StopBGM();
+            return;
+        }
+
+        if (!bgmDict.TryGetValue(type, out AudioClip clip) || clip == null)
+        {
+            Debug.LogWarning($"[SoundManager] BGM 클립이 등록되지 않음: {type} -> 기존 BGM 정지");
+            StopBGM();
             return;
         }
 
@@ -451,15 +458,20 @@ public class SoundManager : MonoBehaviour
 
     /// <summary>
     /// 환경음 루프 재생
-    /// </summary>
     public void PlayAmbient(AmbientType type, bool loop = true)
     {
-        if (type == AmbientType.None) return;
         if (ambientSource == null) return;
 
-        if (!ambientDict.TryGetValue(type, out AudioClip clip))
+        if (type == AmbientType.None)
         {
-            Debug.LogWarning($"[SoundManager] Ambient 클립이 등록되지 않음: {type}");
+            StopAmbient();
+            return;
+        }
+
+        if (!ambientDict.TryGetValue(type, out AudioClip clip) || clip == null)
+        {
+            Debug.LogWarning($"[SoundManager] Ambient 클립이 등록되지 않음: {type} -> 기존 Ambient 정지");
+            StopAmbient();
             return;
         }
 
@@ -487,7 +499,7 @@ public class SoundManager : MonoBehaviour
     /// - 여러 클립이 있으면 랜덤으로 선택
     /// - PlayOneShot으로 다른 UI 효과와 자연스럽게 겹칠 수 있음
     /// </summary>
-    public void PlayUI(UIType type)
+    public void PlayUI(UIType type, float volumeScale = 1f)
     {
         if (type == UIType.None) return;
         if (uiSource == null) return;
@@ -501,7 +513,8 @@ public class SoundManager : MonoBehaviour
         AudioClip clip = GetRandomClip(clips);
         if (clip == null) return;
 
-        uiSource.PlayOneShot(clip, masterVolume * uiVolume);
+        volumeScale = Mathf.Clamp01(volumeScale);
+        uiSource.PlayOneShot(clip, masterVolume * uiVolume * volumeScale);
     }
 
     #endregion
@@ -515,7 +528,7 @@ public class SoundManager : MonoBehaviour
     /// - 플레이어 점프 / 착지
     /// 같은 전역/평면적인 효과음에 사용
     /// </summary>
-    public void PlaySFX(SFXType type)
+    public void PlaySFX(SFXType type, float volumeScale = 1f)
     {
         if (type == SFXType.None) return;
         if (sfxSource == null) return;
@@ -534,9 +547,9 @@ public class SoundManager : MonoBehaviour
         if (useRandomPitchForSFX)
             sfxSource.pitch = Random.Range(sfxPitchMin, sfxPitchMax);
 
-        sfxSource.PlayOneShot(clip, masterVolume * sfxVolume);
+        volumeScale = Mathf.Clamp01(volumeScale);
+        sfxSource.PlayOneShot(clip, masterVolume * sfxVolume * volumeScale);
 
-        // PlayOneShot 후 pitch를 원래값으로 복구
         sfxSource.pitch = oldPitch;
     }
 
