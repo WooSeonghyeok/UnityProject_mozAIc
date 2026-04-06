@@ -21,6 +21,9 @@ public class GameManager_Ep1 : MonoBehaviour
     public bool hasEnteredCave = false;
     [Header("출구 포탈 활성화 상태")]
     [SerializeField] private EndPortal_Ep1 episodeEndPortal;
+    [Header("컷씬 연결")]
+    [SerializeField] private CutsceneImagePlayer caveEnterCutscenePlayer;
+    [SerializeField] private CutsceneImagePlayer puzzleClearCutscenePlayer;
     private void Awake()
     {
         // 싱글톤 초기화
@@ -65,7 +68,7 @@ public class GameManager_Ep1 : MonoBehaviour
         // 이미 처리했으면 중복 실행 방지
         if (isCaveUnlocked) return;
         isCaveUnlocked = true;
-        SaveManager.instance.curData.ep1_isCaveUnlocked = true;
+        if (SaveManager.instance != null) SaveManager.instance.curData.ep1_isCaveUnlocked = true;
         // 동굴이 열리면 루나의 기억 단계를 한 단계 올림
         if (lunaNpcData != null)
         {
@@ -78,7 +81,7 @@ public class GameManager_Ep1 : MonoBehaviour
         // 이미 처리했으면 중복 실행 방지
         if (isPuzzleCleared) return;
         isPuzzleCleared = true;
-        SaveManager.instance.curData.ep1_isPuzzleCleared = true;
+        if (SaveManager.instance != null) SaveManager.instance.curData.ep1_isPuzzleCleared = true;
         // 퍼즐이 클리어되면 루나 기억 단계를 더 올림
         if (lunaNpcData != null)
         {
@@ -119,7 +122,7 @@ public class GameManager_Ep1 : MonoBehaviour
         if (lunaNpcData != null)
         {
             lunaNpcData.SetRevealStage(fullMemoryStage);
-            SaveManager.instance.curData.MemoryTag[1].tagGet = true;  //"star_promise" 플래그를 회수
+            if (SaveManager.instance != null) SaveManager.instance.curData.MemoryTag[1].tagGet = true;  //"star_promise" 플래그를 회수
             Debug.Log("[GameManager_Ep1] 완전 기억 복원 완료");
         }
     }

@@ -50,6 +50,7 @@ public class StageSelectButton : MonoBehaviour
     }
     public void Refresh()
     {
+        if (SaveManager.instance == null) return;
         curData = SaveManager.instance.curData;
         switch (StageNumber)
         {
