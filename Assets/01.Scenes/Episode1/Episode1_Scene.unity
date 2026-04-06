@@ -1759,14 +1759,6 @@ PrefabInstance:
       propertyPath: episodeEndPortal
       value: 
       objectReference: {fileID: 5015323781659492234}
-    - target: {fileID: 3195725257424490045, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
-      propertyPath: caveEnterCutscenePlayer
-      value: 
-      objectReference: {fileID: 1904453935}
-    - target: {fileID: 3195725257424490045, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
-      propertyPath: puzzleClearCutscenePlayer
-      value: 
-      objectReference: {fileID: 896345658}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
