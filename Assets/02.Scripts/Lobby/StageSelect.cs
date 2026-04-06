@@ -44,14 +44,16 @@ public class StageSelect : MonoBehaviour
     {
         if (StageSelectionData.SelectedStage == -1)
         {
-            if (stageButtons != null && stageButtons.Length > 0 && !curData.StageLock[0].stageLock)
+            if (stageButtons != null && stageButtons.Length > 0 && !curData.ep1_open)
+            {
                 stageSelect = 0;
-            else
-                stageSelect = -1;
-            if (cpButtons != null && cpButtons.Length > 0 && !curData.StageLock[0].CheckpointLock[0].cpLock)
                 cpSelect = 0;
+            }
             else
+            {
+                stageSelect = -1;
                 cpSelect = -1;
+            }
         }
         StartCoroutine(ButtonDelay());
     }
@@ -73,7 +75,7 @@ public class StageSelect : MonoBehaviour
     }
     public void SelectStage(int index)
     {
-        if (stageButtons == null || index < 0 || index >= stageButtons.Length || curData.StageLock[index].stageLock) return;
+        if (stageButtons == null || index < 0 || index >= stageButtons.Length) return;
         stageSelect = index;
         TouchStageButtonEvent?.Invoke(stageSelect);
         cpSelect = -1;
@@ -95,14 +97,20 @@ public class StageSelect : MonoBehaviour
             cpButtons[i].OnTouchCPButton(false);
             cpButtons[i].gameObject.SetActive(false);
         }
-        for (int i = 0; i < curData.StageLock[selectNum].CheckpointLock.Count; i++)
+        int cpCount;
+        switch (selectNum)
+        {
+            case 3: cpCount = 4; break;
+            default: cpCount = 1; break;
+        }
+        for (int i = 0; i < cpCount; i++)
         {
             cpButtons[i].StageNumber = selectNum;
             cpButtons[i].cpNum = i;
             cpButtons[i].gameObject.SetActive(true);
             cpButtons[i].Refresh();
         }
-        if (cpSelect >= 0 && cpSelect < cpButtons.Length && !curData.StageLock[selectNum].CheckpointLock[cpSelect].cpLock)
+        if (cpSelect >= 0 && cpSelect < cpButtons.Length)
         {
             TouchCPButtonEvent?.Invoke(cpSelect);
         }
@@ -114,7 +122,7 @@ public class StageSelect : MonoBehaviour
     }
     public void SelectCP(int selectNum, int index)
     {
-        if (cpButtons == null || index < 0 || index >= cpButtons.Length || curData.StageLock[selectNum].CheckpointLock[index].cpLock) return;
+        if (cpButtons == null || index < 0 || index >= cpButtons.Length) return;
         cpSelect = index;
         TouchCPButtonEvent?.Invoke(cpSelect);
         EnterCheck();
@@ -150,6 +158,6 @@ public class StageSelect : MonoBehaviour
             Debug.LogWarning("StageSelect: Cannot enter locked checkpoint");
             return;
         }
-        SceneManager.LoadScene($"Stage{stageSelect+1}");
+        SceneManager.LoadScene($"Episode{stageSelect + 1}_Scene");
     }
 }

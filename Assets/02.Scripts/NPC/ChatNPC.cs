@@ -10,7 +10,7 @@ public class ChatNPC : MonoBehaviour
     [SerializeField] private Transform chatPos;
     [SerializeField] private Transform playerTr;
     [SerializeField] private NPCFollower npcFollower;
-
+    [SerializeField] private PlayerInput user;
     private float distance;
     private NPCData npcData;  // NPC의 이름/성격/프롬프트 데이터 참조
 
@@ -20,9 +20,18 @@ public class ChatNPC : MonoBehaviour
     {
         // 시작할 때 같은 오브젝트의 NPCData를 캐싱
         npcData = GetComponent<NPCData>();
+        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
 
         if (npcFollower == null)
             npcFollower = GetComponent<NPCFollower>();
+    }
+    private void OnEnable()
+    {
+        user.Interact += StartNPCChat;
+    }
+    private void OnDisable()
+    {
+        user.Interact -= StartNPCChat;
     }
 
     void Update()
@@ -35,21 +44,22 @@ public class ChatNPC : MonoBehaviour
             Vector3 targetPos = playerTr.position;
             targetPos.y = this.transform.position.y;
             this.transform.LookAt(targetPos);
-
             interChatUI.SetActive(true);
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (npcFollower != null)
-                    npcFollower.SetFollow(false);
-
-                ChatNPCManager.instance.NpcPersonTalk(chatPos, npcData);
-            }
         }
         else
         {
             interChatUI.SetActive(false);
         }
+    }
+
+    private void StartNPCChat()
+    {
+        if (distance < 3 && !ChatNPCManager.instance.isTalking)
+        {
+            if (npcFollower != null) npcFollower.SetFollow(false);
+            ChatNPCManager.instance.NpcPersonTalk(chatPos, npcData);
+        }
+        else return;
     }
 
     private void LateUpdate()

@@ -16,8 +16,9 @@ public class Ep4_CutsceneManager : MonoBehaviour
     public Checkpoint_Plane S3CP0;
     public CinemachineVirtualCamera coreCam;
     public CinemachineVirtualCamera gazeCam;
-    public GameObject climaxOrbit;
-    public GameObject EndOrbit;
+    public CutsceneImagePlayer Ep4_StartCutscene;
+    public CutsceneImagePlayer Ep4_ClimaxCutscene;
+    public CutsceneImagePlayer Ep4_EndCutscene;
     void Awake()
     {
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
@@ -28,9 +29,7 @@ public class Ep4_CutsceneManager : MonoBehaviour
         curSaveData = SaveManager.ReadCurJSON();
         coreCam.Priority = 1;
         gazeCam.Priority = 1;
-        S3CP0.S3CP0FirstCheck += Stage4FirstEnter;
-        climaxOrbit.SetActive(false);
-        EndOrbit.SetActive(false);
+        S3CP0.S3FirstCheck += Stage4FirstEnter;
     }
     private void OnEnable()
     {
@@ -56,11 +55,11 @@ public class Ep4_CutsceneManager : MonoBehaviour
     public IEnumerator Stage4Start()
     {
         if (curSaveData.isFirstEnterAtS3CP0) yield break;
+        Ep4_StartCutscene.PlayCutscene();
         coreCam.Priority = 11;
         UserCtrl(false);
-        yield return oneSec;
+        yield return new WaitForSecondsRealtime(4f);
         StartCoroutine(TalkSay("이제 거의 다 왔어", Color.white));
-        yield return oneSec;
         yield return oneSec;
         StartCoroutine(TalkSay("남은 건... 이어 붙이는 거야", Color.white));
         gazeCam.Priority = 12;
@@ -80,7 +79,7 @@ public class Ep4_CutsceneManager : MonoBehaviour
         if (endNPCZoneArrived == true) yield break;
         UserCtrl(false);
         endNPCZoneArrived = true;
-        climaxOrbit.SetActive(true);
+        Ep4_ClimaxCutscene.PlayCutscene();
         StartCoroutine(TalkSay("넌 잊은 게 아니야",Color.white));
         yield return oneSec;
         StartCoroutine(TalkSay("버티기 위해, 잠시 나눠 둔 거야", Color.white));
@@ -90,19 +89,17 @@ public class Ep4_CutsceneManager : MonoBehaviour
         StartCoroutine(TalkSay("나는 네가 놓아둔 마지막 조각이야\n네가 다시 돌아올 때까지, 여기 남아 있었어", Color.white));
         yield return oneSec;
         UserCtrl(true);
-        climaxOrbit.SetActive(false);
     }
     public IEnumerator SyncEnding()
     {
-        EndOrbit.SetActive(true);
+        Ep4_EndCutscene.PlayCutscene();
+        UserCtrl(false);
         StartCoroutine(TalkSay("이제 괜찮아. 넌 계속 여기 있었으니까.", Color.red));
         yield return oneSec;
         StartCoroutine(TalkSay("잊고 있던 게 아니라, 다시 그려야 했던 거야.", Color.green));
         yield return oneSec;
         StartCoroutine(TalkSay("멈춘 게 아니라... 마지막 음을 기다리고 있었던 거야.", Color.blue));
-        yield return oneSec;
-        EndOrbit.SetActive(false);
-        yield return oneSec;
+        yield return new WaitForSecondsRealtime(10f);
         SceneManager.LoadScene("EndingScene");
     }
     private void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤

@@ -133,7 +133,7 @@ public class InteractManager : MonoBehaviour
         if (!gateContact) return;
         if (cpPlace != null)
         {
-            StageSelectionData.SelectedStage = cpPlace.stageNum;
+            StageSelectionData.SelectedStage = 3;
             StageSelectionData.SelectedCP = cpPlace.cpNum;
         }
         SceneManager.LoadSceneAsync("LobbyScene");

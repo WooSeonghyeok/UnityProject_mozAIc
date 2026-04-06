@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6964038136470087476}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2801586441996089523}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CameraTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.4
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -80,23 +80,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17
+      value: 11.54
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -104,19 +104,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7596534155637171779, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 230066601034584515, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064469804632078399, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_Controller
@@ -125,6 +141,10 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492858790293137242, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -154,6 +174,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6677180464451491598}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4124546092340407748}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4562294050804687373}
@@ -306,17 +329,57 @@ MonoBehaviour:
     m_ActionId: a48861d1-4f3f-487a-97f8-2f96e10be164
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3875565683174984039}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: OnRightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b47bfd15-8bc5-4e46-9661-f9aec0e00a64
     m_ActionName: Player/RightClick[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3875565683174984039}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8953d5d2-ef0b-49b8-9473-c9a7ca74beaa
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: b97331ad-5c2a-4dbe-bf69-745c02cdd8ce
     m_ActionName: UI/Quit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3875565683174984039}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 593773ae-f495-46d5-8bcc-cde817d696be
+    m_ActionName: Player/Cancel[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -362,7 +425,7 @@ MonoBehaviour:
   maxY: 70
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   obstacleCheckDistance: 0.5
   obstacleCheckHeight: 0.4
   obstacleCheckRadius: 0.3
@@ -370,7 +433,7 @@ MonoBehaviour:
   jumpForce: 5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   groundCheck: {fileID: 6964038136470087476}
   groundCheckRadius: 0.25
 --- !u!114 &6677180464451491598
@@ -391,8 +454,33 @@ MonoBehaviour:
   castRadius: 0.25
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   rotateToMoveDirection: 1
+--- !u!114 &4124546092340407748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131537319511755451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5597a80149d236c498ec6c41f3762dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentColor: 9
+  hasColor: 0
+  playerRenderer: {fileID: 2199434970594280124}
+  redMat: {fileID: 2100000, guid: f64eb4e51f837d24b81d84ce7b696037, type: 2}
+  blueMat: {fileID: 2100000, guid: 3c46b1da482d50544beb7980e10ca845, type: 2}
+  yellowMat: {fileID: 2100000, guid: 9e9a35def279ff449b3e134c6d1b9610, type: 2}
+  greenMat: {fileID: 2100000, guid: 889fdd4a9b029dc4187eb375fb53909e, type: 2}
+  orangeMat: {fileID: 2100000, guid: 873e2d94b5036bd45a95eb14419c6f4e, type: 2}
+  purpleMat: {fileID: 2100000, guid: d48fe07873f189349a1a7796a427104f, type: 2}
+  pinkMat: {fileID: 2100000, guid: ef62163479135224abe9a78af964eec9, type: 2}
+  brownMat: {fileID: 2100000, guid: 2dfad8290dfa43a4dbe23d8f56f11659, type: 2}
+  whiteMat: {fileID: 2100000, guid: 25cc761a5d93e4c4bb7103a29abaea9a, type: 2}
+  defaultMat: {fileID: 2100000, guid: 758d37239b0a7804eafa6a7642d5e80d, type: 2}
 --- !u!114 &4562294050804687373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,5 +510,10 @@ MonoBehaviour:
 --- !u!4 &763501777856548865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+  m_PrefabInstance: {fileID: 941878696396568554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2199434970594280124 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7811546481615063722, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
   m_PrefabInstance: {fileID: 941878696396568554}
   m_PrefabAsset: {fileID: 0}

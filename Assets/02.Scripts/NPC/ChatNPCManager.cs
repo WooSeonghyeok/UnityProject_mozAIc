@@ -13,6 +13,7 @@ public class ChatNPCManager : MonoBehaviour
 
     [Header("플레이어 제어")]
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerInput user;
 
     [Header("이벤트 말풍선 UI")]
     [SerializeField] private GameObject speechBubbleRoot;   
@@ -30,10 +31,18 @@ public class ChatNPCManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-
         instance = this;
-    }
 
+        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+    }
+    private void OnEnable()
+    {
+        user.Cancel += EndNPCChat;
+    }
+    private void OnDisable()
+    {
+        user.Cancel -= EndNPCChat;
+    }
     public void NpcPersonTalk(Transform pos, NPCData npcData)
     {
         if (npcData == null)
@@ -117,6 +126,7 @@ public class ChatNPCManager : MonoBehaviour
 
     public void EndNPCChat()
     {
+        if (isTalking == false) return;
         isTalking = false;
         followCam.isChatCamMode = false;
         chatPanel.SetActive(false);
@@ -216,14 +226,6 @@ public class ChatNPCManager : MonoBehaviour
         if (speechBubbleRoot != null)
         {
             speechBubbleRoot.SetActive(false);
-        }
-    }
-
-    private void Update()
-    {
-        if (isTalking && Input.GetKeyUp(KeyCode.Escape))
-        {
-            EndNPCChat();
         }
     }
 }

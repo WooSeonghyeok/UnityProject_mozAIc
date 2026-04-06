@@ -19,7 +19,7 @@ public class PortalMaterialController : MonoBehaviour
 
     void ApplyMaterial()
     {
-        if (PuzzleManager.Instance == null)
+        if (EP2_PuzzleManager.Instance == null)
         {
             Debug.LogError("PuzzleManager 없음!");
             return;
@@ -28,9 +28,9 @@ public class PortalMaterialController : MonoBehaviour
         bool isCleared = false;
 
         if (portalType == PortalType.Space)
-            isCleared = PuzzleManager.Instance.spaceClear;
+            isCleared = EP2_PuzzleManager.Instance.spaceClear;
         else if (portalType == PortalType.Paint)
-            isCleared = PuzzleManager.Instance.paintClear;
+            isCleared = EP2_PuzzleManager.Instance.paintClear;
 
         Material targetMat = isCleared ? completeMat : incompleteMat;
 

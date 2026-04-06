@@ -1,149 +1,95 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CutsceneImagePlayer : MonoBehaviour
 {
-    [Header("ÄÆ¾À UI")]
-    [SerializeField] private GameObject cutscenePanel;   // ÄÆ¾À ÀüÃ¼ ÆĞ³Î
-    [SerializeField] private Image cutsceneImage;        // È­¸é¿¡ ÀÌ¹ÌÁö¸¦ Ç¥½ÃÇÒ UI Image
-
-    [Header("ÄÆ¾À ÀÌ¹ÌÁö")]
-    [SerializeField] private Sprite[] cutsceneSprites;   // ¼ø¼­´ë·Î º¸¿©ÁÙ ÄÆ¾À ÀÌ¹ÌÁöµé
-    [SerializeField] private float imageShowTime = 3f;   // °¢ ÀÌ¹ÌÁö Ç¥½Ã ½Ã°£
-    [SerializeField] private float fadeDuration = 1f;    // ÆäÀÌµå ½Ã°£
-
-    [Header("ÇÃ·¹ÀÌ¾î Á¦¾î")]
-    [SerializeField] private PlayerMovement playerMovement; // ÇÃ·¹ÀÌ¾î ÀÌµ¿ Àá±İ¿ë
-
+    [Header("ì»·ì”¬ UI")]
+    [SerializeField] private GameObject cutscenePanel;   // ì»·ì”¬ ì „ì²´ íŒ¨ë„
+    [SerializeField] private Image cutsceneImage;        // í™”ë©´ì— ì´ë¯¸ì§€ë¥¼ í‘œì‹œí•  UI Image
+    [Header("ì»·ì”¬ ì´ë¯¸ì§€")]
+    [SerializeField] private Sprite[] cutsceneSprites;   // ìˆœì„œëŒ€ë¡œ ë³´ì—¬ì¤„ ì»·ì”¬ ì´ë¯¸ì§€ë“¤
+    [SerializeField] private float imageShowTime = 3f;   // ê° ì´ë¯¸ì§€ í‘œì‹œ ì‹œê°„
+    [SerializeField] private float fadeDuration = 1f;    // í˜ì´ë“œ ì‹œê°„
+    [Header("í”Œë ˆì´ì–´ ì œì–´")]
+    [SerializeField] private PlayerMovement playerMovement; // í”Œë ˆì´ì–´ ì´ë™ ì ê¸ˆìš©
     private AspectRatioFitter aspectFitter;
+    [Header("ì—”ë”© ì»·ì”¬")]
+    [SerializeField] private bool isEndCutscene = false;              // ì—”ë”© ì»·ì”¬ì´ë©´ í˜ì´ë“œ ì•„ì›ƒ ì•ˆí•¨
     private bool isPlaying = false;
-
     public bool IsPlaying => isPlaying;
-
     private void Awake()
     {
-        if (cutsceneImage != null)
+        if (cutsceneImage != null)// ì´ë¯¸ì§€ ì›ë³¸ ë¹„ìœ¨ ìœ ì§€
         {
-            // ÀÌ¹ÌÁö ¿øº» ºñÀ² À¯Áö
             cutsceneImage.preserveAspect = true;
             aspectFitter = cutsceneImage.GetComponent<AspectRatioFitter>();
         }
-
-        if (cutscenePanel != null)
+        if (cutscenePanel != null)  // ì‹œì‘ ì‹œ ì»·ì”¬ íŒ¨ë„ì€ êº¼ë‘ 
         {
-            // ½ÃÀÛ ½Ã ÄÆ¾À ÆĞ³ÎÀº ²¨µÒ
             cutscenePanel.SetActive(false);
         }
     }
-
-    // ¿ÜºÎ¿¡¼­ È£ÃâÇÏ´Â ÄÆ¾À ½ÃÀÛ ÇÔ¼ö
-    public void PlayCutscene()
+    public void PlayCutscene()  // ì™¸ë¶€ì—ì„œ í˜¸ì¶œí•˜ëŠ” ì»·ì”¬ ì‹œì‘ í•¨ìˆ˜
     {
-        // ÀÌ¹Ì Àç»ı ÁßÀÌ¸é Áßº¹ ½ÇÇà ¹æÁö
-        if (isPlaying)
-            return;
-
+        if (isPlaying) return;  // ì´ë¯¸ ì¬ìƒ ì¤‘ì´ë©´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€
         StartCoroutine(PlayCutsceneRoutine());
     }
-
-    // ÀÌ¹ÌÁö ÄÆ¾À ¼øÂ÷ Àç»ı ÄÚ·çÆ¾
-    private IEnumerator PlayCutsceneRoutine()
+    private IEnumerator PlayCutsceneRoutine()  // ì´ë¯¸ì§€ ì»·ì”¬ ìˆœì°¨ ì¬ìƒ ì½”ë£¨í‹´
     {
         isPlaying = true;
-
-        // ÄÆ¾À ÆĞ³Î ÄÑ±â
-        if (cutscenePanel != null)
-            cutscenePanel.SetActive(true);
-
-        // ÇÃ·¹ÀÌ¾î ÀÌµ¿ Àá±İ
-        if (playerMovement != null)
+        if (cutscenePanel != null) cutscenePanel.SetActive(true);  // ì»·ì”¬ íŒ¨ë„ ì¼œê¸°
+        if (playerMovement != null)  // í”Œë ˆì´ì–´ ì´ë™ ì ê¸ˆ
         {
-            // PlayerMovement¿¡ ÀÖ´Â ÀÌµ¿ Àá±İ ÇÔ¼ö
-            playerMovement.SetMoveLock(true);
+            playerMovement.SetMoveLock(true);  // PlayerMovementì— ìˆëŠ” ì´ë™ ì ê¸ˆ í•¨ìˆ˜
         }
-
-        // ¸¶¿ì½º Ä¿¼­¸¦ º¸¿©ÁÖ°í °íÁ¤ ÇØÁ¦
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         for (int i = 0; i < cutsceneSprites.Length; i++)
         {
             if (cutsceneImage != null && cutsceneSprites[i] != null)
             {
                 cutsceneImage.sprite = cutsceneSprites[i];
-
-                //// ÀÌ¹ÌÁö°¡ ¹Ù²ğ ¶§¸¶´Ù ¿øº» ºñÀ² ±âÁØÀ¸·Î Aspect Ratio °»½Å
-                //if (aspectFitter != null)
-                //{
-                //    float width = cutsceneSprites[i].rect.width;
-                //    float height = cutsceneSprites[i].rect.height;
-                //    aspectFitter.aspectRatio = width / height;
-                //}
             }
-
-            // Ã¹ ÀÌ¹ÌÁöµµ ÀÚ¿¬½º·´°Ô º¸ÀÌµµ·Ï ÆäÀÌµå ÀÎ
-            yield return StartCoroutine(Fade(0f, 1f));
-
-            // ÀÌ¹ÌÁö À¯Áö ½Ã°£
-            yield return new WaitForSeconds(imageShowTime);
-
-            // ¸¶Áö¸· ÀÌ¹ÌÁö°¡ ¾Æ´Ï¸é ´ÙÀ½ ÀÌ¹ÌÁö ÀüÈ¯ Àü ÆäÀÌµå ¾Æ¿ô
-            if (i < cutsceneSprites.Length - 1)
+            yield return StartCoroutine(Fade(0f, 1f));  // ì²« ì´ë¯¸ì§€ë„ ìì—°ìŠ¤ëŸ½ê²Œ ë³´ì´ë„ë¡ í˜ì´ë“œ ì¸
+            yield return new WaitForSeconds(imageShowTime);  // ì´ë¯¸ì§€ ìœ ì§€ ì‹œê°„
+            if (i < cutsceneSprites.Length - 1)  // ë§ˆì§€ë§‰ ì´ë¯¸ì§€ê°€ ì•„ë‹ˆë©´ ë‹¤ìŒ ì´ë¯¸ì§€ ì „í™˜ ì „ í˜ì´ë“œ ì•„ì›ƒ
             {
                 yield return StartCoroutine(Fade(1f, 0f));
             }
         }
-
-        // ¸¶Áö¸· ÀÌ¹ÌÁö Á¾·á ÈÄ ÆäÀÌµå ¾Æ¿ô
-        yield return StartCoroutine(Fade(1f, 0f));
-
-        // ÄÆ¾À Á¾·á
-        if (cutscenePanel != null)
-            cutscenePanel.SetActive(false);
-
-        // ÇÃ·¹ÀÌ¾î ÀÌµ¿ ´Ù½Ã Çã¿ë
-        if (playerMovement != null)
+        if (!isEndCutscene)
+        {
+            yield return StartCoroutine(Fade(1f, 0f));  // ë§ˆì§€ë§‰ ì´ë¯¸ì§€ ì¢…ë£Œ í›„ í˜ì´ë“œ ì•„ì›ƒ
+            if (cutscenePanel != null) cutscenePanel.SetActive(false);  // ì»·ì”¬ ì¢…ë£Œ
+        }
+        else
+        {
+            SetImageAlpha(1f);  // ì—”ë”© ì»·ì”¬ì´ë©´ ë§ˆì§€ë§‰ ì´ë¯¸ì§€ ì™„ì „íˆ ë³´ì´ë„ë¡ ìœ ì§€
+        }
+        if (playerMovement != null)  // í”Œë ˆì´ì–´ ì´ë™ ë‹¤ì‹œ í—ˆìš©
         {
             playerMovement.SetMoveLock(false);
         }
-
-        // ´Ù½Ã °ÔÀÓ Ä¿¼­ »óÅÂ·Î º¹±Í
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
+        
         isPlaying = false;
     }
-
-    // ÀüÃ¼ ÄÆ¾À ÆĞ³ÎÀ» ¼­¼­È÷ Åõ¸í/ºÒÅõ¸íÇÏ°Ô ¸¸µå´Â ÄÚ·çÆ¾
-    private IEnumerator Fade(float startAlpha, float endAlpha)
+    private IEnumerator Fade(float startAlpha, float endAlpha)  // ì „ì²´ ì»·ì”¬ íŒ¨ë„ì„ ì„œì„œíˆ íˆ¬ëª…/ë¶ˆíˆ¬ëª…í•˜ê²Œ ë§Œë“œëŠ” ì½”ë£¨í‹´
     {
-        if (cutsceneImage == null)
-            yield break;
-
+        if (cutsceneImage == null)  yield break;
         float elapsed = 0f;
         SetImageAlpha(startAlpha);
-
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-
             float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / fadeDuration);
             SetImageAlpha(alpha);
-
             yield return null;
         }
-
         SetImageAlpha(endAlpha);
     }
-
-    // ÀÌ¹ÌÁö ÄÃ·¯ÀÇ ¾ËÆÄ¸¸ º¯°æ
-    private void SetImageAlpha(float alpha)
+    private void SetImageAlpha(float alpha)  // ì´ë¯¸ì§€ ì»¬ëŸ¬ì˜ ì•ŒíŒŒë§Œ ë³€ê²½
     {
-        if (cutsceneImage == null)
-            return;
-
+        if (cutsceneImage == null)  return;
         Color color = cutsceneImage.color;
         color.a = alpha;
         cutsceneImage.color = color;
