@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13b148dc5bd7d8c4f9829dafd66fb8a1, type: 3}
-  m_Name: Ep_0SceneSoundProfile
+  m_Name: Ep_0_LobbySceneSoundProfile
   m_EditorClassIdentifier: 
   bgm: 2
   bgmLoop: 1
@@ -18,7 +18,7 @@ MonoBehaviour:
   ambientLoop: 1
   playBGMOnEnter: 1
   playAmbientOnEnter: 1
-  playerFootstep: 3
+  playerFootstep: 4
   playerJump: 1
   playerLand: 2
   playerFootstepAs3D: 1

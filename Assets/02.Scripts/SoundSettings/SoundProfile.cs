@@ -6,23 +6,23 @@ public class SoundProfile : ScriptableObject
     [Header("BGM 설정")]
     public SoundManager.BGMType bgm = SoundManager.BGMType.None;
     public bool bgmLoop = true;
-    public bool playBGMOnEnter = true;
 
     [Header("Ambient 설정")]
     public SoundManager.AmbientType ambient = SoundManager.AmbientType.None;
     public bool ambientLoop = true;
+
+    [Header("자동 재생 여부")]
+    public bool playBGMOnEnter = true;
     public bool playAmbientOnEnter = true;
 
-    [Header("씬 볼륨 제어 여부")]
-    public bool overrideBGMVolume = false;
-    [Range(0f, 1f)] public float bgmVolume = 1f;
+    [Header("플레이어 사운드 설정")]
+    public SoundManager.SFXType playerFootstep = SoundManager.SFXType.None;
+    public SoundManager.SFXType playerJump = SoundManager.SFXType.Jump;
+    public SoundManager.SFXType playerLand = SoundManager.SFXType.Land;
 
-    public bool overrideAmbientVolume = false;
-    [Range(0f, 1f)] public float ambientVolume = 1f;
+    public bool playerFootstepAs3D = true;
 
-    public bool overrideUIVolume = false;
-    [Range(0f, 1f)] public float uiVolume = 1f;
-
-    public bool overrideSFXVolume = false;
-    [Range(0f, 1f)] public float sfxVolume = 1f;
+    [Range(0f, 1f)] public float playerFootstepVolume = 0.7f;
+    [Range(0f, 1f)] public float playerJumpVolume = 1f;
+    [Range(0f, 1f)] public float playerLandVolume = 1f;
 }
