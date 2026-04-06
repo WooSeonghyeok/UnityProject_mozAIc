@@ -1,34 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class FinalPianoInteraction : MonoBehaviour
 {
     [Header("오디오 재생기")]
     [SerializeField] private AudioSource audioSource;
+
     [Header("재생할 곡 2개")]
     [SerializeField] private AudioClip musicA;
     [SerializeField] private AudioClip musicB;
+
     [Header("재생 설정")]
     [SerializeField] private bool stopCurrentMusicBeforePlay = true;
     [SerializeField] private bool allowReplayWhilePlaying = false;
+    [SerializeField] private bool playOnlyOnce = true;
+
+    [Header("재생 종료 후 호출할 이벤트")]
+    [SerializeField] private UnityEvent onMusicFinished;
+
     [Header("디버그")]
     [SerializeField] private bool debugLog = true;
-    // 상호작용 시 호출할 함수
-    // 두 곡 중 하나를 랜덤으로 골라 재생한다.
+
+    private bool hasPlayed = false;
+    private Coroutine musicWaitRoutine;
+
+    /// <summary>
+    /// 상호작용 시 호출할 함수
+    /// 두 곡 중 하나를 랜덤으로 골라 재생한다.
+    /// </summary>
     public void PlayRandomMusic()
     {
+        if (playOnlyOnce && hasPlayed)
+        {
+            if (debugLog)
+            {
+                Debug.Log("[FinalPianoInteraction] 이미 최종 연주가 실행되어 다시 재생하지 않습니다.");
+            }
+            return;
+        }
+
         if (audioSource == null)
         {
             Debug.LogWarning("[FinalPianoInteraction] AudioSource가 연결되지 않았습니다.");
             return;
         }
+
         if (musicA == null && musicB == null)
         {
             Debug.LogWarning("[FinalPianoInteraction] 재생할 AudioClip이 없습니다.");
             return;
         }
-        // 이미 재생 중일 때 다시 재생을 막고 싶으면 여기서 종료
+
         if (!allowReplayWhilePlaying && audioSource.isPlaying)
         {
             if (debugLog)
@@ -37,8 +59,9 @@ public class FinalPianoInteraction : MonoBehaviour
             }
             return;
         }
-        // 둘 중 하나만 있을 경우 그 곡을 재생
+
         AudioClip selectedClip = null;
+
         if (musicA != null && musicB != null)
         {
             selectedClip = Random.value < 0.5f ? musicA : musicB;
@@ -51,35 +74,83 @@ public class FinalPianoInteraction : MonoBehaviour
         {
             selectedClip = musicB;
         }
+
         if (stopCurrentMusicBeforePlay)
         {
             audioSource.Stop();
         }
+
         audioSource.clip = selectedClip;
         audioSource.Play();
+        hasPlayed = true;
+
+        if (musicWaitRoutine != null)
+        {
+            StopCoroutine(musicWaitRoutine);
+        }
+        musicWaitRoutine = StartCoroutine(CoWaitMusicEnd(selectedClip.length));
+
         if (debugLog)
         {
             Debug.Log($"[FinalPianoInteraction] 랜덤 곡 재생: {selectedClip.name}");
         }
     }
-    // 나중에 컷신을 넣고 싶을 때 확장하기 쉬운 진입 함수
-    // 지금은 컷신 없이 바로 랜덤 곡 재생만 수행한다.
+
+    /// <summary>
+    /// 컷씬 없이 바로 음악 재생 + 저장 처리
+    /// </summary>
     public void PlayCutsceneThenMusic()
     {
         PlayRandomMusic();
-        SaveManager.instance.curData.ep4_open = true;
+
+        if (SaveManager.instance != null && SaveManager.instance.curData != null)
+        {
+            SaveManager.instance.curData.ep4_open = true;
+
+            if (debugLog)
+            {
+                Debug.Log("[FinalPianoInteraction] ep4_open 저장 완료");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[FinalPianoInteraction] SaveManager 또는 curData가 없습니다.");
+        }
     }
-    // 현재 재생 중인 곡을 멈추고 싶을 때 사용할 수 있는 함수
+
+    /// <summary>
+    /// 현재 재생 중인 곡을 멈춘다.
+    /// </summary>
     public void StopMusic()
     {
         if (audioSource == null)
         {
             return;
         }
+
         audioSource.Stop();
+
+        if (musicWaitRoutine != null)
+        {
+            StopCoroutine(musicWaitRoutine);
+            musicWaitRoutine = null;
+        }
+
         if (debugLog)
         {
             Debug.Log("[FinalPianoInteraction] 곡 재생 중지");
         }
+    }
+
+    private System.Collections.IEnumerator CoWaitMusicEnd(float clipLength)
+    {
+        yield return new WaitForSeconds(clipLength);
+
+        if (debugLog)
+        {
+            Debug.Log("[FinalPianoInteraction] 곡 재생 종료");
+        }
+
+        onMusicFinished?.Invoke();
     }
 }
