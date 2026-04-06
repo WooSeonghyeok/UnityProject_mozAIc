@@ -16,6 +16,7 @@ public class Ep4_Puzzle1_MemoryPiece : MonoBehaviour
             if (isCollected) return;
             isCollected = true;
             collectMemory?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 }
