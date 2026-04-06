@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Ep4_Puzzle1Manager : MonoBehaviour
 {
     public GameObject Pillars;

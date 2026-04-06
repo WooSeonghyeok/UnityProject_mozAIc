@@ -51,7 +51,7 @@ public class PieceCollect_EP4 : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, effectSpawnPos);
         }
         // 4. 매니저에 수집 보고
-        Ep4_3Manager manager = FindObjectOfType<Ep4_3Manager>();
+        Ep4_Puzzle3Manager manager = FindObjectOfType<Ep4_Puzzle3Manager>();
         if (manager != null)
         {
             manager.AddPiece();

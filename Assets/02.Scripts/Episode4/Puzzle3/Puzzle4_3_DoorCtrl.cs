@@ -7,7 +7,7 @@ public class Puzzle4_3_DoorCtrl : MonoBehaviour
     private WaitForSeconds ws;
     private void Awake()
     {
-        var ep = FindObjectOfType<Ep4_3Manager>();
+        var ep = FindObjectOfType<Ep4_Puzzle3Manager>();
         if (ep != null)
         {
             ep.onAllPiecesCollected.AddListener(OnAllPiecesCollected);

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// 3-1 스테이지 진행 관리 (수정: 모든 조각 수집 이벤트 추가)
 /// </summary>
-public class Ep4_3Manager : MonoBehaviour
+public class Ep4_Puzzle3Manager : MonoBehaviour
 {
     [Header("조각/수집")]
     [SerializeField] private int collectedPieceCount = 0;
