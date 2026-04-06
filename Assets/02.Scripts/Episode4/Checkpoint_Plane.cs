@@ -28,13 +28,12 @@ public class Checkpoint_Plane : MonoBehaviour
         {
             cpProgress[3] = new Dictionary<int, bool>();
         }
-        cpProgress[3][cpNum] = true;
         switch (cpNum)
         {
-            case 0: SaveManager.instance.curData.ep4_open = !cpProgress[3][0]; break;
-            case 1: SaveManager.instance.curData.ep4_puzzle1Clear = !cpProgress[3][1]; break;
-            case 2: SaveManager.instance.curData.ep4_puzzle2Clear = !cpProgress[3][2]; break;
-            case 3: SaveManager.instance.curData.ep4_puzzle3Clear = !cpProgress[3][3]; break;
+            case 0: cpProgress[3][0] = SaveManager.instance.curData.ep4_open; break;
+            case 1: cpProgress[3][1] = SaveManager.instance.curData.ep4_puzzle1Clear; break;
+            case 2: cpProgress[3][2] = SaveManager.instance.curData.ep4_puzzle2Clear; break;
+            case 3: cpProgress[3][3] = SaveManager.instance.curData.ep4_puzzle3Clear; break;
         }
     }
     public static bool IsCheckpointCleared(int cpNum)

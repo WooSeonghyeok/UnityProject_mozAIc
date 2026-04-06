@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("플레이어 사운드")]
+    [SerializeField] private PlayerSound playerSound;
+
+    [Header("발걸음 설정")]
+    [SerializeField] private float walkFootstepInterval = 0.5f;
+    [SerializeField] private float sprintFootstepInterval = 0.35f;
+
+    private float footstepTimer = 0f;
+    private bool wasGrounded = false;
+
     [Header ("이동속도")]
     public float walkSpeed = 4f;  // 걷기 속도
     public float sprintSpeed = 6f;  // 달리기 속도
@@ -53,13 +63,21 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         input = GetComponent<PlayerInput>();
         cam = Camera.main;
-        yaw = transform.eulerAngles.y;  // 초기 회전값 설정
+        yaw = transform.eulerAngles.y;
         capsuleCollider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
         iceSlide = GetComponent<IceSlideRigidbody>();
+
+        if (playerSound == null)
+            playerSound = GetComponent<PlayerSound>();
+    }
+    private void Start()
+    {
+        CheckGround();
+        wasGrounded = isGrounded;
     }
 
-        // 외부(ChatNPCManager)에서 호출해서 이동 잠금/해제를 제어
+    // 외부(ChatNPCManager)에서 호출해서 이동 잠금/해제를 제어
     public void SetMoveLock(bool isLocked)
     {
         isMoveLocked = isLocked;
@@ -83,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool(hashCanMove, false);
                 animator.SetFloat(hashSpeed, 0f);
             }
+            footstepTimer = 0f;
         }
     }
     private void Update()
@@ -97,14 +116,19 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-              // 대화 중에는 물리 이동/점프도 막음
         if (isMoveLocked)
         {
+            footstepTimer = 0f;
             return;
         }
-        CheckGround(); // 현재 바닥 상태 체크
-        Move();        // 물리 이동 처리
-        Jump();        // 점프 처리
+
+        CheckGround();
+        HandleLandingSound();
+        Move();
+        Jump();
+        HandleFootstep();
+
+        wasGrounded = isGrounded;
     }
 
     void Move()
@@ -166,6 +190,42 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(nextPos); // Rigidbody를 이용해 이동
         }
     }
+
+    void HandleFootstep()
+    {
+        // 바닥 위가 아니면 발걸음 리셋
+        if (!isGrounded)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        // 슬라이딩 중이면 발걸음 안 냄
+        if (iceSlide != null && iceSlide.enabled && iceSlide.IsSliding())
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        // 이동 입력이 없으면 발걸음 안 냄
+        bool hasMoveInput = input.moveInput.sqrMagnitude > 0.01f;
+        if (!hasMoveInput)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        float currentInterval = input.isSprint ? sprintFootstepInterval : walkFootstepInterval;
+
+        footstepTimer += Time.fixedDeltaTime;
+
+        if (footstepTimer >= currentInterval)
+        {
+            footstepTimer = 0f;
+            playerSound?.PlayFootstep();
+        }
+    }
+
     void RotateCamera()
     {
         Vector2 look = input.lookInput;  // 마우스 입력
@@ -230,32 +290,37 @@ public class PlayerMovement : MonoBehaviour
             isGrounded ? Color.green : Color.red
         );
     }
-    
+
     void Jump()
     {
-        // 점프 입력이 없으면 실행 안 함
         if (!input.jumpTriggered)
             return;
 
-        // 점프 입력은 1회 처리 후 바로 초기화
         input.jumpTriggered = false;
 
-        // 바닥 위에 있을 때만 점프 가능
         if (!isGrounded)
         {
             Debug.Log("바닥 아님");
             return;
         }
 
-
-        // 점프 직전 y속도만 초기화
         Vector3 velocity = rb.velocity;
         velocity.y = 0f;
         rb.velocity = velocity;
 
-        // 위쪽으로 힘을 줘서 점프
+        playerSound?.PlayJump();   // 점프 성공 사운드
+
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         animator.SetTrigger(hashJump);
+    }
+
+    void HandleLandingSound()
+    {
+        // 이전 프레임엔 공중, 현재는 바닥이면 착지
+        if (!wasGrounded && isGrounded)
+        {
+            playerSound?.PlayLand();
+        }
     }
 
     void UpdateAnimation()

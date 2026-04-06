@@ -74,6 +74,24 @@ public class Ep4_CutsceneManager : MonoBehaviour
         StartCoroutine(TalkSay("기억을 되찾는 건 끝났어.\n이제는 네가 그걸 네 삶으로 받아들일 차례야.", Color.white));
         UserCtrl(true);
     }
+    public IEnumerator Puzzle1Complete()
+    {
+        StartCoroutine(TalkSay("나, 너랑 놀았던 거 계속 기억하고 있었어.", Color.red));
+        yield return oneSec;
+        StartCoroutine(TalkSay("그래서 다시 만날 수 있었던 거야.", Color.red));
+    }
+    public IEnumerator Puzzle2Complete()
+    {
+        StartCoroutine(TalkSay("혼자였던 적은 없었어.", Color.green));
+        yield return oneSec;
+        StartCoroutine(TalkSay("우린 같이 그렸고, 같이 고민했지.", Color.green));
+    }
+    public IEnumerator Puzzle3Complete()
+    {
+        StartCoroutine(TalkSay("이 노래… 결국 들려줄 수 있어서 다행이야.", Color.blue));
+        yield return oneSec;
+        StartCoroutine(TalkSay("이제는… 네가 기억해줘.", Color.blue));
+    }
     public IEnumerator Stage4Climax()
     {
         if (endNPCZoneArrived == true) yield break;
