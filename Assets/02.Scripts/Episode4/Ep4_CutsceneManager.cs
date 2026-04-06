@@ -18,7 +18,8 @@ public class Ep4_CutsceneManager : MonoBehaviour
     public CinemachineVirtualCamera gazeCam;
     public CutsceneImagePlayer Ep4_StartCutscene;
     public CutsceneImagePlayer Ep4_ClimaxCutscene;
-    public CutsceneImagePlayer Ep4_EndCutscene;
+    public CutsceneImagePlayer Ep4_EndCutscene1;
+    public CutsceneImagePlayer Ep4_EndCutscene2;
     void Awake()
     {
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
@@ -110,14 +111,16 @@ public class Ep4_CutsceneManager : MonoBehaviour
     }
     public IEnumerator SyncEnding()
     {
-        Ep4_EndCutscene.PlayCutscene();
+        Ep4_EndCutscene1.PlayCutscene();
         UserCtrl(false);
         StartCoroutine(TalkSay("이제 괜찮아. 넌 계속 여기 있었으니까.", Color.red));
         yield return oneSec;
         StartCoroutine(TalkSay("잊고 있던 게 아니라, 다시 그려야 했던 거야.", Color.green));
         yield return oneSec;
         StartCoroutine(TalkSay("멈춘 게 아니라... 마지막 음을 기다리고 있었던 거야.", Color.blue));
-        yield return new WaitForSecondsRealtime(10f);
+        yield return oneSec;
+        Ep4_EndCutscene2.PlayCutscene();
+        yield return new WaitForSecondsRealtime(7f);
         SceneManager.LoadScene("EndingScene");
     }
     private void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
