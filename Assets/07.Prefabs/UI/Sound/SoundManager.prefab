@@ -522,29 +522,110 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
     - {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
   sfxEntries:
+  - type: 1
+    clips:
+    - {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
+  - type: 2
+    clips:
+    - {fileID: 8300000, guid: 3d8f480d252db9449b2f978284506f8e, type: 3}
+  - type: 3
+    clips:
+    - {fileID: 8300000, guid: 1f0199a4c6005ec4abbb302f71bc036d, type: 3}
   - type: 4
     clips:
-    - {fileID: 8300000, guid: adcac75087a17704ca6c0c3b15bc3aa5, type: 3}
-  - type: 9
-    clips:
-    - {fileID: 8300000, guid: 34f9cbd28a9740349b6cc2f5e280dda3, type: 3}
-  - type: 7
-    clips:
-    - {fileID: 8300000, guid: 324a8dc9744c98c4b880b613b1c1b121, type: 3}
-  - type: 8
-    clips:
-    - {fileID: 8300000, guid: 0f5cddc9ff2b9cb4eae089d5d1282542, type: 3}
-  - type: 17
-    clips:
-    - {fileID: 8300000, guid: 76a1fbeeddb9a324c9409b207ea2861b, type: 3}
-  - type: 18
-    clips:
-    - {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
+    - {fileID: 8300000, guid: b995bc1775ea83b4b8f861763e9a1424, type: 3}
   - type: 5
     clips:
-    - {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
+    - {fileID: 8300000, guid: 38cb68a2a49e89c46bea091d75b27976, type: 3}
+  - type: 6
+    clips:
+    - {fileID: 8300000, guid: 61abfb7bb17151f458862ef823ac0932, type: 3}
+  - type: 7
+    clips:
+    - {fileID: 8300000, guid: 6ad0cf00f050bee41a2dee098475dc78, type: 3}
+  - type: 8
+    clips:
+    - {fileID: 8300000, guid: c41fb169b2991c247a5466e00faa6639, type: 3}
+  - type: 9
+    clips:
+    - {fileID: 8300000, guid: 76c66b3ae15685a45a334b0628d1edd1, type: 3}
+  - type: 10
+    clips:
+    - {fileID: 8300000, guid: 30668cf6c5cbfef478b0812fc59eb646, type: 3}
   - type: 11
     clips:
+    - {fileID: 8300000, guid: 0bc66974c41ff8c4fa15f46d21ad3548, type: 3}
+  - type: 12
+    clips:
+    - {fileID: 8300000, guid: ee5109b2ca7428843a14b6a36dda384f, type: 3}
+  - type: 13
+    clips:
+    - {fileID: 8300000, guid: 7c85c1193002215499b462f763701072, type: 3}
+  - type: 14
+    clips:
+    - {fileID: 8300000, guid: 314d37dfb74502a4094b835d0e0d6c23, type: 3}
+  - type: 15
+    clips:
+    - {fileID: 8300000, guid: adcac75087a17704ca6c0c3b15bc3aa5, type: 3}
+  - type: 16
+    clips:
+    - {fileID: 8300000, guid: ea08e11d2b98d72488c61d114373b047, type: 3}
+  - type: 17
+    clips:
+    - {fileID: 8300000, guid: ea08e11d2b98d72488c61d114373b047, type: 3}
+  - type: 18
+    clips:
+    - {fileID: 8300000, guid: c6861b770852e914c8c9b4932bd65e3d, type: 3}
+  - type: 19
+    clips:
+    - {fileID: 8300000, guid: 3bba3736cfb91754db484da3ea36a907, type: 3}
+  - type: 20
+    clips:
+    - {fileID: 8300000, guid: 4a0d16b17b8f4be4cb7e267dbd24a2d4, type: 3}
+  - type: 21
+    clips:
+    - {fileID: 8300000, guid: 6c196d43482264746ae645d0733297cd, type: 3}
+  - type: 22
+    clips:
+    - {fileID: 8300000, guid: 25c32590ca6d5fb4091782c76566abd8, type: 3}
+  - type: 24
+    clips:
+    - {fileID: 8300000, guid: 76a1fbeeddb9a324c9409b207ea2861b, type: 3}
+  - type: 25
+    clips:
+    - {fileID: 8300000, guid: 0ce731c31354baa4595369b6b0e13ca2, type: 3}
+  - type: 26
+    clips:
     - {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
+  - type: 27
+    clips:
+    - {fileID: 8300000, guid: 324a8dc9744c98c4b880b613b1c1b121, type: 3}
+  - type: 28
+    clips:
+    - {fileID: 8300000, guid: 0f5cddc9ff2b9cb4eae089d5d1282542, type: 3}
+  - type: 29
+    clips:
+    - {fileID: 8300000, guid: 34f9cbd28a9740349b6cc2f5e280dda3, type: 3}
+  - type: 30
+    clips:
+    - {fileID: 8300000, guid: 845300b0e46c7854a886dcbc3ebacc6c, type: 3}
+  - type: 31
+    clips:
+    - {fileID: 8300000, guid: 388c360750dfcd34eac2b0be237adf65, type: 3}
+  - type: 32
+    clips:
+    - {fileID: 8300000, guid: 7407a1a4192424245afdf361403410d9, type: 3}
+  - type: 33
+    clips:
+    - {fileID: 8300000, guid: 126a7914023294e2faf8108acc1e9a71, type: 3}
+  - type: 34
+    clips:
+    - {fileID: 8300000, guid: fd384fbeae6d47a4885da9baa2413a69, type: 3}
+  - type: 35
+    clips:
+    - {fileID: 8300000, guid: 5ade997c26169ed46a3b91c74cad7726, type: 3}
+  - type: 36
+    clips:
+    - {fileID: 8300000, guid: 53c802b86fac780458b92d4af5052374, type: 3}
   useAutoSceneBGM: 1
   useAutoSceneAmbient: 1

@@ -9,34 +9,28 @@ public class SoundController : MonoBehaviour
         if (profile == null) return;
         if (SoundManager.Instance == null) return;
 
-        ApplyProfile();
+        ApplySceneSound();
+        ApplyPlayerSound();
     }
 
-    private void ApplyProfile()
+    private void ApplySceneSound()
     {
-        // 볼륨 먼저 적용
-        if (profile.overrideBGMVolume)
-            SoundManager.Instance.SetBGMVolume(profile.bgmVolume);
-
-        if (profile.overrideAmbientVolume)
-            SoundManager.Instance.SetAmbientVolume(profile.ambientVolume);
-
-        if (profile.overrideUIVolume)
-            SoundManager.Instance.SetUIVolume(profile.uiVolume);
-
-        if (profile.overrideSFXVolume)
-            SoundManager.Instance.SetSFXVolume(profile.sfxVolume);
-
-        // BGM 적용
         if (profile.playBGMOnEnter)
         {
             SoundManager.Instance.PlayBGM(profile.bgm, profile.bgmLoop);
         }
 
-        // Ambient 적용
         if (profile.playAmbientOnEnter)
         {
             SoundManager.Instance.PlayAmbient(profile.ambient, profile.ambientLoop);
         }
+    }
+
+    private void ApplyPlayerSound()
+    {
+        PlayerSound playerSound = FindFirstObjectByType<PlayerSound>();
+        if (playerSound == null) return;
+
+        playerSound.ApplySceneSoundProfile(profile);
     }
 }

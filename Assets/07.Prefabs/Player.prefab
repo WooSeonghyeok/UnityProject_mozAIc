@@ -72,7 +72,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -80,11 +80,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.x
@@ -92,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalRotation.z
@@ -104,7 +104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -183,6 +183,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6599143563698338417}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4892447666776595504}
   m_SourcePrefab: {fileID: 100100000, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}
 --- !u!1 &131537319511755451 stripped
 GameObject:
@@ -365,19 +368,7 @@ MonoBehaviour:
     m_ActionId: b97331ad-5c2a-4dbe-bf69-745c02cdd8ce
     m_ActionName: UI/Quit[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3875565683174984039}
-        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
-        m_MethodName: OnCancel
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 593773ae-f495-46d5-8bcc-cde817d696be
     m_ActionName: Player/Cancel[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
@@ -416,6 +407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f525ea8a2508042bfd059e848ae4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSound: {fileID: 0}
+  walkFootstepInterval: 0.5
+  sprintFootstepInterval: 0.35
   walkSpeed: 4
   sprintSpeed: 6
   rotSpeed: 10
@@ -507,6 +501,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cpPlace: {fileID: 0}
+--- !u!114 &4892447666776595504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131537319511755451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c311f4aadced643a36ecfa08ada279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepSFX: 3
+  jumpSFX: 1
+  landSFX: 2
+  footstepAs3D: 1
+  footstepVolume: 0.7
+  jumpVolume: 0.6
+  landVolume: 0.6
 --- !u!4 &763501777856548865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 71f28e192ddf6ca41b55cc843346449a, type: 3}

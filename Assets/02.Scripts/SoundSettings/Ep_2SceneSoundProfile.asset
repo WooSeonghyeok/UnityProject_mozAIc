@@ -14,15 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgm: 6
   bgmLoop: 1
-  playBGMOnEnter: 1
   ambient: 5
   ambientLoop: 1
+  playBGMOnEnter: 1
   playAmbientOnEnter: 1
-  overrideBGMVolume: 0
-  bgmVolume: 1
-  overrideAmbientVolume: 0
-  ambientVolume: 1
-  overrideUIVolume: 0
-  uiVolume: 1
-  overrideSFXVolume: 0
-  sfxVolume: 1
+  playerFootstep: 8
+  playerJump: 1
+  playerLand: 2
+  playerFootstepAs3D: 1
+  playerFootstepVolume: 0.7
+  playerJumpVolume: 1
+  playerLandVolume: 1

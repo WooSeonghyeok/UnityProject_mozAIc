@@ -77,6 +77,20 @@ public class SoundManager : MonoBehaviour
         Jump,
         Land,
 
+        //플레이어 풋스탭
+        Footstep_Ep_Opening,
+        Footstep_Ep_0_Lobby,
+        Footstep_Ep1_Village,
+        Footstep_Ep1_1,
+        Footstep_Ep1_2,
+        Footstep_Ep2_Studio,
+        Footstep_Ep2_1,
+        Footstep_Ep2_2,
+        Footstep_Ep3_Lobby,
+        Footstep_Ep3_1,
+        Footstep_Ep3_2,
+        Footstep_Ep4,
+
         //에피소드 공용
         PortalPass,
 
