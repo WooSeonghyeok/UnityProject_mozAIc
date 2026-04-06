@@ -6192,7 +6192,7 @@ MonoBehaviour:
   coreCam: {fileID: 28479025}
   gazeCam: {fileID: 546299434}
   Ep4_StartCutscene: {fileID: 1131158352}
-  Ep4_ClimaxCutscene: {fileID: 0}
+  Ep4_ClimaxCutscene: {fileID: 1600727878}
   Ep4_EndCutscene: {fileID: 1939412927}
 --- !u!4 &470098376
 Transform:
@@ -30293,59 +30293,6 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2421372674214586467, guid: 5c93bded40fcce747b7d192a401a7e3e, type: 3}
   m_PrefabInstance: {fileID: 1599177530}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1599951796
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 100000, guid: c6d74c76f55628c4c8c2933aade2f531, type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1599951798}
-  - component: {fileID: 1599951797}
-  m_Layer: 0
-  m_Name: 
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &1599951797
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599951796}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.999998, y: 3.1551373, z: 0.94349265}
-  m_Center: {x: -2.000001, y: 1.5775687, z: -0.015716717}
---- !u!4 &1599951798
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599951796}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1600727876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30464,6 +30411,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6844964058201394036, guid: c920af6f46708a341a638f54a6e7056b, type: 3}
   m_PrefabInstance: {fileID: 1600727876}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1600727878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5694942922352623018, guid: c920af6f46708a341a638f54a6e7056b, type: 3}
+  m_PrefabInstance: {fileID: 1600727876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11dc4ff6f9394d948b0291e13f14a4ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1601616737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8692541880630073033, guid: ec5b4794442801749962b02afd114e12, type: 3}
@@ -30530,37 +30488,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 528a07cde8c02904fa03d143caa35e10, type: 3}
---- !u!1 &1608852929
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1608852930}
-  m_Layer: 3
-  m_Name: memory_3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1608852930
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608852929}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.8660254, z: -0, w: -0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
 --- !u!1001 &1610416224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41341,7 +41268,6 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1599951798}
   - {fileID: 666767936}
   - {fileID: 1324499789}
   - {fileID: 292202127}
@@ -41361,4 +41287,3 @@ SceneRoots:
   - {fileID: 1452329433}
   - {fileID: 1608328928}
   - {fileID: 470098376}
-  - {fileID: 1608852930}
