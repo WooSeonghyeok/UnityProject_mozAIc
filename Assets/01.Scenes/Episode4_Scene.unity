@@ -32816,7 +32816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxType: 34
-  playAs3D: 1
+  playAs3D: 0
   volumeScale: 1
 --- !u!1001 &1745633804
 PrefabInstance:
