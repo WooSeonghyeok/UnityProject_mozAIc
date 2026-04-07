@@ -18,7 +18,8 @@ public class Ep4_CutsceneManager : MonoBehaviour
     public CinemachineVirtualCamera gazeCam;
     public CutsceneImagePlayer Ep4_StartCutscene;
     public CutsceneImagePlayer Ep4_ClimaxCutscene;
-    public CutsceneImagePlayer Ep4_EndCutscene;
+    public CutsceneImagePlayer Ep4_EndCutscene1;
+    public CutsceneImagePlayer Ep4_EndCutscene2;
     void Awake()
     {
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
@@ -74,6 +75,24 @@ public class Ep4_CutsceneManager : MonoBehaviour
         StartCoroutine(TalkSay("기억을 되찾는 건 끝났어.\n이제는 네가 그걸 네 삶으로 받아들일 차례야.", Color.white));
         UserCtrl(true);
     }
+    public IEnumerator Puzzle1Complete()
+    {
+        StartCoroutine(TalkSay("나, 너랑 놀았던 거 계속 기억하고 있었어.", Color.red));
+        yield return oneSec;
+        StartCoroutine(TalkSay("그래서 다시 만날 수 있었던 거야.", Color.red));
+    }
+    public IEnumerator Puzzle2Complete()
+    {
+        StartCoroutine(TalkSay("혼자였던 적은 없었어.", Color.green));
+        yield return oneSec;
+        StartCoroutine(TalkSay("우린 같이 그렸고, 같이 고민했지.", Color.green));
+    }
+    public IEnumerator Puzzle3Complete()
+    {
+        StartCoroutine(TalkSay("이 노래… 결국 들려줄 수 있어서 다행이야.", Color.blue));
+        yield return oneSec;
+        StartCoroutine(TalkSay("이제는… 네가 기억해줘.", Color.blue));
+    }
     public IEnumerator Stage4Climax()
     {
         if (endNPCZoneArrived == true) yield break;
@@ -92,14 +111,16 @@ public class Ep4_CutsceneManager : MonoBehaviour
     }
     public IEnumerator SyncEnding()
     {
-        Ep4_EndCutscene.PlayCutscene();
+        Ep4_EndCutscene1.PlayCutscene();
         UserCtrl(false);
         StartCoroutine(TalkSay("이제 괜찮아. 넌 계속 여기 있었으니까.", Color.red));
         yield return oneSec;
         StartCoroutine(TalkSay("잊고 있던 게 아니라, 다시 그려야 했던 거야.", Color.green));
         yield return oneSec;
         StartCoroutine(TalkSay("멈춘 게 아니라... 마지막 음을 기다리고 있었던 거야.", Color.blue));
-        yield return new WaitForSecondsRealtime(10f);
+        yield return oneSec;
+        Ep4_EndCutscene2.PlayCutscene();
+        yield return new WaitForSecondsRealtime(7f);
         SceneManager.LoadScene("EndingScene");
     }
     private void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
