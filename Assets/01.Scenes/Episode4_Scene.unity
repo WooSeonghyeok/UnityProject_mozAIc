@@ -6313,16 +6313,16 @@ MonoBehaviour:
   curSaveData:
     ID: 0
     savedTime: 
-    ep1_open: 0
+    ep1_open: 1
     ep1_isCaveUnlocked: 1
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
+    ep1_isPuzzleCleared: 1
+    ep2_open: 1
+    ep2_spaceClear: 1
+    ep2_paintClear: 1
+    ep3_open: 1
+    ep3_jumpClear: 1
+    ep3_paperClear: 1
+    ep4_open: 1
     ep4_puzzle1Clear: 0
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
@@ -9494,7 +9494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2940681631683755960, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2940681631683755960, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9502,7 +9502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2940681631683755960, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3999646001614652988, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_Name
@@ -9514,7 +9514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5441001825047086319, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5441001825047086319, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y
@@ -19991,7 +19991,7 @@ PrefabInstance:
     - target: {fileID: 5694942922352623018, guid: b99da07c24cea7c408f6d592dbbc8fe1, type: 3}
       propertyPath: cutsceneSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 530663538, guid: 6457f84c7ea685848b4bc0a34255497f, type: 3}
+      objectReference: {fileID: 21300000, guid: 0c03a687fe190e14697ec444e8d4b9bd, type: 3}
     - target: {fileID: 6054876049045596215, guid: b99da07c24cea7c408f6d592dbbc8fe1, type: 3}
       propertyPath: m_Name
       value: CutscenePlayer_EP4Start
@@ -32807,6 +32807,7 @@ GameObject:
   - component: {fileID: 1743580815}
   - component: {fileID: 1743580816}
   - component: {fileID: 1743580817}
+  - component: {fileID: 1743580818}
   m_Layer: 0
   m_Name: Puzzle_4
   m_TagString: Puzzle4Zone
@@ -32881,6 +32882,21 @@ MonoBehaviour:
   egoSync: 0
   cutsceneManager: {fileID: 470098375}
   puzzle4MemoryRate: 0
+--- !u!114 &1743580818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743580814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47319ef752ba4844f98be0a3aedf782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxType: 34
+  playAs3D: 1
+  volumeScale: 1
 --- !u!1001 &1745633804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36009,7 +36025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: de460fc148dd0454ea973c983004e024, type: 3}
       propertyPath: imageShowTime
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: de460fc148dd0454ea973c983004e024, type: 3}
       propertyPath: playerMovement
@@ -40587,7 +40603,6 @@ GameObject:
   - component: {fileID: 2132636886}
   - component: {fileID: 2132636885}
   - component: {fileID: 2132636884}
-  - component: {fileID: 2132636888}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -40686,102 +40701,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!82 &2132636888
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132636883}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 90909d626b9749949b15a8ed573579dc, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 10
-  MaxDistance: 50
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &2137760653
 GameObject:
   m_ObjectHideFlags: 0

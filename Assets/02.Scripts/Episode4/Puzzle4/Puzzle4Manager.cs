@@ -24,6 +24,7 @@ public class Puzzle4Manager : MonoBehaviour
     [SerializeField] private float egoSync = 0f;
     public Ep4_CutsceneManager cutsceneManager;
     public float puzzle4MemoryRate = 0f;
+    private SoundTrigger sound;
     void Awake()
     {
         if (instance == null) instance = this;
@@ -35,6 +36,7 @@ public class Puzzle4Manager : MonoBehaviour
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
+        sound = GetComponent<SoundTrigger>();
 #if UNITY_EDITOR
         switchText.gameObject.SetActive(true);
 #else
@@ -107,13 +109,19 @@ public class Puzzle4Manager : MonoBehaviour
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
         switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
+        FinalScore();
+        sound.Play();
+    }
+
+    private void FinalScore()
+    {
         puzzle4MemoryRate += Mathf.RoundToInt(switch_total * 0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
         puzzle4MemoryRate += retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
         puzzle4MemoryRate = Math.Clamp(puzzle4MemoryRate, 0, 5f);  //각 퍼즐당 최대 5점까지
         EndingConditionData.memory_reconstruction_rate -= (int)(puzzle4MemoryRate);  //이전까지 총 점수에서 감점
         SaveManager.instance.curData.memory_reconstruction_rate = EndingConditionData.memory_reconstruction_rate;
         Debug.Log($"최종점수: {EndingConditionData.memory_reconstruction_rate}");
-        if(egoSync == 1f)  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
+        if (egoSync == 1f)  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
         {
             EndingConditionData.self_voice = true;
             foreach (IsTagGet lastTag in SaveManager.instance.curData.MemoryTag)
@@ -124,6 +132,7 @@ public class Puzzle4Manager : MonoBehaviour
         }
         scoreFinished = true;  //마지막 점수 계산 종료 확인
     }
+
     public void SyncCheck()  //자아 통합도 계산
     {
         if (acube == null || acube.Length == 0 || lastCube == null)
