@@ -167,6 +167,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource ambientSource;  // 환경음 전용
     [SerializeField] private AudioSource uiSource;       // UI 사운드 전용
     [SerializeField] private AudioSource sfxSource;      // 일반 효과음 전용
+    [SerializeField] private AudioSource loopSfxSource;   // 루프 효과음 전용
 
     [Header("볼륨")]
     [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
@@ -567,6 +568,46 @@ public class SoundManager : MonoBehaviour
         sfxSource.pitch = oldPitch;
     }
 
+    /// <summary>
+    /// 루프형 SFX 재생
+    /// - 슬라이딩
+    /// </summary>
+    public void PlayLoopSFX(SFXType type, float volumeScale = 1f)
+    {
+        if (type == SFXType.None) return;
+        if (loopSfxSource == null) return;
+
+        if (!sfxDict.TryGetValue(type, out AudioClip[] clips))
+        {
+            Debug.LogWarning($"[SoundManager] Loop SFX 클립이 등록되지 않음: {type}");
+            return;
+        }
+
+        AudioClip clip = GetRandomClip(clips);
+        if (clip == null) return;
+
+        // 이미 같은 루프 SFX가 재생 중이면 중복 재생 안 함
+        if (loopSfxSource.isPlaying && loopSfxSource.clip == clip)
+            return;
+
+        loopSfxSource.Stop();
+        loopSfxSource.clip = clip;
+        loopSfxSource.loop = true;
+        loopSfxSource.volume = masterVolume * sfxVolume * Mathf.Clamp01(volumeScale);
+        loopSfxSource.Play();
+    }
+
+    /// <summary>
+    /// 현재 재생 중인 루프형 SFX 정지
+    /// </summary>
+    public void StopLoopSFX()
+    {
+        if (loopSfxSource == null) return;
+
+        loopSfxSource.Stop();
+        loopSfxSource.clip = null;
+        loopSfxSource.loop = false;
+    }
     /// <summary>
     /// 3D 위치 기반 효과음 재생
     /// - 문 여는 소리
