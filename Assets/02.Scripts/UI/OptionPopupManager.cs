@@ -22,7 +22,7 @@ public class OptionPopupManager : MonoBehaviour
     void Start()
     {
         if (!PlayerPrefs.HasKey(volumeKey)) PlayerPrefs.SetFloat(volumeKey, 1f);
-        if (!PlayerPrefs.HasKey(mouseKey)) PlayerPrefs.SetFloat(mouseKey, 0.05f);
+        if (!PlayerPrefs.HasKey(mouseKey)) PlayerPrefs.SetFloat(mouseKey, 0.5f);
         if (!PlayerPrefs.HasKey(bgmVolKey)) PlayerPrefs.SetFloat(bgmVolKey, 1f);
         if (!PlayerPrefs.HasKey(ambVolKey)) PlayerPrefs.SetFloat(ambVolKey, 1f);
         if (!PlayerPrefs.HasKey(uiVolKey)) PlayerPrefs.SetFloat(uiVolKey, 1f);
@@ -52,7 +52,7 @@ public class OptionPopupManager : MonoBehaviour
     }
     void UpdateMouseText(float value)
     {
-        mouseValue.text = $"{Mathf.RoundToInt(value * 100)}";
+        mouseValue.text = $"{Mathf.RoundToInt(value * 10)}";
     }
     public void OnVolumeChanged(float volume)
     {

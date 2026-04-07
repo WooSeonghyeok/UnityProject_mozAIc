@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private readonly int hashCanMove = Animator.StringToHash("CanMove");
     private readonly int hashIsSliding = Animator.StringToHash("IsSliding");
     private IceSlideRigidbody iceSlide;  // 슬라이딩 참조
+    const string mouseKey = "Sensitivity";  // 옵션 팝업에서 마우스 감도를 저장하는 키
 
     // 바닥 검사 결과를 담아둘 버퍼
     private Collider[] groundHits = new Collider[10];
@@ -231,10 +232,10 @@ public class PlayerMovement : MonoBehaviour
         Vector2 look = input.lookInput;  // 마우스 입력
 
         // 좌우 회전 (Player 기준)
-        yaw += look.x * sensitivity;
+        yaw += look.x * sensitivity * PlayerPrefs.GetFloat(mouseKey);
 
         // 상하 회전
-        pitch -= look.y * sensitivity;
+        pitch -= look.y * sensitivity * PlayerPrefs.GetFloat(mouseKey);
         pitch = Mathf.Clamp(pitch, minY, maxY);
 
         // Player 회전
