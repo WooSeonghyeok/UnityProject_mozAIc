@@ -13,8 +13,7 @@ public class EP4_CubeSwitch : MonoBehaviour
     private PlayerMovement userMove;
     private readonly string playerTag = "Player";
     public event Action SwitchClick;
-    public AudioSource source;
-    public AudioClip switchClip;
+    private SoundTrigger sound;
     void Awake()
     {
         col = GetComponent<BoxCollider>();
@@ -23,7 +22,7 @@ public class EP4_CubeSwitch : MonoBehaviour
         switchObjects = new List<EP4_Puzzle4_CubeCtrl>();
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         userMove = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        source = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<SoundTrigger>();
     }
     private void OnEnable()
     {
@@ -45,7 +44,7 @@ public class EP4_CubeSwitch : MonoBehaviour
             obj.OnColorSwitch(curCube.switchValue);
         }
         SwitchClick?.Invoke();
-        source.PlayOneShot(switchClip);
+        sound.Play();
     }
     private void ConditionCheck()
     {

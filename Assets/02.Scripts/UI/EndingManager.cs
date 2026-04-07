@@ -2,28 +2,31 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class EndingManager : MonoBehaviour
 {
-    private AudioSource BGMSource;
     private bool isCompleteEnding;
-    public AudioClip CompleteEndingBGM;
-    public AudioClip NormalEndingBGM;
-    public AudioClip ThankstoBGM;
+    public Color trueColor = new Color(1f, 1f, 1f,1f);
+    public Color normalColor = new Color(0.75f, 0.75f, 0.75f, 0.75f);
+    public SoundController soundCtrl_true;
+    public SoundController soundCtrl_normal;
     public Image endingImage;
     public GameObject endSkipButton;
     public WaitForSecondsRealtime canSkipWFS;
     public WaitForSecondsRealtime EndingDuration;
     public Image thankstoImage;
+    public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
     void Awake()
     {
-        BGMSource = GetComponent<AudioSource>();
         endingImage.enabled = true;
         thankstoImage.enabled = false;
         endSkipButton.SetActive(false);
+        RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
+        CtrlReset();
         canSkipWFS = new WaitForSecondsRealtime(5f);  //엔딩 시작 5초 후 스킵 가능
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
@@ -61,21 +64,27 @@ public class EndingManager : MonoBehaviour
     }
     void CompleteEnding()
     {
-        BGMSource.clip = CompleteEndingBGM;
-        endingImage.color = new Color (1f,1f,1f,1f);
+        soundCtrl_true.gameObject.SetActive(true);
+        endingImage.color = trueColor;
+        thankstoImage.color = trueColor;
         EndingDuration = new WaitForSecondsRealtime(20f);  //엔딩 시작 20초 후 종료
     }
     void NormalEnding()
     {
-        BGMSource.clip = NormalEndingBGM;
-        endingImage.color = new Color(0.8f, 0.8f, 0.8f, 0.8f);
+        soundCtrl_normal.gameObject.SetActive(true);
+        endingImage.color = normalColor;
+        thankstoImage.color = normalColor;
         EndingDuration = new WaitForSecondsRealtime(10f);  //엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
     {
-        BGMSource.Play();
         yield return EndingDuration;
         EndingClear();
+    }
+    void CtrlReset()
+    {
+        soundCtrl_true.gameObject.SetActive(false);
+        soundCtrl_normal.gameObject.SetActive(false);
     }
     public void OnEndingSkip()
     {
@@ -85,18 +94,11 @@ public class EndingManager : MonoBehaviour
     private void EndingClear()
     {
         EndingStop();
-        if (BGMSource != null && BGMSource.isPlaying)  // 엔딩 BGM 중지
-        {
-            BGMSource.Stop();
-        }
+        CtrlReset();
         endingImage.enabled = false;
         endSkipButton.SetActive(false);
-        if (isCompleteEnding && ThankstoBGM != null)  //트루엔딩 후 BGM 재생
-        {
-            BGMSource.clip = ThankstoBGM;
-            BGMSource.Play();
-        }
         thankstoImage.enabled = true;
+        RegameButton.SetActive(true);
         AppEndButton.SetActive(true);
     }
     private void EndingStop()
@@ -106,6 +108,10 @@ public class EndingManager : MonoBehaviour
             StopCoroutine(endingPlayCoroutine);
             endingPlayCoroutine = null;
         }
+    }
+    public void Regame()
+    {
+        SceneManager.LoadScene("StartScene");
     }
     public void END()
     {
