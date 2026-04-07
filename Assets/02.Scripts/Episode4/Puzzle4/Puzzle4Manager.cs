@@ -25,6 +25,7 @@ public class Puzzle4Manager : MonoBehaviour
     public Ep4_CutsceneManager cutsceneManager;
     public float puzzle4MemoryRate = 0f;
     private SoundTrigger clearSound;
+    public GameObject interactionUI;   // "E" 상호작용 UI
     void Awake()
     {
         if (instance == null) instance = this;
@@ -37,6 +38,7 @@ public class Puzzle4Manager : MonoBehaviour
         retryPopup.SetActive(false);
         retryPopupOpen = false;
         clearSound = GetComponent<SoundTrigger>();
+        interactionUI.SetActive(false);
 #if UNITY_EDITOR
         switchText.gameObject.SetActive(true);
 #else
