@@ -2357,6 +2357,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: imageShowTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 769935707}
