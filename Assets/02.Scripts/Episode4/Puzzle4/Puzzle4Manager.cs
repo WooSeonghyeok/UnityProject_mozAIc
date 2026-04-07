@@ -24,7 +24,7 @@ public class Puzzle4Manager : MonoBehaviour
     [SerializeField] private float egoSync = 0f;
     public Ep4_CutsceneManager cutsceneManager;
     public float puzzle4MemoryRate = 0f;
-    private SoundTrigger sound;
+    private SoundTrigger clearSound;
     void Awake()
     {
         if (instance == null) instance = this;
@@ -36,7 +36,7 @@ public class Puzzle4Manager : MonoBehaviour
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
-        sound = GetComponent<SoundTrigger>();
+        clearSound = GetComponent<SoundTrigger>();
 #if UNITY_EDITOR
         switchText.gameObject.SetActive(true);
 #else
@@ -110,7 +110,7 @@ public class Puzzle4Manager : MonoBehaviour
         switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
         FinalScore();
-        sound.Play();
+        clearSound.Play();
     }
 
     private void FinalScore()
