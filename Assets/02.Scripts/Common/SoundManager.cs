@@ -139,12 +139,15 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
     #region Inspector Fields
-    [Header("오디오 소스")]
-    [SerializeField] private AudioSource bgmSource;      // 배경음악 전용
-    [SerializeField] private AudioSource ambientSource;  // 환경음 전용
-    [SerializeField] private AudioSource uiSource;       // UI 사운드 전용
-    [SerializeField] private AudioSource sfxSource;      // 일반 효과음 전용
-    [Header("볼륨")]
+
+    [Header("����� �ҽ�")]
+    [SerializeField] private AudioSource bgmSource;      // ������� ����
+    [SerializeField] private AudioSource ambientSource;  // ȯ���� ����
+    [SerializeField] private AudioSource uiSource;       // UI ���� ����
+    [SerializeField] private AudioSource sfxSource;      // �Ϲ� ȿ���� ����
+    [SerializeField] private AudioSource loopSfxSource;   // ���� ȿ���� ����
+
+    [Header("����")]
     [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float bgmVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float ambientVolume = 1f;
@@ -408,11 +411,51 @@ public class SoundManager : MonoBehaviour
         sfxSource.pitch = oldPitch;
     }
     /// <summary>
-    /// 3D 위치 기반 효과음 재생
-    /// - 문 여는 소리
-    /// - 포탈 통과 소리
-    /// - 오브젝트 상호작용 소리
-    /// 등에 사용
+    /// ������ SFX ���
+    /// - �����̵�
+    /// </summary>
+    public void PlayLoopSFX(SFXType type, float volumeScale = 1f)
+    {
+        if (type == SFXType.None) return;
+        if (loopSfxSource == null) return;
+
+        if (!sfxDict.TryGetValue(type, out AudioClip[] clips))
+        {
+            Debug.LogWarning($"[SoundManager] Loop SFX Ŭ���� ��ϵ��� ����: {type}");
+            return;
+        }
+
+        AudioClip clip = GetRandomClip(clips);
+        if (clip == null) return;
+
+        // �̹� ���� ���� SFX�� ��� ���̸� �ߺ� ��� �� ��
+        if (loopSfxSource.isPlaying && loopSfxSource.clip == clip)
+            return;
+
+        loopSfxSource.Stop();
+        loopSfxSource.clip = clip;
+        loopSfxSource.loop = true;
+        loopSfxSource.volume = masterVolume * sfxVolume * Mathf.Clamp01(volumeScale);
+        loopSfxSource.Play();
+    }
+
+    /// <summary>
+    /// ���� ��� ���� ������ SFX ����
+    /// </summary>
+    public void StopLoopSFX()
+    {
+        if (loopSfxSource == null) return;
+
+        loopSfxSource.Stop();
+        loopSfxSource.clip = null;
+        loopSfxSource.loop = false;
+    }
+    /// <summary>
+    /// 3D ��ġ ��� ȿ���� ���
+    /// - �� ���� �Ҹ�
+    /// - ��Ż ��� �Ҹ�
+    /// - ������Ʈ ��ȣ�ۿ� �Ҹ�
+    /// � ���
     /// </summary>
     public void PlaySFX3D(SFXType type, Vector3 position, float volumeScale = 1f)
     {
