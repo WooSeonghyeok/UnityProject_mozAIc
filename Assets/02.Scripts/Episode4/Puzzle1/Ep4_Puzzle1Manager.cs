@@ -21,6 +21,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
     }
     void MemoryCnt()
     {
+        if (SaveManager.instance == null) return;
         memoryCollected++;
         if (memoryCollected >= totalCollected)
         {
