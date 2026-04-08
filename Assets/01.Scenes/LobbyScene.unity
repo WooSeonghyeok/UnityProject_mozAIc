@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 248959273}
   - component: {fileID: 248959272}
   - component: {fileID: 248959274}
+  - component: {fileID: 248959275}
   m_Layer: 5
   m_Name: StageSelect
   m_TagString: Untagged
@@ -699,6 +700,22 @@ MonoBehaviour:
   cpButtons: []
   cpSelect: 0
   EnterButton: {fileID: 1340935002}
+  EnterSound: {fileID: 248959275}
+--- !u!114 &248959275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248959270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47319ef752ba4844f98be0a3aedf782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxType: 15
+  playAs3D: 0
+  volumeScale: 1
 --- !u!1 &250231550
 GameObject:
   m_ObjectHideFlags: 0
@@ -7540,6 +7557,10 @@ PrefabInstance:
     - target: {fileID: 4398486289239148021, guid: ba2da615b50b40b47a69cb451d1e69fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360612502269802800, guid: ba2da615b50b40b47a69cb451d1e69fb, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7837050785885703188, guid: ba2da615b50b40b47a69cb451d1e69fb, type: 3}
       propertyPath: m_Name

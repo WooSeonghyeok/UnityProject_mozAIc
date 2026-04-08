@@ -22,11 +22,13 @@ public class Ep4_CutsceneManager : MonoBehaviour
     public CutsceneImagePlayer Ep4_ClimaxCutscene;
     public CutsceneImagePlayer Ep4_EndCutscene1;
     public CutsceneImagePlayer Ep4_EndCutscene2;
+    public SoundTrigger startSound;
+    public SoundTrigger endSound;
     void Awake()
     {
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         userMove = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        talkbox.gameObject.SetActive(false);
+        talkbox.SetActive(false);
         oneSec = new WaitForSecondsRealtime(1f);
         curSaveData = SaveManager.ReadCurJSON();
         coreCam.Priority = 1;
@@ -73,23 +75,27 @@ public class Ep4_CutsceneManager : MonoBehaviour
         curSaveData.isFirstEnterAtS3CP0 = true;
         SaveManager.instance.curData = curSaveData;
         SaveManager.instance.WriteCurJSON();
+        endSound.Play();
         StartCoroutine(TalkSay(Talker.core, "기억을 되찾는 건 끝났어.\n이제는 네가 그걸 네 삶으로 받아들일 차례야."));
         UserCtrl(true);
     }
     public IEnumerator Puzzle1Complete()
     {
+        startSound.Play();
         StartCoroutine(TalkSay(Talker.girl, "나, 너랑 놀았던 거 계속 기억하고 있었어."));
         yield return oneSec;
         StartCoroutine(TalkSay(Talker.girl, "그래서 다시 만날 수 있었던 거야."));
     }
     public IEnumerator Puzzle2Complete()
     {
+        startSound.Play();
         StartCoroutine(TalkSay(Talker.painter, "혼자였던 적은 없었어."));
         yield return oneSec;
         StartCoroutine(TalkSay(Talker.painter, "우린 같이 그렸고, 같이 고민했지."));
     }
     public IEnumerator Puzzle3Complete()
     {
+        startSound.Play();
         StartCoroutine(TalkSay(Talker.musician, "이 노래… 결국 들려줄 수 있어서 다행이야."));
         yield return oneSec;
         StartCoroutine(TalkSay(Talker.musician, "이제는… 네가 기억해줘."));
@@ -107,7 +113,8 @@ public class Ep4_CutsceneManager : MonoBehaviour
         StartCoroutine(TalkSay(Talker.core, "추억도, 꿈도, 사랑도...\n전부 네가 감당해야 했던 삶이었어"));
         yield return oneSec;
         StartCoroutine(TalkSay(Talker.core, "나는 네가 놓아둔 마지막 조각이야\n네가 다시 돌아올 때까지, 여기 남아 있었어"));
-        yield return oneSec;
+        yield return new WaitForSecondsRealtime(0.5f);
+        endSound.Play();
         UserCtrl(true);
     }
     public IEnumerator SyncEnding()

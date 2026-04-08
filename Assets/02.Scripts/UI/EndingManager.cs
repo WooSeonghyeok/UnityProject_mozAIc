@@ -8,7 +8,7 @@ public class EndingManager : MonoBehaviour
 {
     private bool isCompleteEnding;
     public Color trueColor = new Color(1f, 1f, 1f,1f);
-    public Color normalColor = new Color(0.75f, 0.75f, 0.75f, 0.75f);
+    public Color normalColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
     public SoundController soundCtrl_true;
     public SoundController soundCtrl_normal;
     public Image endingImage;
@@ -68,6 +68,7 @@ public class EndingManager : MonoBehaviour
     {
         soundCtrl_normal.gameObject.SetActive(false);
         soundCtrl_true.gameObject.SetActive(true);
+        Debug.Log("TRUE ENDING!");
         endingImage.color = trueColor;
         thankstoImage.color = trueColor;
         EndingDuration = new WaitForSecondsRealtime(20f);  //엔딩 시작 20초 후 종료
@@ -76,6 +77,7 @@ public class EndingManager : MonoBehaviour
     {
         soundCtrl_true.gameObject.SetActive(false);
         soundCtrl_normal.gameObject.SetActive(true);
+        Debug.Log("normal ending...");
         endingImage.color = normalColor;
         thankstoImage.color = normalColor;
         EndingDuration = new WaitForSecondsRealtime(10f);  //엔딩 시작 10초 후 종료
