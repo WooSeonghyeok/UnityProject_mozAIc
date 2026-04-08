@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -7,38 +8,40 @@ using UnityEngine.UI;
 public class OpeningManager : MonoBehaviour
 {
     public static OpeningManager Instance;
-    private AudioSource source;
-    public AudioClip openClip;
     public Volume pp_Volume;
     public VolumeProfile pp_Volume_black;
     public VolumeProfile pp_Volume_flash;
-    public VolumeProfile pp_Volume_gray;
     private readonly string playerTag = "Player";
     private PlayerInput user;
     private PlayerMovement userMove;
-    public Light midFlash;
     public Image blackboard;
+    private WaitForSecondsRealtime twoSec;
     private WaitForSecondsRealtime oneSec;
     private WaitForSecondsRealtime halfSec;
     public RawImage openLight;
-    public Text openingText;
+    private enum BoxType { system, talk, voice };
+    public GameObject systemBox;
+    public Text systemText;
+    public GameObject talkBox;
     public Text talkText;
+    public GameObject voiceBox;
+    public Text voiceText;
     public CutsceneImagePlayer OpeningMidCutscene;
     public GameObject openingMidGate;
     private bool isMidtalkOn = false;
     public CutsceneImagePlayer OpeningEndCutscene;
     private void Awake()
     {
-        source = GetComponent<AudioSource>();
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         userMove = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
+        twoSec = new WaitForSecondsRealtime(2f);
         oneSec = new WaitForSecondsRealtime(1f);
         halfSec = new WaitForSecondsRealtime(0.5f);
-        midFlash.enabled = false;
         blackboard.enabled = true;
         openLight.enabled = false;
-        openingText.enabled = false;
-        talkText.enabled = false;
+        systemBox.SetActive(false);
+        talkBox.SetActive(false);
+        voiceBox.SetActive(false);
         openingMidGate.SetActive(false);
         isMidtalkOn = false;
     }
@@ -66,29 +69,19 @@ public class OpeningManager : MonoBehaviour
     }
     IEnumerator DarkEnter()
     {
-        yield return new WaitForSecondsRealtime(2f);
-        source.PlayOneShot(openClip,0.9f);
-        yield return new WaitForSecondsRealtime(2f);
-        openLight.enabled = true;
-        yield return oneSec;
-        openLight.enabled = false;
-        yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "누구였더라"));
-        yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "기억나지 않아"));
-        yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "사라지기 전에"));
-        yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "찾아야 해"));
-        yield return oneSec;
+        yield return twoSec;
         blackboard.enabled = false;
+        StartCoroutine(TalkSay(BoxType.system, "당신은 어디에 있는가"));
         yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "당신은 어디에 있는가"));
+        StartCoroutine(TalkSay(BoxType.talk, "찾아야 해"));
         yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "당신은 누구였는가"));
+        StartCoroutine(TalkSay(BoxType.talk, "사라지기 전에"));
         yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "아무것도 선명하지 않다"));
+        StartCoroutine(TalkSay(BoxType.system, "당신은 누구였는가"));
+        yield return oneSec;
+        StartCoroutine(TalkSay(BoxType.talk, "내가... 왜 여기에 있지?"));
         UserCtrl(true);
+        StartCoroutine(TalkSay(BoxType.system, "아무것도 선명하지 않다"));
     }
     public void OpeningMid()
     {
@@ -100,24 +93,29 @@ public class OpeningManager : MonoBehaviour
         isMidtalkOn = true;
         UserCtrl(false);
         pp_Volume.profile = pp_Volume_flash;
-        midFlash.enabled = true;
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         pp_Volume.profile = pp_Volume_black;
-        midFlash.enabled = false;
+        yield return new WaitForSecondsRealtime(0.2f);
         OpeningMidCutscene.PlayCutscene();
         yield return new WaitForSecondsRealtime(3f);
-        StartCoroutine(TalkSay(talkText, "잊은 게 아니야"));
+        StartCoroutine(TalkSay(BoxType.voice, "흩어진 거야"));
+        yield return twoSec;
+        StartCoroutine(TalkSay(BoxType.voice, "더 늦기 전에 찾아야 해."));
         yield return oneSec;
-        StartCoroutine(TalkSay(talkText, "흩어진 거야"));
-        user.isLookLock = false;
-        yield return oneSec;
-        StartCoroutine(TalkSay(talkText, "사라지기 전에...\n이어 붙여"));
-        UserCtrl(true);
-        StartCoroutine(TalkSay(openingText, "첫번째 이야기의 조각이 반응한다"));
-        yield return oneSec;
+        StartCoroutine(TalkSay(BoxType.voice, "길을 따라가."));
         openingMidGate.SetActive(true);
-        pp_Volume.profile = pp_Volume_gray;
-        StartCoroutine(TalkSay(openingText, "문이 열리고 있다."));
+        user.isLookLock = false;
+        yield return halfSec;
+        StartCoroutine(TalkSay(BoxType.system, "길의 끝에 문이 모습을 드러낸다."));
+        yield return oneSec;
+        StartCoroutine(TalkSay(BoxType.voice, "꼭 찾아야 해."));
+        yield return oneSec;
+        StartCoroutine(TalkSay(BoxType.talk, "너는 누구야?"));
+        UserCtrl(true);
+        yield return twoSec;
+        StartCoroutine(TalkSay(BoxType.voice, "문 너머로 가면 알 수 있을 거야."));
+        yield return halfSec;
+        StartCoroutine(TalkSay(BoxType.system, "희미한 빛이 다음 기억으로 이어진다."));
     }
     public void OpeningEnd()
     {
@@ -128,9 +126,9 @@ public class OpeningManager : MonoBehaviour
         UserCtrl(false);
         OpeningEndCutscene.PlayCutscene();
         yield return new WaitForSecondsRealtime(2f);
-        StartCoroutine(TalkSay(openingText,"가장 먼저 남아 있던 것은 추억이었다"));
-        yield return oneSec;
-        StartCoroutine(TalkSay(openingText, "첫번째 기억이 당신을 부르고 있다"));
+        StartCoroutine(TalkSay(BoxType.talk, "가장 먼저 남아 있던 것은 추억이었다"));
+        yield return halfSec;
+        StartCoroutine(TalkSay(BoxType.system, "첫 번째 기억으로 향하는 길이 열린다."));
         user.isJumpLock = false;
         if (SaveManager.instance != null) SaveManager.instance.curData.ep1_open = true;  //Start 신을 거치지 않은 경우 SaveManager가 null이므로 유효성 체크
         yield return halfSec;
@@ -142,17 +140,27 @@ public class OpeningManager : MonoBehaviour
         userMove.enabled = b;
         userMove.SetMoveLock(!b);
     }
-    private IEnumerator TalkSay(Text txt, string say)
+    private IEnumerator TalkSay(BoxType box, string say)
     {
+        Text txt = box switch
+        {
+            BoxType.system => systemText,
+            BoxType.talk => talkText,
+            BoxType.voice => voiceText,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        GameObject obj = box switch
+        {
+            BoxType.system => systemBox,
+            BoxType.talk => talkBox,
+            BoxType.voice => voiceBox,
+            _ => throw new ArgumentOutOfRangeException()
+        };
         txt.text = say;
         txt.enabled = true;
+        obj.SetActive(true);
         yield return oneSec;
         txt.enabled = false;
-    }
-    private IEnumerator ImageFlash(Image img,float time)
-    {
-        img.enabled = true;
-        yield return new WaitForSecondsRealtime(time);
-        img.enabled = false;
+        obj.SetActive(false);
     }
 }
