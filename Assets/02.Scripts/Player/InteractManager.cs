@@ -75,6 +75,9 @@ public class InteractManager : MonoBehaviour
         if (other.CompareTag(puzzle4Tag))
         {
             Puzzle4Manager.instance.retryButton.gameObject.SetActive(true);
+#if UNITY_EDITOR
+            Puzzle4Manager.instance.switchText.gameObject.SetActive(true);
+#endif
         }
         if (other.CompareTag(puzzle4RetryTag))
         {
@@ -122,6 +125,9 @@ public class InteractManager : MonoBehaviour
         {
             Puzzle4Manager.instance.retryButton.gameObject.SetActive(false);
             Puzzle4Manager.instance.retryPopup.gameObject.SetActive(false);
+#if UNITY_EDITOR
+            Puzzle4Manager.instance.switchText.gameObject.SetActive(false);
+#endif
         }
         if (other.gameObject.CompareTag(saveTag))
         {

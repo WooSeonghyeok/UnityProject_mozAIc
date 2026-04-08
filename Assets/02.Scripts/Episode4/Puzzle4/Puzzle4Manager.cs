@@ -32,16 +32,12 @@ public class Puzzle4Manager : MonoBehaviour
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
         cswitch = cubes.GetComponentsInChildren<EP4_CubeSwitch>();
         acube = cubes.GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
+        switchText.gameObject.SetActive(false);
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
         clearSound = GetComponent<SoundTrigger>();
         interactionUI.SetActive(false);
-#if UNITY_EDITOR
-        switchText.gameObject.SetActive(true);
-#else
-        switchPopup.gameObject.SetActive(false);
-#endif
     }
     private void OnEnable()
     {
@@ -99,7 +95,7 @@ public class Puzzle4Manager : MonoBehaviour
             7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
             _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
         };
-        StartCoroutine(cutsceneManager.TalkSay(msg, Color.white));
+        StartCoroutine(cutsceneManager.TalkSay(Ep4_CutsceneManager.Talker.self, msg));
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
