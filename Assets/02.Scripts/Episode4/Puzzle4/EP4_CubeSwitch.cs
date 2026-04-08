@@ -35,7 +35,7 @@ public class EP4_CubeSwitch : MonoBehaviour
         if (curCube != null && other.gameObject.CompareTag("Player"))
         {
             switchContact = true;
-            Puzzle4Manager.instance.interactionUI.GetComponent<Image>().color = SwitchColor(curCube.switchValue);
+            Puzzle4Manager.instance.interactionUI.GetComponent<Image>().color = Puzzle4Manager.instance.retry_count == 0 ? Color.white : SwitchColor(curCube.switchValue);
             Puzzle4Manager.instance.interactionUI.SetActive(true);
             ConditionCheck();
         }

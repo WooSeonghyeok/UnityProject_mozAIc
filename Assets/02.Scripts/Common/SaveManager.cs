@@ -92,22 +92,21 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle3Clear = false;
         dataObj.memory_reconstruction_rate = 0;
         dataObj.MemoryTag = new List<IsTagGet>();
-        for (int i = 0; i < dataObj.MemoryTag.Count; i++)
+        string[] tagNames ={"shared_childhood",
+                            "star_promise",
+                            "shared_dream",
+                            "co_creation",
+                            "unfinished_confession",
+                            "lover_memory",
+                            "self_voice",
+                            "split_self" };
+        foreach (var name in tagNames)
         {
-            IsTagGet tag = new();
-            switch (i)
+            dataObj.MemoryTag.Add(new IsTagGet
             {
-                case 0: tag.TagName = "shared_childhood"; break;
-                case 1: tag.TagName = "star_promise"; break;
-                case 2: tag.TagName = "shared_dream"; break;
-                case 3: tag.TagName = "co_creation"; break;
-                case 4: tag.TagName = "unfinished_confession"; break;
-                case 5: tag.TagName = "lover_memory"; break;
-                case 6: tag.TagName = "self_voice"; break;
-                case 7: tag.TagName = "split_self"; break;
-            }
-            tag.tagGet = false;
-            dataObj.MemoryTag.Add(tag);
+                TagName = name,
+                tagGet = false
+            });
         }
         dataObj.isFirstEnterAtS3CP0 = false;
         string json = JsonUtility.ToJson(dataObj, true);

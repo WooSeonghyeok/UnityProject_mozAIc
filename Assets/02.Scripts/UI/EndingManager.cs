@@ -23,6 +23,8 @@ public class EndingManager : MonoBehaviour
     {
         endingImage.enabled = true;
         thankstoImage.enabled = false;
+        soundCtrl_true.gameObject.SetActive(false);
+        soundCtrl_normal.gameObject.SetActive(false);
         endSkipButton.SetActive(false);
         RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
@@ -64,6 +66,7 @@ public class EndingManager : MonoBehaviour
     }
     void CompleteEnding()
     {
+        soundCtrl_normal.gameObject.SetActive(false);
         soundCtrl_true.gameObject.SetActive(true);
         endingImage.color = trueColor;
         thankstoImage.color = trueColor;
@@ -71,6 +74,7 @@ public class EndingManager : MonoBehaviour
     }
     void NormalEnding()
     {
+        soundCtrl_true.gameObject.SetActive(false);
         soundCtrl_normal.gameObject.SetActive(true);
         endingImage.color = normalColor;
         thankstoImage.color = normalColor;
