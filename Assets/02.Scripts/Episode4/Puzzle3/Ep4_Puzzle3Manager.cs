@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 /// <summary>
 /// 3-1 스테이지 진행 관리 (수정: 모든 조각 수집 이벤트 추가)
 /// </summary>
@@ -10,6 +11,9 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     [Header("조각/수집")]
     [SerializeField] private int collectedPieceCount = 0;
     [SerializeField] private int requiredPieceCount = 7;
+    [Header("출력 UI")]
+    public GameObject pieceBox;
+    public Text pieceCnt;
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
     public UnityEvent onAllPiecesCollected;
@@ -22,10 +26,26 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     [SerializeField] private List<string> collectedTags = new List<string>();
     private bool isCleared = false;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            pieceCnt.text = $"{collectedPieceCount} / {requiredPieceCount}";
+            pieceBox.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            pieceBox.SetActive(false);
+        }
+    }
     public void AddPiece()
     {
         collectedPieceCount++;
         Debug.Log($"[Ep4_3Manager] 악보 조각 수집: {collectedPieceCount}/{requiredPieceCount}");
+        pieceCnt.text = $"{collectedPieceCount} / {requiredPieceCount}";
         if (collectedPieceCount >= requiredPieceCount && !_allPiecesEventRaised)
         {
             _allPiecesEventRaised = true;
