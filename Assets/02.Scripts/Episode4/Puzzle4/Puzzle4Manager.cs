@@ -124,27 +124,41 @@ public class Puzzle4Manager : MonoBehaviour
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
         SyncCheck();
         FinalScore();
-        if (egoSync == 1f) SelfVoiceTag();  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
+        SplitSelfTag();
+        if (egoSync == 1f) SelfVoiceTag();
     }
     private void FinalScore()
     {
         puzzle4MemoryRate += Mathf.RoundToInt(switchCnt * 0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
         puzzle4MemoryRate += retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
         puzzle4MemoryRate = Math.Clamp(puzzle4MemoryRate, 0, 5f);  //각 퍼즐당 최대 5점까지
-        EndingConditionData.memory_reconstruction_rate -= (int)(puzzle4MemoryRate);  //이전까지 총 점수에서 감점
-        SaveManager.instance.curData.memory_reconstruction_rate = EndingConditionData.memory_reconstruction_rate;
-        Debug.Log($"최종점수: {EndingConditionData.memory_reconstruction_rate}");
+        SaveManager.instance.curData.memory_reconstruction_rate -= (int)(puzzle4MemoryRate);  //이전까지 총 점수에서 감점
+        Debug.Log($"최종점수: {SaveManager.instance.curData.memory_reconstruction_rate}");
         scoreFinished = true;  //마지막 점수 계산 종료 확인
     }
-    private void SelfVoiceTag()
+    private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {
-        EndingConditionData.self_voice = true;
-        foreach (IsTagGet lastTag in SaveManager.instance.curData.MemoryTag)
+        foreach (IsTagGet Tag in SaveManager.instance.curData.MemoryTag)
         {
-            if (lastTag.TagName == "self_voice") lastTag.tagGet = true;
+            if (Tag.TagName == "self_voice") Tag.tagGet = true;
         }
         Debug.Log($"마지막 기억 획득!");
         clearSound.Play();
+    }
+    private static void SplitSelfTag()  //모든 NPC 호감도를 100 이상 달성해야 "split_self" 태그를 획득
+    {
+        int a = 0;
+        foreach (NPCAffinity npc in SaveManager.instance.curData.npcAffinity)
+        {
+            if (npc.Affinity >= 100) a++;
+        }
+        foreach (IsTagGet Tag in SaveManager.instance.curData.MemoryTag)
+        {
+            if (Tag.TagName == "split_self")
+            {
+                Tag.tagGet = (a == SaveManager.instance.curData.npcAffinity.Count);
+            }
+        }
     }
     public void SyncCheck()  //자아 통합도 계산
     {

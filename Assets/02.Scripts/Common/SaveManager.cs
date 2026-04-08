@@ -16,10 +16,6 @@ public class SaveManager : MonoBehaviour
         else Destroy(gameObject);
         curData = ReadCurJSON();
     }
-    public string GetSavePath(int slot)
-    {
-        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
-    }
     public void CreateSaveData(int slotNumber)
     {
         SaveDataObj newData = new SaveDataObj();
@@ -40,6 +36,7 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.MemoryTag = curData.MemoryTag;
+        newData.npcAffinity = curData.npcAffinity;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
@@ -58,6 +55,10 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(path);
         SaveDataObj data = JsonUtility.FromJson<SaveDataObj>(json);
         return data;
+    }
+    public string GetSavePath(int slot)
+    {
+        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
     }
     public static SaveDataObj ReadCurJSON()
     {
@@ -90,7 +91,7 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 0;
+        dataObj.memory_reconstruction_rate = 95;
         dataObj.MemoryTag = new List<IsTagGet>();
         string[] tagNames ={"shared_childhood",
                             "star_promise",
@@ -106,6 +107,16 @@ public class SaveManager : MonoBehaviour
             {
                 TagName = name,
                 tagGet = false
+            });
+        }
+        dataObj.npcAffinity = new List<NPCAffinity>();
+        string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician" };
+        foreach (var name in npcNames)
+        {
+            dataObj.npcAffinity.Add(new NPCAffinity
+            {
+                npcId = name,
+                Affinity = 50
             });
         }
         dataObj.isFirstEnterAtS3CP0 = false;

@@ -67,10 +67,10 @@ public class Ep4_CutsceneManager : MonoBehaviour
         yield return oneSec;
         StartCoroutine(TalkSay(Talker.core, "남은 건... 이어 붙이는 거야"));
         gazeCam.Priority = 12;
+        coreCam.Priority = 1;
         yield return oneSec;
         StartCoroutine(TalkSay(Talker.core, "조각은 다 모였어.\n하지만 아직 하나의 이야기가 되지 못했지"));
         yield return oneSec;
-        coreCam.Priority = 1;
         gazeCam.Priority = 1;
         curSaveData.isFirstEnterAtS3CP0 = true;
         SaveManager.instance.curData = curSaveData;

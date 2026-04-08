@@ -33,10 +33,9 @@ public class EndingManager : MonoBehaviour
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
-        bool ReconstructionRateCond = EndingConditionData.memory_reconstruction_rate >= EndingPoint();
-        bool trueEndTags = EndingConditionData.shared_childhood && EndingConditionData.shared_dream
-                    && EndingConditionData.unfinished_confession && EndingConditionData.self_voice;
-        isCompleteEnding = ReconstructionRateCond && trueEndTags ;
+        bool ReconstructionRateCond = SaveManager.instance.curData.memory_reconstruction_rate >= EndingPoint();
+        bool TagsCond = TagCnt();
+        isCompleteEnding = ReconstructionRateCond && TagsCond;
     }
     public static int EndingPoint()
     {
@@ -56,6 +55,25 @@ public class EndingManager : MonoBehaviour
         int rate = endingRule.EndingRule[0].minReconstructionRate;
         return rate;
     }
+    private static bool TagCnt()  //태그 수집 조건
+    {
+        if (SaveManager.instance.curData.MemoryTag == null || SaveManager.instance.curData.MemoryTag.Count == 0)
+        {
+            Debug.LogError("MemoryTag 리스트를 찾을 수 없습니다.");
+            return true;
+        }
+        if (SaveManager.instance.curData.npcAffinity == null || SaveManager.instance.curData.npcAffinity.Count == 0)
+        {
+            Debug.LogError("NPC 리스트를 찾을 수 없습니다.");
+            return true;
+        }
+        int a = 0;
+        foreach (IsTagGet tag in SaveManager.instance.curData.MemoryTag)
+        {
+            if (tag.tagGet) a++;
+        }
+        return (float)((float)a / (float)SaveManager.instance.curData.MemoryTag.Count) >= 0.8f;
+    }
     private IEnumerator Start()
     {
         if (isCompleteEnding) CompleteEnding();
@@ -71,7 +89,7 @@ public class EndingManager : MonoBehaviour
         Debug.Log("TRUE ENDING!");
         endingImage.color = trueColor;
         thankstoImage.color = trueColor;
-        EndingDuration = new WaitForSecondsRealtime(20f);  //엔딩 시작 20초 후 종료
+        EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
     }
     void NormalEnding()
     {
@@ -80,7 +98,7 @@ public class EndingManager : MonoBehaviour
         Debug.Log("normal ending...");
         endingImage.color = normalColor;
         thankstoImage.color = normalColor;
-        EndingDuration = new WaitForSecondsRealtime(10f);  //엔딩 시작 10초 후 종료
+        EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
     {

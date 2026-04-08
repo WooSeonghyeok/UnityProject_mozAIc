@@ -22,6 +22,7 @@ public class SaveDataObj
     public bool ep4_puzzle3Clear;
     public int memory_reconstruction_rate;
     public List<IsTagGet> MemoryTag;
+    public List<NPCAffinity> npcAffinity;
     /* 연출 사용 여부 확인 데이터 */
     public bool isFirstEnterAtS3CP0;
 }
@@ -30,4 +31,10 @@ public class IsTagGet
 {
     public string TagName;
     public bool tagGet;
+}
+[Serializable]
+public class NPCAffinity
+{
+    public string npcId;
+    public int Affinity;
 }
