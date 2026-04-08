@@ -16,7 +16,6 @@ public class Puzzle4Manager : MonoBehaviour
     public GameObject retryPopup;
     public bool retryPopupOpen = false;
     public event Action retryEvent;
-    private BoxCollider puzzleZone4Col;
     private bool scoreFinished = false;
     private int switch_this = 0;
     private int switch_total = 0;
@@ -31,7 +30,6 @@ public class Puzzle4Manager : MonoBehaviour
         if (instance == null) instance = this;
         if (instance != this) Destroy(instance);
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        puzzleZone4Col = gameObject.GetComponent<BoxCollider>();
         cswitch = cubes.GetComponentsInChildren<EP4_CubeSwitch>();
         acube = cubes.GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
         retryButton.gameObject.SetActive(false);
@@ -47,8 +45,6 @@ public class Puzzle4Manager : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (puzzleZone4Col != null)
-            puzzleZone4Col.isTrigger = true;
         if (cswitch != null)
         {
             foreach (EP4_CubeSwitch c in cswitch)
@@ -107,7 +103,6 @@ public class Puzzle4Manager : MonoBehaviour
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
-        if (puzzleZone4Col != null) puzzleZone4Col.isTrigger = false;
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
         switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
