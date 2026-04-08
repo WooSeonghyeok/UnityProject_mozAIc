@@ -11,15 +11,16 @@ public class Puzzle4Manager : MonoBehaviour
     public EP4_Puzzle4_CubeCtrl lastCube;
     public Transform retryPos;
     private readonly string playerTag = "Player";
-    public Text switchText;
+    public GameObject pieceBox;
+    public Text pieceCnt;
+    public GameObject RetryBox;
+    public Text RetryCnt;
     public Button retryButton;
     public GameObject retryPopup;
     public bool retryPopupOpen = false;
     public event Action retryEvent;
-    private BoxCollider puzzleZone4Col;
     private bool scoreFinished = false;
-    private int switch_this = 0;
-    private int switch_total = 0;
+    private int switchCnt = 0;
     public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public Ep4_CutsceneManager cutsceneManager;
@@ -31,24 +32,18 @@ public class Puzzle4Manager : MonoBehaviour
         if (instance == null) instance = this;
         if (instance != this) Destroy(instance);
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        puzzleZone4Col = gameObject.GetComponent<BoxCollider>();
         cswitch = cubes.GetComponentsInChildren<EP4_CubeSwitch>();
         acube = cubes.GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
+        pieceBox.SetActive(false);
+        RetryBox.SetActive(false);
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
         clearSound = GetComponent<SoundTrigger>();
         interactionUI.SetActive(false);
-#if UNITY_EDITOR
-        switchText.gameObject.SetActive(true);
-#else
-        switchPopup.gameObject.SetActive(false);
-#endif
     }
     private void OnEnable()
     {
-        if (puzzleZone4Col != null)
-            puzzleZone4Col.isTrigger = true;
         if (cswitch != null)
         {
             foreach (EP4_CubeSwitch c in cswitch)
@@ -64,9 +59,30 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         InteractManager.Instance.puzzle4Hint += HintMessage;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            CountTxt();
+            retryButton.gameObject.SetActive(true);
+            pieceBox.SetActive(true);
+            RetryBox.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            retryButton.gameObject.SetActive(false);
+            retryPopup.SetActive(false);
+            pieceBox.SetActive(false);
+            RetryBox.SetActive(false);
+        }
+    }
     public void Switch_CountUp()  //스위치 상호작용 횟수 누적 메소드
     {
-        switch_this++;
+        switchCnt++;
         SyncCheck();
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
@@ -77,8 +93,6 @@ public class Puzzle4Manager : MonoBehaviour
     public void ShootRetry()  //다시하기 실행 메소드
     {
         if (user != null && retryPos != null) user.transform.position = retryPos.position;
-        switch_total += switch_this;
-        switch_this = 0;
         retry_count++;
         retryEvent?.Invoke();  // 전체 PuzzleCubeCtrl에 다시 초기화 이벤트 전달
         SyncCheck();
@@ -103,20 +117,18 @@ public class Puzzle4Manager : MonoBehaviour
             7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
             _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
         };
-        StartCoroutine(cutsceneManager.TalkSay(msg, Color.white));
+        StartCoroutine(cutsceneManager.TalkSay(Ep4_CutsceneManager.Talker.self, msg));
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
-        if (puzzleZone4Col != null) puzzleZone4Col.isTrigger = false;
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
-        switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
         FinalScore();
         if (egoSync == 1f) SelfVoiceTag();  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
     }
     private void FinalScore()
     {
-        puzzle4MemoryRate += Mathf.RoundToInt(switch_total * 0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
+        puzzle4MemoryRate += Mathf.RoundToInt(switchCnt * 0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
         puzzle4MemoryRate += retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
         puzzle4MemoryRate = Math.Clamp(puzzle4MemoryRate, 0, 5f);  //각 퍼즐당 최대 5점까지
         EndingConditionData.memory_reconstruction_rate -= (int)(puzzle4MemoryRate);  //이전까지 총 점수에서 감점
@@ -152,7 +164,7 @@ public class Puzzle4Manager : MonoBehaviour
     }
     private void CountTxt()  //텍스트 갱신 메소드
     {
-        if (switchText != null)
-            switchText.text = $"이번 스위치 횟수 = {switch_this}\n총 스위치 횟수 = {switch_total}\n다시하기 횟수 = {retry_count}\n자아 통합도 = {egoSync * 100}%";
+        if (pieceCnt != null) pieceCnt.text = $"{switchCnt} try";
+        if (RetryCnt != null) RetryCnt.text = $"Retry: {retry_count}";
     }
 }

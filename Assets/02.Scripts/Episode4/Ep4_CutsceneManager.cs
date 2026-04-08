@@ -8,7 +8,9 @@ public class Ep4_CutsceneManager : MonoBehaviour
     private readonly string playerTag = "Player";
     private PlayerInput user;
     private PlayerMovement userMove;
-    public Image talkbox;
+    public enum Talker { self, girl, painter, musician, core };
+    public GameObject talkbox;
+    public Text talkName;
     public Text talkText;
     private WaitForSecondsRealtime oneSec;
     private bool endNPCZoneArrived = false;
@@ -20,12 +22,13 @@ public class Ep4_CutsceneManager : MonoBehaviour
     public CutsceneImagePlayer Ep4_ClimaxCutscene;
     public CutsceneImagePlayer Ep4_EndCutscene1;
     public CutsceneImagePlayer Ep4_EndCutscene2;
+    public SoundTrigger startSound;
+    public SoundTrigger endSound;
     void Awake()
     {
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         userMove = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        talkbox.enabled = false;
-        talkText.enabled = false;
+        talkbox.SetActive(false);
         oneSec = new WaitForSecondsRealtime(1f);
         curSaveData = SaveManager.ReadCurJSON();
         coreCam.Priority = 1;
@@ -60,38 +63,42 @@ public class Ep4_CutsceneManager : MonoBehaviour
         coreCam.Priority = 11;
         UserCtrl(false);
         yield return new WaitForSecondsRealtime(4f);
-        StartCoroutine(TalkSay("이제 거의 다 왔어", Color.white));
+        StartCoroutine(TalkSay(Talker.core, "이제 거의 다 왔어"));
         yield return oneSec;
-        StartCoroutine(TalkSay("남은 건... 이어 붙이는 거야", Color.white));
+        StartCoroutine(TalkSay(Talker.core, "남은 건... 이어 붙이는 거야"));
         gazeCam.Priority = 12;
         yield return oneSec;
-        StartCoroutine(TalkSay("조각은 다 모였어.\n하지만 아직 하나의 이야기가 되지 못했지", Color.white));
+        StartCoroutine(TalkSay(Talker.core, "조각은 다 모였어.\n하지만 아직 하나의 이야기가 되지 못했지"));
         yield return oneSec;
         coreCam.Priority = 1;
         gazeCam.Priority = 1;
         curSaveData.isFirstEnterAtS3CP0 = true;
         SaveManager.instance.curData = curSaveData;
         SaveManager.instance.WriteCurJSON();
-        StartCoroutine(TalkSay("기억을 되찾는 건 끝났어.\n이제는 네가 그걸 네 삶으로 받아들일 차례야.", Color.white));
+        endSound.Play();
+        StartCoroutine(TalkSay(Talker.core, "기억을 되찾는 건 끝났어.\n이제는 네가 그걸 네 삶으로 받아들일 차례야."));
         UserCtrl(true);
     }
     public IEnumerator Puzzle1Complete()
     {
-        StartCoroutine(TalkSay("나, 너랑 놀았던 거 계속 기억하고 있었어.", Color.red));
+        startSound.Play();
+        StartCoroutine(TalkSay(Talker.girl, "나, 너랑 놀았던 거 계속 기억하고 있었어."));
         yield return oneSec;
-        StartCoroutine(TalkSay("그래서 다시 만날 수 있었던 거야.", Color.red));
+        StartCoroutine(TalkSay(Talker.girl, "그래서 다시 만날 수 있었던 거야."));
     }
     public IEnumerator Puzzle2Complete()
     {
-        StartCoroutine(TalkSay("혼자였던 적은 없었어.", Color.green));
+        startSound.Play();
+        StartCoroutine(TalkSay(Talker.painter, "혼자였던 적은 없었어."));
         yield return oneSec;
-        StartCoroutine(TalkSay("우린 같이 그렸고, 같이 고민했지.", Color.green));
+        StartCoroutine(TalkSay(Talker.painter, "우린 같이 그렸고, 같이 고민했지."));
     }
     public IEnumerator Puzzle3Complete()
     {
-        StartCoroutine(TalkSay("이 노래… 결국 들려줄 수 있어서 다행이야.", Color.blue));
+        startSound.Play();
+        StartCoroutine(TalkSay(Talker.musician, "이 노래… 결국 들려줄 수 있어서 다행이야."));
         yield return oneSec;
-        StartCoroutine(TalkSay("이제는… 네가 기억해줘.", Color.blue));
+        StartCoroutine(TalkSay(Talker.musician, "이제는… 네가 기억해줘."));
     }
     public IEnumerator Stage4Climax()
     {
@@ -99,25 +106,26 @@ public class Ep4_CutsceneManager : MonoBehaviour
         UserCtrl(false);
         endNPCZoneArrived = true;
         Ep4_ClimaxCutscene.PlayCutscene();
-        StartCoroutine(TalkSay("넌 잊은 게 아니야",Color.white));
+        StartCoroutine(TalkSay(Talker.core, "넌 잊은 게 아니야"));
         yield return oneSec;
-        StartCoroutine(TalkSay("버티기 위해, 잠시 나눠 둔 거야", Color.white));
+        StartCoroutine(TalkSay(Talker.core, "버티기 위해, 잠시 나눠 둔 거야"));
         yield return oneSec;
-        StartCoroutine(TalkSay("추억도, 꿈도, 사랑도...\n전부 네가 감당해야 했던 삶이었어", Color.white));
+        StartCoroutine(TalkSay(Talker.core, "추억도, 꿈도, 사랑도...\n전부 네가 감당해야 했던 삶이었어"));
         yield return oneSec;
-        StartCoroutine(TalkSay("나는 네가 놓아둔 마지막 조각이야\n네가 다시 돌아올 때까지, 여기 남아 있었어", Color.white));
-        yield return oneSec;
+        StartCoroutine(TalkSay(Talker.core, "나는 네가 놓아둔 마지막 조각이야\n네가 다시 돌아올 때까지, 여기 남아 있었어"));
+        yield return new WaitForSecondsRealtime(0.5f);
+        endSound.Play();
         UserCtrl(true);
     }
     public IEnumerator SyncEnding()
     {
         Ep4_EndCutscene1.PlayCutscene();
         UserCtrl(false);
-        StartCoroutine(TalkSay("이제 괜찮아. 넌 계속 여기 있었으니까.", Color.red));
+        StartCoroutine(TalkSay(Talker.girl, "이제 괜찮아. 넌 계속 여기 있었으니까."));
         yield return oneSec;
-        StartCoroutine(TalkSay("잊고 있던 게 아니라, 다시 그려야 했던 거야.", Color.green));
+        StartCoroutine(TalkSay(Talker.painter, "잊고 있던 게 아니라, 다시 그려야 했던 거야."));
         yield return oneSec;
-        StartCoroutine(TalkSay("멈춘 게 아니라... 마지막 음을 기다리고 있었던 거야.", Color.blue));
+        StartCoroutine(TalkSay(Talker.musician, "멈춘 게 아니라... 마지막 음을 기다리고 있었던 거야."));
         yield return oneSec;
         Ep4_EndCutscene2.PlayCutscene();
         yield return new WaitForSecondsRealtime(7f);
@@ -129,14 +137,20 @@ public class Ep4_CutsceneManager : MonoBehaviour
         userMove.enabled = b;
         userMove.SetMoveLock(!b);
     }
-    public IEnumerator TalkSay(string say,Color col)
+    public IEnumerator TalkSay(Talker talk, string say)
     {
+        switch (talk)
+        {
+            case Talker.girl:       talkName.text = "luna";   talkName.color = Color.red;   break;
+            case Talker.painter:    talkName.text = "elio";   talkName.color = Color.green; break;
+            case Talker.musician:   talkName.text = "leon";   talkName.color = Color.blue;  break;
+            case Talker.core:       talkName.text = "???";    talkName.color = Color.gray;  break;
+            case Talker.self:       talkName.text = "";       talkName.color = Color.black; break;
+        }
         talkText.text = say;
-        talkText.color = col;
         talkText.enabled = true;
-        talkbox.enabled = true;
+        talkbox.SetActive(true);
         yield return oneSec;
-        talkText.enabled = false;
-        talkbox.enabled = false;
+        talkbox.SetActive(false);
     }
 }

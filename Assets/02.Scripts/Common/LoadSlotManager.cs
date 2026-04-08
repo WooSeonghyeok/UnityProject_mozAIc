@@ -41,17 +41,17 @@ public class LoadSlotManager : MonoBehaviour
         int lastStage = 0;
         if(slotData != null)
         {
-            if (slotData.ep4_open)
+            if (slotData.ep4_puzzle1Clear)
             {
                 lastStage = 4;
                 slotImg.sprite = ep4Slot;
             }
-            else if (slotData.ep3_open)
+            else if (slotData.ep3_paperClear || slotData.ep3_jumpClear)
             {
                 lastStage = 3;
                 slotImg.sprite = ep3Slot;
             }
-            else if (slotData.ep2_open)
+            else if (slotData.ep2_paintClear || slotData.ep2_spaceClear)
             {
                 lastStage = 2;
                 slotImg.sprite = ep2Slot;
