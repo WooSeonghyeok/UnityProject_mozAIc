@@ -43,7 +43,7 @@ public class SpacePuzzleController : MonoBehaviour
 
         // ⭐ 타이머 멈추기 (핵심)
         scoreController?.StopTimer();
-
+        Episode2ScoreManager.Instance?.AddClearScore(5);
         // ⭐ 퍼즐 클리어 처리 (+5 점수 포함)
         EP2_PuzzleManager.Instance.SolveSpacePuzzle();
     }

@@ -7,6 +7,9 @@ public class SpaceScoreController : MonoBehaviour
 
     private bool isActive = true;
 
+    public float CurrentTime => timer;
+    public float RemainingTime => interval - timer;
+
     void Update()
     {
         if (!isActive) return;
