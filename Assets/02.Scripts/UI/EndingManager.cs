@@ -57,7 +57,7 @@ public class EndingManager : MonoBehaviour
     }
     private static bool TagCnt()  //태그 수집 조건
     {
-        if (SaveManager.instance.curData.MemoryTag == null || SaveManager.instance.curData.MemoryTag.Count == 0)
+        if (SaveManager.instance.curData.CoreTag == null || SaveManager.instance.curData.CoreTag.Count == 0)
         {
             Debug.LogError("MemoryTag 리스트를 찾을 수 없습니다.");
             return true;
@@ -68,11 +68,11 @@ public class EndingManager : MonoBehaviour
             return true;
         }
         int a = 0;
-        foreach (IsTagGet tag in SaveManager.instance.curData.MemoryTag)
+        foreach (IsTagGet tag in SaveManager.instance.curData.CoreTag)
         {
             if (tag.tagGet) a++;
         }
-        return (float)((float)a / (float)SaveManager.instance.curData.MemoryTag.Count) >= 0.8f;
+        return (float)((float)a / (float)SaveManager.instance.curData.CoreTag.Count) >= 0.8f;
     }
     private IEnumerator Start()
     {

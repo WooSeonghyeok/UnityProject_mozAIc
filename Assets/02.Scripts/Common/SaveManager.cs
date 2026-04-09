@@ -35,7 +35,7 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
-        newData.MemoryTag = curData.MemoryTag;
+        newData.CoreTag = curData.CoreTag;
         newData.npcAffinity = curData.npcAffinity;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData,true);
@@ -91,19 +91,31 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 95;
-        dataObj.MemoryTag = new List<IsTagGet>();
-        string[] tagNames ={"shared_childhood",
-                            "star_promise",
-                            "shared_dream",
-                            "co_creation",
-                            "unfinished_confession",
-                            "lover_memory",
-                            "self_voice",
-                            "split_self" };
-        foreach (var name in tagNames)
+        dataObj.memory_reconstruction_rate = 0;
+        dataObj.RateTag = new List<IsTagGet>();
+        string[] rateTagNames = {"ep4_same_look",
+                                "ep4_far_heart",
+                                "ep4_my_life"};
+        foreach (var name in rateTagNames)
         {
-            dataObj.MemoryTag.Add(new IsTagGet
+            dataObj.RateTag.Add(new IsTagGet
+            {
+                TagName = name,
+                tagGet = false
+            });
+        }
+        dataObj.CoreTag = new List<IsTagGet>();
+        string[] coreTagNames = {"shared_childhood",
+                                "star_promise",
+                                "shared_dream",
+                                "co_creation",
+                                "unfinished_confession",
+                                "lover_memory",
+                                "self_voice",
+                                "split_self" };
+        foreach (var name in coreTagNames)
+        {
+            dataObj.CoreTag.Add(new IsTagGet
             {
                 TagName = name,
                 tagGet = false
@@ -142,7 +154,7 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
-        newData.MemoryTag = curData.MemoryTag;
+        newData.CoreTag = curData.CoreTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신

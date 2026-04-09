@@ -12,6 +12,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
     public Text pieceCnt;
     private void Awake()
     {
+        pieceBox.SetActive(false);
         memoryPieces = GetComponentsInChildren<Ep4_Puzzle1_MemoryPiece>();
     }
     void OnEnable()

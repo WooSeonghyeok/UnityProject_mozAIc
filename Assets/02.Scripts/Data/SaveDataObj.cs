@@ -21,7 +21,8 @@ public class SaveDataObj
     public bool ep4_puzzle2Clear;
     public bool ep4_puzzle3Clear;
     public int memory_reconstruction_rate;
-    public List<IsTagGet> MemoryTag;
+    public List<IsTagGet> RateTag;  //재구성 점수 태그
+    public List<IsTagGet> CoreTag;  //진 엔딩 태그
     public List<NPCAffinity> npcAffinity;
     /* 연출 사용 여부 확인 데이터 */
     public bool isFirstEnterAtS3CP0;
