@@ -30,6 +30,7 @@ public class Ep_3Manager : MonoBehaviour
     [Header("엔딩 결과")]
     [SerializeField] private Ep3EndingType currentEndingType = Ep3EndingType.None;
     [SerializeField] private Ep3EndingStateData cachedEndingStateData;
+    private bool hasVisitedStage3_1 = false;
     /// <summary>
     /// 현재 캐시된 엔딩 판정 결과가 유효한지 여부.
     /// </summary>
@@ -37,6 +38,7 @@ public class Ep_3Manager : MonoBehaviour
     public Ep3EndingType CurrentEndingType => currentEndingType;
     public Ep3EndingStateData CachedEndingStateData => cachedEndingStateData;
     public bool IsEvaluated => isEvaluated;
+    public bool HasVisitedStage3_1 => hasVisitedStage3_1;
     /// <summary>
     /// 싱글톤 초기화.
     /// 이미 다른 인스턴스가 있으면 자신은 파괴하고,
@@ -84,6 +86,14 @@ public class Ep_3Manager : MonoBehaviour
     public void AddAIInteraction(int count = 1)
     {
         Debug.Log($"[Ep_3Manager] AI 상호작용 +{count}");
+    }
+
+    public void MarkStage3_1Visited()
+    {
+        if (hasVisitedStage3_1) return;
+
+        hasVisitedStage3_1 = true;
+        Debug.Log("[Ep_3Manager] 3-1 진입 기록");
     }
     // -----------------------------
     // 3-1 결과 보고
@@ -255,6 +265,7 @@ public class Ep_3Manager : MonoBehaviour
         stage3_1Result = new Ep3StageResult();
         stage3_2Result = new Ep3StageResult();
         stage3_3Result = new Ep3StageResult();
+        hasVisitedStage3_1 = false;
         InvalidateEndingEvaluation();
         Debug.Log("[Ep_3Manager] 에피소드 3 데이터 초기화");
     }

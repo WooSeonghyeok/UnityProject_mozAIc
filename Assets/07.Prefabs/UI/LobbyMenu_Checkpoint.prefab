@@ -170,24 +170,43 @@ MonoBehaviour:
   curData:
     ID: 0
     savedTime: "0001-01-01 \uC624\uC804 12:00:00"
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
+    StageLock:
+    - stageID: 0
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+    - stageID: 1
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+    - stageID: 2
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+      - CheckpointID: 2
+        cpLock: 0
+    - stageID: 3
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+      - CheckpointID: 2
+        cpLock: 0
+      - CheckpointID: 3
+        cpLock: 0
+    MemoryPoint: 0
     MemoryTag:
     - TagName: self_voice
       tagGet: 0
-    isFirstEnterAtS3CP0: 0
   StageNumber: 0
   cpNum: 0
   isLock: 0
@@ -318,8 +337,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
-  m_sharedMaterial: {fileID: -1815155015065008992, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -443,14 +462,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.2509804, b: 0.5019608, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4424dda84344cd94489735f2f7bdfdbc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6379cfa4c9e4c8042b23d94866ee53b7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

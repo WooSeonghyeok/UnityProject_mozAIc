@@ -49,7 +49,6 @@ MonoBehaviour:
   serverChat: {fileID: 6388144808068555681}
   followCam: {fileID: 0}
   playerMovement: {fileID: 0}
-  user: {fileID: 0}
   speechBubbleRoot: {fileID: 0}
   speechBubbleText: {fileID: 0}
   speechBubbleDuration: 5
@@ -77,9 +76,7 @@ MonoBehaviour:
   model: helpy-pro
   currentNpcData: {fileID: 0}
   positiveWords:
-  - "\uC30D\uB465\uC774 \uC790\uB9AC"
-  - "\uC30D\uB465\uC774\uC790\uB9AC"
-  - Gemini
+  - "\uCD5C\uACE0\uC758 \uCE5C\uAD6C"
   negativeWords: []
   PositiveAffinity: 50
   NegativeAffinity: -10

@@ -6,6 +6,17 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
     public SaveDataObj curData;
+    private static readonly string[] DefaultMemoryTagNames =
+    {
+        "shared_childhood",
+        "star_promise",
+        "shared_dream",
+        "co_creation",
+        "unfinished_confession",
+        "lover_memory",
+        "self_voice",
+        "split_self"
+    };
     private void Awake()
     {
         if (instance == null)
@@ -15,6 +26,11 @@ public class SaveManager : MonoBehaviour
         }
         else Destroy(gameObject);
         curData = ReadCurJSON();
+        NormalizeTagCollections(curData);
+    }
+    public string GetSavePath(int slot)
+    {
+        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
     }
     public void CreateSaveData(int slotNumber)
     {
@@ -35,9 +51,11 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
-        newData.CoreTag = curData.CoreTag;
-        newData.npcAffinity = curData.npcAffinity;
+        NormalizeTagCollections(curData);
+        newData.MemoryTag = CloneTags(curData.MemoryTag);
+        newData.CoreTag = newData.MemoryTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
+        newData.isFirstEnterAtEP3Lobby = curData.isFirstEnterAtEP3Lobby;
         string json = JsonUtility.ToJson(newData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
@@ -56,10 +74,6 @@ public class SaveManager : MonoBehaviour
         SaveDataObj data = JsonUtility.FromJson<SaveDataObj>(json);
         return data;
     }
-    public string GetSavePath(int slot)
-    {
-        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
-    }
     public static SaveDataObj ReadCurJSON()
     {
         SaveDataObj newData = new SaveDataObj();
@@ -72,6 +86,7 @@ public class SaveManager : MonoBehaviour
         }
         string jsonFile = File.ReadAllText(path);
         newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
+        NormalizeTagCollections(newData);
         return newData;
     }
     public static void CreateCurData(string path, SaveDataObj dataObj)
@@ -92,46 +107,10 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
         dataObj.memory_reconstruction_rate = 0;
-        dataObj.RateTag = new List<IsTagGet>();
-        string[] rateTagNames = {"ep4_same_look",
-                                "ep4_far_heart",
-                                "ep4_my_life"};
-        foreach (var name in rateTagNames)
-        {
-            dataObj.RateTag.Add(new IsTagGet
-            {
-                TagName = name,
-                tagGet = false
-            });
-        }
-        dataObj.CoreTag = new List<IsTagGet>();
-        string[] coreTagNames = {"shared_childhood",
-                                "star_promise",
-                                "shared_dream",
-                                "co_creation",
-                                "unfinished_confession",
-                                "lover_memory",
-                                "self_voice",
-                                "split_self" };
-        foreach (var name in coreTagNames)
-        {
-            dataObj.CoreTag.Add(new IsTagGet
-            {
-                TagName = name,
-                tagGet = false
-            });
-        }
-        dataObj.npcAffinity = new List<NPCAffinity>();
-        string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician" };
-        foreach (var name in npcNames)
-        {
-            dataObj.npcAffinity.Add(new NPCAffinity
-            {
-                npcId = name,
-                Affinity = 50
-            });
-        }
+        dataObj.MemoryTag = CreateDefaultMemoryTags();
+        dataObj.CoreTag = dataObj.MemoryTag;
         dataObj.isFirstEnterAtS3CP0 = false;
+        dataObj.isFirstEnterAtEP3Lobby = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
     }
@@ -154,9 +133,78 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
-        newData.CoreTag = curData.CoreTag;
+        NormalizeTagCollections(curData);
+        newData.MemoryTag = CloneTags(curData.MemoryTag);
+        newData.CoreTag = newData.MemoryTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
+        newData.isFirstEnterAtEP3Lobby = curData.isFirstEnterAtEP3Lobby;
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신
+    }
+
+    private static void NormalizeTagCollections(SaveDataObj dataObj)
+    {
+        if (dataObj == null)
+        {
+            return;
+        }
+
+        if ((dataObj.MemoryTag == null || dataObj.MemoryTag.Count == 0) &&
+            (dataObj.CoreTag == null || dataObj.CoreTag.Count == 0))
+        {
+            dataObj.MemoryTag = CreateDefaultMemoryTags();
+            dataObj.CoreTag = dataObj.MemoryTag;
+            return;
+        }
+
+        if (dataObj.MemoryTag == null || dataObj.MemoryTag.Count == 0)
+        {
+            dataObj.MemoryTag = dataObj.CoreTag;
+        }
+
+        if (dataObj.CoreTag == null || dataObj.CoreTag.Count == 0)
+        {
+            dataObj.CoreTag = dataObj.MemoryTag;
+        }
+    }
+
+    private static List<IsTagGet> CreateDefaultMemoryTags()
+    {
+        List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
+        foreach (string tagName in DefaultMemoryTagNames)
+        {
+            tags.Add(new IsTagGet
+            {
+                TagName = tagName,
+                tagGet = false
+            });
+        }
+
+        return tags;
+    }
+
+    private static List<IsTagGet> CloneTags(List<IsTagGet> source)
+    {
+        List<IsTagGet> cloned = new List<IsTagGet>();
+        if (source == null)
+        {
+            return cloned;
+        }
+
+        foreach (IsTagGet tag in source)
+        {
+            if (tag == null)
+            {
+                continue;
+            }
+
+            cloned.Add(new IsTagGet
+            {
+                TagName = tag.TagName,
+                tagGet = tag.tagGet
+            });
+        }
+
+        return cloned;
     }
 }

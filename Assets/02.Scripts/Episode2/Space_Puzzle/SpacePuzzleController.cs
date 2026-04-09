@@ -18,7 +18,7 @@ public class SpacePuzzleController : MonoBehaviour
     void ActivatePortal()
     {
         Debug.Log("3개 완료 → 포탈 생성");
-        if (SaveManager.instance != null) SaveManager.instance.curData.ep2_spaceClear = true;
+        SaveManager.instance.curData.ep2_spaceClear = true;
         if (portalPrefab != null)  portalPrefab.SetActive(true);  // 🔥 포탈 활성화
         EP2_PuzzleManager.Instance.SolveSpacePuzzle();  // 🔥 상태 저장 (핵심!)
     }

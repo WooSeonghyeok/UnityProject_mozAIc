@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 [System.Serializable]
 public class SaveDataObj
 {
@@ -21,21 +20,14 @@ public class SaveDataObj
     public bool ep4_puzzle2Clear;
     public bool ep4_puzzle3Clear;
     public int memory_reconstruction_rate;
-    public List<IsTagGet> RateTag;  //재구성 점수 태그
-    public List<IsTagGet> CoreTag;  //진 엔딩 태그
-    public List<NPCAffinity> npcAffinity;
+    public List<IsTagGet> MemoryTag;
+    public List<IsTagGet> CoreTag;
     /* 연출 사용 여부 확인 데이터 */
     public bool isFirstEnterAtS3CP0;
+    public bool isFirstEnterAtEP3Lobby;
 }
-[Serializable]
 public class IsTagGet
 {
     public string TagName;
     public bool tagGet;
-}
-[Serializable]
-public class NPCAffinity
-{
-    public string npcId;
-    public int Affinity;
 }

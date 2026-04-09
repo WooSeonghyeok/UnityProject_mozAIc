@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class InteractManager : MonoBehaviour
@@ -21,6 +20,7 @@ public class InteractManager : MonoBehaviour
     private bool gateContact = false;
     private readonly string saveTag = "SavePoint";
     private bool saveContact = false;
+    private readonly string puzzle4Tag = "Puzzle4Zone";
     private readonly string puzzle4RetryTag = "Puzzle4Retry";
     public event Action puzzle4Hint;
     private readonly string goalTag = "GoalPoint";
@@ -72,6 +72,10 @@ public class InteractManager : MonoBehaviour
         {
             AbilitySelectOpen?.Invoke(true);
         }
+        if (other.CompareTag(puzzle4Tag))
+        {
+            Puzzle4Manager.instance.retryButton.gameObject.SetActive(true);
+        }
         if (other.CompareTag(puzzle4RetryTag))
         {
             puzzle4Hint?.Invoke();
@@ -113,6 +117,11 @@ public class InteractManager : MonoBehaviour
         {
             gateContact = false;
             cpPlace = null;
+        }
+        if (other.CompareTag(puzzle4Tag))
+        {
+            Puzzle4Manager.instance.retryButton.gameObject.SetActive(false);
+            Puzzle4Manager.instance.retryPopup.gameObject.SetActive(false);
         }
         if (other.gameObject.CompareTag(saveTag))
         {

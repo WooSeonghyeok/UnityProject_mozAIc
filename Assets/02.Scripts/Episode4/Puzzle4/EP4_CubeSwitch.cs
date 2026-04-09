@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Device;
-using UnityEngine.UI;
 public class EP4_CubeSwitch : MonoBehaviour
 {
     private BoxCollider col;
@@ -15,7 +13,8 @@ public class EP4_CubeSwitch : MonoBehaviour
     private PlayerMovement userMove;
     private readonly string playerTag = "Player";
     public event Action SwitchClick;
-    private SoundTrigger sound;
+    public AudioSource source;
+    public AudioClip switchClip;
     void Awake()
     {
         col = GetComponent<BoxCollider>();
@@ -24,7 +23,7 @@ public class EP4_CubeSwitch : MonoBehaviour
         switchObjects = new List<EP4_Puzzle4_CubeCtrl>();
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         userMove = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        sound = gameObject.GetComponent<SoundTrigger>();
+        source = gameObject.GetComponent<AudioSource>();
     }
     private void OnEnable()
     {
@@ -35,20 +34,8 @@ public class EP4_CubeSwitch : MonoBehaviour
         if (curCube != null && other.gameObject.CompareTag("Player"))
         {
             switchContact = true;
-            Puzzle4Manager.instance.interactionUI.GetComponent<Image>().color = Puzzle4Manager.instance.retry_count == 0 ? Color.white : SwitchColor(curCube.switchValue);
-            Puzzle4Manager.instance.interactionUI.SetActive(true);
             ConditionCheck();
         }
-    }
-    public Color SwitchColor(int colorCode)  // 스위치 사용 시 변경 후 색을 띄워주는 코드
-    {
-        int curRed = curCube.isRed ? 1 : 0;
-        int curGreen = curCube.isGreen ? 2 : 0;
-        int curBlue = curCube.isBlue ? 4 : 0;
-        bool isRed = curRed != (colorCode & 1);
-        bool isGreen = curGreen != (colorCode & 2);
-        bool isBlue = curBlue != (colorCode & 4);
-        return new Color(isRed ? 1 : 0, isGreen ? 1 : 0, isBlue ? 1 : 0);
     }
     public void UseSwitch_Puzzle4()
     {
@@ -58,7 +45,7 @@ public class EP4_CubeSwitch : MonoBehaviour
             obj.OnColorSwitch(curCube.switchValue);
         }
         SwitchClick?.Invoke();
-        sound.Play();
+        source.PlayOneShot(switchClip);
     }
     private void ConditionCheck()
     {
@@ -101,7 +88,6 @@ public class EP4_CubeSwitch : MonoBehaviour
             {
                 switchObjects.Remove(cubeList[n]);
             }
-            Puzzle4Manager.instance.interactionUI.SetActive(false);
             switchContact = false;
         }
     }

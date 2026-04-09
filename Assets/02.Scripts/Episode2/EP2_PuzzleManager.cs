@@ -58,7 +58,7 @@ public class EP2_PuzzleManager : MonoBehaviour
         if (paintClear) return;
         paintClear = true;
         Debug.Log("Paint 퍼즐 완료");
-        if (SaveManager.instance != null)  SaveManager.instance.curData.ep2_paintClear = true;
+        SaveManager.instance.curData.ep2_paintClear = true;
         ApplyPortalMaterials();
     }
     void ApplyPortalMaterials()  // 🔥 머터리얼 적용

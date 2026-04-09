@@ -1,0 +1,105 @@
+{
+  "sequenceId": "EP3_LOBBY_INTRO",
+  "shots": [
+    {
+      "dialogueId": "EP3_001",
+      "speakerType": "Narration",
+      "speakerName": "",
+      "subtitleText": "낯선 정적이 작업실 안에 가라앉아 있었다.",
+      "showSpeakerName": false,
+      "cameraPosition": {
+        "x": 3.25,
+        "y": 2.3,
+        "z": -27.8
+      },
+      "lookAtPosition": {
+        "x": 3.35,
+        "y": 1.4,
+        "z": -20.5
+      },
+      "moveDuration": 1.8,
+      "holdDuration": 1.5,
+      "fieldOfView": 50.0
+    },
+    {
+      "dialogueId": "EP3_002",
+      "speakerType": "Narration",
+      "speakerName": "",
+      "subtitleText": "누군가 방금 전까지 머물렀던 것처럼, 악기와 흔적들만이 자리를 지키고 있었다.",
+      "showSpeakerName": false,
+      "cameraPosition": {
+        "x": 6.2,
+        "y": 2.35,
+        "z": -18.7
+      },
+      "lookAtPosition": {
+        "x": 0.8,
+        "y": 1.2,
+        "z": -12.2
+      },
+      "moveDuration": 2.3,
+      "holdDuration": 1.6,
+      "fieldOfView": 48.0
+    },
+    {
+      "dialogueId": "EP3_003",
+      "speakerType": "Narration",
+      "speakerName": "",
+      "subtitleText": "완성되지 못한 멜로디가 이 공간 어딘가에 남아 있는 듯했다.",
+      "showSpeakerName": false,
+      "cameraPosition": {
+        "x": 2.2,
+        "y": 4.85,
+        "z": -11.2
+      },
+      "lookAtPosition": {
+        "x": 0.9,
+        "y": 1.35,
+        "z": -10.7
+      },
+      "moveDuration": 2.4,
+      "holdDuration": 1.7,
+      "fieldOfView": 56.0
+    },
+    {
+      "dialogueId": "EP3_004",
+      "speakerType": "Narration",
+      "speakerName": "",
+      "subtitleText": "벽에 남겨진 심볼과 악기들은, 멈춰버린 기억의 조각처럼 보였다.",
+      "showSpeakerName": false,
+      "cameraPosition": {
+        "x": 4.7,
+        "y": 2.5,
+        "z": -10.0
+      },
+      "lookAtPosition": {
+        "x": 2.8,
+        "y": 1.3,
+        "z": -17.0
+      },
+      "moveDuration": 2.0,
+      "holdDuration": 1.7,
+      "fieldOfView": 45.0
+    },
+    {
+      "dialogueId": "EP3_005",
+      "speakerType": "Monologue",
+      "speakerName": "",
+      "subtitleText": "이곳에서, 잊힌 노래의 첫 단서를 찾아야 한다.",
+      "showSpeakerName": false,
+      "cameraPosition": {
+        "x": 3.4,
+        "y": 2.25,
+        "z": -24.6
+      },
+      "lookAtPosition": {
+        "x": 3.3,
+        "y": 1.2,
+        "z": -34.3
+      },
+      "moveDuration": 2.4,
+      "holdDuration": 2.0,
+      "fieldOfView": 43.0
+    }
+  ]
+}
