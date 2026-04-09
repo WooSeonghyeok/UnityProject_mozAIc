@@ -19,6 +19,7 @@ public class EndingManager : MonoBehaviour
     public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
+    private CutsceneCtrl_Ending cutscene;
     void Awake()
     {
         endingImage.enabled = true;
@@ -29,6 +30,7 @@ public class EndingManager : MonoBehaviour
         RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
         CtrlReset();
+        cutscene = gameObject.GetComponent<CutsceneCtrl_Ending>();
         canSkipWFS = new WaitForSecondsRealtime(5f);  //엔딩 시작 5초 후 스킵 가능
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
@@ -57,7 +59,7 @@ public class EndingManager : MonoBehaviour
     }
     private static bool TagCnt()  //태그 수집 조건
     {
-        if (SaveManager.instance.curData.MemoryTag == null || SaveManager.instance.curData.MemoryTag.Count == 0)
+        if (SaveManager.instance.curData.CoreTag == null || SaveManager.instance.curData.CoreTag.Count == 0)
         {
             Debug.LogError("MemoryTag 리스트를 찾을 수 없습니다.");
             return true;
@@ -68,11 +70,11 @@ public class EndingManager : MonoBehaviour
             return true;
         }
         int a = 0;
-        foreach (IsTagGet tag in SaveManager.instance.curData.MemoryTag)
+        foreach (IsTagGet tag in SaveManager.instance.curData.CoreTag)
         {
             if (tag.tagGet) a++;
         }
-        return (float)((float)a / (float)SaveManager.instance.curData.MemoryTag.Count) >= 0.8f;
+        return (float)((float)a / (float)SaveManager.instance.curData.CoreTag.Count) >= 0.8f;
     }
     private IEnumerator Start()
     {
@@ -87,6 +89,7 @@ public class EndingManager : MonoBehaviour
         soundCtrl_normal.gameObject.SetActive(false);
         soundCtrl_true.gameObject.SetActive(true);
         Debug.Log("TRUE ENDING!");
+        StartCoroutine(cutscene.TrueEndCutscene());
         endingImage.color = trueColor;
         thankstoImage.color = trueColor;
         EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
@@ -96,6 +99,7 @@ public class EndingManager : MonoBehaviour
         soundCtrl_true.gameObject.SetActive(false);
         soundCtrl_normal.gameObject.SetActive(true);
         Debug.Log("normal ending...");
+        StartCoroutine(cutscene.NormalEndCutscene());
         endingImage.color = normalColor;
         thankstoImage.color = normalColor;
         EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
