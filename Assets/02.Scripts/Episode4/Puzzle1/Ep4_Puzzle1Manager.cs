@@ -35,12 +35,9 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         if (SaveManager.instance == null) return;
         memoryCollected++;
         pieceCnt.text = $"{memoryCollected} / {totalCollected}";
-        if (memoryCollected >= totalCollected)
+        if (memoryCollected < totalCollected)
         {
-            foreach (IsTagGet lastTag in SaveManager.instance.curData.MemoryTag)
-            {
-                if (lastTag.TagName == "split_self") lastTag.tagGet = true;
-            }
+            SaveManager.instance.curData.memory_reconstruction_rate += 5;
         }
     }
     private void OnTriggerExit(Collider other)
