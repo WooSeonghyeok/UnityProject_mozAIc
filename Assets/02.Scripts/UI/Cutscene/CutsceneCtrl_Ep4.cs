@@ -52,6 +52,7 @@ public class CutsceneCtrl_Ep4 : MonoBehaviour
     {
         if (SaveManager.instance.curData.isFirstEnterAtS3CP0) yield break;
         Ep4_StartCutscene.PlayCutscene();
+        yield return null;
         StartCoroutine(_manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다."));
         coreCam.Priority = 11;
         _manager.UserCtrl(false);
@@ -146,14 +147,15 @@ public class CutsceneCtrl_Ep4 : MonoBehaviour
     }
     public void EndingCutscene()
     {
-        _manager.UserCtrl(false);
         StartCoroutine(SyncEnding());
+        _manager.UserCtrl(false);
     }
     public IEnumerator SyncEnding()
     {
         Ep4_EndCutscene.PlayCutscene();
+        yield return null;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "그 기억들은 널 무너뜨리기 위해 남아 있던 게 아니야.\n널 다시 네 자리로 돌려보내기 위해 남아 있던 거야.", Talker.core));
-        yield return oneSec;
+        yield return twoSec;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "돌아가자. 이번엔 끝까지.", Talker.core));
         yield return twoSec;
         StartCoroutine(_manager.TalkSay(TalkType.player, "전부... 내 삶이었다."));
