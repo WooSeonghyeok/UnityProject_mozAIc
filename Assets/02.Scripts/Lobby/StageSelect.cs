@@ -39,7 +39,7 @@ public class StageSelect : MonoBehaviour
             cpButtons = checkpointList.GetComponentsInChildren<CheckpointSelectButton>();
         else
             cpButtons = GetComponentsInChildren<CheckpointSelectButton>();
-        curData = SaveManager.ReadCurJSON();
+        curData = SaveManager.instance.curData;
         EnterSound = GetComponent<SoundTrigger>();
     }
     private void OnEnable()

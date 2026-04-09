@@ -23,7 +23,7 @@ public class Puzzle4Manager : MonoBehaviour
     public NPCData coreNPC;
     public CutsceneCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
-    public float puzzle4MemoryRate = 0f;
+    public int puzzle4MemoryRate = 0;
     private SoundTrigger clearSound;
     public GameObject interactionUI;   // "E" 상호작용 UI
     private bool isMidCutsceneOn = false;
@@ -137,9 +137,8 @@ public class Puzzle4Manager : MonoBehaviour
     }
     private void FinalScore()
     {
-        puzzle4MemoryRate += retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
-        puzzle4MemoryRate = Math.Clamp(puzzle4MemoryRate, 0, 5f);  //각 퍼즐당 최대 5점까지
-        SaveManager.instance.curData.memory_reconstruction_rate -= (int)(puzzle4MemoryRate);  //이전까지 총 점수에서 감점
+        puzzle4MemoryRate = Math.Clamp(retry_count, 0, 5);  //각 퍼즐당 최대 5점까지
+        SaveManager.instance.curData.memory_reconstruction_rate -= puzzle4MemoryRate;  //이전까지 총 점수에서 감점
         Debug.Log($"최종점수: {SaveManager.instance.curData.memory_reconstruction_rate}");
         scoreFinished = true;  //마지막 점수 계산 종료 확인
     }
