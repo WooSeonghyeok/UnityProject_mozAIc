@@ -269,6 +269,11 @@ public class AltarPuzzleManager : MonoBehaviour
         }
 
         Debug.Log("제단 퍼즐 실패");
+        // UI 퍼즐 실패 1회 누적
+        if (GameManager_Ep1.Instance != null)
+        {
+            GameManager_Ep1.Instance.AddUiPuzzleFail();
+        }
         Invoke(nameof(ResetPuzzle), 1f);
     }
 

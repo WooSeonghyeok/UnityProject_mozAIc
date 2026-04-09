@@ -119,7 +119,7 @@ public class IceSlideRigidbody : MonoBehaviour
         }
         else return;
     }
-    /// 입력 또는 외부 지정 방향으로 슬라이딩 시작
+    // 입력 또는 외부 지정 방향으로 슬라이딩 시작
     public void StartSlideFromDirection(Vector3 dir)
     {
         // 실제 이동은 퍼즐에 맞게 월드 4방향으로 보정
@@ -141,7 +141,11 @@ public class IceSlideRigidbody : MonoBehaviour
             StopSliding();
             return;
         }
-
+        // 실제 슬라이드 시작이 확정된 시점에만 카운트
+        if (GameManager_Ep1.Instance != null)
+        {
+            GameManager_Ep1.Instance.AddSlideCount();
+        }
         // 미끄러지기 시작
         isSliding = true;
 
@@ -242,7 +246,6 @@ public class IceSlideRigidbody : MonoBehaviour
             return new Vector3(0f, 0f, Mathf.Sign(dir.z));
         }
     }
-
     // 슬라이드 퍼즐 시작 시 상태 초기화
     public void ResetInputPhase()
     {
@@ -261,8 +264,7 @@ public class IceSlideRigidbody : MonoBehaviour
             SoundManager.Instance.StopLoopSFX();
         }
     }
-
-    /// SlideStartPoint에서 월드 기준 방향으로 첫 슬라이드 시작
+    // SlideStartPoint에서 월드 기준 방향으로 첫 슬라이드 시작
     public void StartInitialSlideInWorldDirection(Vector3 worldDirection)
     {
         // SlideStartPoint가 지정한 월드 방향으로 시작
@@ -279,7 +281,6 @@ public class IceSlideRigidbody : MonoBehaviour
     {
         return isSliding;
     }
-
     // 현재 미끄러지는 방향 확인
     public Vector3 GetSlideDirection()
     {
