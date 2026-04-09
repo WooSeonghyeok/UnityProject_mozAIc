@@ -21,10 +21,6 @@ public class MemoryRateTagPoint : MonoBehaviour
         {
             if (thisTagGet) return;
             SaveManager.instance.curData.memory_reconstruction_rate += memoryRateUp;
-            foreach (IsTagGet tag in SaveManager.instance.curData.RateTag)
-            {
-                if (tag.TagName == TagName) tag.tagGet = true;
-            }
             tagBubble.SetActive(false);
             StartCoroutine(cutscene.TalkSay(CutsceneManager.TalkType.player, tagHint));
             thisTagGet = true;

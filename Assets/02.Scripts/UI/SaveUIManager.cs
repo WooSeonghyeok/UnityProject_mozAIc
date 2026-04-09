@@ -23,7 +23,7 @@ public class SaveUIManager : MonoBehaviour
     public void CloseSavePopup() => SavePopup.SetActive(false);
     public IEnumerator SaveAlarm()
     {
-        curData = SaveManager.ReadCurJSON();
+        curData = SaveManager.instance.curData;
         savedText.text = $"Slot {curData.ID} Saved";
         savedAlarm.SetActive(true);
         yield return savedWS;

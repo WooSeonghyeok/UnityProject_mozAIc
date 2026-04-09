@@ -44,13 +44,6 @@ public class ServerChat : MonoBehaviour
 
     [Header("기억 재구성 키워드")]
     public MemoryKeyword[] words;
-    [Serializable]
-    public class MemoryKeyword
-    {
-        public string word;
-        public int memoryRate;
-        public bool isUsed = false;
-    }
 
     private void Start()
     {
