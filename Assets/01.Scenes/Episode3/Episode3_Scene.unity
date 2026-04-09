@@ -922,6 +922,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSceneName: 1
   sceneNameValue: Ep3_1_Scene
+  lockRequirement: 0
+  lockedMessage: "\uC9C0\uAE08\uC740 \uAC08 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+  lockedMessageDuration: 1.5
+  lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   onInteract:
     m_PersistentCalls:
       m_Calls: []
@@ -1068,6 +1072,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSceneName: 1
   sceneNameValue: Ep3_2_Scene
+  lockRequirement: 1
+  lockedMessage: "3-1 \uC2EC\uBCFC\uC744 \uBA3C\uC800 \uD655\uC778\uD574\uC57C \uD560
+    \uAC83 \uAC19\uC544"
+  lockedMessageDuration: 1.5
+  lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   onInteract:
     m_PersistentCalls:
       m_Calls: []
