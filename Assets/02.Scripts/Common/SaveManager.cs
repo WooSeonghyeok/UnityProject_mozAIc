@@ -16,10 +16,6 @@ public class SaveManager : MonoBehaviour
         else Destroy(gameObject);
         curData = ReadCurJSON();
     }
-    public string GetSavePath(int slot)
-    {
-        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
-    }
     public void CreateSaveData(int slotNumber)
     {
         SaveDataObj newData = new SaveDataObj();
@@ -39,7 +35,8 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
-        newData.MemoryTag = curData.MemoryTag;
+        newData.CoreTag = curData.CoreTag;
+        newData.npcAffinity = curData.npcAffinity;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
@@ -58,6 +55,10 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(path);
         SaveDataObj data = JsonUtility.FromJson<SaveDataObj>(json);
         return data;
+    }
+    public string GetSavePath(int slot)
+    {
+        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
     }
     public static SaveDataObj ReadCurJSON()
     {
@@ -91,23 +92,44 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
         dataObj.memory_reconstruction_rate = 0;
-        dataObj.MemoryTag = new List<IsTagGet>();
-        for (int i = 0; i < dataObj.MemoryTag.Count; i++)
+        dataObj.RateTag = new List<IsTagGet>();
+        string[] rateTagNames = {"ep4_same_look",
+                                "ep4_far_heart",
+                                "ep4_my_life"};
+        foreach (var name in rateTagNames)
         {
-            IsTagGet tag = new();
-            switch (i)
+            dataObj.RateTag.Add(new IsTagGet
             {
-                case 0: tag.TagName = "shared_childhood"; break;
-                case 1: tag.TagName = "star_promise"; break;
-                case 2: tag.TagName = "shared_dream"; break;
-                case 3: tag.TagName = "co_creation"; break;
-                case 4: tag.TagName = "unfinished_confession"; break;
-                case 5: tag.TagName = "lover_memory"; break;
-                case 6: tag.TagName = "self_voice"; break;
-                case 7: tag.TagName = "split_self"; break;
-            }
-            tag.tagGet = false;
-            dataObj.MemoryTag.Add(tag);
+                TagName = name,
+                tagGet = false
+            });
+        }
+        dataObj.CoreTag = new List<IsTagGet>();
+        string[] coreTagNames = {"shared_childhood",
+                                "star_promise",
+                                "shared_dream",
+                                "co_creation",
+                                "unfinished_confession",
+                                "lover_memory",
+                                "self_voice",
+                                "split_self" };
+        foreach (var name in coreTagNames)
+        {
+            dataObj.CoreTag.Add(new IsTagGet
+            {
+                TagName = name,
+                tagGet = false
+            });
+        }
+        dataObj.npcAffinity = new List<NPCAffinity>();
+        string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician" };
+        foreach (var name in npcNames)
+        {
+            dataObj.npcAffinity.Add(new NPCAffinity
+            {
+                npcId = name,
+                Affinity = 50
+            });
         }
         dataObj.isFirstEnterAtS3CP0 = false;
         string json = JsonUtility.ToJson(dataObj, true);
@@ -132,7 +154,7 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
-        newData.MemoryTag = curData.MemoryTag;
+        newData.CoreTag = curData.CoreTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신

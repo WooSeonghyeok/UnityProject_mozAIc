@@ -24,12 +24,6 @@ public class Ep3_1Manager : MonoBehaviour
     [SerializeField] private List<string> collectedTags = new List<string>();
     private bool isCleared = false;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
-
-    private void Start()
-    {
-        Ep_3Manager.Instance?.MarkStage3_1Visited();
-    }
-
     /// <summary>
     /// 조각 하나를 획득했을 때 호출된다.
     /// 
@@ -44,7 +38,7 @@ public class Ep3_1Manager : MonoBehaviour
         if (collectedPieceCount >= requiredPieceCount && !_allPiecesEventRaised)
         {
             _allPiecesEventRaised = true;
-            SaveManager.instance.curData.ep3_paperClear = true;
+            if (SaveManager.instance != null) SaveManager.instance.curData.ep3_paperClear = true;
             // 인스펙터에서 연결한 리스너들을 호출 (PuzzleComplete 등)
             try
             {

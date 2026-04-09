@@ -2,40 +2,46 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class EndingManager : MonoBehaviour
 {
-    private AudioSource BGMSource;
     private bool isCompleteEnding;
-    public AudioClip CompleteEndingBGM;
-    public AudioClip NormalEndingBGM;
-    public AudioClip ThankstoBGM;
+    public Color trueColor = new Color(1f, 1f, 1f,1f);
+    public Color normalColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+    public SoundController soundCtrl_true;
+    public SoundController soundCtrl_normal;
     public Image endingImage;
     public GameObject endSkipButton;
     public WaitForSecondsRealtime canSkipWFS;
     public WaitForSecondsRealtime EndingDuration;
     public Image thankstoImage;
+    public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
+    private CutsceneCtrl_Ending cutscene;
     void Awake()
     {
-        BGMSource = GetComponent<AudioSource>();
         endingImage.enabled = true;
         thankstoImage.enabled = false;
+        soundCtrl_true.gameObject.SetActive(false);
+        soundCtrl_normal.gameObject.SetActive(false);
         endSkipButton.SetActive(false);
+        RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
+        CtrlReset();
+        cutscene = gameObject.GetComponent<CutsceneCtrl_Ending>();
         canSkipWFS = new WaitForSecondsRealtime(5f);  //엔딩 시작 5초 후 스킵 가능
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
-        bool ReconstructionRateCond = EndingConditionData.memory_reconstruction_rate >= EndingPoint();
-        bool allTags = EndingConditionData.shared_childhood && EndingConditionData.star_promise && EndingConditionData.shared_dream && EndingConditionData.co_creation
-                    && EndingConditionData.unfinished_confession && EndingConditionData.lover_memory && EndingConditionData.self_voice && EndingConditionData.split_self;
-        isCompleteEnding = ReconstructionRateCond && allTags ;
+        bool ReconstructionRateCond = SaveManager.instance.curData.memory_reconstruction_rate >= EndingPoint();
+        bool TagsCond = TagCnt();
+        isCompleteEnding = ReconstructionRateCond && TagsCond;
     }
     public static int EndingPoint()
     {
-        string path = Path.Combine(Application.dataPath, "JSON/EndingRule.json");
+        string path = Path.Combine(Application.dataPath, "Resources/Data/ending_rule.json");
         if (!File.Exists(path))
         {
             Debug.LogError("EndingRule.json 파일을 찾을 수 없습니다: " + path);
@@ -51,6 +57,25 @@ public class EndingManager : MonoBehaviour
         int rate = endingRule.EndingRule[0].minReconstructionRate;
         return rate;
     }
+    private static bool TagCnt()  //태그 수집 조건
+    {
+        if (SaveManager.instance.curData.CoreTag == null || SaveManager.instance.curData.CoreTag.Count == 0)
+        {
+            Debug.LogError("MemoryTag 리스트를 찾을 수 없습니다.");
+            return true;
+        }
+        if (SaveManager.instance.curData.npcAffinity == null || SaveManager.instance.curData.npcAffinity.Count == 0)
+        {
+            Debug.LogError("NPC 리스트를 찾을 수 없습니다.");
+            return true;
+        }
+        int a = 0;
+        foreach (IsTagGet tag in SaveManager.instance.curData.CoreTag)
+        {
+            if (tag.tagGet) a++;
+        }
+        return (float)((float)a / (float)SaveManager.instance.curData.CoreTag.Count) >= 0.8f;
+    }
     private IEnumerator Start()
     {
         if (isCompleteEnding) CompleteEnding();
@@ -61,21 +86,33 @@ public class EndingManager : MonoBehaviour
     }
     void CompleteEnding()
     {
-        BGMSource.clip = CompleteEndingBGM;
-        endingImage.color = new Color (1f,1f,1f,1f);
-        EndingDuration = new WaitForSecondsRealtime(20f);  //엔딩 시작 20초 후 종료
+        soundCtrl_normal.gameObject.SetActive(false);
+        soundCtrl_true.gameObject.SetActive(true);
+        Debug.Log("TRUE ENDING!");
+        StartCoroutine(cutscene.TrueEndCutscene());
+        endingImage.color = trueColor;
+        thankstoImage.color = trueColor;
+        EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
     }
     void NormalEnding()
     {
-        BGMSource.clip = NormalEndingBGM;
-        endingImage.color = new Color(0.8f, 0.8f, 0.8f, 0.8f);
-        EndingDuration = new WaitForSecondsRealtime(10f);  //엔딩 시작 10초 후 종료
+        soundCtrl_true.gameObject.SetActive(false);
+        soundCtrl_normal.gameObject.SetActive(true);
+        Debug.Log("normal ending...");
+        StartCoroutine(cutscene.NormalEndCutscene());
+        endingImage.color = normalColor;
+        thankstoImage.color = normalColor;
+        EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
     {
-        BGMSource.Play();
         yield return EndingDuration;
         EndingClear();
+    }
+    void CtrlReset()
+    {
+        soundCtrl_true.gameObject.SetActive(false);
+        soundCtrl_normal.gameObject.SetActive(false);
     }
     public void OnEndingSkip()
     {
@@ -85,18 +122,11 @@ public class EndingManager : MonoBehaviour
     private void EndingClear()
     {
         EndingStop();
-        if (BGMSource != null && BGMSource.isPlaying)  // 엔딩 BGM 중지
-        {
-            BGMSource.Stop();
-        }
+        CtrlReset();
         endingImage.enabled = false;
         endSkipButton.SetActive(false);
-        if (isCompleteEnding && ThankstoBGM != null)  //트루엔딩 후 BGM 재생
-        {
-            BGMSource.clip = ThankstoBGM;
-            BGMSource.Play();
-        }
         thankstoImage.enabled = true;
+        RegameButton.SetActive(true);
         AppEndButton.SetActive(true);
     }
     private void EndingStop()
@@ -106,6 +136,10 @@ public class EndingManager : MonoBehaviour
             StopCoroutine(endingPlayCoroutine);
             endingPlayCoroutine = null;
         }
+    }
+    public void Regame()
+    {
+        SceneManager.LoadScene("StartScene");
     }
     public void END()
     {
