@@ -19,17 +19,31 @@ public class CutsceneManager : MonoBehaviour
     public WaitForSecondsRealtime oneSec = new(1f);
     void Awake()
     {
-        user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
-        userMove = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player != null)
+        {
+            user = player.GetComponent<PlayerInput>();
+            if (user == null) Debug.LogWarning("PlayerInput 컴포넌트를 찾을 수 없습니다.");
+            userMove = player.GetComponent<PlayerMovement>();
+            if (userMove == null) Debug.LogWarning("PlayerMovement 컴포넌트를 찾을 수 없습니다.");
+        }
+        else
+        {
+            Debug.Log("Player 오브젝트가 존재하지 않는 신입니다.");
+        }
         box_system.SetActive(false);
         box_player.SetActive(false);
         box_voice.SetActive(false);
     }
     public void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
     {
-        user.enabled = b;
-        userMove.enabled = b;
-        userMove.SetMoveLock(!b);
+        if (user != null)
+            user.enabled = b;
+        if (userMove != null)
+        {
+            userMove.enabled = b;
+            userMove.SetMoveLock(!b);
+        }
     }
     public IEnumerator TalkSay(TalkType type, string say, Talker talk = Talker.self)
     {

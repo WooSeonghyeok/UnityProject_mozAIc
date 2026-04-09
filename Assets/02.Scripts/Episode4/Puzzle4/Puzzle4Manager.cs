@@ -20,11 +20,12 @@ public class Puzzle4Manager : MonoBehaviour
     private bool scoreFinished = false;
     public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
-    public CutsceneManager cutsceneManager;
+    public CutsceneCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
     public float puzzle4MemoryRate = 0f;
     private SoundTrigger clearSound;
     public GameObject interactionUI;   // "E" 상호작용 UI
+    private bool isMidCutsceneOn = false;
     void Awake()
     {
         if (instance == null) instance = this;
@@ -78,7 +79,12 @@ public class Puzzle4Manager : MonoBehaviour
     public void Switch_CountUp()  //스위치 상호작용 횟수 누적 메소드
     {
         SyncCheck();
-        if (egoSync == 1f) StartCoroutine(cutsceneManager.TalkSay(CutsceneManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
+        if (egoSync >= 0.5f && !isMidCutsceneOn)
+        {
+            isMidCutsceneOn = true;
+            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "전부 나로 받아들이겠다."));
+        }
+        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
     {
@@ -101,7 +107,7 @@ public class Puzzle4Manager : MonoBehaviour
     {
         if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력
         {
-            StartCoroutine(cutsceneManager.gameObject.GetComponent<CutsceneCtrl_Ep4>().FinalPuzzleEntry());
+            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "도망치지 않겠다.")); 
             isFirstContact = true;
         }
         else
@@ -118,7 +124,7 @@ public class Puzzle4Manager : MonoBehaviour
                 7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
                 _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
             };
-            StartCoroutine(cutsceneManager.TalkSay(CutsceneManager.TalkType.player, msg));
+            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, msg));
         }
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
@@ -126,7 +132,6 @@ public class Puzzle4Manager : MonoBehaviour
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
         SyncCheck();
         FinalScore();
-        SplitSelfTag();
         if (egoSync == 1f) SelfVoiceTag();
     }
     private void FinalScore()
@@ -145,21 +150,6 @@ public class Puzzle4Manager : MonoBehaviour
         }
         Debug.Log($"마지막 기억 획득!");
         clearSound.Play();
-    }
-    private static void SplitSelfTag()  //모든 NPC 호감도를 100 이상 달성해야 "split_self" 태그를 획득
-    {
-        int a = 0;
-        foreach (NPCAffinity npc in SaveManager.instance.curData.npcAffinity)
-        {
-            if (npc.Affinity >= 100) a++;
-        }
-        foreach (IsTagGet Tag in SaveManager.instance.curData.CoreTag)
-        {
-            if (Tag.TagName == "split_self")
-            {
-                Tag.tagGet = (a == SaveManager.instance.curData.npcAffinity.Count);
-            }
-        }
     }
     public void SyncCheck()  //자아 통합도 계산
     {
