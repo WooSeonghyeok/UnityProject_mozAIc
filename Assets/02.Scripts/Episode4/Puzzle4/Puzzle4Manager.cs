@@ -20,6 +20,7 @@ public class Puzzle4Manager : MonoBehaviour
     private bool scoreFinished = false;
     public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
+    public NPCData coreNPC;
     public CutsceneCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
     public float puzzle4MemoryRate = 0f;
@@ -150,6 +151,7 @@ public class Puzzle4Manager : MonoBehaviour
         }
         Debug.Log($"마지막 기억 획득!");
         clearSound.Play();
+        coreNPC.revealStage = MemoryRevealStage.Full;
     }
     public void SyncCheck()  //자아 통합도 계산
     {
