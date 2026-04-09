@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6619190425406738549}
   - component: {fileID: 4479451118123559155}
   - component: {fileID: 4010647941904436021}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Portal4_Altar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   virtualCam: {fileID: 0}
   useCutscene: 1
   requirePuzzleClear: 1
-  enterCaveCutscene: 0
+  playCutsceneOnlyOnce: 1
   cutscenePlayer: {fileID: 0}
 --- !u!1 &3305444436750846374
 GameObject:
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7246167787364251104}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Altar_Village
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 3349018144828528417}
   - component: {fileID: 7507499905317616669}
   - component: {fileID: 5866672587542388785}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 8475752202448199890}
   - component: {fileID: 8892193275790257466}
   - component: {fileID: 8021078174178138962}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 1710378649107430876}
   - component: {fileID: 8452508473300595455}
   - component: {fileID: 2316278316447993886}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 1934376528643448182}
   - component: {fileID: 5361929224881777080}
   - component: {fileID: 9193049286136031735}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 8982824255772998946}
   - component: {fileID: 3649298522758100378}
   - component: {fileID: 5187255545414915359}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 9149253365817067227}
   - component: {fileID: 674651335305322186}
   - component: {fileID: 2248778504245804289}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 330863266402562309}
   - component: {fileID: 441436970713334745}
   - component: {fileID: 4146840087928662395}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8579580559863072627}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +685,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 255444170115225344, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 255444171964612244, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Name
@@ -693,7 +693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 255444171964612244, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 630598172490900526, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_LocalScale.x
@@ -749,7 +749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1210639302252194615, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -805,7 +805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546316693476046445, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066112651227114711, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_LocalScale.x
@@ -909,7 +909,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 255444170115225344, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 255444171964612244, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Name
@@ -917,7 +917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 255444171964612244, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 630598172490900526, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_LocalScale.x
@@ -973,7 +973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1210639302252194615, guid: f953dd42b31bfc94898bdc486560e6a5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1029,7 +1029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546316693476046445, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066112651227114711, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1137,7 +1137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546316693476046445, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066112651227114711, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1285,7 +1285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4293603758144302328, guid: 93ca20bb2ffcf1d4aa49669d0ce9900d, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1341,7 +1341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546316693476046445, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066112651227114711, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1449,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546316693476046445, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066112651227114711, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1551,21 +1551,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7246167787364251104}
     m_Modifications:
-    - target: {fileID: 1858574480321768004, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4b490a1369ae0cc4892e90324b9f2f5c, type: 2}
     - target: {fileID: 3311476703960889256, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_Name
       value: StarStone
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311476703960889256, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4748638640585477474, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5288479882957885103, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1615,21 +1603,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: -1815155015065008992, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
-    - target: {fileID: 8170780283948891725, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_text
-      value: "Gemini(\uC30D\uB465\uC774 \uC790\uB9AC)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_margin.w
-      value: 49.602825
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_margin.y
-      value: 49.455647
+      value: "-\uC6B0\uB9AC\uC758 \uC57D\uC18D-\n\n\n\uC2DC\uAC04\uC774 \uD750\uB974\uACE0
+        \uBAA8\uB4E0 \uAC83\uC774 \uBCC0\uD574\uB3C4\n\n\"\uC6B0\uB9AC\uB294 \uC11C\uB85C
+        \uCD5C\uACE0\uC758 \uCE5C\uAD6C\uB2E4\"\n\n\uBC18\uC9DD\uC774\uB294 \uBCC4\uB4E4\uC5D0
+        \uB9F9\uC138\uD569\uB2C8\uB2E4.\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_fontAsset
@@ -1637,24 +1616,12 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1815155015065008992, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
-    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1679,7 +1646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546316693476046445, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066112651227114711, guid: 2aa39e75ea6cac847ba671a2a608105a, type: 3}
       propertyPath: m_LocalScale.x
