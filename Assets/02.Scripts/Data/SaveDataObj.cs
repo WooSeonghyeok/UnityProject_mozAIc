@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-
 [Serializable]
 public class SaveDataObj
 {
@@ -23,7 +22,6 @@ public class SaveDataObj
     public bool ep4_puzzle2Clear;
     public bool ep4_puzzle3Clear;
     public int memory_reconstruction_rate;
-    public List<IsTagGet> MemoryTag;  // 기억 복원 태그
     public List<IsTagGet> CoreTag;    // 진 엔딩 태그
     public List<NPCInfo> npcInformations;
 
@@ -31,13 +29,12 @@ public class SaveDataObj
     public bool isFirstEnterAtS3CP0;
     public bool isFirstEnterAtEP3Lobby;
 }
-
+[Serializable]
 public class IsTagGet
 {
     public string TagName;
     public bool tagGet;
 }
-
 [Serializable]
 public class NPCInfo
 {
@@ -45,7 +42,6 @@ public class NPCInfo
     public int Affinity;
     public List<MemoryKeyword> words;
 }
-
 [Serializable]
 public class MemoryKeyword
 {
