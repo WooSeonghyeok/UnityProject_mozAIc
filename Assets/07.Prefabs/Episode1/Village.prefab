@@ -93474,6 +93474,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal1_VillageCave
       objectReference: {fileID: 0}
+    - target: {fileID: 8465948010615814131, guid: f05f928639f2c674c9dfc9e546f13455, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158292701611753958, guid: f05f928639f2c674c9dfc9e546f13455, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
