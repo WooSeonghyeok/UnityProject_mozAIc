@@ -97,7 +97,6 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private Quaternion initialCameraRotation = Quaternion.identity;
     private float initialFieldOfView = 60f;
     private Vector3 initialLookAtPosition;
-    private bool hasCapturedCameraState;
 
     public void InitializeAsRuntimeFallback()
     {
@@ -150,8 +149,6 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(startDelay);
-        CacheGameplayCamera();
-        CaptureCurrentCameraState();
         yield return PlayCutscene(sequence);
 
         FinishController();
@@ -200,12 +197,9 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private void CaptureCurrentCameraState()
     {
-        hasCapturedCameraState = false;
-
         Transform currentCameraTransform = Camera.main != null ? Camera.main.transform : (gameplayCamera != null ? gameplayCamera.transform : null);
         if (currentCameraTransform != null)
         {
-            hasCapturedCameraState = true;
             initialCameraPosition = currentCameraTransform.position;
             initialCameraRotation = currentCameraTransform.rotation;
             initialLookAtPosition = initialCameraPosition + (currentCameraTransform.forward * DefaultLookDistance);
@@ -257,12 +251,8 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
             introTrackedDolly.m_Path = introPath;
             introTrackedDolly.m_PositionUnits = CinemachinePathBase.PositionUnits.PathUnits;
-            if (!hasCapturedCameraState)
-            {
-                initialLookAtPosition = lookAtTarget.position;
-                initialFieldOfView = introCamera.m_Lens.FieldOfView;
-            }
-
+            initialLookAtPosition = lookAtTarget.position;
+            initialFieldOfView = introCamera.m_Lens.FieldOfView;
             return;
         }
 
@@ -310,31 +300,6 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         introCamera.AddCinemachineComponent<CinemachineHardLookAt>();
     }
 
-    private void PrepareIntroRigForStart(Ep3LobbyIntroSequenceData sequence)
-    {
-        if (sequence == null || introCamera == null || introTrackedDolly == null || introPath == null || lookAtTarget == null)
-        {
-            return;
-        }
-
-        if (ownsRuntimeRig || syncSceneRigWithSequence)
-        {
-            introPath.m_Looped = false;
-            introPath.m_Resolution = Mathf.Max(4, pathResolution);
-            introPath.m_Waypoints = BuildWaypoints(sequence, introPath.transform);
-            introPath.InvalidateDistanceCache();
-        }
-
-        introTrackedDolly.m_Path = introPath;
-        introTrackedDolly.m_PositionUnits = CinemachinePathBase.PositionUnits.PathUnits;
-        introTrackedDolly.m_PathPosition = 0f;
-        lookAtTarget.position = initialLookAtPosition;
-        introCamera.LookAt = lookAtTarget;
-        introCamera.m_Lens.FieldOfView = initialFieldOfView;
-        introCamera.transform.SetPositionAndRotation(initialCameraPosition, initialCameraRotation);
-        introCamera.PreviousStateIsValid = false;
-    }
-
     private CinemachineSmoothPath.Waypoint[] BuildWaypoints(Ep3LobbyIntroSequenceData sequence, Transform pathTransform)
     {
         CinemachineSmoothPath.Waypoint[] waypoints = new CinemachineSmoothPath.Waypoint[sequence.shots.Count + 1];
@@ -360,7 +325,6 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private IEnumerator PlayCutscene(Ep3LobbyIntroSequenceData sequence)
     {
         isPlaying = true;
-        PrepareIntroRigForStart(sequence);
         SetPlayerControl(false);
 
         if (gameplayCamera != null)
