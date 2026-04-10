@@ -1551,9 +1551,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7246167787364251104}
     m_Modifications:
+    - target: {fileID: 1858574480321768004, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b490a1369ae0cc4892e90324b9f2f5c, type: 2}
     - target: {fileID: 3311476703960889256, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_Name
       value: StarStone
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702527590339857196, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.029
       objectReference: {fileID: 0}
     - target: {fileID: 5288479882957885103, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1605,10 +1613,11 @@ PrefabInstance:
       objectReference: {fileID: -1815155015065008992, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_text
-      value: "-\uC6B0\uB9AC\uC758 \uC57D\uC18D-\n\n\n\uC2DC\uAC04\uC774 \uD750\uB974\uACE0
-        \uBAA8\uB4E0 \uAC83\uC774 \uBCC0\uD574\uB3C4\n\n\"\uC6B0\uB9AC\uB294 \uC11C\uB85C
-        \uCD5C\uACE0\uC758 \uCE5C\uAD6C\uB2E4\"\n\n\uBC18\uC9DD\uC774\uB294 \uBCC4\uB4E4\uC5D0
-        \uB9F9\uC138\uD569\uB2C8\uB2E4.\n"
+      value: "Gemini(\uC30D\uB465\uC774\uC790\uB9AC)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
+      propertyPath: m_margin.w
+      value: 50.353813
       objectReference: {fileID: 0}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_fontAsset
@@ -1619,9 +1628,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
+      propertyPath: m_fontColor.a
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1815155015065008992, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
+    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4177526783
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594659713917624214, guid: 9592dfaa7392b9948a0d2fe29172d21c, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
