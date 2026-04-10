@@ -7,6 +7,7 @@ using OpenAI;
 using UnityEditor.MPE;
 using Unity.VisualScripting;
 using UnityEngine.Rendering;
+using System;
 
 public class ServerChat : MonoBehaviour
 {
@@ -40,6 +41,9 @@ public class ServerChat : MonoBehaviour
     public int NegativeAffinity = -10;
 
     [SerializeField] private TMP_Text AffinityText;
+
+    [Header("기억 재구성 키워드")]
+    public MemoryKeyword[] words;
 
     private void Start()
     {
@@ -206,39 +210,52 @@ public class ServerChat : MonoBehaviour
     public void CheckWords(string msg)
     {
         if (currentNpcData == null) return;
-        if (!currentNpcData.UseAffinity) return;
-
-        foreach (string word in positiveWords)
+        foreach (MemoryKeyword keyword in words)
         {
-            if (msg.Contains(word))
+            if (msg.ToLower().Contains(keyword.word.ToLower()))
             {
-                currentNpcData.Affinity += PositiveAffinity;
-
-                if (AffinityText != null)
+                Debug.Log($"[MemoryKeyword] 발견됨: {keyword.word}, isUsed={keyword.isUsed}");
+                if (!keyword.isUsed)
                 {
-                    AffinityText.text = $"호감도 : {currentNpcData.Affinity}";
+                    SaveManager.instance.curData.memory_reconstruction_rate += keyword.memoryRate;
+                    keyword.isUsed = true;
+                    Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {SaveManager.instance.curData.memory_reconstruction_rate}");
                 }
-
-                currentNpcData.ChangeAffinity();
-                UpdateAIType();
-                return;
+                else
+                {
+                    Debug.Log($"[MemoryKeyword] 이미 사용됨. 증가 없음.");
+                }
             }
         }
-
-        foreach (string word in negativeWords)
+        if (currentNpcData.UseAffinity)
         {
-            if (msg.Contains(word))
+            foreach (string word in positiveWords)
             {
-                currentNpcData.Affinity += NegativeAffinity;
-
-                if (AffinityText != null)
+                if (msg.Contains(word))
                 {
-                    AffinityText.text = $"호감도 : {currentNpcData.Affinity}";
+                    currentNpcData.Affinity += PositiveAffinity;
+                    if (AffinityText != null)
+                    {
+                        AffinityText.text = $"호감도 : {currentNpcData.Affinity}";
+                    }
+                    currentNpcData.ChangeAffinity();
+                    UpdateAIType();
+                    return;
                 }
-
-                currentNpcData.ChangeAffinity();
-                UpdateAIType();
-                return;
+            }
+            foreach (string word in negativeWords)
+            {
+                if (msg.Contains(word))
+                {
+                    currentNpcData.Affinity += NegativeAffinity;
+                    if (AffinityText != null)
+                    {
+                        AffinityText.text = $"호감도 : {currentNpcData.Affinity}";
+                    }
+                    currentNpcData.ChangeAffinity();
+                    UpdateAIType();
+                    return;
+                }
             }
         }
     }

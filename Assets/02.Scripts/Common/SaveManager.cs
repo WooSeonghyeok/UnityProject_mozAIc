@@ -6,6 +6,17 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
     public SaveDataObj curData;
+    public static readonly string[] DefaultMemoryTagNames =
+    {
+        "shared_childhood",
+        "star_promise",
+        "shared_dream",
+        "co_creation",
+        "unfinished_confession",
+        "lover_memory",
+        "self_voice",
+        "split_self"
+    };
     private void Awake()
     {
         if (instance == null)
@@ -36,7 +47,7 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.CoreTag = curData.CoreTag;
-        newData.npcAffinity = curData.npcAffinity;
+        newData.npcInformations = curData.npcInformations;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         string json = JsonUtility.ToJson(newData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
@@ -62,7 +73,6 @@ public class SaveManager : MonoBehaviour
     }
     public static SaveDataObj ReadCurJSON()
     {
-        SaveDataObj newData = new SaveDataObj();
         string path = Path.Combine(Application.persistentDataPath, $"CurData.json");
         if (!File.Exists(path))  //아직 파일이 없는 상태인 경우 기본 파일을 생성
         {
@@ -71,6 +81,7 @@ public class SaveManager : MonoBehaviour
             return defaultSave;
         }
         string jsonFile = File.ReadAllText(path);
+        SaveDataObj newData = new SaveDataObj();
         newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
         return newData;
     }
@@ -91,49 +102,81 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 0;
-        dataObj.RateTag = new List<IsTagGet>();
-        string[] rateTagNames = {"ep4_same_look",
-                                "ep4_far_heart",
-                                "ep4_my_life"};
-        foreach (var name in rateTagNames)
-        {
-            dataObj.RateTag.Add(new IsTagGet
-            {
-                TagName = name,
-                tagGet = false
-            });
-        }
-        dataObj.CoreTag = new List<IsTagGet>();
-        string[] coreTagNames = {"shared_childhood",
-                                "star_promise",
-                                "shared_dream",
-                                "co_creation",
-                                "unfinished_confession",
-                                "lover_memory",
-                                "self_voice",
-                                "split_self" };
-        foreach (var name in coreTagNames)
-        {
-            dataObj.CoreTag.Add(new IsTagGet
-            {
-                TagName = name,
-                tagGet = false
-            });
-        }
-        dataObj.npcAffinity = new List<NPCAffinity>();
-        string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician" };
+        dataObj.memory_reconstruction_rate = 40;
+        dataObj.CoreTag = CreateDefaultMemoryTags();
+        dataObj.npcInformations = new List<NPCInfo>();
+        string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician", "npc_ep4_core" };
         foreach (var name in npcNames)
         {
-            dataObj.npcAffinity.Add(new NPCAffinity
+            dataObj.npcInformations.Add(new NPCInfo
             {
                 npcId = name,
-                Affinity = 50
+                Affinity = 50,
+                words = new List<MemoryKeyword>()
             });
+            switch (name)
+            {
+                case "npc_ep1_luna":
+                {
+                    string[] RateTagNames = { "쌍둥이자리" };
+                    foreach (var keyword in RateTagNames)
+                    {
+                        dataObj.npcInformations[0].words.Add(new MemoryKeyword
+                        {
+                            word = keyword,
+                            memoryRate = 10,
+                            isUsed = false
+                        });
+                    }
+                    break;
+                }
+                case "npc_ep2_painter":
+                    {
+                        string[] RateTagNames = { "동료", "작업실", "색", "?", "!" };
+                        foreach (var keyword in RateTagNames)
+                        {
+                            dataObj.npcInformations[1].words.Add(new MemoryKeyword
+                            {
+                                word = keyword,
+                                memoryRate = 1,
+                                isUsed = false
+                            });
+                        }
+                        break;
+                    }
+                case "npc_ep3_musician": break;
+                case "npc_ep4_core":
+                {
+                    string[] RateTagNames = { "기억", "동료", "하모니", "삶", "마지막 조각" };
+                    foreach (var keyword in RateTagNames)
+                    {
+                        dataObj.npcInformations[3].words.Add(new MemoryKeyword
+                        {
+                            word = keyword,
+                            memoryRate = 2,
+                            isUsed = false
+                        });
+                    }
+                    break;
+                }
+            }
         }
         dataObj.isFirstEnterAtS3CP0 = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
+    }
+    private static List<IsTagGet> CreateDefaultMemoryTags()
+    {
+        List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
+        foreach (string tagName in DefaultMemoryTagNames)
+        {
+            tags.Add(new IsTagGet
+            {
+                TagName = tagName,
+                tagGet = false
+            });
+        }
+        return tags;
     }
     public void WriteCurJSON()
     {
@@ -156,6 +199,7 @@ public class SaveManager : MonoBehaviour
         newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
         newData.CoreTag = curData.CoreTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
+        newData.npcInformations = curData.npcInformations;
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신
     }

@@ -6,7 +6,7 @@ public class Ep4_PuzzleStartPoint : MonoBehaviour
 {
     public int puzzleNumber;
     private readonly string player = "Player";
-    public CutsceneCtrl_Ep4 cutsceneManager;
+    public TextboxCtrl_Ep4 cutsceneManager;
     private bool isPlayed = false;  //각 시작 지점마다 대사 연출을 1회만 재생하도록 체크
     private void OnTriggerEnter(Collider other)
     {

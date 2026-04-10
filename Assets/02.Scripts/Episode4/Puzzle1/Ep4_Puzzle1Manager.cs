@@ -10,7 +10,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
     [SerializeField] private int totalCollected;
     public GameObject pieceBox;
     public Text pieceCnt;
-    public CutsceneCtrl_Ep4 cutscene;
+    public TextboxCtrl_Ep4 cutscene;
     private bool isMidCutsceneOn = false;
     private void Awake()
     {
@@ -40,7 +40,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         pieceCnt.text = $"{memoryCollected} / {totalCollected}";
         if (memoryCollected >= (totalCollected / 2) && !isMidCutsceneOn)  //조각 절반 이상 수집 시점에 중간 대사 출력
         {
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "다시 지나가야 한다. 그때의 나처럼."));
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "다시 지나가야 한다. 그때의 나처럼."));
             isMidCutsceneOn = true;
         }
         if (memoryCollected >= totalCollected)  //조각 전부 수집 시 "split_self" 태그 획득

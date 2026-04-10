@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class CutsceneManager : MonoBehaviour
+public class TextboxManager : MonoBehaviour
 {
     private readonly string playerTag = "Player";
     public PlayerInput user;

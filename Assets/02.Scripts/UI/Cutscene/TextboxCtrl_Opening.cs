@@ -1,14 +1,12 @@
-﻿using Cinemachine;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class CutsceneCtrl_Opening : MonoBehaviour
+public class TextboxCtrl_Opening : MonoBehaviour
 {
-    public static CutsceneCtrl_Opening Instance;
-    public CutsceneManager _manager;
+    public static TextboxCtrl_Opening Instance;
+    public TextboxManager _manager;
     public Volume pp_Volume;
     public VolumeProfile pp_Volume_black;
     public VolumeProfile pp_Volume_flash;
@@ -56,13 +54,13 @@ public class CutsceneCtrl_Opening : MonoBehaviour
     {
         yield return oneSec;
         blackboard.enabled = false;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.system, "아무것도 완전히 존재하지 않는 공간.\n어두운 허공 사이로,\n겨우 한 줄기의 길만이 이어져 있다."));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.system, "아무것도 완전히 존재하지 않는 공간.\n어두운 허공 사이로,\n겨우 한 줄기의 길만이 이어져 있다."));
         yield return twoSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.player, "찾아야 해"));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "찾아야 해"));
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.player, "사라지기 전에"));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "사라지기 전에"));
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.player, "내가... 왜 여기에 있지?"));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "내가... 왜 여기에 있지?"));
         _manager.UserCtrl(true);
     }
     public void OpeningMid()
@@ -80,15 +78,15 @@ public class CutsceneCtrl_Opening : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
         OpeningMidCutscene.PlayCutscene();
         yield return new WaitForSecondsRealtime(3f);
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.voice, "흩어진 거야.",CutsceneManager.Talker.core));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "흩어진 거야.", TextboxManager.Talker.core));
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.voice, "더 늦기 전에 찾아야 해.", CutsceneManager.Talker.core));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "더 늦기 전에 찾아야 해.", TextboxManager.Talker.core));
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.voice, "길을 따라가.", CutsceneManager.Talker.core));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "길을 따라가.", TextboxManager.Talker.core));
         openingMidGate.SetActive(true);
         user.isLookLock = false;
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.voice, "꼭 찾아야 해.", CutsceneManager.Talker.core));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "꼭 찾아야 해.", TextboxManager.Talker.core));
         _manager.UserCtrl(true);
     }
     public void OpeningEnd()
@@ -100,9 +98,9 @@ public class CutsceneCtrl_Opening : MonoBehaviour
         _manager.UserCtrl(false);
         OpeningEndCutscene.PlayCutscene();
         yield return new WaitForSecondsRealtime(2f);
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.player, "너는 누구야?"));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "너는 누구야?"));
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(CutsceneManager.TalkType.voice, "문 너머로 가면 알 수 있을 거야.", CutsceneManager.Talker.core));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "문 너머로 가면 알 수 있을 거야.", TextboxManager.Talker.core));
         user.isJumpLock = false;
         if (SaveManager.instance != null) SaveManager.instance.curData.ep1_open = true;  //Start 신을 거치지 않은 경우 SaveManager가 null이므로 유효성 체크
         yield return halfSec;

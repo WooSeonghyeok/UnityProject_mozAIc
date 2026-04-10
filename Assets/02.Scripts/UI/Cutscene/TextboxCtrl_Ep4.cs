@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static CutsceneManager;
+using static TextboxManager;
 
-public class CutsceneCtrl_Ep4 : MonoBehaviour
+public class TextboxCtrl_Ep4 : MonoBehaviour
 {
-    public CutsceneManager _manager;
+    public TextboxManager _manager;
     private PlayerInput user;
     public CinemachineVirtualCamera coreCam;
     public CinemachineVirtualCamera gazeCam;
