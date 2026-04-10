@@ -1,16 +1,15 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 /// <summary>
-/// ÇÁ·ÎÁ§Æ® ÀüÃ¼ÀÇ »ç¿îµå¸¦ ÃÑ°ıÇÏ´Â ¸Å´ÏÀú
+/// í”„ë¡œì íŠ¸ ì „ì²´ì˜ ì‚¬ìš´ë“œë¥¼ ì´ê´„í•˜ëŠ” ë§¤ë‹ˆì €
 /// - BGM
-/// - Ambient(È¯°æÀ½)
+/// - Ambient(í™˜ê²½ìŒ)
 /// - UI
-/// - SFX(»óÈ£ÀÛ¿ë / ÆÛÁñ / Á¡ÇÁ / ÂøÁö µî)
-/// ¸¦ ºĞ¸®ÇØ¼­ °ü¸®ÇÑ´Ù.
+/// - SFX(ìƒí˜¸ì‘ìš© / í¼ì¦ / ì í”„ / ì°©ì§€ ë“±)
+/// ë¥¼ ë¶„ë¦¬í•´ì„œ ê´€ë¦¬í•œë‹¤.
 /// 
-/// »ç¿ë ¹æ½Ä:
+/// ì‚¬ìš© ë°©ì‹:
 /// SoundManager.Instance.PlayBGM(BGMType.Title);
 /// SoundManager.Instance.PlayAmbient(AmbientType.Wind_Loop);
 /// SoundManager.Instance.PlayUI(UIType.Click);
@@ -22,7 +21,6 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     #region Enum
-
     public enum BGMType
     {
         None,
@@ -40,7 +38,6 @@ public class SoundManager : MonoBehaviour
         Episode4,
         Episode4_Finale
     }
-
     public enum AmbientType
     {
         None,
@@ -55,9 +52,7 @@ public class SoundManager : MonoBehaviour
         Ep3_1_Loop,
         Ep3_2_Loop,
         Ep4_Loop
-
     }
-
     public enum UIType
     {
         None,
@@ -68,16 +63,13 @@ public class SoundManager : MonoBehaviour
         Open,
         Close
     }
-
     public enum SFXType
     {
         None,
-
-        //ÇÃ·¹ÀÌ¾î ¾×¼Ç
+        //í”Œë ˆì´ì–´ ì•¡ì…˜
         Jump,
         Land,
-
-        //ÇÃ·¹ÀÌ¾î Ç²½ºÅÇ
+        //í”Œë ˆì´ì–´ í’‹ìŠ¤íƒ­
         Footstep_Ep_Opening,
         Footstep_Ep_0_Lobby,
         Footstep_Ep1_Village,
@@ -90,145 +82,120 @@ public class SoundManager : MonoBehaviour
         Footstep_Ep3_1,
         Footstep_Ep3_2,
         Footstep_Ep4,
-
-        //¿¡ÇÇ¼Òµå °ø¿ë
+        //ì—í”¼ì†Œë“œ ê³µìš©
         PortalPass,
-
-        // ¿¡ÇÇ¼Òµå 1 Àü¿ë
+        // ì—í”¼ì†Œë“œ 1 ì „ìš©
         Ep1_1Slide,
         Ep1_1SlideHit,
         Ep1_Village_RockOpen,
         Ep1_Village_StarPickup,
         Ep1_2_StarClear,
-
-        // ¿¡ÇÇ¼Òµå 2 Àü¿ë
+        // ì—í”¼ì†Œë“œ 2 ì „ìš©
         Ep2_Studio_EnterPicture,
         Ep2_1_PaintCorrect,
         Ep2_1_PaintWrong,
         Ep2_1_PaintFall,
         Ep2_2_ObjectGaze,
         Ep2_2ObjectAppear,
-
-        // ¿¡ÇÇ¼Òµå 3 Àü¿ë
+        // ì—í”¼ì†Œë“œ 3 ì „ìš©
         Ep3_1_DoorAppear,
         Ep3_1_DoorOpen,
         Ep3_1_DoorPass,
         Ep3_2_TileActive,
         Ep3_2_TileStepCorrect,
         Ep3_2_TileStepWrong,
-
-        // ¿¡ÇÇ¼Òµå 4 Àü¿ë
+        // ì—í”¼ì†Œë“œ 4 ì „ìš©
         Ep4_Last_LeverPull,
         Ep4_Last_PuzzleComplete,
-
-        // ÄÆ¾À ¿¬ÃâÀ½
+        // ì»·ì”¬ ì—°ì¶œìŒ
         CutsceneStart,
         CutsceneEnd
     }
-
     #endregion
-
     #region Serializable Entry Classes
-
     [System.Serializable]
     public class BGMEntry
     {
         public BGMType type;
         public AudioClip clip;
     }
-
     [System.Serializable]
     public class AmbientEntry
     {
         public AmbientType type;
         public AudioClip clip;
     }
-
     [System.Serializable]
     public class UIEntry
     {
         public UIType type;
         public AudioClip[] clips;
     }
-
     [System.Serializable]
     public class SFXEntry
     {
         public SFXType type;
         public AudioClip[] clips;
     }
-
     #endregion
-
     #region Inspector Fields
 
-    [Header("¿Àµğ¿À ¼Ò½º")]
-    [SerializeField] private AudioSource bgmSource;      // ¹è°æÀ½¾Ç Àü¿ë
-    [SerializeField] private AudioSource ambientSource;  // È¯°æÀ½ Àü¿ë
-    [SerializeField] private AudioSource uiSource;       // UI »ç¿îµå Àü¿ë
-    [SerializeField] private AudioSource sfxSource;      // ÀÏ¹İ È¿°úÀ½ Àü¿ë
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½")]
+    [SerializeField] private AudioSource bgmSource;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private AudioSource ambientSource;  // È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private AudioSource uiSource;       // UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private AudioSource sfxSource;      // ï¿½Ï¹ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private AudioSource loopSfxSource;   // ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [Header("º¼·ı")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float bgmVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float ambientVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float uiVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float sfxVolume = 1f;
-
-    [Header("·£´ı ÇÇÄ¡")]
+    [Header("ëœë¤ í”¼ì¹˜")]
     [SerializeField] private bool useRandomPitchForSFX = true;
     [SerializeField] private float sfxPitchMin = 0.95f;
     [SerializeField] private float sfxPitchMax = 1.05f;
-
-    [Header("BGM ¸ñ·Ï")]
+    [Header("BGM ëª©ë¡")]
     [SerializeField] private List<BGMEntry> bgmEntries = new List<BGMEntry>();
-
-    [Header("Ambient ¸ñ·Ï")]
+    [Header("Ambient ëª©ë¡")]
     [SerializeField] private List<AmbientEntry> ambientEntries = new List<AmbientEntry>();
-
-    [Header("UI ¸ñ·Ï")]
+    [Header("UI ëª©ë¡")]
     [SerializeField] private List<UIEntry> uiEntries = new List<UIEntry>();
-
-    [Header("SFX ¸ñ·Ï")]
+    [Header("SFX ëª©ë¡")]
     [SerializeField] private List<SFXEntry> sfxEntries = new List<SFXEntry>();
-
-    [Header("¾À ·Îµå ½Ã ÀÚµ¿ BGM ¼³Á¤ ¿©ºÎ")]
+    [Header("ì”¬ ë¡œë“œ ì‹œ ìë™ BGM ì„¤ì • ì—¬ë¶€")]
     [SerializeField] private bool useAutoSceneBGM = true;
-
-    [Header("¾À ·Îµå ½Ã ÀÚµ¿ Ambient ¼³Á¤ ¿©ºÎ")]
+    [Header("ì”¬ ë¡œë“œ ì‹œ ìë™ Ambient ì„¤ì • ì—¬ë¶€")]
     [SerializeField] private bool useAutoSceneAmbient = true;
-
     #endregion
-
     #region Runtime Dictionaries
-
     private Dictionary<BGMType, AudioClip> bgmDict = new Dictionary<BGMType, AudioClip>();
     private Dictionary<AmbientType, AudioClip> ambientDict = new Dictionary<AmbientType, AudioClip>();
     private Dictionary<UIType, AudioClip[]> uiDict = new Dictionary<UIType, AudioClip[]>();
     private Dictionary<SFXType, AudioClip[]> sfxDict = new Dictionary<SFXType, AudioClip[]>();
-
     #endregion
-
     #region Unity Life Cycle
-
     private void Awake()
     {
-        // ½Ì±ÛÅæ Áßº¹ »ı¼º ¹æÁö
+        // ì‹±ê¸€í†¤ ì¤‘ë³µ ìƒì„± ë°©ì§€
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
         BuildDictionaries();
+        masterVolume = PlayerPrefs.GetFloat("Volume");
+        bgmVolume = PlayerPrefs.GetFloat("BGM_Volume");
+        ambientVolume = PlayerPrefs.GetFloat("Ambient_Volume");
+        uiVolume = PlayerPrefs.GetFloat("UI_Volume");
+        sfxVolume = PlayerPrefs.GetFloat("SFX_Volume");
         ApplyVolumes();
-
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
     private void OnDestroy()
     {
         if (Instance == this)
@@ -236,14 +203,11 @@ public class SoundManager : MonoBehaviour
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
-
     #endregion
-
     #region Initialize
-
     /// <summary>
-    /// Inspector¿¡¼­ µî·ÏÇÑ ¸®½ºÆ®¸¦ Dictionary·Î º¯È¯
-    /// ·±Å¸ÀÓ Àç»ı ¼Óµµ¿Í °ü¸® ÆíÀÇ¸¦ À§ÇØ »ç¿ë
+    /// Inspectorì—ì„œ ë“±ë¡í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ Dictionaryë¡œ ë³€í™˜
+    /// ëŸ°íƒ€ì„ ì¬ìƒ ì†ë„ì™€ ê´€ë¦¬ í¸ì˜ë¥¼ ìœ„í•´ ì‚¬ìš©
     /// </summary>
     private void BuildDictionaries()
     {
@@ -253,44 +217,36 @@ public class SoundManager : MonoBehaviour
             if (entry == null) continue;
             if (entry.clip == null) continue;
             if (bgmDict.ContainsKey(entry.type)) continue;
-
             bgmDict.Add(entry.type, entry.clip);
         }
-
         ambientDict.Clear();
         foreach (var entry in ambientEntries)
         {
             if (entry == null) continue;
             if (entry.clip == null) continue;
             if (ambientDict.ContainsKey(entry.type)) continue;
-
             ambientDict.Add(entry.type, entry.clip);
         }
-
         uiDict.Clear();
         foreach (var entry in uiEntries)
         {
             if (entry == null) continue;
             if (entry.clips == null || entry.clips.Length == 0) continue;
             if (uiDict.ContainsKey(entry.type)) continue;
-
             uiDict.Add(entry.type, entry.clips);
         }
-
         sfxDict.Clear();
         foreach (var entry in sfxEntries)
         {
             if (entry == null) continue;
             if (entry.clips == null || entry.clips.Length == 0) continue;
             if (sfxDict.ContainsKey(entry.type)) continue;
-
             sfxDict.Add(entry.type, entry.clips);
         }
     }
-
     /// <summary>
-    /// °¢ ¼Ò½º¿¡ º¼·ı Àû¿ë
-    /// Master Volumeµµ ÇÔ²² °öÇØ¼­ ÃÖÁ¾ º¼·ıÀ» ¸¸µç´Ù.
+    /// ê° ì†ŒìŠ¤ì— ë³¼ë¥¨ ì ìš©
+    /// Master Volumeë„ í•¨ê»˜ ê³±í•´ì„œ ìµœì¢… ë³¼ë¥¨ì„ ë§Œë“ ë‹¤.
     /// </summary>
     private void ApplyVolumes()
     {
@@ -299,14 +255,11 @@ public class SoundManager : MonoBehaviour
         if (uiSource != null) uiSource.volume = masterVolume * uiVolume;
         if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume;
     }
-
     #endregion
-
     #region Scene Loaded
-
     /// <summary>
-    /// ¾ÀÀÌ ·ÎµåµÉ ¶§ ÀÚµ¿À¸·Î BGM / Ambient¸¦ ¹Ù²Ù°í ½ÍÀ» ¶§ »ç¿ë
-    /// ¾À ÀÌ¸§¿¡ ¸ÂÃç¼­ ±âº» ¹è°æÀ½À» ³Ö¾îµĞ´Ù.
+    /// ì”¬ì´ ë¡œë“œë  ë•Œ ìë™ìœ¼ë¡œ BGM / Ambientë¥¼ ë°”ê¾¸ê³  ì‹¶ì„ ë•Œ ì‚¬ìš©
+    /// ì”¬ ì´ë¦„ì— ë§ì¶°ì„œ ê¸°ë³¸ ë°°ê²½ìŒì„ ë„£ì–´ë‘”ë‹¤.
     /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -314,347 +267,257 @@ public class SoundManager : MonoBehaviour
         {
             switch (scene.name)
             {
-                case "Title":
-                    PlayBGM(BGMType.Title);
-                    break;
-
-                case "Episode0":
-                    PlayBGM(BGMType.Episode0);
-                    break;
-
-                case "Episode1_Village":
-                    PlayBGM(BGMType.Episode1_Village);
-                    break;
-
-                case "Episode1_1":
-                    PlayBGM(BGMType.Episode1_1);
-                    break;
-
-                case "Episode1_2":
-                    PlayBGM(BGMType.Episode1_2);
-                    break;
-
-                case "Episode2_Studio":
-                    PlayBGM(BGMType.Episode2_Studio);
-                    break;
-
-                case "Episode2_1":
-                    PlayBGM(BGMType.Episode2_1);
-                    break;
-
-                case "Episode2_2":
-                    PlayBGM(BGMType.Episode2_2);
-                    break;
-
-                case "Episode3_Lobby":
-                    PlayBGM(BGMType.Episode3_Lobby);
-                    break;
-
-                case "Episode3_1":
-                    PlayBGM(BGMType.Episode3_1);
-                    break;
-
-                case "Episode3_2":
-                    PlayBGM(BGMType.Episode3_2);
-                    break;
-
-                case "Episode4":
-                    PlayBGM(BGMType.Episode4);
-                    break;
-                case "Episode4_Finale":
-                    PlayBGM(BGMType.Episode4_Finale);
-                    break;
+                case "Title": PlayBGM(BGMType.Title); break;
+                case "Episode0": PlayBGM(BGMType.Episode0); break;
+                case "Episode1_Village": PlayBGM(BGMType.Episode1_Village); break;
+                case "Episode1_1": PlayBGM(BGMType.Episode1_1); break;
+                case "Episode1_2": PlayBGM(BGMType.Episode1_2); break;
+                case "Episode2_Studio": PlayBGM(BGMType.Episode2_Studio); break;
+                case "Episode2_1": PlayBGM(BGMType.Episode2_1); break;
+                case "Episode2_2": PlayBGM(BGMType.Episode2_2); break;
+                case "Episode3_Lobby": PlayBGM(BGMType.Episode3_Lobby); break;
+                case "Episode3_1": PlayBGM(BGMType.Episode3_1); break;
+                case "Episode3_2": PlayBGM(BGMType.Episode3_2); break;
+                case "Episode4": PlayBGM(BGMType.Episode4); break;
+                case "Episode4_Finale": PlayBGM(BGMType.Episode4_Finale); break;
             }
         }
-
         if (useAutoSceneAmbient)
         {
             switch (scene.name)
             {
-                case "Title":
-                    StopAmbient();
-                    break;
-
-                case "Episode0":
-                    PlayAmbient(AmbientType.Ep0_Loop);
-                    break;
-
-                case "Episode1_Village":
-                    PlayAmbient(AmbientType.Ep1_Village_Loop);
-                    break;
-
-                case "Episode1_1":
-                    PlayAmbient(AmbientType.Ep1_1_Loop);
-                    break;
-
-                case "Episode1_2":
-                    PlayAmbient(AmbientType.Ep1_2_Loop);
-                    break;
-
-                case "Episode2_Studio":
-                    PlayAmbient(AmbientType.Ep2_Studio_Loop);
-                    break;
-
-                case "Episode2_1":
-                    PlayAmbient(AmbientType.Ep2_1_Loop);
-                    break;
-
-                case "Episode2_2":
-                    PlayAmbient(AmbientType.Ep2_2_Loop);
-                    break;
-
-                case "Episode3_Lobby":
-                    PlayAmbient(AmbientType.Ep3_Lobby_Loop);
-                    break;
-
-                case "Episode3_1":
-                    PlayAmbient(AmbientType.Ep3_1_Loop);
-                    break;
-
-                case "Episode3_2":
-                    PlayAmbient(AmbientType.Ep3_2_Loop);
-                    break;
-
-                case "Episode4":
-                    PlayAmbient(AmbientType.Ep4_Loop);
-                    break;
-
-                default:
-                    StopAmbient();
-                    break;
+                case "Title": StopAmbient(); break;
+                case "Episode0": PlayAmbient(AmbientType.Ep0_Loop); break;
+                case "Episode1_Village": PlayAmbient(AmbientType.Ep1_Village_Loop); break;
+                case "Episode1_1": PlayAmbient(AmbientType.Ep1_1_Loop); break;
+                case "Episode1_2": PlayAmbient(AmbientType.Ep1_2_Loop); break;
+                case "Episode2_Studio": PlayAmbient(AmbientType.Ep2_Studio_Loop); break;
+                case "Episode2_1": PlayAmbient(AmbientType.Ep2_1_Loop); break;
+                case "Episode2_2": PlayAmbient(AmbientType.Ep2_2_Loop); break;
+                case "Episode3_Lobby": PlayAmbient(AmbientType.Ep3_Lobby_Loop); break;
+                case "Episode3_1": PlayAmbient(AmbientType.Ep3_1_Loop); break;
+                case "Episode3_2": PlayAmbient(AmbientType.Ep3_2_Loop); break;
+                case "Episode4": PlayAmbient(AmbientType.Ep4_Loop); break;
+                default: StopAmbient(); break;
             }
         }
     }
-
     #endregion
-
     #region BGM
-
     /// <summary>
-    /// BGM Àç»ı
-    /// ÀÌ¹Ì °°Àº °îÀÌ Àç»ı ÁßÀÌ¸é ´Ù½Ã Àç»ıÇÏÁö ¾Ê´Â´Ù.
+    /// BGM ì¬ìƒ
+    /// ì´ë¯¸ ê°™ì€ ê³¡ì´ ì¬ìƒ ì¤‘ì´ë©´ ë‹¤ì‹œ ì¬ìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     public void PlayBGM(BGMType type, bool loop = true)
     {
         if (bgmSource == null) return;
-
         if (type == BGMType.None)
         {
             StopBGM();
             return;
         }
-
         if (!bgmDict.TryGetValue(type, out AudioClip clip) || clip == null)
         {
-            Debug.LogWarning($"[SoundManager] BGM Å¬¸³ÀÌ µî·ÏµÇÁö ¾ÊÀ½: {type} -> ±âÁ¸ BGM Á¤Áö");
+            Debug.LogWarning($"[SoundManager] BGM í´ë¦½ì´ ë“±ë¡ë˜ì§€ ì•ŠìŒ: {type} -> ê¸°ì¡´ BGM ì •ì§€");
             StopBGM();
             return;
         }
-
-        if (bgmSource.clip == clip && bgmSource.isPlaying)
-            return;
-
+        if (bgmSource.clip == clip && bgmSource.isPlaying) return;
         bgmSource.clip = clip;
         bgmSource.loop = loop;
         bgmSource.Play();
     }
-
     public void StopBGM()
     {
         if (bgmSource == null) return;
         bgmSource.Stop();
         bgmSource.clip = null;
     }
-
     #endregion
-
     #region Ambient
-
     /// <summary>
-    /// È¯°æÀ½ ·çÇÁ Àç»ı
+    /// í™˜ê²½ìŒ ë£¨í”„ ì¬ìƒ
     public void PlayAmbient(AmbientType type, bool loop = true)
     {
         if (ambientSource == null) return;
-
         if (type == AmbientType.None)
         {
             StopAmbient();
             return;
         }
-
         if (!ambientDict.TryGetValue(type, out AudioClip clip) || clip == null)
         {
-            Debug.LogWarning($"[SoundManager] Ambient Å¬¸³ÀÌ µî·ÏµÇÁö ¾ÊÀ½: {type} -> ±âÁ¸ Ambient Á¤Áö");
+            Debug.LogWarning($"[SoundManager] Ambient í´ë¦½ì´ ë“±ë¡ë˜ì§€ ì•ŠìŒ: {type} -> ê¸°ì¡´ Ambient ì •ì§€");
             StopAmbient();
             return;
         }
-
-        if (ambientSource.clip == clip && ambientSource.isPlaying)
-            return;
-
+        if (ambientSource.clip == clip && ambientSource.isPlaying) return;
         ambientSource.clip = clip;
         ambientSource.loop = loop;
         ambientSource.Play();
     }
-
     public void StopAmbient()
     {
         if (ambientSource == null) return;
         ambientSource.Stop();
         ambientSource.clip = null;
     }
-
     #endregion
-
     #region UI
-
     /// <summary>
-    /// UI »ç¿îµå Àç»ı
-    /// - ¿©·¯ Å¬¸³ÀÌ ÀÖÀ¸¸é ·£´ıÀ¸·Î ¼±ÅÃ
-    /// - PlayOneShotÀ¸·Î ´Ù¸¥ UI È¿°ú¿Í ÀÚ¿¬½º·´°Ô °ãÄ¥ ¼ö ÀÖÀ½
+    /// UI ì‚¬ìš´ë“œ ì¬ìƒ
+    /// - ì—¬ëŸ¬ í´ë¦½ì´ ìˆìœ¼ë©´ ëœë¤ìœ¼ë¡œ ì„ íƒ
+    /// - PlayOneShotìœ¼ë¡œ ë‹¤ë¥¸ UI íš¨ê³¼ì™€ ìì—°ìŠ¤ëŸ½ê²Œ ê²¹ì¹  ìˆ˜ ìˆìŒ
     /// </summary>
     public void PlayUI(UIType type, float volumeScale = 1f)
     {
         if (type == UIType.None) return;
         if (uiSource == null) return;
-
         if (!uiDict.TryGetValue(type, out AudioClip[] clips))
         {
-            Debug.LogWarning($"[SoundManager] UI Å¬¸³ÀÌ µî·ÏµÇÁö ¾ÊÀ½: {type}");
+            Debug.LogWarning($"[SoundManager] UI í´ë¦½ì´ ë“±ë¡ë˜ì§€ ì•ŠìŒ: {type}");
             return;
         }
-
         AudioClip clip = GetRandomClip(clips);
         if (clip == null) return;
-
         volumeScale = Mathf.Clamp01(volumeScale);
         uiSource.PlayOneShot(clip, masterVolume * uiVolume * volumeScale);
     }
-
     #endregion
-
     #region SFX
-
     /// <summary>
-    /// ÀÏ¹İ 2D È¿°úÀ½ Àç»ı
-    /// - »óÈ£ÀÛ¿ë
-    /// - ÆÛÁñ
-    /// - ÇÃ·¹ÀÌ¾î Á¡ÇÁ / ÂøÁö
-    /// °°Àº Àü¿ª/Æò¸éÀûÀÎ È¿°úÀ½¿¡ »ç¿ë
+    /// ì¼ë°˜ 2D íš¨ê³¼ìŒ ì¬ìƒ
+    /// - ìƒí˜¸ì‘ìš©
+    /// - í¼ì¦
+    /// - í”Œë ˆì´ì–´ ì í”„ / ì°©ì§€
+    /// ê°™ì€ ì „ì—­/í‰ë©´ì ì¸ íš¨ê³¼ìŒì— ì‚¬ìš©
     /// </summary>
     public void PlaySFX(SFXType type, float volumeScale = 1f)
     {
         if (type == SFXType.None) return;
         if (sfxSource == null) return;
+        if (!sfxDict.TryGetValue(type, out AudioClip[] clips))
+        {
+            Debug.LogWarning($"[SoundManager] SFX í´ë¦½ì´ ë“±ë¡ë˜ì§€ ì•ŠìŒ: {type}");
+            return;
+        }
+        AudioClip clip = GetRandomClip(clips);
+        if (clip == null) return;
+        float oldPitch = sfxSource.pitch;
+        if (useRandomPitchForSFX)
+            sfxSource.pitch = Random.Range(sfxPitchMin, sfxPitchMax);
+        volumeScale = Mathf.Clamp01(volumeScale);
+        sfxSource.PlayOneShot(clip, masterVolume * sfxVolume * volumeScale);
+        sfxSource.pitch = oldPitch;
+    }
+    /// <summary>
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SFX ï¿½ï¿½ï¿½
+    /// - ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½
+    /// </summary>
+    public void PlayLoopSFX(SFXType type, float volumeScale = 1f)
+    {
+        if (type == SFXType.None) return;
+        if (loopSfxSource == null) return;
 
         if (!sfxDict.TryGetValue(type, out AudioClip[] clips))
         {
-            Debug.LogWarning($"[SoundManager] SFX Å¬¸³ÀÌ µî·ÏµÇÁö ¾ÊÀ½: {type}");
+            Debug.LogWarning($"[SoundManager] Loop SFX Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {type}");
             return;
         }
 
         AudioClip clip = GetRandomClip(clips);
         if (clip == null) return;
 
-        float oldPitch = sfxSource.pitch;
+        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SFXï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
+        if (loopSfxSource.isPlaying && loopSfxSource.clip == clip)
+            return;
 
-        if (useRandomPitchForSFX)
-            sfxSource.pitch = Random.Range(sfxPitchMin, sfxPitchMax);
-
-        volumeScale = Mathf.Clamp01(volumeScale);
-        sfxSource.PlayOneShot(clip, masterVolume * sfxVolume * volumeScale);
-
-        sfxSource.pitch = oldPitch;
+        loopSfxSource.Stop();
+        loopSfxSource.clip = clip;
+        loopSfxSource.loop = true;
+        loopSfxSource.volume = masterVolume * sfxVolume * Mathf.Clamp01(volumeScale);
+        loopSfxSource.Play();
     }
 
     /// <summary>
-    /// 3D À§Ä¡ ±â¹İ È¿°úÀ½ Àç»ı
-    /// - ¹® ¿©´Â ¼Ò¸®
-    /// - Æ÷Å» Åë°ú ¼Ò¸®
-    /// - ¿ÀºêÁ§Æ® »óÈ£ÀÛ¿ë ¼Ò¸®
-    /// µî¿¡ »ç¿ë
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SFX ï¿½ï¿½ï¿½ï¿½
+    /// </summary>
+    public void StopLoopSFX()
+    {
+        if (loopSfxSource == null) return;
+
+        loopSfxSource.Stop();
+        loopSfxSource.clip = null;
+        loopSfxSource.loop = false;
+    }
+    /// <summary>
+    /// 3D ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    /// - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+    /// - ï¿½ï¿½Å» ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+    /// - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½Ò¸ï¿½
+    /// ï¿½î¿¡ ï¿½ï¿½ï¿½
     /// </summary>
     public void PlaySFX3D(SFXType type, Vector3 position, float volumeScale = 1f)
     {
         if (type == SFXType.None) return;
-
         if (!sfxDict.TryGetValue(type, out AudioClip[] clips))
         {
-            Debug.LogWarning($"[SoundManager] 3D SFX Å¬¸³ÀÌ µî·ÏµÇÁö ¾ÊÀ½: {type}");
+            Debug.LogWarning($"[SoundManager] 3D SFX í´ë¦½ì´ ë“±ë¡ë˜ì§€ ì•ŠìŒ: {type}");
             return;
         }
-
         AudioClip clip = GetRandomClip(clips);
         if (clip == null) return;
-
         GameObject tempObj = new GameObject($"Temp3DSFX_{type}");
         tempObj.transform.position = position;
-
         AudioSource tempSource = tempObj.AddComponent<AudioSource>();
         tempSource.clip = clip;
         tempSource.volume = masterVolume * sfxVolume * volumeScale;
-        tempSource.spatialBlend = 1f; // 3D »ç¿îµå
+        tempSource.spatialBlend = 1f; // 3D ì‚¬ìš´ë“œ
         tempSource.rolloffMode = AudioRolloffMode.Linear;
         tempSource.minDistance = 1f;
         tempSource.maxDistance = 15f;
-
         if (useRandomPitchForSFX)
             tempSource.pitch = Random.Range(sfxPitchMin, sfxPitchMax);
-
         tempSource.Play();
-
         Destroy(tempObj, clip.length + 0.1f);
     }
-
     #endregion
-
     #region Utility
-
     /// <summary>
-    /// ¹è¿­ ¾È¿¡¼­ ·£´ı Å¬¸³ ÇÏ³ª¸¦ °í¸¥´Ù.
+    /// ë°°ì—´ ì•ˆì—ì„œ ëœë¤ í´ë¦½ í•˜ë‚˜ë¥¼ ê³ ë¥¸ë‹¤.
     /// </summary>
     private AudioClip GetRandomClip(AudioClip[] clips)
     {
-        if (clips == null || clips.Length == 0)
-            return null;
-
+        if (clips == null || clips.Length == 0) return null;
         int index = Random.Range(0, clips.Length);
         return clips[index];
     }
-
     #endregion
-
     #region Volume Control
-
     public void SetMasterVolume(float value)
     {
         masterVolume = Mathf.Clamp01(value);
         ApplyVolumes();
     }
-
     public void SetBGMVolume(float value)
     {
         bgmVolume = Mathf.Clamp01(value);
         ApplyVolumes();
     }
-
     public void SetAmbientVolume(float value)
     {
         ambientVolume = Mathf.Clamp01(value);
         ApplyVolumes();
     }
-
     public void SetUIVolume(float value)
     {
         uiVolume = Mathf.Clamp01(value);
         ApplyVolumes();
     }
-
     public void SetSFXVolume(float value)
     {
         sfxVolume = Mathf.Clamp01(value);
         ApplyVolumes();
     }
-
     #endregion
 }

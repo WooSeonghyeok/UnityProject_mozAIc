@@ -1,33 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3637929310400167631
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
-  m_Name: ColorAdjustments
-  m_EditorClassIdentifier: 
-  active: 1
-  postExposure:
-    m_OverrideState: 0
-    m_Value: 0
-  contrast:
-    m_OverrideState: 0
-    m_Value: 0
-  colorFilter:
-    m_OverrideState: 1
-    m_Value: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
-  hueShift:
-    m_OverrideState: 0
-    m_Value: 0
-  saturation:
-    m_OverrideState: 1
-    m_Value: -50
 --- !u!114 &-3143121801846720747
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -43,7 +15,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 1
 --- !u!114 &-143373687085041971
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -74,7 +46,7 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 1.2
+    m_Value: 1.25
   aperture:
     m_OverrideState: 0
     m_Value: 5.6
@@ -103,61 +75,5 @@ MonoBehaviour:
   m_Name: Opening_Profile_flash
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 5347456374287624740}
   - {fileID: -3143121801846720747}
-  - {fileID: -3637929310400167631}
   - {fileID: -143373687085041971}
-  - {fileID: 5870830713458975676}
---- !u!114 &5347456374287624740
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
-  m_Name: Vignette
-  m_EditorClassIdentifier: 
-  active: 1
-  color:
-    m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
-  center:
-    m_OverrideState: 0
-    m_Value: {x: 0.5, y: 0.5}
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0.5
-  smoothness:
-    m_OverrideState: 1
-    m_Value: 0.5
-  rounded:
-    m_OverrideState: 0
-    m_Value: 1
---- !u!114 &5870830713458975676
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
-  m_Name: MotionBlur
-  m_EditorClassIdentifier: 
-  active: 1
-  mode:
-    m_OverrideState: 0
-    m_Value: 0
-  quality:
-    m_OverrideState: 1
-    m_Value: 1
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0.25
-  clamp:
-    m_OverrideState: 0
-    m_Value: 0.05
