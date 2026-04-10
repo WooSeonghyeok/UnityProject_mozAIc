@@ -83,8 +83,8 @@ public class EP2_PuzzleManager : MonoBehaviour
         paintClear = true;
         Debug.Log("Paint 퍼즐 완료");
 
-        // ⭐ 클리어 점수 +5
-        Episode2ScoreManager.Instance?.AddClearScore(5);
+        //// ⭐ 클리어 점수 +5
+        //Episode2ScoreManager.Instance?.AddClearScore(5);
 
         if (SaveManager.instance != null)
             SaveManager.instance.curData.ep2_paintClear = true;
