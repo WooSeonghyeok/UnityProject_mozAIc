@@ -11,14 +11,16 @@ public class Puzzle4Manager : MonoBehaviour
     public EP4_Puzzle4_CubeCtrl lastCube;
     public Transform retryPos;
     private readonly string playerTag = "Player";
-    public GameObject RetryBox;
-    public Text RetryCnt;
+    public Text switchText;
     public Button retryButton;
     public GameObject retryPopup;
     public bool retryPopupOpen = false;
     public event Action retryEvent;
+    private BoxCollider puzzleZone4Col;
     private bool scoreFinished = false;
-    public int retry_count = 0;
+    private int switch_this = 0;
+    private int switch_total = 0;
+    private int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public NPCData coreNPC;
     public CutsceneCtrl_Ep4 cutscene;
@@ -32,17 +34,22 @@ public class Puzzle4Manager : MonoBehaviour
         if (instance == null) instance = this;
         if (instance != this) Destroy(instance);
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
+        puzzleZone4Col = gameObject.GetComponent<BoxCollider>();
         cswitch = cubes.GetComponentsInChildren<EP4_CubeSwitch>();
         acube = cubes.GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
-        RetryBox.SetActive(false);
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
-        clearSound = GetComponent<SoundTrigger>();
-        interactionUI.SetActive(false);
+#if UNITY_EDITOR
+        switchText.gameObject.SetActive(true);
+#else
+        switchPopup.gameObject.SetActive(false);
+#endif
     }
     private void OnEnable()
     {
+        if (puzzleZone4Col != null)
+            puzzleZone4Col.isTrigger = true;
         if (cswitch != null)
         {
             foreach (EP4_CubeSwitch c in cswitch)
@@ -58,34 +65,10 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         InteractManager.Instance.puzzle4Hint += HintMessage;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            CountTxt();
-            retryButton.gameObject.SetActive(true);
-            RetryBox.SetActive(true);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            retryButton.gameObject.SetActive(false);
-            retryPopup.SetActive(false);
-            RetryBox.SetActive(false);
-        }
-    }
     public void Switch_CountUp()  //스위치 상호작용 횟수 누적 메소드
     {
+        switch_this++;
         SyncCheck();
-        if (egoSync >= 0.5f && !isMidCutsceneOn)
-        {
-            isMidCutsceneOn = true;
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "전부 나로 받아들이겠다."));
-        }
-        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
     {
@@ -95,6 +78,8 @@ public class Puzzle4Manager : MonoBehaviour
     public void ShootRetry()  //다시하기 실행 메소드
     {
         if (user != null && retryPos != null) user.transform.position = retryPos.position;
+        switch_total += switch_this;
+        switch_this = 0;
         retry_count++;
         retryEvent?.Invoke();  // 전체 PuzzleCubeCtrl에 다시 초기화 이벤트 전달
         SyncCheck();
@@ -106,31 +91,26 @@ public class Puzzle4Manager : MonoBehaviour
     }
     void HintMessage()  //다시하기 지점 도착 시마다 힌트 메시지를 출력
     {
-        if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력
+        string msg = "";
+        float x = UnityEngine.Random.Range(0, 9);
+        msg = x switch
         {
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "도망치지 않겠다.")); 
-            isFirstContact = true;
-        }
-        else
-        {
-            float x = UnityEngine.Random.Range(0, 9);
-            string msg = x switch
-            {
-                1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
-                2 => "스위치로 기억 조각의 색을 바꾸면\n연결된 다른 조각들도 함께 바뀌는 모양이네...",
-                3 => "이 조각에 어느 조각이 연결되어 있는지는\n조각에 그려진 무늬를 보고 알 수 있겠지.",
-                4 => "색을 바꾸는 스위치는 정해진 색을 켜거나 끄는 원리인가 봐.",
-                5 => "화살표 무늬는 방향, 별 무늬는 색,\n 그렇다면 십자 무늬는 뭘 상징하지?",
-                6 => "떠올랐어. 빛의 색은 빨강, 초록, 파랑을 섞어서 표현하는구나.",
-                7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
-                _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
-            };
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, msg));
-        }
+            1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
+            2 => "스위치로 기억 조각의 색을 바꾸면\n연결된 다른 조각들도 함께 바뀌는 모양이네...",
+            3 => "이 조각에 어느 조각이 연결되어 있는지는\n조각에 그려진 무늬를 보고 알 수 있겠지.",
+            4 => "색을 바꾸는 스위치는 정해진 색을 켜거나 끄는 원리인가 봐.",
+            5 => "화살표 무늬는 방향, 별 무늬는 색,\n 그렇다면 십자 무늬는 뭘 상징하지?",
+            6 => "떠올랐어. 빛의 색은 빨강, 초록, 파랑을 섞어서 표현하는구나.",
+            7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
+            _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
+        };
+        StartCoroutine(cutsceneManager.TalkSay(msg, Color.white));
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
+        if (puzzleZone4Col != null) puzzleZone4Col.isTrigger = false;
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
+        switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
         FinalScore();
         if (egoSync == 1f) SelfVoiceTag();
@@ -146,7 +126,12 @@ public class Puzzle4Manager : MonoBehaviour
     {
         foreach (IsTagGet Tag in SaveManager.instance.curData.CoreTag)
         {
-            if (Tag.TagName == "self_voice") Tag.tagGet = true;
+            EndingConditionData.self_voice = true;
+            foreach (IsTagGet lastTag in curData.MemoryTag)
+            {
+                if (lastTag.TagName == "self_voice") lastTag.tagGet = true;
+            }
+            Debug.Log($"마지막 기억 획득!");
         }
         Debug.Log($"마지막 기억 획득!");
         clearSound.Play();
@@ -157,6 +142,7 @@ public class Puzzle4Manager : MonoBehaviour
         if (acube == null || acube.Length == 0 || lastCube == null)
         {
             egoSync = 0f;
+            CountTxt();
             return;
         }
         int count = 0;
@@ -165,9 +151,11 @@ public class Puzzle4Manager : MonoBehaviour
             if (c != null && c.cubeColor == lastCube.cubeColor) count++;
         }
         egoSync = (float)count / (float)acube.Length;
+        CountTxt();
     }
     private void CountTxt()  //텍스트 갱신 메소드
     {
-        if (RetryCnt != null) RetryCnt.text = $"Retry: {retry_count}";
+        if (switchText != null)
+            switchText.text = $"이번 스위치 횟수 = {switch_this}\n총 스위치 횟수 = {switch_total}\n다시하기 횟수 = {retry_count}\n자아 통합도 = {egoSync * 100}%";
     }
 }

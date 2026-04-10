@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 [System.Serializable]
 public class SaveDataObj
 {
@@ -25,8 +24,8 @@ public class SaveDataObj
     public List<NPCInfo> npcInformations;
     /* 연출 사용 여부 확인 데이터 */
     public bool isFirstEnterAtS3CP0;
+    public bool isFirstEnterAtEP3Lobby;
 }
-[Serializable]
 public class IsTagGet
 {
     public string TagName;

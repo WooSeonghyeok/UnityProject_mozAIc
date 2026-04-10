@@ -18,7 +18,6 @@ public class IceSlideRigidbody : MonoBehaviour
     private Vector3 slideDirection = Vector3.zero;  // 현재 미끄러지는 방향
     private PlayerInput user;
     private readonly string playerTag = "Player";
-
     // 입력 단계 관리
     // 0 : 첫 입력 (W만 가능)
     // 1 : 두 번째 입력 (A,D만 가능)
@@ -30,6 +29,9 @@ public class IceSlideRigidbody : MonoBehaviour
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        // Rigidbody 기본 설정
+        rb.freezeRotation = true;
     }
 
     private void OnEnable()
@@ -47,11 +49,6 @@ public class IceSlideRigidbody : MonoBehaviour
 
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        // 슬라이딩 중 꺼질 때 SoundManager 루프 SFX 정지
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.StopLoopSFX();
-        }
     }
 
     private void Update()
@@ -78,7 +75,7 @@ public class IceSlideRigidbody : MonoBehaviour
 
         SlideMove();
     }
-    void HandleFirstInput()  // 슬라이드존 진입시 바로 앞으로 슬라이딩
+    void HandleFirstInput()  // 첫 입력 (W만 가능)
     {
         if (user.moveInput.x != 0 || user.moveInput.y < 0) return;
         StartSlideFromDirection(transform.forward);
@@ -119,7 +116,9 @@ public class IceSlideRigidbody : MonoBehaviour
         }
         else return;
     }
+    /// <summary>
     /// 입력 또는 외부 지정 방향으로 슬라이딩 시작
+    /// </summary>
     public void StartSlideFromDirection(Vector3 dir)
     {
         // 실제 이동은 퍼즐에 맞게 월드 4방향으로 보정
@@ -148,12 +147,6 @@ public class IceSlideRigidbody : MonoBehaviour
         // 미끄럼 애니메이션 시작
         if (animator != null)
             animator.SetBool(hashIsSliding, true);
-
-        // SoundManager 루프 슬라이딩 사운드 재생
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.PlayLoopSFX(SoundManager.SFXType.Ep1_1Slide);
-        }
     }
 
     void SlideMove()
@@ -207,18 +200,6 @@ public class IceSlideRigidbody : MonoBehaviour
 
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-
-        // 슬라이딩 루프 정지
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.StopLoopSFX();
-        }
-
-        // 정지 SFX 재생
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.PlaySFX(SoundManager.SFXType.Ep1_1SlideHit);
-        }
     }
 
     Vector3 SnapToCardinal(Vector3 dir)
@@ -255,16 +236,14 @@ public class IceSlideRigidbody : MonoBehaviour
 
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        // 상태 초기화 시 루프 사운드도 정지
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.StopLoopSFX();
-        }
     }
 
+    /// <summary>
     /// SlideStartPoint에서 월드 기준 방향으로 첫 슬라이드 시작
+    /// </summary>
     public void StartInitialSlideInWorldDirection(Vector3 worldDirection)
     {
+        // ✨ 이 부분 추가: 플레이어가 현재 어디를 보든 무시하고
         // SlideStartPoint가 지정한 월드 방향으로 시작
         StartSlideFromDirection(worldDirection);
 
@@ -274,6 +253,7 @@ public class IceSlideRigidbody : MonoBehaviour
             inputPhase = 1;
         }
     }
+
     // 현재 미끄러지는 상태 확인
     public bool IsSliding()
     {

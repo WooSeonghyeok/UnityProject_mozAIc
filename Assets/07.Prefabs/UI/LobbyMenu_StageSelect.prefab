@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -30, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2839939330503103725
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Stage 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
-  m_sharedMaterial: {fileID: -1815155015065008992, guid: 11e6b401fdb96074694bc0fb77c7f6ad, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -229,24 +229,43 @@ MonoBehaviour:
   curData:
     ID: 0
     savedTime: "0001-01-01 \uC624\uC804 12:00:00"
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
+    StageLock:
+    - stageID: 0
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+    - stageID: 1
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+    - stageID: 2
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+      - CheckpointID: 2
+        cpLock: 0
+    - stageID: 3
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+      - CheckpointID: 2
+        cpLock: 0
+      - CheckpointID: 3
+        cpLock: 0
+    MemoryPoint: 0
     MemoryTag:
     - TagName: self_voice
       tagGet: 0
-    isFirstEnterAtS3CP0: 0
   StageNumber: 0
   isLock: 0
   stageName: {fileID: 6610883805996603333}
@@ -418,7 +437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: 0}
+  m_AnchoredPosition: {x: -20, y: 0}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &1032124639643625622

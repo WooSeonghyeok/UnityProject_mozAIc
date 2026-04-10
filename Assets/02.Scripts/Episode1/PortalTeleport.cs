@@ -18,7 +18,7 @@ public class PortalTeleport : MonoBehaviour
     [Header("컷씬 설정")]
     public bool useCutscene = false;            // 컷씬 사용 여부
     public bool requirePuzzleClear = false;     // 퍼즐 클리어 후에만 컷씬 실행할지
-    public bool enterCaveCutscene = true;    // 동굴입장 컷씬인지
+    public bool playCutsceneOnlyOnce = true;    // 컷씬 1회만 재생할지
     public CutsceneImagePlayer cutscenePlayer;  // 컷씬 이미지 플레이어 연결
 
     private bool canTeleport = true;
@@ -116,7 +116,7 @@ public class PortalTeleport : MonoBehaviour
         }
 
         // 한 번만 재생하는 설정이면 중복 실행 방지
-        if (enterCaveCutscene)
+        if (playCutsceneOnlyOnce)
             return;
 
         cutscenePlayer.PlayCutscene();

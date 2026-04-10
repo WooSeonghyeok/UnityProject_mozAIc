@@ -11,12 +11,6 @@ public class LoadSlotManager : MonoBehaviour
     public Text slotCheck;
     public int slotIdx;
     public SaveDataObj slotData;
-    public Image slotImg;
-    public Sprite ep4Slot;
-    public Sprite ep3Slot;
-    public Sprite ep2Slot;
-    public Sprite ep1Slot;
-    public Sprite ep0Slot;
     void OnEnable()
     {
         if (SaveManager.instance == null)
@@ -41,30 +35,10 @@ public class LoadSlotManager : MonoBehaviour
         int lastStage = 0;
         if(slotData != null)
         {
-            if (slotData.ep4_puzzle1Clear)
-            {
-                lastStage = 4;
-                slotImg.sprite = ep4Slot;
-            }
-            else if (slotData.ep3_paperClear || slotData.ep3_jumpClear)
-            {
-                lastStage = 3;
-                slotImg.sprite = ep3Slot;
-            }
-            else if (slotData.ep2_paintClear || slotData.ep2_spaceClear)
-            {
-                lastStage = 2;
-                slotImg.sprite = ep2Slot;
-            }
-            else if (slotData.ep1_open)
-            {
-                lastStage = 1;
-                slotImg.sprite = ep1Slot;
-            }
-            else
-            {
-                slotImg.sprite = ep0Slot;
-            }
+            if (slotData.ep4_open) lastStage = 4;
+            else if(slotData.ep3_open) lastStage = 3;
+            else if(slotData.ep2_open) lastStage = 2;
+            else if(slotData.ep1_open) lastStage = 1;
         }
         slotCheck.text = $"Stage {lastStage}";
     }
@@ -74,7 +48,6 @@ public class LoadSlotManager : MonoBehaviour
     }
     public void LoadGame()
     {
-        if (SaveManager.instance == null) return;
         slotData = SaveManager.instance.LoadSaveData(slotIdx);
         if (slotData == null)
         {

@@ -15,8 +15,6 @@ public class CutsceneImagePlayer : MonoBehaviour
     [Header("플레이어 제어")]
     [SerializeField] private PlayerMovement playerMovement; // 플레이어 이동 잠금용
     private AspectRatioFitter aspectFitter;
-    [Header("엔딩 컷씬")]
-    [SerializeField] private bool isEndCutscene = false;              // 엔딩 컷씬이면 페이드 아웃 안함
     private bool isPlaying = false;
     public bool IsPlaying => isPlaying;
     private void Awake()
@@ -44,11 +42,21 @@ public class CutsceneImagePlayer : MonoBehaviour
         {
             playerMovement.SetMoveLock(true);  // PlayerMovement에 있는 이동 잠금 함수
         }
+        // 마우스 커서를 보여주고 고정 해제
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         for (int i = 0; i < cutsceneSprites.Length; i++)
         {
             if (cutsceneImage != null && cutsceneSprites[i] != null)
             {
                 cutsceneImage.sprite = cutsceneSprites[i];
+                //// 이미지가 바뀔 때마다 원본 비율 기준으로 Aspect Ratio 갱신
+                //if (aspectFitter != null)
+                //{
+                //    float width = cutsceneSprites[i].rect.width;
+                //    float height = cutsceneSprites[i].rect.height;
+                //    aspectFitter.aspectRatio = width / height;
+                //}
             }
             yield return StartCoroutine(Fade(0f, 1f));  // 첫 이미지도 자연스럽게 보이도록 페이드 인
             yield return new WaitForSeconds(imageShowTime);  // 이미지 유지 시간
@@ -57,20 +65,14 @@ public class CutsceneImagePlayer : MonoBehaviour
                 yield return StartCoroutine(Fade(1f, 0f));
             }
         }
-        if (!isEndCutscene)
-        {
-            yield return StartCoroutine(Fade(1f, 0f));  // 마지막 이미지 종료 후 페이드 아웃
-            if (cutscenePanel != null) cutscenePanel.SetActive(false);  // 컷씬 종료
-        }
-        else
-        {
-            SetImageAlpha(1f);  // 엔딩 컷씬이면 마지막 이미지 완전히 보이도록 유지
-        }
+        yield return StartCoroutine(Fade(1f, 0f));  // 마지막 이미지 종료 후 페이드 아웃
+        if (cutscenePanel != null)  cutscenePanel.SetActive(false);  // 컷씬 종료
         if (playerMovement != null)  // 플레이어 이동 다시 허용
         {
             playerMovement.SetMoveLock(false);
         }
-        
+        Cursor.lockState = CursorLockMode.Locked;  // 다시 게임 커서 상태로 복귀
+        Cursor.visible = false;
         isPlaying = false;
     }
     private IEnumerator Fade(float startAlpha, float endAlpha)  // 전체 컷씬 패널을 서서히 투명/불투명하게 만드는 코루틴

@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -289,30 +289,43 @@ MonoBehaviour:
   slotData:
     ID: 0
     savedTime: "0001-01-01 \uC624\uC804 12:00:00"
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
+    StageLock:
+    - stageID: 0
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+    - stageID: 1
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+    - stageID: 2
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+      - CheckpointID: 2
+        cpLock: 0
+    - stageID: 3
+      stageLock: 0
+      CheckpointLock:
+      - CheckpointID: 0
+        cpLock: 0
+      - CheckpointID: 1
+        cpLock: 0
+      - CheckpointID: 2
+        cpLock: 0
+      - CheckpointID: 3
+        cpLock: 0
+    MemoryPoint: 0
     MemoryTag:
     - TagName: self_voice
       tagGet: 0
-    isFirstEnterAtS3CP0: 0
-  slotImg: {fileID: 5552609474427159087}
-  ep4Slot: {fileID: 21300000, guid: d385bfae613dd7b47825130667dd3fe3, type: 3}
-  ep3Slot: {fileID: 21300000, guid: ba2e42a67deabc944b4384c3f75a1c31, type: 3}
-  ep2Slot: {fileID: 21300000, guid: a041ff2e4641f434a8a74c2cf7f3aeb4, type: 3}
-  ep1Slot: {fileID: 21300000, guid: 82fc3cc4be1abac438a4a620279c04cd, type: 3}
-  ep0Slot: {fileID: 21300000, guid: ef26aa370a7cd8543ae2afce3af66644, type: 3}
 --- !u!1 &8307857490856633851
 GameObject:
   m_ObjectHideFlags: 0

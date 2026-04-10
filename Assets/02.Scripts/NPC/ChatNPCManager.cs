@@ -155,7 +155,7 @@ public class ChatNPCManager : MonoBehaviour
             }
         }
     }
-    #region 말풍선 관련 메서드
+
     // 이벤트성 말풍선 출력
     public void PlayNpcBubbleDialogue(NPCData npcData, string dialogueType)
     {
@@ -228,5 +228,4 @@ public class ChatNPCManager : MonoBehaviour
             speechBubbleRoot.SetActive(false);
         }
     }
-    #endregion
 }
