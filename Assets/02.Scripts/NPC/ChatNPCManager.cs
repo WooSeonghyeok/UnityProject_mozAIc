@@ -35,10 +35,12 @@ public class ChatNPCManager : MonoBehaviour
         instance = this;
 
         ResolvePlayerInput();
+        ResolveSceneReferences();
     }
     private void OnEnable()
     {
         ResolvePlayerInput();
+        ResolveSceneReferences();
         BindCancelInput();
     }
     private void OnDisable()
@@ -48,6 +50,8 @@ public class ChatNPCManager : MonoBehaviour
 
     private void Update()
     {
+        ResolveSceneReferences();
+
         if (!isCancelBound)
         {
             ResolvePlayerInput();
@@ -61,6 +65,8 @@ public class ChatNPCManager : MonoBehaviour
             Debug.LogError("[ChatNPCManager] NPCData가 null임");
             return;
         }
+
+        ResolveSceneReferences();
 
         var db = GameDialogueDatabase.EnsureAvailable();
 
@@ -261,7 +267,97 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         user = player.GetComponent<PlayerInput>();
+        if (playerMovement == null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
+        }
         return user != null;
+    }
+
+    private void ResolveSceneReferences()
+    {
+        if (serverChat == null)
+        {
+            serverChat = GetComponent<ServerChat>();
+        }
+
+        if (followCam == null)
+        {
+            followCam = FindObjectOfType<FollowCamera>();
+        }
+
+        Transform chatCanvas = FindChatCanvasRoot();
+        if (chatCanvas == null)
+        {
+            return;
+        }
+
+        if (chatPanel == null)
+        {
+            Transform panel = FindChildRecursive(chatCanvas, "ChatPanel");
+            if (panel != null)
+            {
+                chatPanel = panel.gameObject;
+            }
+        }
+
+        if (speechBubbleRoot == null)
+        {
+            Transform bubbleRoot = FindChildRecursive(chatCanvas, "NPC_SpeechBubble");
+            if (bubbleRoot != null)
+            {
+                speechBubbleRoot = bubbleRoot.gameObject;
+            }
+        }
+
+        if (speechBubbleText == null && speechBubbleRoot != null)
+        {
+            speechBubbleText = speechBubbleRoot.GetComponentInChildren<TMP_Text>(true);
+        }
+    }
+
+    private Transform FindChatCanvasRoot()
+    {
+        GameObject chatCanvas = GameObject.Find("Canvas_NPC_Chat");
+        if (chatCanvas != null)
+        {
+            return chatCanvas.transform;
+        }
+
+        Canvas[] canvases = FindObjectsOfType<Canvas>(true);
+        foreach (Canvas canvas in canvases)
+        {
+            if (canvas != null && canvas.name == "Canvas_NPC_Chat")
+            {
+                return canvas.transform;
+            }
+        }
+
+        return null;
+    }
+
+    private Transform FindChildRecursive(Transform parent, string targetName)
+    {
+        if (parent == null)
+        {
+            return null;
+        }
+
+        foreach (Transform child in parent)
+        {
+            if (child.name == targetName)
+            {
+                return child;
+            }
+
+            Transform nestedChild = FindChildRecursive(child, targetName);
+            if (nestedChild != null)
+            {
+                return nestedChild;
+            }
+        }
+
+        return null;
     }
 
     private void BindCancelInput()

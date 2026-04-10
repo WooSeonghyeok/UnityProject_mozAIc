@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public class SpacePuzzleController : MonoBehaviour
+public class SpacePuzzleControllerLegacy : MonoBehaviour
 {
     public GameObject obj1;
     public GameObject obj2;

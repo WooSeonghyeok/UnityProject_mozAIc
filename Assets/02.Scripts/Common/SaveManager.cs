@@ -169,19 +169,6 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
     }
-    private static List<IsTagGet> CreateDefaultMemoryTags()
-    {
-        List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
-        foreach (string tagName in DefaultMemoryTagNames)
-        {
-            tags.Add(new IsTagGet
-            {
-                TagName = tagName,
-                tagGet = false
-            });
-        }
-        return tags;
-    }
     public void WriteCurJSON()
     {
         SaveDataObj newData = new SaveDataObj();

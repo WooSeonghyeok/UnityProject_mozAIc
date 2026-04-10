@@ -870,17 +870,17 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         if (presenters != null && presenters.Length > 0)
         {
             subtitlePresenter = presenters[0];
-            subtitlePresenter.Configure(subtitleFont, FindCutsceneManager());
+            subtitlePresenter.Configure(subtitleFont, FindTextboxManager());
             return;
         }
 
-        CutsceneManager cutsceneManager = FindCutsceneManager();
-        if (cutsceneManager != null)
+        TextboxManager textboxManager = FindTextboxManager();
+        if (textboxManager != null)
         {
             GameObject subtitleObject = new GameObject("EP3 Lobby Intro Subtitles", typeof(RectTransform));
-            subtitleObject.transform.SetParent(cutsceneManager.transform, false);
+            subtitleObject.transform.SetParent(textboxManager.transform, false);
             subtitlePresenter = subtitleObject.AddComponent<Ep3CutsceneSubtitlePresenter>();
-            subtitlePresenter.Configure(subtitleFont, cutsceneManager);
+            subtitlePresenter.Configure(subtitleFont, textboxManager);
             ownsSubtitlePresenter = true;
             return;
         }
@@ -898,15 +898,15 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         ownsSubtitlePresenter = true;
     }
 
-    private static CutsceneManager FindCutsceneManager()
+    private static TextboxManager FindTextboxManager()
     {
-        CutsceneManager[] managers = FindObjectsOfType<CutsceneManager>(true);
+        TextboxManager[] managers = FindObjectsOfType<TextboxManager>(true);
         if (managers == null || managers.Length == 0)
         {
             return null;
         }
 
-        foreach (CutsceneManager manager in managers)
+        foreach (TextboxManager manager in managers)
         {
             if (manager == null || manager.gameObject == null)
             {
