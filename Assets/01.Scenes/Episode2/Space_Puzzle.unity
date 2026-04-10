@@ -1257,7 +1257,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 358408018}
-  m_Father: {fileID: 960800382}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1373,9 +1373,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1305984442}
-  m_Father: {fileID: 926153971}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -1958,7 +1957,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1976,9 +1975,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1087169694}
-  - {fileID: 453662542}
-  - {fileID: 1951232423}
-  - {fileID: 1198111170}
   - {fileID: 828613418}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2158,35 +2154,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459747389}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &468776436 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2292343045185499069, guid: bb709064564974749b2c2ce8b151a344, type: 3}
-  m_PrefabInstance: {fileID: 1626510126}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &468776437 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1485019603870299399, guid: bb709064564974749b2c2ce8b151a344, type: 3}
-  m_PrefabInstance: {fileID: 1626510126}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &468776438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468776436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b06ee5bb10c7fd3409f26f78a21b2c45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationTriggers:
-  - Stretch
-  - Think
-  - LookAround
-  - Stand
-  minDelay: 3
-  maxDelay: 7
 --- !u!1 &469348611
 GameObject:
   m_ObjectHideFlags: 0
@@ -7898,9 +7865,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 142813727}
-  m_Father: {fileID: 960800382}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -9432,8 +9398,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 857281529}
+  m_Children: []
   m_Father: {fileID: 411159844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -9505,8 +9470,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: af25290ae76aff243a7b2cbd338cd5df, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -14994,9 +14959,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 926153971}
-  m_Father: {fileID: 960800382}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -20526,7 +20490,7 @@ Transform:
   m_Children:
   - {fileID: 1178390339}
   - {fileID: 758010210}
-  - {fileID: 468776437}
+  - {fileID: 1626510127}
   - {fileID: 1658542230}
   m_Father: {fileID: 994869928}
   m_LocalEulerAnglesHint: {x: 0, y: 178.921, z: 0}
@@ -22034,11 +21998,13 @@ PrefabInstance:
     - {fileID: 4925199547707810823, guid: bb709064564974749b2c2ce8b151a344, type: 3}
     - {fileID: 5947462813949203055, guid: bb709064564974749b2c2ce8b151a344, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2292343045185499069, guid: bb709064564974749b2c2ce8b151a344, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 468776438}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb709064564974749b2c2ce8b151a344, type: 3}
+--- !u!4 &1626510127 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3225105021410778646, guid: bb709064564974749b2c2ce8b151a344, type: 3}
+  m_PrefabInstance: {fileID: 1626510126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1631142513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 763501777856548865, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
@@ -22187,7 +22153,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 142813727}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -23759,7 +23725,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1553317872}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -29917,7 +29883,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 960800382}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -30097,7 +30063,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 44356533}
-  m_Father: {fileID: 142813727}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -30340,3 +30306,10 @@ SceneRoots:
   - {fileID: 693539792}
   - {fileID: 1681967305}
   - {fileID: 410133911}
+  - {fileID: 690661156}
+  - {fileID: 740192714}
+  - {fileID: 1199158745}
+  - {fileID: 1705604289}
+  - {fileID: 1924450830}
+  - {fileID: 2138727253}
+  - {fileID: 2145657358}

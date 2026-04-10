@@ -5884,6 +5884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 377089257}
+  spaceTimer: {fileID: 0}
 --- !u!4 &1239179832
 Transform:
   m_ObjectHideFlags: 0
@@ -7080,7 +7081,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -7098,10 +7099,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2144301631}
-  - {fileID: 286588583}
-  - {fileID: 1355863204}
-  - {fileID: 717884342}
   - {fileID: 377089259}
+  - {fileID: 904806876}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
