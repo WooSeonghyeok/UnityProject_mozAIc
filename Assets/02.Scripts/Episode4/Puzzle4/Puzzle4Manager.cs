@@ -21,7 +21,7 @@ public class Puzzle4Manager : MonoBehaviour
     public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public NPCData coreNPC;
-    public CutsceneCtrl_Ep4 cutscene;
+    public TextboxCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
     public int puzzle4MemoryRate = 0;
     private SoundTrigger clearSound;
@@ -83,9 +83,9 @@ public class Puzzle4Manager : MonoBehaviour
         if (egoSync >= 0.5f && !isMidCutsceneOn)
         {
             isMidCutsceneOn = true;
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "전부 나로 받아들이겠다."));
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "전부 나로 받아들이겠다."));
         }
-        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
+        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
     {
@@ -108,7 +108,7 @@ public class Puzzle4Manager : MonoBehaviour
     {
         if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력
         {
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "도망치지 않겠다.")); 
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "도망치지 않겠다.")); 
             isFirstContact = true;
         }
         else
@@ -125,7 +125,7 @@ public class Puzzle4Manager : MonoBehaviour
                 7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
                 _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
             };
-            StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, msg));
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, msg));
         }
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리

@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
-using static CutsceneManager;
+using static TextboxManager;
 
 public class CutsceneCtrl_Ending : MonoBehaviour
 {
-    public CutsceneManager _manager;
+    public TextboxManager _manager;
     public WaitForSecondsRealtime twoSec = new(2f);
     public IEnumerator TrueEndCutscene()
     {

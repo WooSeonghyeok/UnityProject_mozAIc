@@ -14,7 +14,7 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     [Header("출력 UI")]
     public GameObject pieceBox;
     public Text pieceCnt;
-    public CutsceneCtrl_Ep4 cutscene;
+    public TextboxCtrl_Ep4 cutscene;
     private bool isMidCutsceneOn;
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
@@ -48,10 +48,10 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
         collectedPieceCount++;
         Debug.Log($"[Ep4_3Manager] 악보 조각 수집: {collectedPieceCount}/{requiredPieceCount}");
         pieceCnt.text = $"{collectedPieceCount} / {requiredPieceCount}";
-        if (collectedPieceCount == 1) cutscene.StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "분명 무언가의 일부인 소리."));  // 첫 조각 획득 시 대사 출력
+        if (collectedPieceCount == 1) cutscene.StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "분명 무언가의 일부인 소리."));  // 첫 조각 획득 시 대사 출력
         if ((float)(collectedPieceCount) / (float)(requiredPieceCount) >= 0.5f && !isMidCutsceneOn)
         {
-            cutscene.StartCoroutine(cutscene._manager.TalkSay(CutsceneManager.TalkType.player, "이건 멈춘 노래가 아니다. 끝을 기다리고 있던 노래다."));
+            cutscene.StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "이건 멈춘 노래가 아니다. 끝을 기다리고 있던 노래다."));
             isMidCutsceneOn = true;
         }
         if (collectedPieceCount >= requiredPieceCount && !_allPiecesEventRaised)
