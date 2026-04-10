@@ -41,7 +41,6 @@ public class ServerChat : MonoBehaviour
     public int NegativeAffinity = -10;
 
     [SerializeField] private TMP_Text AffinityText;
-    private bool isSubmitBound;
 
     [Header("기억 재구성 키워드")]
     public MemoryKeyword[] words;
@@ -49,14 +48,8 @@ public class ServerChat : MonoBehaviour
     private void Start()
     {
         openAI = new OpenAIApi();
-        ResolveUiReferences();
-        BindInputEvents();
-        FocusInputField();
-    }
-
-    private void OnDestroy()
-    {
-        UnbindInputEvents();
+        input.ActivateInputField();
+        input.onSubmit.AddListener(OnEnterSubmit);
     }
 
     private void OnEnterSubmit(string text)
@@ -66,10 +59,7 @@ public class ServerChat : MonoBehaviour
 
     private async void ServerMessageSend()
     {
-        ResolveUiReferences();
-
         if (isWaiting) return;
-        if (input == null) return;
         if (string.IsNullOrEmpty(input.text)) return;
 
         string msg = input.text;
@@ -144,22 +134,12 @@ public class ServerChat : MonoBehaviour
     private void FinishChat()
     {
         isWaiting = false;
-
-        if (input != null)
-        {
-            input.interactable = true;
-            FocusInputField();
-        }
+        input.interactable = true;
+        input.ActivateInputField();
     }
 
     private void ServerChatMessage()
     {
-        if (chatTextObject == null || contentParent == null)
-        {
-            Debug.LogWarning("[ServerChat] chatTextObject 또는 contentParent가 연결되지 않음");
-            return;
-        }
-
         serverTextObj = Instantiate(chatTextObject, contentParent);
         serverTextObj.SendText("생각 중...", Color.red);
         StartCoroutine(Scroll());
@@ -167,12 +147,6 @@ public class ServerChat : MonoBehaviour
 
     public void CreateMessage(string msg, Color textColor)
     {
-        if (chatTextObject == null || contentParent == null)
-        {
-            Debug.LogWarning("[ServerChat] 채팅 UI 참조가 없어 메시지를 만들 수 없음");
-            return;
-        }
-
         ChatTextObject chatObj = Instantiate(chatTextObject, contentParent);
         chatObj.SendText(msg, textColor);
         StartCoroutine(Scroll());
@@ -181,23 +155,11 @@ public class ServerChat : MonoBehaviour
     private IEnumerator Scroll()
     {
         yield return null;
-
-        if (scrollRect != null)
-        {
-            scrollRect.verticalNormalizedPosition = 0f;
-        }
+        scrollRect.verticalNormalizedPosition = 0f;
     }
 
     public void ChatReset()
     {
-        ResolveUiReferences();
-
-        if (contentParent == null)
-        {
-            Debug.LogWarning("[ServerChat] contentParent가 없어 채팅을 초기화할 수 없음");
-            return;
-        }
-
         chatMessages.Clear();
 
         foreach (Transform message in contentParent)
@@ -205,14 +167,7 @@ public class ServerChat : MonoBehaviour
             Destroy(message.gameObject);
         }
 
-        if (input != null)
-        {
-            input.text = string.Empty;
-            input.interactable = true;
-        }
-
         CreateMessage("대화가 시작됩니다.", Color.black);
-        FocusInputField();
     }
 
     public void NpcTypeChange(string prompt)
@@ -313,123 +268,5 @@ public class ServerChat : MonoBehaviour
         string systemType = PromptBuilder.BuildPrompt(currentNpcData);
         currentNpcData.CurrentPrompt = systemType;
         NpcTypeChange(systemType);
-    }
-
-    private void BindInputEvents()
-    {
-        if (isSubmitBound || input == null)
-        {
-            return;
-        }
-
-        input.onSubmit.AddListener(OnEnterSubmit);
-        isSubmitBound = true;
-    }
-
-    private void UnbindInputEvents()
-    {
-        if (!isSubmitBound || input == null)
-        {
-            return;
-        }
-
-        input.onSubmit.RemoveListener(OnEnterSubmit);
-        isSubmitBound = false;
-    }
-
-    private void FocusInputField()
-    {
-        if (input == null || !input.gameObject.activeInHierarchy)
-        {
-            return;
-        }
-
-        input.ActivateInputField();
-    }
-
-    private void ResolveUiReferences()
-    {
-        if (input != null && contentParent != null && scrollRect != null && AffinityText != null)
-        {
-            return;
-        }
-
-        Transform chatCanvas = FindChatCanvasRoot();
-        if (chatCanvas == null)
-        {
-            return;
-        }
-
-        if (input == null)
-        {
-            input = chatCanvas.GetComponentInChildren<TMP_InputField>(true);
-        }
-
-        if (scrollRect == null)
-        {
-            scrollRect = chatCanvas.GetComponentInChildren<ScrollRect>(true);
-        }
-
-        if (contentParent == null)
-        {
-            Transform content = FindChildRecursive(chatCanvas, "Content");
-            if (content != null)
-            {
-                contentParent = content;
-            }
-        }
-
-        if (AffinityText == null)
-        {
-            Transform affinity = FindChildRecursive(chatCanvas, "Affinity Text");
-            if (affinity != null)
-            {
-                AffinityText = affinity.GetComponent<TMP_Text>();
-            }
-        }
-    }
-
-    private Transform FindChatCanvasRoot()
-    {
-        GameObject chatCanvas = GameObject.Find("Canvas_NPC_Chat");
-        if (chatCanvas != null)
-        {
-            return chatCanvas.transform;
-        }
-
-        Canvas[] canvases = FindObjectsOfType<Canvas>(true);
-        foreach (Canvas canvas in canvases)
-        {
-            if (canvas != null && canvas.name == "Canvas_NPC_Chat")
-            {
-                return canvas.transform;
-            }
-        }
-
-        return null;
-    }
-
-    private Transform FindChildRecursive(Transform parent, string targetName)
-    {
-        if (parent == null)
-        {
-            return null;
-        }
-
-        foreach (Transform child in parent)
-        {
-            if (child.name == targetName)
-            {
-                return child;
-            }
-
-            Transform nestedChild = FindChildRecursive(child, targetName);
-            if (nestedChild != null)
-            {
-                return nestedChild;
-            }
-        }
-
-        return null;
     }
 }

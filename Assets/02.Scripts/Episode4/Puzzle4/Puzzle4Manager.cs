@@ -11,16 +11,14 @@ public class Puzzle4Manager : MonoBehaviour
     public EP4_Puzzle4_CubeCtrl lastCube;
     public Transform retryPos;
     private readonly string playerTag = "Player";
-    public Text switchText;
+    public GameObject RetryBox;
+    public Text RetryCnt;
     public Button retryButton;
     public GameObject retryPopup;
     public bool retryPopupOpen = false;
     public event Action retryEvent;
-    private BoxCollider puzzleZone4Col;
     private bool scoreFinished = false;
-    private int switch_this = 0;
-    private int switch_total = 0;
-    private int retry_count = 0;
+    public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public NPCData coreNPC;
     public TextboxCtrl_Ep4 cutscene;
@@ -34,23 +32,17 @@ public class Puzzle4Manager : MonoBehaviour
         if (instance == null) instance = this;
         if (instance != this) Destroy(instance);
         user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
-        puzzleZone4Col = gameObject.GetComponent<BoxCollider>();
         cswitch = cubes.GetComponentsInChildren<EP4_CubeSwitch>();
         acube = cubes.GetComponentsInChildren<EP4_Puzzle4_CubeCtrl>();
+        RetryBox.SetActive(false);
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
         clearSound = GetComponent<SoundTrigger>();
-#if UNITY_EDITOR
-        switchText.gameObject.SetActive(true);
-#else
-        switchText.gameObject.SetActive(false);
-#endif
+        interactionUI.SetActive(false);
     }
     private void OnEnable()
     {
-        if (puzzleZone4Col != null)
-            puzzleZone4Col.isTrigger = true;
         if (cswitch != null)
         {
             foreach (EP4_CubeSwitch c in cswitch)
@@ -66,9 +58,27 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         InteractManager.Instance.puzzle4Hint += HintMessage;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            CountTxt();
+            retryButton.gameObject.SetActive(true);
+            RetryBox.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            retryButton.gameObject.SetActive(false);
+            retryPopup.SetActive(false);
+            RetryBox.SetActive(false);
+        }
+    }
     public void Switch_CountUp()  //스위치 상호작용 횟수 누적 메소드
     {
-        switch_this++;
         SyncCheck();
         if (egoSync >= 0.5f && !isMidCutsceneOn)
         {
@@ -85,8 +95,6 @@ public class Puzzle4Manager : MonoBehaviour
     public void ShootRetry()  //다시하기 실행 메소드
     {
         if (user != null && retryPos != null) user.transform.position = retryPos.position;
-        switch_total += switch_this;
-        switch_this = 0;
         retry_count++;
         retryEvent?.Invoke();  // 전체 PuzzleCubeCtrl에 다시 초기화 이벤트 전달
         SyncCheck();
@@ -98,14 +106,14 @@ public class Puzzle4Manager : MonoBehaviour
     }
     void HintMessage()  //다시하기 지점 도착 시마다 힌트 메시지를 출력
     {
-        if (!isFirstContact)
+        if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력
         {
             StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "도망치지 않겠다.")); 
             isFirstContact = true;
         }
         else
         {
-            int x = UnityEngine.Random.Range(0, 9);
+            float x = UnityEngine.Random.Range(0, 9);
             string msg = x switch
             {
                 1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
@@ -122,9 +130,7 @@ public class Puzzle4Manager : MonoBehaviour
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
-        if (puzzleZone4Col != null) puzzleZone4Col.isTrigger = false;
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
-        switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
         FinalScore();
         if (egoSync == 1f) SelfVoiceTag();
@@ -138,45 +144,19 @@ public class Puzzle4Manager : MonoBehaviour
     }
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {
-        if (SaveManager.instance == null || SaveManager.instance.curData == null || SaveManager.instance.curData.CoreTag == null)
+        foreach (IsTagGet Tag in SaveManager.instance.curData.CoreTag)
         {
-            Debug.LogWarning("[Puzzle4Manager] self_voice 태그를 저장할 데이터가 없음");
-            return;
+            if (Tag.TagName == "self_voice") Tag.tagGet = true;
         }
-
-        EndingConditionData.self_voice = true;
-
-        foreach (IsTagGet lastTag in SaveManager.instance.curData.CoreTag)
-        {
-            if (lastTag == null)
-            {
-                continue;
-            }
-
-            if (lastTag.TagName == "self_voice")
-            {
-                lastTag.tagGet = true;
-                Debug.Log("마지막 기억 획득!");
-                break;
-            }
-        }
-
-        if (clearSound != null)
-        {
-            clearSound.Play();
-        }
-
-        if (coreNPC != null)
-        {
-            coreNPC.revealStage = MemoryRevealStage.Full;
-        }
+        Debug.Log($"마지막 기억 획득!");
+        clearSound.Play();
+        coreNPC.revealStage = MemoryRevealStage.Full;
     }
     public void SyncCheck()  //자아 통합도 계산
     {
         if (acube == null || acube.Length == 0 || lastCube == null)
         {
             egoSync = 0f;
-            CountTxt();
             return;
         }
         int count = 0;
@@ -185,11 +165,9 @@ public class Puzzle4Manager : MonoBehaviour
             if (c != null && c.cubeColor == lastCube.cubeColor) count++;
         }
         egoSync = (float)count / (float)acube.Length;
-        CountTxt();
     }
     private void CountTxt()  //텍스트 갱신 메소드
     {
-        if (switchText != null)
-            switchText.text = $"이번 스위치 횟수 = {switch_this}\n총 스위치 횟수 = {switch_total}\n다시하기 횟수 = {retry_count}\n자아 통합도 = {egoSync * 100}%";
+        if (RetryCnt != null) RetryCnt.text = $"Retry: {retry_count}";
     }
 }

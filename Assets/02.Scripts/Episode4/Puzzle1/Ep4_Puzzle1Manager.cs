@@ -47,11 +47,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         {
             foreach (var tag in SaveManager.instance.curData.CoreTag)
             {
-                if (tag.TagName == "split_self")
-                {
-                    tag.tagGet = true;
-                    break;
-                }
+                if (tag.TagName == "split_self") tag.tagGet = true;
             }
         }
     }
