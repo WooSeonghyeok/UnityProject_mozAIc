@@ -27,10 +27,6 @@ public class SaveManager : MonoBehaviour
         else Destroy(gameObject);
         curData = ReadCurJSON();
     }
-    public string GetSavePath(int slot)
-    {
-        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
-    }
     public void CreateSaveData(int slotNumber)
     {
         SaveDataObj newData = new SaveDataObj();
@@ -71,6 +67,10 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(path);
         SaveDataObj data = JsonUtility.FromJson<SaveDataObj>(json);
         return data;
+    }
+    public string GetSavePath(int slot)
+    {
+        return Path.Combine(Application.persistentDataPath, $"SaveSlot{slot}.json");
     }
     public static SaveDataObj ReadCurJSON()
     {
@@ -167,6 +167,19 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
     }
+    private static List<IsTagGet> CreateDefaultMemoryTags()
+    {
+        List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
+        foreach (string tagName in DefaultMemoryTagNames)
+        {
+            tags.Add(new IsTagGet
+            {
+                TagName = tagName,
+                tagGet = false
+            });
+        }
+        return tags;
+    }
     public void WriteCurJSON()
     {
         SaveDataObj newData = new SaveDataObj();
@@ -191,44 +204,5 @@ public class SaveManager : MonoBehaviour
         newData.npcInformations = curData.npcInformations;
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신
-    }
-    private static List<IsTagGet> CreateDefaultMemoryTags()
-    {
-        List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
-        foreach (string tagName in DefaultMemoryTagNames)
-        {
-            tags.Add(new IsTagGet
-            {
-                TagName = tagName,
-                tagGet = false
-            });
-        }
-
-        return tags;
-    }
-
-    private static List<IsTagGet> CloneTags(List<IsTagGet> source)
-    {
-        List<IsTagGet> cloned = new List<IsTagGet>();
-        if (source == null)
-        {
-            return cloned;
-        }
-
-        foreach (IsTagGet tag in source)
-        {
-            if (tag == null)
-            {
-                continue;
-            }
-
-            cloned.Add(new IsTagGet
-            {
-                TagName = tag.TagName,
-                tagGet = tag.tagGet
-            });
-        }
-
-        return cloned;
     }
 }

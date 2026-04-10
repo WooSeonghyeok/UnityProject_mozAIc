@@ -2,7 +2,7 @@
 using UnityEngine;
 using static TextboxManager;
 
-public class CutsceneCtrl_Ending : MonoBehaviour
+public class TextboxCtrl_Ending : MonoBehaviour
 {
     public TextboxManager _manager;
     public WaitForSecondsRealtime twoSec = new(2f);
