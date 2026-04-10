@@ -6,7 +6,7 @@ public class PuzzleTile : MonoBehaviour
     public Transform teleportPoint;
     public Transform playerTransform;
 
-    private bool isCleared = false; // 타일 클리어 여부
+    private bool isCleared = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,11 +18,22 @@ public class PuzzleTile : MonoBehaviour
             {
                 Debug.Log("타일 충돌됨");
 
-                // 🎯 현재 색
                 ColorType playerColor = player.currentColor;
 
-                // 🎨 색이 맞으면 타일 숨김 (한 번만)
-                if (playerColor == tileColor && !isCleared)
+                // ❌ 1. 이미 클리어된 타일 다시 밟음
+                if (isCleared)
+                {
+                    Debug.Log("이미 클리어된 타일 → -1");
+                    Episode2ScoreManager.Instance?.ReducePaintScore();
+                }
+                // ❌ 2. 색이 틀림
+                else if (playerColor != tileColor)
+                {
+                    Debug.Log("색이 틀림 → -1");
+                    Episode2ScoreManager.Instance?.ReducePaintScore();
+                }
+                // ✅ 3. 정답
+                else
                 {
                     MeshRenderer mesh = GetComponent<MeshRenderer>();
                     if (mesh != null)
@@ -31,18 +42,18 @@ public class PuzzleTile : MonoBehaviour
                     isCleared = true;
                 }
 
-                // 🧼 플레이어 색 초기화 (항상)
+                // 공통 처리
                 player.ResetColor();
-
-                // 🚀 텔레포트 (항상)
                 Teleport();
             }
         }
     }
+
     public bool IsCleared()
     {
         return isCleared;
     }
+
     void Teleport()
     {
         if (teleportPoint == null || playerTransform == null)
