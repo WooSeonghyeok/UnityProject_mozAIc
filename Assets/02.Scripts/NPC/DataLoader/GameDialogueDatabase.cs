@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameDialogueDatabase : MonoBehaviour
 {
     public static GameDialogueDatabase Instance;
+    private bool isLoaded;
 
     [Header("로드된 데이터")]
     public List<NpcProfileData> npcProfiles = new List<NpcProfileData>();
@@ -22,12 +23,55 @@ public class GameDialogueDatabase : MonoBehaviour
             return;
         }
 
+        InitializeIfNeeded();
+    }
+
+    public static GameDialogueDatabase EnsureAvailable()
+    {
+        if (Instance != null)
+        {
+            return Instance;
+        }
+
+        var databases = Resources.FindObjectsOfTypeAll<GameDialogueDatabase>();
+
+        foreach (var database in databases)
+        {
+            if (database == null || !database.gameObject.scene.IsValid())
+            {
+                continue;
+            }
+
+            if (!database.gameObject.activeSelf)
+            {
+                database.gameObject.SetActive(true);
+            }
+
+            database.InitializeIfNeeded();
+            return Instance;
+        }
+
+        return null;
+    }
+
+    private void InitializeIfNeeded()
+    {
+        if (Instance != null && Instance != this)
+        {
+            return;
+        }
+
         Instance = this;
+
+        if (isLoaded)
+        {
+            return;
+        }
 
         // 씬이 바뀌어도 같은 데이터를 유지하고 싶으면 유지
         DontDestroyOnLoad(gameObject);
-
         LoadAllData();
+        isLoaded = true;
     }
 
     private void LoadAllData()

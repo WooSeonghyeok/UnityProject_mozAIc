@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 
 public class ChatNPC : MonoBehaviour
 {
+    private const float InteractionDistance = 3f;
+
     [Header("Setting")]
     [SerializeField] private GameObject interChatUI;
     [SerializeField] private Transform chatPos;
@@ -13,6 +15,7 @@ public class ChatNPC : MonoBehaviour
     [SerializeField] private PlayerInput user;
     private float distance;
     private NPCData npcData;  // NPC의 이름/성격/프롬프트 데이터 참조
+    private bool isInteractBound;
 
     public bool isChat = false;
 
@@ -20,41 +23,61 @@ public class ChatNPC : MonoBehaviour
     {
         // 시작할 때 같은 오브젝트의 NPCData를 캐싱
         npcData = GetComponent<NPCData>();
-        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+        ResolvePlayerReferences();
 
         if (npcFollower == null)
             npcFollower = GetComponent<NPCFollower>();
     }
     private void OnEnable()
     {
-        user.Interact += StartNPCChat;
+        ResolvePlayerReferences();
+        BindInteractInput();
     }
     private void OnDisable()
     {
-        user.Interact -= StartNPCChat;
+        UnbindInteractInput();
     }
 
     void Update()
     {
-        distance = Vector3.Distance(this.transform.position, playerTr.transform.position);
+        ResolvePlayerReferences();
+        BindInteractInput();
 
-        if (distance < 3 && !ChatNPCManager.instance.isTalking)
+        if (playerTr == null || ChatNPCManager.instance == null)
+        {
+            SetInteractionUi(false);
+            return;
+        }
+
+        distance = Vector3.Distance(transform.position, playerTr.position);
+
+        if (distance < InteractionDistance && !ChatNPCManager.instance.isTalking)
         {
             // 플레이어 쪽을 바라보기
             Vector3 targetPos = playerTr.position;
-            targetPos.y = this.transform.position.y;
-            this.transform.LookAt(targetPos);
-            interChatUI.SetActive(true);
+            targetPos.y = transform.position.y;
+            transform.LookAt(targetPos);
+            SetInteractionUi(true);
         }
         else
         {
-            interChatUI.SetActive(false);
+            SetInteractionUi(false);
         }
     }
 
     private void StartNPCChat()
     {
-        if (distance < 3 && !ChatNPCManager.instance.isTalking)
+        if (ChatNPCManager.instance == null || npcData == null)
+        {
+            return;
+        }
+
+        if (!ResolvePlayerReferences())
+        {
+            return;
+        }
+
+        if (distance < InteractionDistance && !ChatNPCManager.instance.isTalking)
         {
             if (npcFollower != null) npcFollower.SetFollow(false);
             ChatNPCManager.instance.NpcPersonTalk(chatPos, npcData);
@@ -64,9 +87,71 @@ public class ChatNPC : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Camera.main != null)
+        if (interChatUI != null && interChatUI.activeSelf && Camera.main != null)
         {
             interChatUI.transform.forward = Camera.main.transform.forward;
+        }
+    }
+
+    private bool ResolvePlayerReferences()
+    {
+        GameObject player = null;
+
+        if (playerTr == null || user == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player == null)
+            {
+                return false;
+            }
+        }
+
+        if (playerTr == null && player != null)
+        {
+            playerTr = player.transform;
+        }
+
+        if (user == null && player != null)
+        {
+            user = player.GetComponent<PlayerInput>();
+        }
+
+        return playerTr != null;
+    }
+
+    private void BindInteractInput()
+    {
+        if (isInteractBound || user == null)
+        {
+            return;
+        }
+
+        user.Interact += StartNPCChat;
+        isInteractBound = true;
+    }
+
+    private void UnbindInteractInput()
+    {
+        if (!isInteractBound || user == null)
+        {
+            return;
+        }
+
+        user.Interact -= StartNPCChat;
+        isInteractBound = false;
+    }
+
+    private void SetInteractionUi(bool isActive)
+    {
+        if (interChatUI == null)
+        {
+            return;
+        }
+
+        if (interChatUI.activeSelf != isActive)
+        {
+            interChatUI.SetActive(isActive);
         }
     }
 }
