@@ -45,7 +45,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         }
         if (memoryCollected >= totalCollected)  //조각 전부 수집 시 "split_self" 태그 획득
         {
-            foreach (var tag in SaveManager.instance.curData.MemoryTag)
+            foreach (var tag in SaveManager.instance.curData.CoreTag)
             {
                 if (tag.TagName == "split_self")
                 {

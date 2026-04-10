@@ -160,6 +160,7 @@ public class StageSelect : MonoBehaviour
             Debug.LogWarning("StageSelect: Cannot enter locked checkpoint");
             return;
         }
+        EnterSound.Play();
         SceneManager.LoadScene($"Episode{stageSelect + 1}_Scene");
     }
 }

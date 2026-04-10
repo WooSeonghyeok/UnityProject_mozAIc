@@ -40,6 +40,7 @@ public class Puzzle4Manager : MonoBehaviour
         retryButton.gameObject.SetActive(false);
         retryPopup.SetActive(false);
         retryPopupOpen = false;
+        clearSound = GetComponent<SoundTrigger>();
 #if UNITY_EDITOR
         switchText.gameObject.SetActive(true);
 #else

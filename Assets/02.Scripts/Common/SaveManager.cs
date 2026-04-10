@@ -26,7 +26,6 @@ public class SaveManager : MonoBehaviour
         }
         else Destroy(gameObject);
         curData = ReadCurJSON();
-        NormalizeTagCollections(curData);
     }
     public string GetSavePath(int slot)
     {
@@ -85,7 +84,6 @@ public class SaveManager : MonoBehaviour
         string jsonFile = File.ReadAllText(path);
         SaveDataObj newData = new SaveDataObj();
         newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
-        NormalizeTagCollections(newData);
         return newData;
     }
     public static void CreateCurData(string path, SaveDataObj dataObj)
@@ -188,41 +186,12 @@ public class SaveManager : MonoBehaviour
         newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
         newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
         newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
-        NormalizeTagCollections(curData);
-        newData.MemoryTag = CloneTags(curData.MemoryTag);
-        newData.CoreTag = newData.MemoryTag;
+        newData.CoreTag = curData.CoreTag;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         newData.npcInformations = curData.npcInformations;
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신
     }
-
-    private static void NormalizeTagCollections(SaveDataObj dataObj)
-    {
-        if (dataObj == null)
-        {
-            return;
-        }
-
-        if ((dataObj.MemoryTag == null || dataObj.MemoryTag.Count == 0) &&
-            (dataObj.CoreTag == null || dataObj.CoreTag.Count == 0))
-        {
-            dataObj.MemoryTag = CreateDefaultMemoryTags();
-            dataObj.CoreTag = dataObj.MemoryTag;
-            return;
-        }
-
-        if (dataObj.MemoryTag == null || dataObj.MemoryTag.Count == 0)
-        {
-            dataObj.MemoryTag = dataObj.CoreTag;
-        }
-
-        if (dataObj.CoreTag == null || dataObj.CoreTag.Count == 0)
-        {
-            dataObj.CoreTag = dataObj.MemoryTag;
-        }
-    }
-
     private static List<IsTagGet> CreateDefaultMemoryTags()
     {
         List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
