@@ -17,7 +17,7 @@ MonoBehaviour:
   - dialogueId: EP3_001
     speakerType: Narration
     speakerName: 
-    subtitleText: 낯선 정적이 작업실 안에 가라앉아 있었다.
+    subtitleText: "\ub0af\uc120 \uc815\uc801\uc774 \uc791\uc5c5\uc2e4 \uc548\uc5d0 \uac00\ub77c\uc549\uc544 \uc788\uc5c8\ub2e4."
     showSpeakerName: 0
     cameraPosition: {x: 3.25, y: 2.3, z: -27.8}
     lookAtPosition: {x: 3.35, y: 1.4, z: -20.5}
@@ -27,7 +27,7 @@ MonoBehaviour:
   - dialogueId: EP3_002
     speakerType: Narration
     speakerName: 
-    subtitleText: 누군가 방금 전까지 머물렀던 것처럼, 악기와 흔적들만이 자리를 지키고 있었다.
+    subtitleText: "\uc545\uae30\uc640 \uc545\ubcf4, \uc815\ub9ac\ub418\uc9c0 \ubabb\ud55c \ud754\uc801\ub4e4\uc774 \uc544\uc9c1\ub3c4 \uc81c\uc790\ub9ac\ub97c \uc9c0\ud0a4\uace0 \uc788\uc5c8\ub2e4."
     showSpeakerName: 0
     cameraPosition: {x: 6.2, y: 2.35, z: -18.7}
     lookAtPosition: {x: 0.8, y: 1.2, z: -12.2}
@@ -37,7 +37,7 @@ MonoBehaviour:
   - dialogueId: EP3_003
     speakerType: Narration
     speakerName: 
-    subtitleText: 완성되지 못한 멜로디가 이 공간 어딘가에 남아 있는 듯했다.
+    subtitleText: "\ub9c8\uce58 \ub05d\ub0b4 \uc774\uc5b4\uc9c0\uc9c0 \ubabb\ud55c \uc120\uc728\uc774 \uc774 \uacf5\uac04\uc5d0 \ub0a8\uc544 \uc788\ub294 \uac83 \uac19\uc558\ub2e4."
     showSpeakerName: 0
     cameraPosition: {x: 2.2, y: 4.85, z: -11.2}
     lookAtPosition: {x: 0.9, y: 1.35, z: -10.7}
@@ -47,7 +47,7 @@ MonoBehaviour:
   - dialogueId: EP3_004
     speakerType: Narration
     speakerName: 
-    subtitleText: 벽에 남겨진 심볼과 악기들은, 멈춰버린 기억의 조각처럼 보였다.
+    subtitleText: "\uadf8\ub9ac\uace0 \uadf8 \ud754\uc801\ub4e4 \uc0ac\uc774\uc5d0\uc11c, \ub204\uad70\uac00\ub97c \uae30\ub2e4\ub9ac\ub294 \ub4ef\ud55c \uae30\ucc99\uc774 \ub290\uaef4\uc84c\ub2e4."
     showSpeakerName: 0
     cameraPosition: {x: 4.7, y: 2.5, z: -10}
     lookAtPosition: {x: 2.8, y: 1.3, z: -17}
@@ -57,7 +57,7 @@ MonoBehaviour:
   - dialogueId: EP3_005
     speakerType: Monologue
     speakerName: 
-    subtitleText: 이곳에서, 잊힌 노래의 첫 단서를 찾아야 한다.
+    subtitleText: "\uc774\uacf3\uc5d0 \ub0a8\uaca8\uc9c4 \uc774\uc57c\uae30\ub97c \uc54c\uc544\ubcf4\ub824\uba74, \uc870\uae08 \ub354 \uac00\uae4c\uc774 \ub2e4\uac00\uac00 \ubd10\uc57c \ud560 \uac83 \uac19\ub2e4."
     showSpeakerName: 0
     cameraPosition: {x: 3.4, y: 2.25, z: -24.6}
     lookAtPosition: {x: 3.3, y: 1.2, z: -34.3}

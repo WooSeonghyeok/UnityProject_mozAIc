@@ -23,6 +23,7 @@ public class ChatNPCManager : MonoBehaviour
     public bool isTalking = false;
 
     private Coroutine bubbleCoroutine;
+    private bool isCancelBound;
 
     private void Awake()
     {
@@ -33,15 +34,25 @@ public class ChatNPCManager : MonoBehaviour
         }
         instance = this;
 
-        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+        ResolvePlayerInput();
     }
     private void OnEnable()
     {
-        user.Cancel += EndNPCChat;
+        ResolvePlayerInput();
+        BindCancelInput();
     }
     private void OnDisable()
     {
-        user.Cancel -= EndNPCChat;
+        UnbindCancelInput();
+    }
+
+    private void Update()
+    {
+        if (!isCancelBound)
+        {
+            ResolvePlayerInput();
+            BindCancelInput();
+        }
     }
     public void NpcPersonTalk(Transform pos, NPCData npcData)
     {
@@ -51,11 +62,17 @@ public class ChatNPCManager : MonoBehaviour
             return;
         }
 
-        var db = GameDialogueDatabase.Instance;
+        var db = GameDialogueDatabase.EnsureAvailable();
 
         if (db == null)
         {
             Debug.LogError("[ChatNPCManager] GameDialogueDatabase가 없음");
+            return;
+        }
+
+        if (chatPanel == null || serverChat == null || followCam == null)
+        {
+            Debug.LogError("[ChatNPCManager] 채팅 UI 또는 카메라 참조가 비어 있음");
             return;
         }
 
@@ -165,7 +182,7 @@ public class ChatNPCManager : MonoBehaviour
             return;
         }
 
-        var db = GameDialogueDatabase.Instance;
+        var db = GameDialogueDatabase.EnsureAvailable();
         if (db == null)
         {
             Debug.LogWarning("[ChatNPCManager] 말풍선 출력 실패 - DB가 null");
@@ -227,5 +244,45 @@ public class ChatNPCManager : MonoBehaviour
         {
             speechBubbleRoot.SetActive(false);
         }
+    }
+
+    private bool ResolvePlayerInput()
+    {
+        if (user != null)
+        {
+            return true;
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            return false;
+        }
+
+        user = player.GetComponent<PlayerInput>();
+        return user != null;
+    }
+
+    private void BindCancelInput()
+    {
+        if (isCancelBound || user == null)
+        {
+            return;
+        }
+
+        user.Cancel += EndNPCChat;
+        isCancelBound = true;
+    }
+
+    private void UnbindCancelInput()
+    {
+        if (!isCancelBound || user == null)
+        {
+            return;
+        }
+
+        user.Cancel -= EndNPCChat;
+        isCancelBound = false;
     }
 }
