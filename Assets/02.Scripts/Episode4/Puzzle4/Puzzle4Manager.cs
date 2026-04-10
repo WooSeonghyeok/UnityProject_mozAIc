@@ -22,8 +22,13 @@ public class Puzzle4Manager : MonoBehaviour
     private int switch_total = 0;
     private int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
-    public Ep4_CutsceneManager cutsceneManager;
-    public SaveDataObj curData;
+    public NPCData coreNPC;
+    public CutsceneCtrl_Ep4 cutscene;
+    public bool isFirstContact = false;
+    public int puzzle4MemoryRate = 0;
+    private SoundTrigger clearSound;
+    public GameObject interactionUI;   // "E" 상호작용 UI
+    private bool isMidCutsceneOn = false;
     void Awake()
     {
         if (instance == null) instance = this;
@@ -107,11 +112,19 @@ public class Puzzle4Manager : MonoBehaviour
         if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
         switch_total += switch_this;  //최종 상호작용 횟수 확정
         SyncCheck();
-        EndingConditionData.memory_reconstruction_rate -= Mathf.RoundToInt(switch_total*0.1f);  //상호작용 횟수에 따른 기억 재구성률 점수 계산
-        EndingConditionData.memory_reconstruction_rate -= retry_count;  //다시하기 횟수에 따른 기억 재구성률 점수 계산
-        curData.memory_reconstruction_rate = EndingConditionData.memory_reconstruction_rate;
-        Debug.Log($"최종점수: {EndingConditionData.memory_reconstruction_rate}");
-        if(egoSync == 1f)  //자아 통합도 100% 달성해야 퍼즐4의 기억 조각을 획득 → 진엔딩 루트 진입
+        FinalScore();
+        if (egoSync == 1f) SelfVoiceTag();
+    }
+    private void FinalScore()
+    {
+        puzzle4MemoryRate = Math.Clamp(retry_count, 0, 5);  //각 퍼즐당 최대 5점까지
+        SaveManager.instance.curData.memory_reconstruction_rate -= puzzle4MemoryRate;  //이전까지 총 점수에서 감점
+        Debug.Log($"최종점수: {SaveManager.instance.curData.memory_reconstruction_rate}");
+        scoreFinished = true;  //마지막 점수 계산 종료 확인
+    }
+    private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
+    {
+        foreach (IsTagGet Tag in SaveManager.instance.curData.CoreTag)
         {
             EndingConditionData.self_voice = true;
             foreach (IsTagGet lastTag in curData.MemoryTag)
@@ -120,7 +133,9 @@ public class Puzzle4Manager : MonoBehaviour
             }
             Debug.Log($"마지막 기억 획득!");
         }
-        scoreFinished = true;  //마지막 점수 계산 종료 확인
+        Debug.Log($"마지막 기억 획득!");
+        clearSound.Play();
+        coreNPC.revealStage = MemoryRevealStage.Full;
     }
     public void SyncCheck()  //자아 통합도 계산
     {

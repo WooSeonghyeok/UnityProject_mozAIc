@@ -62,7 +62,10 @@ public class NPCData : MonoBehaviour
             }
             return;
         }
-
+        foreach (NPCInfo npc in SaveManager.instance.curData.npcInformations)  //호감도가 변경된 NPC를 세이브 데이터에서 찾아 호감도 갱신
+        {
+            if (npc.npcId == npcId) npc.Affinity = Affinity;
+        }
         // 호감도 변경 후 현재 단계 기준 프롬프트 재생성
         RefreshPrompt();
     }

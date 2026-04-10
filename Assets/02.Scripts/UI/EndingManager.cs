@@ -51,6 +51,25 @@ public class EndingManager : MonoBehaviour
         int rate = endingRule.EndingRule[0].minReconstructionRate;
         return rate;
     }
+    private static bool TagCnt()  //태그 수집 조건
+    {
+        if (SaveManager.instance.curData.CoreTag == null || SaveManager.instance.curData.CoreTag.Count == 0)
+        {
+            Debug.LogError("MemoryTag 리스트를 찾을 수 없습니다.");
+            return true;
+        }
+        if (SaveManager.instance.curData.npcInformations == null || SaveManager.instance.curData.npcInformations.Count == 0)
+        {
+            Debug.LogError("NPC 리스트를 찾을 수 없습니다.");
+            return true;
+        }
+        int a = 0;
+        foreach (IsTagGet tag in SaveManager.instance.curData.CoreTag)
+        {
+            if (tag.tagGet) a++;
+        }
+        return (float)((float)a / (float)SaveManager.instance.curData.CoreTag.Count) >= 0.8f;
+    }
     private IEnumerator Start()
     {
         if (isCompleteEnding) CompleteEnding();

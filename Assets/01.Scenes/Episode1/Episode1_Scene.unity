@@ -1267,6 +1267,18 @@ PrefabInstance:
       propertyPath: currentNpcData
       value: 
       objectReference: {fileID: 1706671242}
+    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+      propertyPath: words.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+      propertyPath: words.Array.data[0].word
+      value: "\uC30D\uB465\uC774\uC790\uB9AC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+      propertyPath: words.Array.data[0].memoryRate
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: chatPanel
       value: 
