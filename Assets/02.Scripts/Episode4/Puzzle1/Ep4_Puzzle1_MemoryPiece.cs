@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Ep4_Puzzle1_MemoryPiece : MonoBehaviour
 {
     public Ep4_Puzzle1Manager manager;

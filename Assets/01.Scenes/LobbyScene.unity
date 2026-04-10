@@ -691,8 +691,10 @@ MonoBehaviour:
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
     memory_reconstruction_rate: 0
-    MemoryTag: []
+    CoreTag: []
+    npcInformations: []
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtEP3Lobby: 0
   stageList: {fileID: 2058731394}
   stageButtons: []
   stageSelect: 0
@@ -3064,69 +3066,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &863161576
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 863161578}
-  - component: {fileID: 863161577}
-  m_Layer: 0
-  m_Name: SaveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &863161577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863161576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6cbdcec81b43c64ab74bf5cf97ca8f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
-    MemoryTag: []
-    isFirstEnterAtS3CP0: 0
---- !u!4 &863161578
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863161576}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &892977077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4229,7 +4168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1191488109
 Transform:
   m_ObjectHideFlags: 0
@@ -7710,7 +7649,6 @@ SceneRoots:
   - {fileID: 486813715}
   - {fileID: 852627333}
   - {fileID: 1309240950}
-  - {fileID: 863161578}
   - {fileID: 2071870686}
   - {fileID: 1444288337}
   - {fileID: 1161773738}

@@ -159,7 +159,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         StartCoroutine(_manager.TalkSay(TalkType.voice, "돌아가자. 이번엔 끝까지.", Talker.core));
         yield return twoSec;
         StartCoroutine(_manager.TalkSay(TalkType.player, "전부... 내 삶이었다."));
-        yield return twoSec;
+        yield return new WaitForSecondsRealtime(3.5f);
         SceneManager.LoadScene("EndingScene");
     }
 }

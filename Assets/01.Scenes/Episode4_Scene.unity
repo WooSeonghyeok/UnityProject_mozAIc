@@ -20904,6 +20904,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 292202130}
+    - target: {fileID: 5694942922352623018, guid: b99da07c24cea7c408f6d592dbbc8fe1, type: 3}
+      propertyPath: cutsceneSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 93f2dfba265d83a4b884d9c1b21bf5b0, type: 3}
     - target: {fileID: 6054876049045596215, guid: b99da07c24cea7c408f6d592dbbc8fe1, type: 3}
       propertyPath: m_Name
       value: CutscenePlayer_EP4Start
@@ -31198,6 +31202,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 292202130}
+    - target: {fileID: 5694942922352623018, guid: c920af6f46708a341a638f54a6e7056b, type: 3}
+      propertyPath: cutsceneSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 622c8e769c801c74bab7341e164cb13e, type: 3}
     - target: {fileID: 6054876049045596215, guid: c920af6f46708a341a638f54a6e7056b, type: 3}
       propertyPath: m_Name
       value: CutscenePlayer_EP4Climax
@@ -41869,12 +41877,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
       propertyPath: imageShowTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 292202130}
+    - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
+      propertyPath: cutsceneSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
+      propertyPath: cutsceneSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 85d83626ad0829849b3d1291af0d4975, type: 3}
+    - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
+      propertyPath: cutsceneSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: bd68a6c058d971443a6bff041669d9c6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

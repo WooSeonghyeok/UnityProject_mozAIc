@@ -1,27 +1,19 @@
-using UnityEngine;
-
+ï»¿using UnityEngine;
 public class SoundTrigger : MonoBehaviour
 {
-    [Header("Àç»ıÇÒ È¿°úÀ½")]
+    [Header("ì¬ìƒí•  íš¨ê³¼ìŒ")]
     [SerializeField] private SoundManager.SFXType sfxType = SoundManager.SFXType.None;
-
-    [Header("Àç»ı ¹æ½Ä")]
+    [Header("ì¬ìƒ ë°©ì‹")]
     [SerializeField] private bool playAs3D = true;
-
-    [Header("º¼·ı ¹èÀ²")]
+    [Header("ë³¼ë¥¨ ë°°ìœ¨")]
     [SerializeField][Range(0f, 1f)] private float volumeScale = 1f;
-
     public void Play()
     {
         if (SoundManager.Instance == null) return;
         if (sfxType == SoundManager.SFXType.None) return;
-
-        if (playAs3D)
-            SoundManager.Instance.PlaySFX3D(sfxType, transform.position, volumeScale);
-        else
-            SoundManager.Instance.PlaySFX(sfxType, volumeScale);
+        if (playAs3D) SoundManager.Instance.PlaySFX3D(sfxType, transform.position, volumeScale);
+        else SoundManager.Instance.PlaySFX(sfxType, volumeScale);
     }
-
     public void PlaySound()
     {
         Play();
