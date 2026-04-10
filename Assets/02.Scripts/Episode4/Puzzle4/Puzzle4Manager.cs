@@ -23,7 +23,7 @@ public class Puzzle4Manager : MonoBehaviour
     private int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public NPCData coreNPC;
-    public CutsceneCtrl_Ep4 cutscene;
+    public TextboxCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
     public int puzzle4MemoryRate = 0;
     private SoundTrigger clearSound;
@@ -69,6 +69,12 @@ public class Puzzle4Manager : MonoBehaviour
     {
         switch_this++;
         SyncCheck();
+        if (egoSync >= 0.5f && !isMidCutsceneOn)
+        {
+            isMidCutsceneOn = true;
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "전부 나로 받아들이겠다."));
+        }
+        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
     {
@@ -95,16 +101,25 @@ public class Puzzle4Manager : MonoBehaviour
         float x = UnityEngine.Random.Range(0, 9);
         msg = x switch
         {
-            1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
-            2 => "스위치로 기억 조각의 색을 바꾸면\n연결된 다른 조각들도 함께 바뀌는 모양이네...",
-            3 => "이 조각에 어느 조각이 연결되어 있는지는\n조각에 그려진 무늬를 보고 알 수 있겠지.",
-            4 => "색을 바꾸는 스위치는 정해진 색을 켜거나 끄는 원리인가 봐.",
-            5 => "화살표 무늬는 방향, 별 무늬는 색,\n 그렇다면 십자 무늬는 뭘 상징하지?",
-            6 => "떠올랐어. 빛의 색은 빨강, 초록, 파랑을 섞어서 표현하는구나.",
-            7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
-            _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
-        };
-        StartCoroutine(cutsceneManager.TalkSay(msg, Color.white));
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "도망치지 않겠다.")); 
+            isFirstContact = true;
+        }
+        else
+        {
+            float x = UnityEngine.Random.Range(0, 9);
+            string msg = x switch
+            {
+                1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
+                2 => "스위치로 기억 조각의 색을 바꾸면\n연결된 다른 조각들도 함께 바뀌는 모양이네...",
+                3 => "이 조각에 어느 조각이 연결되어 있는지는\n조각에 그려진 무늬를 보고 알 수 있겠지.",
+                4 => "색을 바꾸는 스위치는 정해진 색을 켜거나 끄는 원리인가 봐.",
+                5 => "화살표 무늬는 방향, 별 무늬는 색,\n 그렇다면 십자 무늬는 뭘 상징하지?",
+                6 => "떠올랐어. 빛의 색은 빨강, 초록, 파랑을 섞어서 표현하는구나.",
+                7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
+                _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
+            };
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, msg));
+        }
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {

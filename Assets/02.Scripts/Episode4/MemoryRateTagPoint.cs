@@ -9,7 +9,7 @@ public class MemoryRateTagPoint : MonoBehaviour
     public string TagName;
     public int memoryRateUp;
     public GameObject tagBubble;
-    public CutsceneManager cutscene;
+    public TextboxManager cutscene;
     public string tagHint;
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class MemoryRateTagPoint : MonoBehaviour
             if (thisTagGet) return;
             SaveManager.instance.curData.memory_reconstruction_rate += memoryRateUp;
             tagBubble.SetActive(false);
-            StartCoroutine(cutscene.TalkSay(CutsceneManager.TalkType.player, tagHint));
+            StartCoroutine(cutscene.TalkSay(TextboxManager.TalkType.player, tagHint));
             thisTagGet = true;
         }
     }

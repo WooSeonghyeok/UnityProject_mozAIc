@@ -6,7 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
     public SaveDataObj curData;
-    private static readonly string[] DefaultMemoryTagNames =
+    public static readonly string[] DefaultMemoryTagNames =
     {
         "shared_childhood",
         "star_promise",
@@ -106,23 +106,7 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
         dataObj.memory_reconstruction_rate = 40;
-        dataObj.CoreTag = new List<IsTagGet>();
-        string[] coreTagNames = {"shared_childhood",
-                                "star_promise",
-                                "shared_dream",
-                                "co_creation",
-                                "unfinished_confession",
-                                "lover_memory",
-                                "self_voice",
-                                "split_self" };
-        foreach (var name in coreTagNames)
-        {
-            dataObj.CoreTag.Add(new IsTagGet
-            {
-                TagName = name,
-                tagGet = false
-            });
-        }
+        dataObj.CoreTag = CreateDefaultMemoryTags();
         dataObj.npcInformations = new List<NPCInfo>();
         string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician", "npc_ep4_core" };
         foreach (var name in npcNames)
@@ -184,6 +168,19 @@ public class SaveManager : MonoBehaviour
         dataObj.isFirstEnterAtEP3Lobby = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
+    }
+    private static List<IsTagGet> CreateDefaultMemoryTags()
+    {
+        List<IsTagGet> tags = new List<IsTagGet>(DefaultMemoryTagNames.Length);
+        foreach (string tagName in DefaultMemoryTagNames)
+        {
+            tags.Add(new IsTagGet
+            {
+                TagName = tagName,
+                tagGet = false
+            });
+        }
+        return tags;
     }
     public void WriteCurJSON()
     {

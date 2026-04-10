@@ -31,7 +31,7 @@ public class PaintManager : MonoBehaviour
     void Activate()
     {
         isActivated = true;
-
+        Episode2ScoreManager.Instance?.AddClearScore(5);
         // 🔥 퍼즐 매니저에 클리어 전달 (핵심)
         EP2_PuzzleManager.Instance.SolvePaintPuzzle();
 
