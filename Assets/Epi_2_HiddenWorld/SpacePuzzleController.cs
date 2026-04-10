@@ -6,16 +6,16 @@ public class SpacePuzzleController : MonoBehaviour
     public GameObject obj2;
     public GameObject obj3;
 
-    public GameObject portalPrefab; // 🔥 포탈 (Inspector에서 넣기)
+    [Header("Activation Objects")]
+    public GameObject portalPrefab; // 포탈
+    public GameObject[] activateObjects; // ⭐ 추가 활성화 오브젝트들
 
     private bool isActivated = false;
 
-    // ⭐ ScoreController 참조
     private SpaceScoreController scoreController;
 
     void Start()
     {
-        // ⭐ 같은 오브젝트에 붙어있다고 가정
         scoreController = GetComponent<SpaceScoreController>();
     }
 
@@ -23,7 +23,6 @@ public class SpacePuzzleController : MonoBehaviour
     {
         if (isActivated) return;
 
-        // 🔥 3개 다 활성화됐는지 체크
         if (obj1.activeSelf && obj2.activeSelf && obj3.activeSelf)
         {
             ActivatePortal();
@@ -33,18 +32,32 @@ public class SpacePuzzleController : MonoBehaviour
 
     void ActivatePortal()
     {
-        Debug.Log("3개 완료 → 포탈 생성");
+        Debug.Log("3개 완료 → 포탈 및 오브젝트 활성화");
 
         if (SaveManager.instance != null)
             SaveManager.instance.curData.ep2_spaceClear = true;
 
+        // ⭐ 포탈 활성화
         if (portalPrefab != null)
             portalPrefab.SetActive(true);
 
-        // ⭐ 타이머 멈추기 (핵심)
+        // ⭐ 추가 오브젝트 활성화
+        if (activateObjects != null)
+        {
+            foreach (GameObject obj in activateObjects)
+            {
+                if (obj != null)
+                    obj.SetActive(true);
+            }
+        }
+
+        // ⭐ 타이머 멈추기
         scoreController?.StopTimer();
+
+        // ⭐ 점수 추가
         Episode2ScoreManager.Instance?.AddClearScore(5);
-        // ⭐ 퍼즐 클리어 처리 (+5 점수 포함)
-        EP2_PuzzleManager.Instance.SolveSpacePuzzle();
+
+        // ⭐ 상태 처리
+        EP2_PuzzleManager.Instance?.SolveSpacePuzzle();
     }
 }
