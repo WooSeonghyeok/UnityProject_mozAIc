@@ -17,6 +17,7 @@ public class StageSelect : MonoBehaviour
     public int cpSelect = -1;  //현재 선택한 체크포인트 번호
     public event Action<int> TouchCPButtonEvent;  //체크포인트 선택 이벤트
     public Button EnterButton;  //입장 버튼
+    private SoundTrigger EnterSound;
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -38,7 +39,8 @@ public class StageSelect : MonoBehaviour
             cpButtons = checkpointList.GetComponentsInChildren<CheckpointSelectButton>();
         else
             cpButtons = GetComponentsInChildren<CheckpointSelectButton>();
-        curData = SaveManager.ReadCurJSON();
+        curData = SaveManager.instance.curData;
+        EnterSound = GetComponent<SoundTrigger>();
     }
     private void OnEnable()
     {
@@ -158,6 +160,7 @@ public class StageSelect : MonoBehaviour
             Debug.LogWarning("StageSelect: Cannot enter locked checkpoint");
             return;
         }
+        EnterSound.Play();
         SceneManager.LoadScene($"Episode{stageSelect + 1}_Scene");
     }
 }

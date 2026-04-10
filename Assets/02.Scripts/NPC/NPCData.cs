@@ -13,6 +13,8 @@ public enum MemoryRevealStage
 
 public class NPCData : MonoBehaviour
 {
+    private const float DatabaseWaitTimeout = 3f;
+
     [Header("JSON 연결 ID")]
     public string npcId;
     public string sceneId;
@@ -31,25 +33,59 @@ public class NPCData : MonoBehaviour
     [TextArea(5, 20)]
     public string CurrentPrompt;
 
+    private Coroutine initializeRoutine;
+
     private void Start()
     {
-        var profile = GameDialogueDatabase.Instance.GetNpcProfile(npcId);
+        Affinity = startAffinity;
+        initializeRoutine = StartCoroutine(CoInitializeNpcData());
+    }
+
+    private void OnDisable()
+    {
+        if (initializeRoutine != null)
+        {
+            StopCoroutine(initializeRoutine);
+            initializeRoutine = null;
+        }
+    }
+
+    private IEnumerator CoInitializeNpcData()
+    {
+        float elapsed = 0f;
+
+        while (GameDialogueDatabase.EnsureAvailable() == null && elapsed < DatabaseWaitTimeout)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        ApplyNpcProfile();
+        RefreshPrompt();
+        initializeRoutine = null;
+    }
+
+    private void ApplyNpcProfile()
+    {
+        var database = GameDialogueDatabase.EnsureAvailable();
+
+        if (database == null)
+        {
+            Debug.LogWarning($"[NPCData] GameDialogueDatabase를 찾지 못해 기본 이름을 사용함: {npcId}");
+            NpcName = string.IsNullOrWhiteSpace(NpcName) ? "Unknown NPC" : NpcName;
+            return;
+        }
+
+        var profile = database.GetNpcProfile(npcId);
 
         if (profile != null)
         {
-            // 내부적으로는 실제 이름을 들고 있어도 됨
             NpcName = profile.displayName;
-        }
-        else
-        {
-            Debug.LogWarning($"[NPCData] npcId에 해당하는 프로필을 찾지 못함: {npcId}");
-            NpcName = "Unknown NPC";
+            return;
         }
 
-        Affinity = startAffinity;
-
-        // 시작 시 현재 공개 단계에 맞는 프롬프트 생성
-        RefreshPrompt();
+        Debug.LogWarning($"[NPCData] npcId에 해당하는 프로필을 찾지 못함: {npcId}");
+        NpcName = "Unknown NPC";
     }
 
     public void ChangeAffinity()
@@ -62,7 +98,10 @@ public class NPCData : MonoBehaviour
             }
             return;
         }
-
+        foreach (NPCInfo npc in SaveManager.instance.curData.npcInformations)  //호감도가 변경된 NPC를 세이브 데이터에서 찾아 호감도 갱신
+        {
+            if (npc.npcId == npcId) npc.Affinity = Affinity;
+        }
         // 호감도 변경 후 현재 단계 기준 프롬프트 재생성
         RefreshPrompt();
     }

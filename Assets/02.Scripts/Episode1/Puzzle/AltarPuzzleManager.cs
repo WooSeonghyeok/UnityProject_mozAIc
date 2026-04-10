@@ -269,6 +269,11 @@ public class AltarPuzzleManager : MonoBehaviour
         }
 
         Debug.Log("제단 퍼즐 실패");
+        // UI 퍼즐 실패 1회 누적
+        if (GameManager_Ep1.Instance != null)
+        {
+            GameManager_Ep1.Instance.AddUiPuzzleFail();
+        }
         Invoke(nameof(ResetPuzzle), 1f);
     }
 
@@ -364,11 +369,10 @@ public class AltarPuzzleManager : MonoBehaviour
         ApplyGradientTexture();  // 퍼즐 클리어 순간 맵의 머터리얼을 그라디언트 텍스처로 교체
         ApplySkybox(clearedSkybox);  // 퍼즐 클리어 순간 스카이박스를 별 하늘로 교체
         yield return clearWs;
-        ClosePuzzle();              // 퍼즐 닫기
         if (GameManager_Ep1.Instance != null)
         {
-            GameManager_Ep1.Instance.OnPuzzleCleared();  // 퍼즐 종료 후 컷씬/이벤트 실행
+            GameManager_Ep1.Instance.OnPuzzleCleared();
         }
-        
+        ClosePuzzle();
     }
 }

@@ -24,6 +24,15 @@ public class GameManager_Ep1 : MonoBehaviour
     [Header("컷씬 연결")]
     [SerializeField] private CutsceneImagePlayer caveEnterCutscenePlayer;
     [SerializeField] private CutsceneImagePlayer puzzleClearCutscenePlayer;
+    [Header("슬라이드 퍼즐 점수 설정")]
+    [SerializeField] private int baseScore = 10;         // 기본 점수
+    [SerializeField] private int freeSlideCount = 13;    // 패널티 없이 허용되는 슬라이드 횟수
+    [Header("현재 점수 상태")]
+    [SerializeField] private int slideCount = 0;         // 현재 슬라이드 횟수
+    [SerializeField] private int uiFailCount = 0;        // UI 퍼즐 실패 횟수
+    [SerializeField] private int slidePenalty = 0;       // 슬라이드 횟수 초과 패널티
+    [SerializeField] private int uiFailPenalty = 0;      // UI 퍼즐 실패 패널티
+    [SerializeField] private int currentScore = 10;      // 최종 현재 점수
     private void Awake()
     {
         // 싱글톤 초기화
@@ -36,6 +45,8 @@ public class GameManager_Ep1 : MonoBehaviour
     }
     private void Start()
     {
+        // 시작 시 점수 초기화
+        ResetSlidePuzzleScore();
         // 게임 시작 시 루나 기억 단계를 초기값으로 맞춤
         if (lunaNpcData != null)
         {
@@ -122,8 +133,65 @@ public class GameManager_Ep1 : MonoBehaviour
         if (lunaNpcData != null)
         {
             lunaNpcData.SetRevealStage(fullMemoryStage);
-            if (SaveManager.instance != null) SaveManager.instance.curData.MemoryTag[1].tagGet = true;  //"star_promise" 플래그를 회수
+            if (SaveManager.instance != null) SaveManager.instance.curData.CoreTag[1].tagGet = true;  //"star_promise" 플래그를 회수
             Debug.Log("[GameManager_Ep1] 완전 기억 복원 완료");
         }
     }
+    #region 점수 계산
+    // 슬라이드가 실제로 시작되었을 때 호출
+    public void AddSlideCount()
+    {
+        slideCount++;
+        RecalculateSlidePuzzleScore();
+    }
+    // UI 퍼즐 실패 시 호출
+    public void AddUiPuzzleFail()
+    {
+        uiFailCount++;
+        RecalculateSlidePuzzleScore();
+    }
+    // 슬라이드 퍼즐 점수 전체 초기화
+    public void ResetSlidePuzzleScore()
+    {
+        slideCount = 0;
+        uiFailCount = 0;
+        slidePenalty = 0;
+        uiFailPenalty = 0;
+        currentScore = baseScore;
+    }
+    // 현재 누적 상태를 기준으로 최종 점수 재계산
+    private void RecalculateSlidePuzzleScore()
+    {
+        // 13회 초과부터 2회마다 -1점
+        if (slideCount > freeSlideCount)
+        {
+            slidePenalty = (slideCount - freeSlideCount + 1) / 2;
+        }
+        else
+        {
+            slidePenalty = 0;
+        }
+        // UI 퍼즐 실패는 1회당 -1점
+        uiFailPenalty = uiFailCount;
+        // 최종 점수 계산
+        currentScore = baseScore - slidePenalty - uiFailPenalty;
+        // 음수 방지
+        if (currentScore < 0)
+        {
+            currentScore = 0;
+        }
+        Debug.Log(
+            $"[GameManager_Ep1] 슬라이드 횟수: {slideCount}, " +
+            $"슬라이드 패널티: {slidePenalty}, " +
+            $"UI 실패 횟수: {uiFailCount}, " +
+            $"UI 실패 패널티: {uiFailPenalty}, " +
+            $"현재 점수: {currentScore}"
+        );
+    }
+    // 현재 최종 점수 반환
+    public int GetSlidePuzzleScore()
+    {
+        return currentScore;
+    }
+    #endregion
 }

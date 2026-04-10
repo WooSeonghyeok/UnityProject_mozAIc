@@ -193,8 +193,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutscenePanel: {fileID: 3958165203520380080}
   cutsceneImage: {fileID: 1519703819958131803}
-  cutsceneSprites: []
-  imageShowTime: 3
+  cutsceneSprites:
+  - {fileID: 649610418, guid: 6457f84c7ea685848b4bc0a34255497f, type: 3}
+  imageShowTime: 4
   fadeDuration: 1
   playerMovement: {fileID: 0}
   isEndCutscene: 0

@@ -10,7 +10,6 @@ TagManager:
   - OpeningMid
   - OpeningExit
   - StageSelect
-  - Puzzle4Zone
   - Puzzle4Retry
   - GoalPoint
   - Stage4EndPoint

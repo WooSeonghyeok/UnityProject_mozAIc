@@ -12,7 +12,7 @@ public class NPCFollower : MonoBehaviour
     [Header("이동")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float resumeDistance = 3.5f;
-    [SerializeField] private float stopDistance = 3f;
+    [SerializeField] private float stopDistance = 2f;
     [SerializeField] private float arriveThreshold = 0.2f;
 
     [Header("애니메이션")]

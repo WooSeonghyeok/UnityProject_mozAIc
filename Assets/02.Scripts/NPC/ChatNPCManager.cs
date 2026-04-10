@@ -23,6 +23,7 @@ public class ChatNPCManager : MonoBehaviour
     public bool isTalking = false;
 
     private Coroutine bubbleCoroutine;
+    private bool isCancelBound;
 
     private void Awake()
     {
@@ -33,15 +34,29 @@ public class ChatNPCManager : MonoBehaviour
         }
         instance = this;
 
-        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+        ResolvePlayerInput();
+        ResolveSceneReferences();
     }
     private void OnEnable()
     {
-        user.Cancel += EndNPCChat;
+        ResolvePlayerInput();
+        ResolveSceneReferences();
+        BindCancelInput();
     }
     private void OnDisable()
     {
-        user.Cancel -= EndNPCChat;
+        UnbindCancelInput();
+    }
+
+    private void Update()
+    {
+        ResolveSceneReferences();
+
+        if (!isCancelBound)
+        {
+            ResolvePlayerInput();
+            BindCancelInput();
+        }
     }
     public void NpcPersonTalk(Transform pos, NPCData npcData)
     {
@@ -51,11 +66,19 @@ public class ChatNPCManager : MonoBehaviour
             return;
         }
 
-        var db = GameDialogueDatabase.Instance;
+        ResolveSceneReferences();
+
+        var db = GameDialogueDatabase.EnsureAvailable();
 
         if (db == null)
         {
             Debug.LogError("[ChatNPCManager] GameDialogueDatabase가 없음");
+            return;
+        }
+
+        if (chatPanel == null || serverChat == null || followCam == null)
+        {
+            Debug.LogError("[ChatNPCManager] 채팅 UI 또는 카메라 참조가 비어 있음");
             return;
         }
 
@@ -155,7 +178,7 @@ public class ChatNPCManager : MonoBehaviour
             }
         }
     }
-    #region 말풍선 관련 메서드
+
     // 이벤트성 말풍선 출력
     public void PlayNpcBubbleDialogue(NPCData npcData, string dialogueType)
     {
@@ -165,7 +188,7 @@ public class ChatNPCManager : MonoBehaviour
             return;
         }
 
-        var db = GameDialogueDatabase.Instance;
+        var db = GameDialogueDatabase.EnsureAvailable();
         if (db == null)
         {
             Debug.LogWarning("[ChatNPCManager] 말풍선 출력 실패 - DB가 null");
@@ -228,5 +251,134 @@ public class ChatNPCManager : MonoBehaviour
             speechBubbleRoot.SetActive(false);
         }
     }
-    #endregion
+
+    private bool ResolvePlayerInput()
+    {
+        if (user != null)
+        {
+            return true;
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            return false;
+        }
+
+        user = player.GetComponent<PlayerInput>();
+        if (playerMovement == null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
+        }
+        return user != null;
+    }
+
+    private void ResolveSceneReferences()
+    {
+        if (serverChat == null)
+        {
+            serverChat = GetComponent<ServerChat>();
+        }
+
+        if (followCam == null)
+        {
+            followCam = FindObjectOfType<FollowCamera>();
+        }
+
+        Transform chatCanvas = FindChatCanvasRoot();
+        if (chatCanvas == null)
+        {
+            return;
+        }
+
+        if (chatPanel == null)
+        {
+            Transform panel = FindChildRecursive(chatCanvas, "ChatPanel");
+            if (panel != null)
+            {
+                chatPanel = panel.gameObject;
+            }
+        }
+
+        if (speechBubbleRoot == null)
+        {
+            Transform bubbleRoot = FindChildRecursive(chatCanvas, "NPC_SpeechBubble");
+            if (bubbleRoot != null)
+            {
+                speechBubbleRoot = bubbleRoot.gameObject;
+            }
+        }
+
+        if (speechBubbleText == null && speechBubbleRoot != null)
+        {
+            speechBubbleText = speechBubbleRoot.GetComponentInChildren<TMP_Text>(true);
+        }
+    }
+
+    private Transform FindChatCanvasRoot()
+    {
+        GameObject chatCanvas = GameObject.Find("Canvas_NPC_Chat");
+        if (chatCanvas != null)
+        {
+            return chatCanvas.transform;
+        }
+
+        Canvas[] canvases = FindObjectsOfType<Canvas>(true);
+        foreach (Canvas canvas in canvases)
+        {
+            if (canvas != null && canvas.name == "Canvas_NPC_Chat")
+            {
+                return canvas.transform;
+            }
+        }
+
+        return null;
+    }
+
+    private Transform FindChildRecursive(Transform parent, string targetName)
+    {
+        if (parent == null)
+        {
+            return null;
+        }
+
+        foreach (Transform child in parent)
+        {
+            if (child.name == targetName)
+            {
+                return child;
+            }
+
+            Transform nestedChild = FindChildRecursive(child, targetName);
+            if (nestedChild != null)
+            {
+                return nestedChild;
+            }
+        }
+
+        return null;
+    }
+
+    private void BindCancelInput()
+    {
+        if (isCancelBound || user == null)
+        {
+            return;
+        }
+
+        user.Cancel += EndNPCChat;
+        isCancelBound = true;
+    }
+
+    private void UnbindCancelInput()
+    {
+        if (!isCancelBound || user == null)
+        {
+            return;
+        }
+
+        user.Cancel -= EndNPCChat;
+        isCancelBound = false;
+    }
 }
