@@ -14,7 +14,7 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         Voice
     }
 
-    private CutsceneManager cutsceneManager;
+    private TextboxManager textboxManager;
     private Canvas canvas;
     private CanvasScaler canvasScaler;
     private GraphicRaycaster graphicRaycaster;
@@ -22,15 +22,15 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
     private Image panelImage;
     private TextMeshProUGUI messageText;
 
-    public void Configure(TMP_FontAsset fontAsset, CutsceneManager existingCutsceneManager = null)
+    public void Configure(TMP_FontAsset fontAsset, TextboxManager existingTextboxManager = null)
     {
-        if (existingCutsceneManager != null)
+        if (existingTextboxManager != null)
         {
-            cutsceneManager = existingCutsceneManager;
+            textboxManager = existingTextboxManager;
         }
-        else if (cutsceneManager == null)
+        else if (textboxManager == null)
         {
-            cutsceneManager = GetComponentInParent<CutsceneManager>();
+            textboxManager = GetComponentInParent<TextboxManager>();
         }
 
         EnsureUi(fontAsset);
@@ -159,35 +159,35 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         switch (ResolveCutsceneBoxType(shot))
         {
             case CutsceneBoxType.Player:
-                if (cutsceneManager.text_player == null || cutsceneManager.box_player == null)
+                if (textboxManager.text_player == null || textboxManager.box_player == null)
                 {
                     return false;
                 }
 
-                cutsceneManager.text_player.text = shot.subtitleText;
-                cutsceneManager.box_player.SetActive(true);
+                textboxManager.text_player.text = shot.subtitleText;
+                textboxManager.box_player.SetActive(true);
                 return true;
 
             case CutsceneBoxType.Voice:
-                if (cutsceneManager.text_voice == null || cutsceneManager.box_voice == null || cutsceneManager.voice_Name == null)
+                if (textboxManager.text_voice == null || textboxManager.box_voice == null || textboxManager.voice_Name == null)
                 {
                     return false;
                 }
 
-                cutsceneManager.text_voice.text = shot.subtitleText;
-                cutsceneManager.voice_Name.text = ResolveSpeakerDisplayName(shot);
-                cutsceneManager.voice_Name.color = ResolveSpeakerColor(shot);
-                cutsceneManager.box_voice.SetActive(true);
+                textboxManager.text_voice.text = shot.subtitleText;
+                textboxManager.voice_Name.text = ResolveSpeakerDisplayName(shot);
+                textboxManager.voice_Name.color = ResolveSpeakerColor(shot);
+                textboxManager.box_voice.SetActive(true);
                 return true;
 
             default:
-                if (cutsceneManager.text_system == null || cutsceneManager.box_system == null)
+                if (textboxManager.text_system == null || textboxManager.box_system == null)
                 {
                     return false;
                 }
 
-                cutsceneManager.text_system.text = shot.subtitleText;
-                cutsceneManager.box_system.SetActive(true);
+                textboxManager.text_system.text = shot.subtitleText;
+                textboxManager.box_system.SetActive(true);
                 return true;
         }
     }
@@ -199,19 +199,19 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
             return false;
         }
 
-        if (cutsceneManager.box_system != null)
+        if (textboxManager.box_system != null)
         {
-            cutsceneManager.box_system.SetActive(false);
+            textboxManager.box_system.SetActive(false);
         }
 
-        if (cutsceneManager.box_player != null)
+        if (textboxManager.box_player != null)
         {
-            cutsceneManager.box_player.SetActive(false);
+            textboxManager.box_player.SetActive(false);
         }
 
-        if (cutsceneManager.box_voice != null)
+        if (textboxManager.box_voice != null)
         {
-            cutsceneManager.box_voice.SetActive(false);
+            textboxManager.box_voice.SetActive(false);
         }
 
         return true;
@@ -219,19 +219,19 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 
     private bool HasBoundCutsceneCanvas()
     {
-        if (cutsceneManager == null)
+        if (textboxManager == null)
         {
-            cutsceneManager = GetComponentInParent<CutsceneManager>();
+            textboxManager = GetComponentInParent<TextboxManager>();
         }
 
-        return cutsceneManager != null &&
-               cutsceneManager.box_system != null &&
-               cutsceneManager.box_player != null &&
-               cutsceneManager.box_voice != null &&
-               cutsceneManager.text_system != null &&
-               cutsceneManager.text_player != null &&
-               cutsceneManager.text_voice != null &&
-               cutsceneManager.voice_Name != null;
+        return textboxManager != null &&
+               textboxManager.box_system != null &&
+               textboxManager.box_player != null &&
+               textboxManager.box_voice != null &&
+               textboxManager.text_system != null &&
+               textboxManager.text_player != null &&
+               textboxManager.text_voice != null &&
+               textboxManager.voice_Name != null;
     }
 
     private static CutsceneBoxType ResolveCutsceneBoxType(Ep3LobbyIntroShotData shot)

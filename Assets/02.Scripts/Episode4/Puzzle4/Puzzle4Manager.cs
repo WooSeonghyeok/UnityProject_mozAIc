@@ -43,7 +43,7 @@ public class Puzzle4Manager : MonoBehaviour
 #if UNITY_EDITOR
         switchText.gameObject.SetActive(true);
 #else
-        switchPopup.gameObject.SetActive(false);
+        switchText.gameObject.SetActive(false);
 #endif
     }
     private void OnEnable()
@@ -97,16 +97,14 @@ public class Puzzle4Manager : MonoBehaviour
     }
     void HintMessage()  //다시하기 지점 도착 시마다 힌트 메시지를 출력
     {
-        string msg = "";
-        float x = UnityEngine.Random.Range(0, 9);
-        msg = x switch
+        if (!isFirstContact)
         {
             StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "도망치지 않겠다.")); 
             isFirstContact = true;
         }
         else
         {
-            float x = UnityEngine.Random.Range(0, 9);
+            int x = UnityEngine.Random.Range(0, 9);
             string msg = x switch
             {
                 1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
@@ -139,18 +137,38 @@ public class Puzzle4Manager : MonoBehaviour
     }
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {
-        foreach (IsTagGet Tag in SaveManager.instance.curData.CoreTag)
+        if (SaveManager.instance == null || SaveManager.instance.curData == null || SaveManager.instance.curData.CoreTag == null)
         {
-            EndingConditionData.self_voice = true;
-            foreach (IsTagGet lastTag in curData.MemoryTag)
-            {
-                if (lastTag.TagName == "self_voice") lastTag.tagGet = true;
-            }
-            Debug.Log($"마지막 기억 획득!");
+            Debug.LogWarning("[Puzzle4Manager] self_voice 태그를 저장할 데이터가 없음");
+            return;
         }
-        Debug.Log($"마지막 기억 획득!");
-        clearSound.Play();
-        coreNPC.revealStage = MemoryRevealStage.Full;
+
+        EndingConditionData.self_voice = true;
+
+        foreach (IsTagGet lastTag in SaveManager.instance.curData.CoreTag)
+        {
+            if (lastTag == null)
+            {
+                continue;
+            }
+
+            if (lastTag.TagName == "self_voice")
+            {
+                lastTag.tagGet = true;
+                Debug.Log("마지막 기억 획득!");
+                break;
+            }
+        }
+
+        if (clearSound != null)
+        {
+            clearSound.Play();
+        }
+
+        if (coreNPC != null)
+        {
+            coreNPC.revealStage = MemoryRevealStage.Full;
+        }
     }
     public void SyncCheck()  //자아 통합도 계산
     {
