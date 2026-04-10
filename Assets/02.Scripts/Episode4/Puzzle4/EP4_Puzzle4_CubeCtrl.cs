@@ -105,16 +105,11 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
     {
         switch (cond)
         {
-            case EP4_Puzzle4_Cube.switchCondition.near:
-                return CondMaterial_near;
-            case EP4_Puzzle4_Cube.switchCondition.column:
-                return CondMaterial_column;
-            case EP4_Puzzle4_Cube.switchCondition.row:
-                return CondMaterial_row;
-            case EP4_Puzzle4_Cube.switchCondition.color:
-                return CondMaterial_color;
-            default:
-                return null;
+            case EP4_Puzzle4_Cube.switchCondition.near:     return CondMaterial_near;
+            case EP4_Puzzle4_Cube.switchCondition.column:   return CondMaterial_column;
+            case EP4_Puzzle4_Cube.switchCondition.row:      return CondMaterial_row;
+            case EP4_Puzzle4_Cube.switchCondition.color:    return CondMaterial_color;
+            default:                                        return null;
         }
     }
     public Color EffColorSetup(int switchValue)
