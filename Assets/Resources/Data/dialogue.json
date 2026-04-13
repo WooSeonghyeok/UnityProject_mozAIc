@@ -44,6 +44,28 @@
         "eventGroupId": "talk_start"
     },
     {
+        "dialogueId": "ep1_intro_03",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "intro",
+        "text": "처음 보는 것 같은데... 이상하게 낯설지가 않아.",
+        "emotionTag": "mysterious",
+        "conditionGroupId": "always",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep1_intro_04",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_field_cave_hill",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "intro",
+        "text": "이상하다... 너를 보니까 뭔가 떠오를 것 같아.",
+        "emotionTag": "soft_memory",
+        "conditionGroupId": "always",
+        "eventGroupId": "talk_start"
+    },
+    {
         "dialogueId": "ep1_hint_after_first_star_01",
         "episodeId": "ep_01",
         "sceneId": "ep_01_field_cave_hill",
