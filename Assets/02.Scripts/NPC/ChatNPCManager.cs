@@ -23,6 +23,7 @@ public class ChatNPCManager : MonoBehaviour
     public bool isTalking = false;
 
     private Coroutine bubbleCoroutine;
+    private PlayerInput subscribedUser;
 
     private void Awake()
     {
@@ -33,15 +34,16 @@ public class ChatNPCManager : MonoBehaviour
         }
         instance = this;
 
-        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+        TryResolveRuntimeReferences();
     }
     private void OnEnable()
     {
-        user.Cancel += EndNPCChat;
+        TryResolveRuntimeReferences();
+        RefreshCancelSubscription();
     }
     private void OnDisable()
     {
-        user.Cancel -= EndNPCChat;
+        RefreshCancelSubscription(clearSubscription: true);
     }
     public void NpcPersonTalk(Transform pos, NPCData npcData)
     {
@@ -56,6 +58,15 @@ public class ChatNPCManager : MonoBehaviour
         if (db == null)
         {
             Debug.LogError("[ChatNPCManager] GameDialogueDatabase가 없음");
+            return;
+        }
+
+        TryResolveRuntimeReferences();
+        RefreshCancelSubscription();
+
+        if (chatPanel == null || serverChat == null)
+        {
+            Debug.LogError("[ChatNPCManager] chatPanel 또는 serverChat 참조가 비어 있습니다.");
             return;
         }
 
@@ -120,17 +131,33 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         // 카메라 전환
-        followCam.isCamModePos = pos;
-        followCam.isChatCamMode = true;
+        if (followCam != null)
+        {
+            followCam.isCamModePos = pos;
+            followCam.isChatCamMode = true;
+        }
+        else
+        {
+            Debug.LogWarning("[ChatNPCManager] FollowCamera 참조가 없어 대화 카메라 전환을 건너뜁니다.");
+        }
     }
 
     public void EndNPCChat()
     {
         if (isTalking == false) return;
         isTalking = false;
-        followCam.isChatCamMode = false;
-        chatPanel.SetActive(false);
-        serverChat.ChatReset();
+        if (followCam != null)
+        {
+            followCam.isChatCamMode = false;
+        }
+        if (chatPanel != null)
+        {
+            chatPanel.SetActive(false);
+        }
+        if (serverChat != null)
+        {
+            serverChat.ChatReset();
+        }
 
         // 대화 종료 시 플레이어 이동 해제
         if (playerMovement != null)
@@ -138,7 +165,7 @@ public class ChatNPCManager : MonoBehaviour
             playerMovement.SetMoveLock(false);
         }
         // 대화 종료 후 다시 따라오기 허용
-        if (serverChat.currentNpcData != null)
+        if (serverChat != null && serverChat.currentNpcData != null)
         {
             NPCFollower follower = serverChat.currentNpcData.GetComponent<NPCFollower>();
             if (follower != null)
@@ -153,6 +180,48 @@ public class ChatNPCManager : MonoBehaviour
 
                 follower.SetFollow(shouldResumeFollow);
             }
+        }
+    }
+    private void TryResolveRuntimeReferences()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            if (user == null)
+            {
+                user = player.GetComponent<PlayerInput>();
+            }
+
+            if (playerMovement == null)
+            {
+                playerMovement = player.GetComponent<PlayerMovement>();
+            }
+        }
+
+        if (followCam == null)
+        {
+            followCam = FindObjectOfType<FollowCamera>();
+        }
+    }
+
+    private void RefreshCancelSubscription(bool clearSubscription = false)
+    {
+        PlayerInput nextUser = clearSubscription ? null : user;
+        if (subscribedUser == nextUser)
+        {
+            return;
+        }
+
+        if (subscribedUser != null)
+        {
+            subscribedUser.Cancel -= EndNPCChat;
+        }
+
+        subscribedUser = nextUser;
+
+        if (subscribedUser != null && isActiveAndEnabled)
+        {
+            subscribedUser.Cancel += EndNPCChat;
         }
     }
     #region 말풍선 관련 메서드

@@ -28,6 +28,7 @@ public class SaveDataObj
     /* 연출 사용 여부 확인 데이터 */
     public bool isFirstEnterAtS3CP0;
     public bool isFirstEnterAtEP3Lobby;
+    public bool isFirstEnterAtEP3_1;
 }
 [Serializable]
 public class IsTagGet
