@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SavePointAlarm : MonoBehaviour
+public class InteractPointAlarm : MonoBehaviour
 {
     private readonly string playerTag = "Player";
     private void OnTriggerEnter(Collider other)
