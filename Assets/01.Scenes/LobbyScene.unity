@@ -5460,6 +5460,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 87b3936e9fd2775449441b60478b8e1c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1358792337}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 87b3936e9fd2775449441b60478b8e1c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1358792338}
   m_SourcePrefab: {fileID: 100100000, guid: 87b3936e9fd2775449441b60478b8e1c, type: 3}
 --- !u!4 &1358792335 stripped
 Transform:
@@ -5494,6 +5497,18 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!114 &1358792338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358792336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d0f226969dfe3489d9e5ce1101e65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1362548405
 GameObject:
   m_ObjectHideFlags: 0
@@ -7452,10 +7467,6 @@ PrefabInstance:
     - target: {fileID: 4398486289239148021, guid: ba2da615b50b40b47a69cb451d1e69fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360612502269802800, guid: ba2da615b50b40b47a69cb451d1e69fb, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7837050785885703188, guid: ba2da615b50b40b47a69cb451d1e69fb, type: 3}
       propertyPath: m_Name
