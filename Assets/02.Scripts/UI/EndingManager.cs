@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class EndingManager : MonoBehaviour
 {
     private bool isCompleteEnding;
-    public Color trueColor = new Color(1f, 1f, 1f,1f);
-    public Color normalColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
     public SoundController soundCtrl_true;
     public SoundController soundCtrl_normal;
     public Image endingImage;
+    public Sprite trueSprite;
+    public Sprite normalSprite;
+    public Sprite thankstoSprite;
     public GameObject endSkipButton;
     public WaitForSecondsRealtime canSkipWFS;
     public WaitForSecondsRealtime EndingDuration;
-    public Image thankstoImage;
     public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
@@ -23,7 +23,6 @@ public class EndingManager : MonoBehaviour
     void Awake()
     {
         endingImage.enabled = true;
-        thankstoImage.enabled = false;
         soundCtrl_true.gameObject.SetActive(false);
         soundCtrl_normal.gameObject.SetActive(false);
         endSkipButton.SetActive(false);
@@ -80,39 +79,33 @@ public class EndingManager : MonoBehaviour
     {
         if (isCompleteEnding) CompleteEnding();
         else NormalEnding();
+        endingImage.enabled = true;
         endingPlayCoroutine = StartCoroutine(EndingPlay());  // EndingPlay 코루틴 시작 및 저장 (스킵 시 중단할 수 있도록)
         yield return canSkipWFS;
         endSkipButton.SetActive(true);
     }
     void CompleteEnding()
     {
+        endingImage.sprite = trueSprite;
         soundCtrl_normal.gameObject.SetActive(false);
         soundCtrl_true.gameObject.SetActive(true);
         Debug.Log("TRUE ENDING!");
         StartCoroutine(cutscene.TrueEndCutscene());
-        endingImage.color = trueColor;
-        thankstoImage.color = trueColor;
         EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
     }
     void NormalEnding()
     {
+        endingImage.sprite = normalSprite;
         soundCtrl_true.gameObject.SetActive(false);
         soundCtrl_normal.gameObject.SetActive(true);
         Debug.Log("normal ending...");
         StartCoroutine(cutscene.NormalEndCutscene());
-        endingImage.color = normalColor;
-        thankstoImage.color = normalColor;
         EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
     {
         yield return EndingDuration;
         EndingClear();
-    }
-    void CtrlReset()
-    {
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(false);
     }
     public void OnEndingSkip()
     {
@@ -123,11 +116,15 @@ public class EndingManager : MonoBehaviour
     {
         EndingStop();
         CtrlReset();
-        endingImage.enabled = false;
+        endingImage.sprite = thankstoSprite;
         endSkipButton.SetActive(false);
-        thankstoImage.enabled = true;
         RegameButton.SetActive(true);
         AppEndButton.SetActive(true);
+    }
+    void CtrlReset()
+    {
+        soundCtrl_true.gameObject.SetActive(false);
+        soundCtrl_normal.gameObject.SetActive(false);
     }
     private void EndingStop()
     {
