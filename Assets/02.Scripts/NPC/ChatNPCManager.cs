@@ -102,7 +102,7 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         // intro 대사를 JSON에서 가져옴
-        var introDialogue = db.GetDialogue(npcData.npcId, dialogueType);
+        var introDialogue = db.GetRandomDialogue(npcData.npcId, dialogueType);
 
         if (introDialogue != null)
         {

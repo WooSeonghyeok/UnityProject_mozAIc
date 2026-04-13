@@ -113,4 +113,22 @@ public class GameDialogueDatabase : MonoBehaviour
     {
         return dialogues.FindAll(x => x.sceneId == sceneId);
     }
+
+    // 같은 speakerId + dialogueType에 해당하는 대사들을 모두 반환
+    public List<DialogueData> GetDialogues(string speakerId, string dialogueType)
+    {
+        return dialogues.FindAll(x => x.speakerId == speakerId && x.dialogueType == dialogueType);
+    }
+
+    // 같은 타입의 대사 중 하나를 랜덤으로 반환
+    public DialogueData GetRandomDialogue(string speakerId, string dialogueType)
+    {
+        List<DialogueData> candidates = GetDialogues(speakerId, dialogueType);
+
+        if (candidates == null || candidates.Count == 0)
+            return null;
+
+        int randomIndex = Random.Range(0, candidates.Count);
+        return candidates[randomIndex];
+    }
 }
