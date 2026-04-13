@@ -8,7 +8,6 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
 {
     public TextboxManager _manager;
     private PlayerInput user;
-    public CinemachineVirtualCamera coreCam;
     public CinemachineVirtualCamera gazeCam;
     public Checkpoint_Plane S3CP0;
     public WaitForSecondsRealtime oneSec = new (1f);
@@ -23,7 +22,6 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     void Awake()
     {
         user = _manager.user;
-        coreCam.Priority = 1;
         gazeCam.Priority = 1;
     }
     private void OnEnable()
@@ -54,21 +52,22 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         Ep4_StartCutscene.PlayCutscene();
         yield return null;
         StartCoroutine(_manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다."));
-        coreCam.Priority = 11;
         _manager.UserCtrl(false);
-        yield return new WaitForSecondsRealtime(2f);
+        yield return oneSec;
+        gazeCam.Priority = 12;
+        yield return oneSec;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", Talker.core));
         yield return onehalfSec;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "남은 건 하나뿐이야.", Talker.core));
-        gazeCam.Priority = 12;
-        coreCam.Priority = 1;
         yield return onehalfSec;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", Talker.core));
         yield return onehalfSec;
         gazeCam.Priority = 1;
         SaveManager.instance.curData.isFirstEnterAtS3CP0 = true;
         endSound.Play();
-        StartCoroutine(_manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.\n그걸 네 삶으로 받아들여야 해", Talker.core));
+        StartCoroutine(_manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", Talker.core));
+        yield return onehalfSec;
+        StartCoroutine(_manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", Talker.core));
         _manager.UserCtrl(true);
     }
     public IEnumerator Puzzle1Start()
@@ -95,7 +94,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     public IEnumerator Puzzle2Complete()
     {
         startSound.Play();
-        StartCoroutine(_manager.TalkSay(TalkType.voice, "혼자가 아니라, 함께 보고 있었구나."));
+        StartCoroutine(_manager.TalkSay(TalkType.player, "혼자가 아니라, 함께 보고 있었구나."));
         yield return oneSec;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "그래서 더 아팠고, 그래서 더 선명한 거야.", Talker.core));
     }

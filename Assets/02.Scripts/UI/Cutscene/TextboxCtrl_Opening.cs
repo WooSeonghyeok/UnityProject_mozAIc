@@ -59,7 +59,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "찾아야 해"));
         yield return oneSec;
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "사라지기 전에"));
-        yield return oneSec;
+        yield return twoSec;
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "내가... 왜 여기에 있지?"));
         _manager.UserCtrl(true);
     }
@@ -73,21 +73,25 @@ public class TextboxCtrl_Opening : MonoBehaviour
         isMidtalkOn = true;
         _manager.UserCtrl(false);
         pp_Volume.profile = pp_Volume_flash;
-        yield return new WaitForSecondsRealtime(0.2f);
-        pp_Volume.profile = pp_Volume_black;
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.1f);
         OpeningMidCutscene.PlayCutscene();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return oneSec;
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "흩어진 거야.", TextboxManager.Talker.core));
+        yield return oneSec;
+        pp_Volume.profile = pp_Volume_black;
         yield return oneSec;
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "더 늦기 전에 찾아야 해.", TextboxManager.Talker.core));
         yield return oneSec;
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "길을 따라가.", TextboxManager.Talker.core));
         openingMidGate.SetActive(true);
         user.isLookLock = false;
-        yield return oneSec;
+        yield return twoSec;
         StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "꼭 찾아야 해.", TextboxManager.Talker.core));
         _manager.UserCtrl(true);
+        yield return twoSec;
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "너는 누구야?"));
+        yield return twoSec;
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "문 너머로 가면 알 수 있을 거야.", TextboxManager.Talker.core));
     }
     public void OpeningEnd()
     {
@@ -97,10 +101,11 @@ public class TextboxCtrl_Opening : MonoBehaviour
     {
         _manager.UserCtrl(false);
         OpeningEndCutscene.PlayCutscene();
-        yield return new WaitForSecondsRealtime(2f);
-        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.player, "너는 누구야?"));
+        yield return halfSec;
         yield return oneSec;
-        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.voice, "문 너머로 가면 알 수 있을 거야.", TextboxManager.Talker.core));
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.system, "첫 번째 기억으로 향하는 길이 열린다."));
+        yield return oneSec;
+        StartCoroutine(_manager.TalkSay(TextboxManager.TalkType.system, "잠시 머뭇거리지만, 결국 걸음을 옮긴다."));
         user.isJumpLock = false;
         if (SaveManager.instance != null) SaveManager.instance.curData.ep1_open = true;  //Start 신을 거치지 않은 경우 SaveManager가 null이므로 유효성 체크
         yield return halfSec;
