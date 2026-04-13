@@ -154,12 +154,14 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     {
         Ep4_EndCutscene.PlayCutscene();
         yield return null;
-        StartCoroutine(_manager.TalkSay(TalkType.voice, "그 기억들은 널 무너뜨리기 위해 남아 있던 게 아니야.\n널 다시 네 자리로 돌려보내기 위해 남아 있던 거야.", Talker.core));
+        StartCoroutine(_manager.TalkSay(TalkType.voice, "그 기억들은 널 무너뜨리기 위해 남아 있던 게 아니야.", Talker.core));
+        yield return twoSec;
+        StartCoroutine(_manager.TalkSay(TalkType.voice, "널 다시 네 자리로 돌려보내기 위해 남아 있던 거야.", Talker.core));
         yield return twoSec;
         StartCoroutine(_manager.TalkSay(TalkType.voice, "돌아가자. 이번엔 끝까지.", Talker.core));
-        yield return twoSec;
+        yield return new WaitForSecondsRealtime(2.5f);
         StartCoroutine(_manager.TalkSay(TalkType.player, "전부... 내 삶이었다."));
-        yield return new WaitForSecondsRealtime(3.5f);
+        yield return new WaitForSecondsRealtime(4f);
         SceneManager.LoadScene("EndingScene");
     }
 }
