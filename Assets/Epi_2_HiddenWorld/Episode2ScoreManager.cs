@@ -19,6 +19,7 @@ public class Episode2ScoreManager : MonoBehaviour
 
     void Awake()
     {
+
         // ⭐ 싱글톤 + DontDestroyOnLoad (핵심)
         if (Instance == null)
         {
