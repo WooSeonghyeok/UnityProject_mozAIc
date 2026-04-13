@@ -13,7 +13,7 @@ public static class PromptBuilder
             return "너는 NPC다.";
         }
 
-        var db = GameDialogueDatabase.Instance;
+        var db = GameDialogueDatabase.EnsureAvailable();
 
         if (db == null)
         {

@@ -49,6 +49,7 @@ public class SaveManager : MonoBehaviour
         newData.CoreTag = curData.CoreTag;
         newData.npcInformations = curData.npcInformations;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
+        newData.isFirstEnterAtEP3Lobby = curData.isFirstEnterAtEP3Lobby;
         string json = JsonUtility.ToJson(newData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
@@ -138,7 +139,7 @@ public class SaveManager : MonoBehaviour
                             dataObj.npcInformations[1].words.Add(new MemoryKeyword
                             {
                                 word = keyword,
-                                memoryRate = 1,
+                                memoryRate = 2,
                                 isUsed = false
                             });
                         }
@@ -162,6 +163,7 @@ public class SaveManager : MonoBehaviour
             }
         }
         dataObj.isFirstEnterAtS3CP0 = false;
+        dataObj.isFirstEnterAtEP3Lobby = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
     }

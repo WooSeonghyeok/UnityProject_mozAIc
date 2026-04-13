@@ -50,10 +50,8 @@ public class NextCube : MonoBehaviour
     }
     private void UpdateCollider()
     {
-        if (nextCube != null)
-            col.enabled = CanMoveThrough();
-        else
-            col.enabled = false;
+        if (nextCube != null) col.enabled = CanMoveThrough();
+        else  col.enabled = false;
     }
     public bool CanMoveThrough()
     {

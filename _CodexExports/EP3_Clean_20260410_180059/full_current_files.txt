@@ -1,0 +1,5 @@
+﻿Assets/01.Scenes/Episode3/Episode3_Scene.unity
+Assets/02.Scripts/Episode3/Ep-3_Lobby/Ep3LobbyIntroCutsceneController.cs
+Assets/02.Scripts/UI/Cutscene/TextboxManager.cs
+Assets/07.Prefabs/UI/Canvas_Cutscene.prefab
+Assets/Resources/Ep.3/Stage3_Skybox/Skybox_Music-Stage3.mat

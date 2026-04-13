@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 public class Puzzle4Manager : MonoBehaviour
@@ -144,9 +145,18 @@ public class Puzzle4Manager : MonoBehaviour
     }
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {
-        foreach (IsTagGet Tag in SaveManager.instance.curData.CoreTag)
+        var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "self_voice");
+        if (tag != null)
         {
-            if (Tag.TagName == "self_voice") Tag.tagGet = true;
+            tag.tagGet = true;
+        }
+        else
+        {
+            SaveManager.instance.curData.CoreTag.Add(new IsTagGet
+            {
+                TagName = "self_voice",
+                tagGet = true
+            });
         }
         Debug.Log($"마지막 기억 획득!");
         clearSound.Play();

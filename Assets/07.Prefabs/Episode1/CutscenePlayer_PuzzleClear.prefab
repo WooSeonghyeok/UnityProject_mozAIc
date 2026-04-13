@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 722773783965267332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11dc4ff6f9394d948b0291e13f14a4ba, type: 3}
+  m_Script: {fileID: 11500000, guid: b9ca48ee471642f4fb5b2c4c284904d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cutscenePanel: {fileID: 8427262533088475679}
@@ -122,7 +122,6 @@ MonoBehaviour:
   imageShowTime: 3
   fadeDuration: 1
   playerMovement: {fileID: 0}
-  isEndCutscene: 0
 --- !u!1 &6940610089661928652
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 332}
+  m_SizeDelta: {x: 0, y: 356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2622927119387725541
 CanvasRenderer:
@@ -189,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d9260b6a4f86a14db1f9d44013c3c2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3408f4a21aa9d3e4f93c65bb7e90cc03, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -249,7 +248,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.5}
-  m_SizeDelta: {x: 2, y: 1}
+  m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6768854279195145786
 CanvasRenderer:
@@ -272,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

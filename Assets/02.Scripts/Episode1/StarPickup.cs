@@ -1,7 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static SoundManager;
 
 public class StarPickup : MonoBehaviour
 {
@@ -31,8 +30,7 @@ public class StarPickup : MonoBehaviour
 
         // 플레이어에게 별 지급
         collector.AddStar(starData);
-        if(Instance != null)
-            SoundManager.Instance.PlaySFX(SFXType.Ep1_Village_StarPickup);
+
         // 획득 후 오브젝트 제거
         Destroy(gameObject);
     }

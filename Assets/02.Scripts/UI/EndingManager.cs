@@ -19,7 +19,7 @@ public class EndingManager : MonoBehaviour
     public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
-    private CutsceneCtrl_Ending cutscene;
+    private TextboxCtrl_Ending cutscene;
     void Awake()
     {
         endingImage.enabled = true;
@@ -30,7 +30,7 @@ public class EndingManager : MonoBehaviour
         RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
         CtrlReset();
-        cutscene = gameObject.GetComponent<CutsceneCtrl_Ending>();
+        cutscene = gameObject.GetComponent<TextboxCtrl_Ending>();
         canSkipWFS = new WaitForSecondsRealtime(5f);  //엔딩 시작 5초 후 스킵 가능
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
