@@ -7403,7 +7403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1527395014}
-  agent: {fileID: 0}
+  agent: {fileID: 1341089808}
   resumeDistance: 3.5
   stopDistance: 2
   arriveThreshold: 0.2
@@ -10141,6 +10141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1880369492}
+  - component: {fileID: 1880369493}
   m_Layer: 7
   m_Name: Stage
   m_TagString: Untagged
@@ -10165,6 +10166,37 @@ Transform:
   - {fileID: 801724582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1880369493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880369491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: dbad6f043f884eb40aa8a39d066caeb2, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1881990395
 GameObject:
   m_ObjectHideFlags: 0
@@ -11658,7 +11690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1200621720377960068, guid: 17487443d89ec6148a02b15840612321, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.08699989
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1200621720377960068, guid: 17487443d89ec6148a02b15840612321, type: 3}
       propertyPath: m_LocalRotation.w
