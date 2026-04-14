@@ -68,10 +68,7 @@ public class LoadSlotManager : MonoBehaviour
         }
         slotCheck.text = $"Stage {lastStage}";
     }
-    public void SaveGame(int slotID)
-    {
-        SaveManager.instance.CreateSaveData(slotID);
-    }
+    public void SaveGame(int slotID) => SaveManager.instance.CreateSaveData(slotID);
     public void LoadGame()
     {
         if (SaveManager.instance == null) return;

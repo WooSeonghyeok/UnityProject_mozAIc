@@ -13,8 +13,7 @@ public class StageSelectButton : MonoBehaviour
     public Image lockImage;
     private void OnEnable()
     {
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchStageButtonEvent += OnStageTouch;
+        if (StageSelect.instance != null) StageSelect.instance.TouchStageButtonEvent += OnStageTouch;
         StartCoroutine(ButtonDelay());
     }
     private IEnumerator ButtonDelay()
@@ -24,23 +23,13 @@ public class StageSelectButton : MonoBehaviour
     }
     private void OnDisable()
     {
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchStageButtonEvent -= OnStageTouch;
+        if (StageSelect.instance != null) StageSelect.instance.TouchStageButtonEvent -= OnStageTouch;
     }
-    private void OnStageTouch(int stageSelect)
-    {
-        OnTouchStageButton(stageSelect == StageNumber);
-    }
+    private void OnStageTouch(int stageSelect) => OnTouchStageButton(stageSelect == StageNumber);
     public void OnClick()
     {
-        if (StageSelect.instance != null)
-        {
-            StageSelect.instance.SelectStage(StageNumber);
-        }
-        else
-        {
-            OnTouchStageButton(true);
-        }
+        if (StageSelect.instance != null) StageSelect.instance.SelectStage(StageNumber);
+        else OnTouchStageButton(true);
     }
     public void OnTouchStageButton(bool b)
     {
@@ -65,12 +54,10 @@ public class StageSelectButton : MonoBehaviour
     }
     private void SelectImgCheck()
     {
-        if (selectImage != null)
-            selectImage.enabled = isSelect;
+        if (selectImage != null) selectImage.enabled = isSelect;
     }
     private void LockImgCheck()
     {
-        if (lockImage != null)
-            lockImage.enabled = isLock;
+        if (lockImage != null) lockImage.enabled = isLock;
     }
 }

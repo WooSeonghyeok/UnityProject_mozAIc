@@ -138,10 +138,7 @@ public class Puzzle4Manager : MonoBehaviour
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {
         var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "self_voice");
-        if (tag != null)
-        {
-            tag.tagGet = true;
-        }
+        if (tag != null) tag.tagGet = true;
         else
         {
             SaveManager.instance.curData.CoreTag.Add(new IsTagGet

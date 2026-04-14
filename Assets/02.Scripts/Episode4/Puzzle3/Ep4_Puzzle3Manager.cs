@@ -15,10 +15,6 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
     public UnityEvent onAllPiecesCollected;
-    [Header("힌트/AI")]
-    [SerializeField] private int hintCount = 0;
-    [SerializeField] private int hintIntensity = 0;
-    [SerializeField] private int aiInteractionCount = 0;
     [Header("태그")]
     [SerializeField] private List<string> collectedTags = new List<string>();
     private bool isCleared = false;
@@ -63,13 +59,6 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
             }
         }
     }
-    public void RequestHint(int intensity = 1)
-    {
-        hintCount++;
-        hintIntensity += intensity;
-        aiInteractionCount++;
-        Debug.Log($"[Ep4_3Manager] 힌트 요청: {hintCount}, 강도: {hintIntensity}");
-    }
     public void AddTag(string tag)
     {
         if (!collectedTags.Contains(tag))
@@ -81,28 +70,11 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     {
         if (isCleared) return;
         isCleared = true;
-        Ep3StageResult result = new Ep3StageResult();
-        result.isCleared = true;
-        result.relationScore = 15;
-        result.puzzleScore = 0;
-        result.emotionScore = 10;
-        result.hintCount = hintCount;
-        result.hintIntensity = hintIntensity;
-        result.aiInteractionCount = aiInteractionCount;
-        result.collectedTags = new List<string>(collectedTags);
-        if (Ep_3Manager.Instance != null)
-        {
-            Ep_3Manager.Instance.ReportStage3_1Result(result);
-        }
-        Debug.Log("[Ep3_1Manager] 4-3 클리어 처리 완료");
     }
     [ContextMenu("디버그 - 상태 초기화")]
     public void ResetState()
     {
         collectedPieceCount = 0;
-        hintCount = 0;
-        hintIntensity = 0;
-        aiInteractionCount = 0;
         collectedTags.Clear();
         isCleared = false;
         _allPiecesEventRaised = false;

@@ -25,19 +25,15 @@ public class StageSelect : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        if (stageList != null)
-            stageButtons = stageList.GetComponentsInChildren<StageSelectButton>();
-        else
-            stageButtons = GetComponentsInChildren<StageSelectButton>();
+        if (stageList != null) stageButtons = stageList.GetComponentsInChildren<StageSelectButton>();
+        else  stageButtons = GetComponentsInChildren<StageSelectButton>();
         if (StageSelectionData.SelectedStage >= 0 && StageSelectionData.SelectedStage < stageButtons.Length)
         {
             stageSelect = StageSelectionData.SelectedStage;
             cpSelect = StageSelectionData.SelectedCP;
         }
-        if (checkpointList != null)
-            cpButtons = checkpointList.GetComponentsInChildren<CheckpointSelectButton>();
-        else
-            cpButtons = GetComponentsInChildren<CheckpointSelectButton>();
+        if (checkpointList != null) cpButtons = checkpointList.GetComponentsInChildren<CheckpointSelectButton>();
+        else cpButtons = GetComponentsInChildren<CheckpointSelectButton>();
         curData = SaveManager.instance.curData;
         EnterSound = GetComponent<SoundTrigger>();
     }
@@ -69,10 +65,8 @@ public class StageSelect : MonoBehaviour
                 stageButtons[i].Refresh();
             }
         }
-        if (stageButtons != null && stageButtons.Length > 0 && stageSelect >= 0 && stageSelect < stageButtons.Length)
-            TouchStageButtonEvent?.Invoke(stageSelect);
-        if (cpButtons != null)
-            CPButtonsPrint(Mathf.Max(0, stageSelect));
+        if (stageButtons != null && stageButtons.Length > 0 && stageSelect >= 0 && stageSelect < stageButtons.Length) TouchStageButtonEvent?.Invoke(stageSelect);
+        if (cpButtons != null) CPButtonsPrint(Mathf.Max(0, stageSelect));
     }
     public void SelectStage(int index)
     {
@@ -111,14 +105,8 @@ public class StageSelect : MonoBehaviour
             cpButtons[i].gameObject.SetActive(true);
             cpButtons[i].Refresh();
         }
-        if (cpSelect >= 0 && cpSelect < cpButtons.Length)
-        {
-            TouchCPButtonEvent?.Invoke(cpSelect);
-        }
-        else
-        {
-            TouchCPButtonEvent?.Invoke(-1);
-        }
+        if (cpSelect >= 0 && cpSelect < cpButtons.Length) TouchCPButtonEvent?.Invoke(cpSelect);
+        else TouchCPButtonEvent?.Invoke(-1);
         EnterCheck();
     }
     public void SelectCP(int selectNum, int index)
@@ -147,8 +135,7 @@ public class StageSelect : MonoBehaviour
             EnterButton.interactable = false;
             return;
         }
-        if (EnterButton != null)
-            EnterButton.interactable = !(stageButtons[stageSelect].isLock || cpButtons[cpSelect].isLock);
+        if (EnterButton != null) EnterButton.interactable = !(stageButtons[stageSelect].isLock || cpButtons[cpSelect].isLock);
     }
     public void OnEnterStage()
     {
