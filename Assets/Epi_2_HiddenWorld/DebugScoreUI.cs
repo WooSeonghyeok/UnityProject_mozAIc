@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using TMPro;
 
 public class DebugScoreUI : MonoBehaviour
@@ -8,24 +8,18 @@ public class DebugScoreUI : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Debug UI µπæ∆∞°¥¬ ¡ﬂ");
-
+        Debug.Log("Debug UI ÎèåÏïÑÍ∞ÄÎäî Ï§ë");
         if (Episode2ScoreManager.Instance == null) return;
-
         var score = Episode2ScoreManager.Instance;
-
         string timeText = "";
-
         if (spaceTimer != null)
         {
             float current = spaceTimer.CurrentTime;
             float remain = spaceTimer.RemainingTime;
-
             timeText =
                 $"\nTime: {FormatTime(current)}" +
                 $"\nNext -1 in: {FormatTime(remain)}";
         }
-
         scoreText.text =
             $"[DEBUG SCORE]\n" +
             $"Clear: {score.clearScore}\n" +
@@ -35,7 +29,6 @@ public class DebugScoreUI : MonoBehaviour
             $"TOTAL: {score.GetTotalScore()}" +
             timeText;
     }
-
     string FormatTime(float time)
     {
         int min = Mathf.FloorToInt(time / 60);

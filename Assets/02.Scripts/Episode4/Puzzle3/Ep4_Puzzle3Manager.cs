@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-/// <summary>
-/// 3-1 스테이지 진행 관리 (수정: 모든 조각 수집 이벤트 추가)
-/// </summary>
 public class Ep4_Puzzle3Manager : MonoBehaviour
 {
     [Header("조각/수집")]
@@ -19,7 +15,6 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
     public UnityEvent onAllPiecesCollected;
-    // ... (나머지 기존 필드는 그대로 유지)
     [Header("힌트/AI")]
     [SerializeField] private int hintCount = 0;
     [SerializeField] private int hintIntensity = 0;

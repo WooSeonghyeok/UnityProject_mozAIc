@@ -140,7 +140,7 @@ public class SaveManager : MonoBehaviour
                             dataObj.npcInformations[1].words.Add(new MemoryKeyword
                             {
                                 word = keyword,
-                                memoryRate = 1,
+                                memoryRate = 2,
                                 isUsed = false
                             });
                         }

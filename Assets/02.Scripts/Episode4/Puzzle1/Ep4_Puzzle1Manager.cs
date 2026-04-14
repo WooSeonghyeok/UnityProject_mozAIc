@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 public class Ep4_Puzzle1Manager : MonoBehaviour
@@ -40,14 +39,23 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         pieceCnt.text = $"{memoryCollected} / {totalCollected}";
         if (memoryCollected >= (totalCollected / 2) && !isMidCutsceneOn)  //조각 절반 이상 수집 시점에 중간 대사 출력
         {
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "다시 지나가야 한다. 그때의 나처럼."));
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.voice, "없어진 게 아니야.\n흩어진 거지.", 1f, TextboxManager.Talker.core));
             isMidCutsceneOn = true;
         }
         if (memoryCollected >= totalCollected)  //조각 전부 수집 시 "split_self" 태그 획득
         {
-            foreach (var tag in SaveManager.instance.curData.CoreTag)
+            var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "split_self");
+            if (tag != null)
             {
-                if (tag.TagName == "split_self") tag.tagGet = true;
+                tag.tagGet = true;
+            }
+            else
+            {
+                SaveManager.instance.curData.CoreTag.Add(new IsTagGet
+                {
+                    TagName = "split_self",
+                    tagGet = true
+                });
             }
         }
     }

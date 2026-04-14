@@ -1,9 +1,4 @@
 ﻿using UnityEngine;
-/// <summary>
-/// 플레이어가 닿으면 악보 조각을 수집하고 Ep3_1Manager에 수집을 보고합니다.
-/// 루트 오브젝트에 붙여서 사용하세요.
-/// visualRoot에는 실제로 보이는 자식 오브젝트를 연결하세요.
-/// </summary>
 [RequireComponent(typeof(Collider))]
 public class PieceCollect_EP4 : MonoBehaviour
 {
@@ -31,8 +26,7 @@ public class PieceCollect_EP4 : MonoBehaviour
     private void Collect()
     {
         _collected = true;
-        // 기준 위치는 visualRoot가 있으면 그 위치, 없으면 루트 위치 사용
-        Vector3 effectSpawnPos = GetVisualWorldPosition();
+        Vector3 effectSpawnPos = GetVisualWorldPosition();  // 기준 위치는 visualRoot가 있으면 그 위치, 없으면 루트 위치 사용
         // 1. 연출용 복제본 생성
         if (useCollectFlyEffect)
         {
@@ -63,45 +57,31 @@ public class PieceCollect_EP4 : MonoBehaviour
         // 5. 원본 숨기고 삭제
         HideAndDestroy();
     }
-    /// <summary>
-    /// visualRoot가 있으면 그 월드 위치를, 없으면 루트 위치를 반환
-    /// </summary>
     private Vector3 GetVisualWorldPosition()
     {
         if (visualRoot != null) return visualRoot.transform.position;
         return transform.position;
     }
-    /// <summary>
-    /// 수집 연출용 비주얼 복제본 생성
-    /// </summary>
     private void CreateCollectVisual()
     {
         GameObject targetVisual = visualRoot != null ? visualRoot : gameObject;
         Vector3 spawnPos = targetVisual.transform.position;
         Quaternion spawnRot = targetVisual.transform.rotation;
-        // visualRoot만 복제해서 연출
-        GameObject clone = Instantiate(targetVisual, spawnPos, spawnRot);
-        // 월드 좌표 유지
-        clone.transform.SetParent(null, true);
-        // 복제본 콜라이더 비활성화
-        Collider[] cloneCols = clone.GetComponentsInChildren<Collider>();
+        GameObject clone = Instantiate(targetVisual, spawnPos, spawnRot);  // visualRoot만 복제해서 연출
+        clone.transform.SetParent(null, true);  // 월드 좌표 유지
+        Collider[] cloneCols = clone.GetComponentsInChildren<Collider>();  // 복제본 콜라이더 비활성화
         foreach (Collider c in cloneCols)
         {
             c.enabled = false;
         }
-        // 혹시 수집 스크립트가 따라왔으면 제거
-        PieceCollect pc = clone.GetComponent<PieceCollect>();
+        PieceCollect pc = clone.GetComponent<PieceCollect>();  // 혹시 수집 스크립트가 따라왔으면 제거
         if (pc != null)
         {
             Destroy(pc);
         }
-        // 연출 스크립트 추가
-        CollectFlyEffect fly = clone.AddComponent<CollectFlyEffect>();
+        CollectFlyEffect fly = clone.AddComponent<CollectFlyEffect>();  // 연출 스크립트 추가
         fly.Initialize(flyDuration);
     }
-    /// <summary>
-    /// 원본 오브젝트 숨기고 삭제
-    /// </summary>
     private void HideAndDestroy()
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();

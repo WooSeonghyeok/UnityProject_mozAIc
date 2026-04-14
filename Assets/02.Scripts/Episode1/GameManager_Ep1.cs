@@ -93,6 +93,7 @@ public class GameManager_Ep1 : MonoBehaviour
         if (isPuzzleCleared) return;
         isPuzzleCleared = true;
         if (SaveManager.instance != null) SaveManager.instance.curData.ep1_isPuzzleCleared = true;
+        ApplyScoreToMemory();
         // 퍼즐이 클리어되면 루나 기억 단계를 더 올림
         if (lunaNpcData != null)
         {
@@ -192,6 +193,29 @@ public class GameManager_Ep1 : MonoBehaviour
     public int GetSlidePuzzleScore()
     {
         return currentScore;
+    }
+    // 점수를 기억 복원도에 적용하는 메서드, 퍼즐 클리어 시 호출
+    public void ApplyScoreToMemory()
+    {
+        if (SaveManager.instance == null)
+        {
+            Debug.LogWarning("[GameManager_Ep1] SaveManager 없음");
+            return;
+        }
+
+        int score = GetSlidePuzzleScore(); // 현재 점수 가져오기
+
+        // 기존 memory_reconstruction_rate에 점수 누적
+        SaveManager.instance.curData.memory_reconstruction_rate += score;
+
+        // 최대값 제한 (예: 100)
+        SaveManager.instance.curData.memory_reconstruction_rate =
+            Mathf.Clamp(SaveManager.instance.curData.memory_reconstruction_rate, 0, 100);
+
+        Debug.Log($"[GameManager_Ep1] 기억 복원도 증가: +{score} → 현재값: {SaveManager.instance.curData.memory_reconstruction_rate}");
+
+        // JSON 저장 반영
+        SaveManager.instance.WriteCurJSON();
     }
     #endregion
 }
