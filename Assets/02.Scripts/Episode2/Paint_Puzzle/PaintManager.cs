@@ -2,8 +2,8 @@
 
 public class PaintManager : MonoBehaviour
 {
-    public PuzzleTile[] tiles;        // 9개 타일 넣기
-    public GameObject activateObject; // 클리어 시 활성화할 오브젝트
+    public PuzzleTile[] tiles;
+    public GameObject activateObject;
 
     private bool isActivated = false;
 
@@ -31,8 +31,16 @@ public class PaintManager : MonoBehaviour
     void Activate()
     {
         isActivated = true;
+
+        // ⭐ 클리어 상태 저장 (추가🔥)
+        PlayerPrefs.SetInt("Paint_Cleared", 1);
+
         Episode2ScoreManager.Instance?.AddClearScore(5);
-        // 🔥 퍼즐 매니저에 클리어 전달 (핵심)
+
+        // ⭐ 컷씬
+        EP2CutsceneManager.Instance.Play("Paint_Clear_Immediate");
+
+        // ⭐ 퍼즐 매니저
         EP2_PuzzleManager.Instance.SolvePaintPuzzle();
 
         if (activateObject != null)
