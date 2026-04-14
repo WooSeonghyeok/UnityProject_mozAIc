@@ -54,7 +54,7 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
         SaveUIManager.instance.CloseSavePopup();
-        StartCoroutine(SaveUIManager.instance.SaveAlarm());
+        StartCoroutine(SaveUIManager.instance.SaveAlarm(slotNumber));
     }
     public SaveDataObj LoadSaveData(int slotNumber)
     {

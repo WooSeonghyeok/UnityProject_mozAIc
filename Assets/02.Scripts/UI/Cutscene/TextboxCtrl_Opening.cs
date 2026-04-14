@@ -53,7 +53,8 @@ public class TextboxCtrl_Opening : MonoBehaviour
     {
         yield return oneSec;
         blackboard.enabled = false;
-        yield return StartCoroutine(_manager.TalkSay(TalkType.system, "아무것도 완전히 존재하지 않는 공간.\n어두운 허공 사이로,\n겨우 한 줄기의 길만이 이어져 있다.", 2f));
+        yield return StartCoroutine(_manager.TalkSay(TalkType.system, "아무것도 완전히 존재하지 않는 공간.\n어두운 허공 사이로,\n겨우 한 줄기의 길만이 이어져 있다.", 1.5f));
+        yield return StartCoroutine(_manager.TalkSay(TalkType.system, "길 주변에는 무언가의 조각들이 떠다닌다.\n모든 것이 흩어진 채 멈춰 있다.", 1.5f));
         yield return StartCoroutine(_manager.TalkSay(TalkType.player, "찾아야 해", 1f, Talker.self, true));
         yield return StartCoroutine(_manager.TalkSay(TalkType.player, "사라지기 전에", 2f, Talker.self, true));
         _manager.UserCtrl(true);
@@ -92,7 +93,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
     {
         _manager.UserCtrl(false);
         OpeningEndCutscene.PlayCutscene();
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return oneSec;
         yield return StartCoroutine(_manager.TalkSay(TalkType.system, "첫 번째 기억으로 향하는 길이 열린다."));
         yield return StartCoroutine(_manager.TalkSay(TalkType.system, "잠시 머뭇거리지만, 결국 걸음을 옮긴다."));
         user.isJumpLock = false;

@@ -53,6 +53,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         _manager.UserCtrl(false);
         yield return StartCoroutine(_manager.TalkSay(TalkType.system, "이제는 하나의 기억만 보이는 게 아니다.",1.5f));
         gazeCam.Priority = 12;
+        yield return null;
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", 2f, Talker.core));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "남은 건 하나뿐이야.", 2f, Talker.core));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", 1f, Talker.core, true));
@@ -60,6 +61,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return StartCoroutine(_manager.TalkSay(TalkType.player, "이어 붙인다고? 무엇을?\n기억은 이미 돌아오고 있는 것 같은데...", 1f, Talker.self, true));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "조각은 모였어.\n하지만 아직 하나의 이야기가 되지 못했지.", 1.5f, Talker.core, true));
         gazeCam.Priority = 1;
+        yield return null;
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", 1.5f, Talker.core, true));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", 1f, Talker.core, true));
         _manager.UserCtrl(true);
@@ -138,6 +140,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도… 전부 네가 감당해야 했던 삶이었어.", 1.5f, Talker.core));
         climaxCam.Priority = 15;
+        yield return null;
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "하지만 그때의 너는 너무 무너져 있었지.", 1.5f, Talker.core,true));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "그래서 나를 남겨 둔 거야.", 1.5f, Talker.core, true));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 1f, Talker.core, true));
@@ -145,6 +148,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "그래. 나는 네가 놓아둔 마지막 조각이야.", 1.5f,Talker.core, true));
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 1f, Talker.core, true));
         climaxCam.Priority = 1;
+        yield return null;
         endSound.Play();
         _manager.UserCtrl(true);
         yield return StartCoroutine(_manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나."));

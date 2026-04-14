@@ -131,6 +131,8 @@ public class EndingManager : MonoBehaviour
         if (endingPlayCoroutine != null)  // 실행 중인 엔딩 코루틴 중단
         {
             StopCoroutine(endingPlayCoroutine);
+            cutscene.StopAllCoroutines();  //텍스트 컷신 코루틴도 모두 중단
+            cutscene._manager.CloseBox();  //텍스트 박스 닫기
             endingPlayCoroutine = null;
         }
     }

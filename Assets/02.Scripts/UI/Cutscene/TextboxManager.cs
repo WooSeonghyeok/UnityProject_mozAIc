@@ -37,14 +37,10 @@ public class TextboxManager : MonoBehaviour
         {
             Debug.Log("Player 오브젝트가 존재하지 않는 신입니다.");
         }
-
         ApplyTextboxLayout();
-
-        box_system.SetActive(false);
-        box_player.SetActive(false);
-        box_voice.SetActive(false);
-        nextBtn.SetActive(false);
+        CloseBox();
     }
+
     public void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
     {
         if (user != null)
@@ -89,6 +85,10 @@ public class TextboxManager : MonoBehaviour
                 yield return null;
             }
         }
+        CloseBox();
+    }
+    public void CloseBox()
+    {
         box_system.SetActive(false);
         box_player.SetActive(false);
         box_voice.SetActive(false);
