@@ -8,6 +8,7 @@ public class NPCFollower : MonoBehaviour
 {
     [Header("타겟")]
     [SerializeField] private Transform player;
+    [SerializeField] private PlayerMovement playerMovement;
 
     [Header("이동")]
     [SerializeField] private NavMeshAgent agent;
@@ -32,12 +33,23 @@ public class NPCFollower : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         if (animator == null)
             animator = GetComponent<Animator>();
+        TryResolvePlayerMovement();
     }
 
     private void Update()
     {
         if (player == null || agent == null)
         {
+            UpdateMoveAnimation(false);
+            return;
+        }
+
+        TryResolvePlayerMovement();
+
+        // 컷씬/대화 등으로 플레이어 조작이 잠겨 있는 동안에는 NPC도 멈춘다.
+        if (playerMovement != null && playerMovement.IsMoveLocked)
+        {
+            agent.ResetPath();
             UpdateMoveAnimation(false);
             return;
         }
@@ -152,5 +164,28 @@ public class NPCFollower : MonoBehaviour
             return;
 
         animator.SetBool(hashMove, isMoving);
+    }
+
+    private void TryResolvePlayerMovement()
+    {
+        if (playerMovement != null)
+            return;
+
+        if (player != null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
+        }
+
+        if (playerMovement == null)
+        {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                if (player == null)
+                    player = playerObject.transform;
+
+                playerMovement = playerObject.GetComponent<PlayerMovement>();
+            }
+        }
     }
 }

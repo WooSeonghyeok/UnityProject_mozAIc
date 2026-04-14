@@ -1,4 +1,4 @@
-namespace Episode3.Common
+﻿namespace Episode3.Common
 {
     using System.Collections;
     using TMPro;
@@ -14,66 +14,65 @@ namespace Episode3.Common
     }
 
     /// <summary>
-    /// 벽에 붙이는 심볼(상호작용 오브젝트)
-    /// 
-    /// 기능:
-    /// 1. 플레이어가 범위 안에 들어오면 상호작용 UI를 켠다
-    /// 2. 플레이어가 범위 밖으로 나가면 상호작용 UI를 끈다
-    /// 3. 플레이어가 상호작용 키를 누르면 심볼과 상호작용한다
-    /// 4. 잠금 조건이 있으면 잠금 메시지를 띄운다
-    /// 5. 잠금이 없으면 씬 이동 또는 UnityEvent를 실행한다
+    /// 장면 내 상호작용 가능한 심볼(예: 문, 포탈 등).
+    /// 사용법:
+    /// 1. 플레이어가 범위에 들어오면 상호작용 UI를 표시합니다.
+    /// 2. 플레이어가 범위를 벗어나면 UI를 숨깁니다.
+    /// 3. 플레이어가 상호작용 입력을 하면 지정된 동작(씬 전환 또는 UnityEvent)을 수행합니다.
+    /// 4. 잠금 조건이 만족되지 않으면 잠금 메시지를 표시합니다.
+    /// 5. useSceneName이 false일 때는 디자이너 훅(UnityEvent)을 호출합니다.
     /// </summary>
     [RequireComponent(typeof(Collider))]
     public class InteractableSymbol : MonoBehaviour
     {
         [Header("상호작용 설정")]
-        [Tooltip("체크하면 sceneName을 사용하여 SceneManager.LoadScene 호출")]
+        [Tooltip("활성화하면 `sceneNameValue`를 사용해 SceneManager.LoadScene을 호출합니다.")]
         [SerializeField] private bool useSceneName = true;
 
-        [Tooltip("이동할 씬 이름")]
+        [Tooltip("이동할 씬 이름(빌드된 씬 이름)")]
         [SerializeField] private string sceneNameValue;
 
         [Header("잠금 설정")]
-        [Tooltip("이 심볼이 열리기 위해 필요한 조건")]
+        [Tooltip("상호작용 가능 여부를 판정할 요구 조건")]
         [SerializeField] private SymbolLockRequirement lockRequirement = SymbolLockRequirement.None;
 
-        [Tooltip("잠겨 있을 때 띄울 메시지")]
-        [SerializeField] private string lockedMessage = "다른 곳을 먼저 가야 할 것 같아";
+        [Tooltip("잠겨 있을 때 플레이어에게 보여줄 메시지")]
+        [SerializeField] private string lockedMessage = "먼저 특정 조건을 만족해야 합니다.";
 
-        [Tooltip("잠금 메시지를 몇 초 동안 보여줄지")]
+        [Tooltip("잠금 메시지 표시 시간(초)")]
         [SerializeField] private float lockedMessageDuration = 1.5f;
 
         [Tooltip("잠금 팝업 프리팹의 Resources 경로")]
         [SerializeField] private string lockedPopupResourcePath = "Prefabs/UI/Episode3SymbolLockPopup";
 
-        [Header("상호작용 안내 UI")]
-        [Tooltip("하이라키에 만들어 둔 E키 안내 UI 오브젝트를 연결")]
+        [Header("상호작용 UI")]
+        [Tooltip("플레이어가 범위에 있을 때 보여줄 UI 오브젝트")]
         [SerializeField] private GameObject interactUI;
 
-        [Header("디자이너 훅 (인스펙터에서 연결)")]
-        [Tooltip("useSceneName이 꺼져 있을 때 실행할 이벤트")]
+        [Header("Designer Hook")]
+        [Tooltip("useSceneName이 비활성화되어 있을 때 호출되는 이벤트입니다.")]
         [SerializeField] private UnityEvent onInteract;
 
         /// <summary>
-        /// 플레이어 입력 스크립트 참조
-        /// 기존 구조를 유지해서 PlayerInput의 Interact 이벤트를 구독함
+        /// 상호작용 입력을 받는 플레이어의 입력 컴포넌트 참조.
+        /// Player 오브젝트에서 `PlayerInput`의 Interact 이벤트를 구독합니다.
         /// </summary>
         private PlayerInput user;
 
         /// <summary>
-        /// 플레이어 태그 이름
-        /// 플레이어 오브젝트가 이 태그를 가지고 있어야 함
+        /// 플레이어 태그 (찾기용)
         /// </summary>
         private readonly string playerTag = "Player";
 
         /// <summary>
-        /// 현재 플레이어가 심볼 범위 안에 들어와 있는지 여부
+        /// 플레이어가 범위 안에 있는지 여부
         /// </summary>
         private bool playerInRange;
+        private bool interactionEnabled = true;
 
         private void Awake()
         {
-            // Player 태그를 가진 오브젝트를 찾아서 PlayerInput 컴포넌트를 가져옴
+            // Player 오브젝트를 태그로 찾아 PlayerInput 컴포넌트를 가져온다.
             GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
 
             if (playerObject != null)
@@ -82,11 +81,10 @@ namespace Episode3.Common
             }
             else
             {
-                Debug.LogWarning($"[InteractableSymbol] Player 태그 오브젝트를 찾지 못했습니다. 오브젝트: {name}");
+                Debug.LogWarning($"[InteractableSymbol] Player 오브젝트를 찾지 못했습니다. 오브젝트: {name}");
             }
 
-            // 시작할 때 상호작용 UI는 꺼 둠
-            // 하이라키에서 이미 꺼져 있어도 안전하게 한 번 더 꺼 줌
+            // 초기에는 상호작용 UI를 비활성화
             if (interactUI != null)
             {
                 interactUI.SetActive(false);
@@ -95,7 +93,7 @@ namespace Episode3.Common
 
         private void OnEnable()
         {
-            // PlayerInput이 정상적으로 찾아졌을 때만 이벤트 구독
+            // PlayerInput의 Interact 이벤트 구독
             if (user != null)
             {
                 user.Interact += SymbolInteract;
@@ -104,8 +102,7 @@ namespace Episode3.Common
 
         private void OnDisable()
         {
-            // 비활성화될 때 이벤트 해제
-            // 해제 안 하면 중복 구독 또는 예기치 않은 호출이 생길 수 있음
+            // 이벤트 구독 해제
             if (user != null)
             {
                 user.Interact -= SymbolInteract;
@@ -114,7 +111,7 @@ namespace Episode3.Common
 
         private void Reset()
         {
-            // 이 컴포넌트를 붙였을 때 Collider가 자동으로 Trigger가 되도록 설정
+            // 기본 Collider를 트리거로 설정
             Collider col = GetComponent<Collider>();
             if (col != null)
             {
@@ -124,68 +121,63 @@ namespace Episode3.Common
 
         private void OnTriggerEnter(Collider other)
         {
-            // 플레이어가 아니면 무시
+            // 플레이어가 범위에 들어오면 표시 플래그 설정
             if (!other.CompareTag(playerTag)) return;
 
-            // 플레이어가 범위 안으로 들어왔음을 기록
             playerInRange = true;
-
-            // 상호작용 안내 UI 켜기
-            if (interactUI != null)
-            {
-                interactUI.SetActive(true);
-            }
+            UpdateInteractUI();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            // 플레이어가 아니면 무시
+            // 플레이어가 범위를 벗어나면 표시 플래그 해제
             if (!other.CompareTag(playerTag)) return;
 
-            // 플레이어가 범위 밖으로 나갔음을 기록
             playerInRange = false;
-
-            // 상호작용 안내 UI 끄기
-            if (interactUI != null)
-            {
-                interactUI.SetActive(false);
-            }
+            UpdateInteractUI();
         }
 
         /// <summary>
-        /// PlayerInput의 Interact 이벤트가 들어왔을 때 호출되는 함수
-        /// 플레이어가 범위 안에 있을 때만 실제 상호작용 수행
+        /// PlayerInput의 Interact 이벤트에 연결되는 메서드.
+        /// 범위 내이고 상호작용이 활성화되어 있을 때 실제 상호작용을 수행한다.
         /// </summary>
         public void SymbolInteract()
         {
+            if (!interactionEnabled) return;
             if (!playerInRange) return;
 
             PerformInteraction();
         }
 
+        public void SetInteractionEnabled(bool enabled)
+        {
+            interactionEnabled = enabled;
+            UpdateInteractUI();
+        }
+
         /// <summary>
-        /// 실제 상호작용 처리
-        /// 1. UI 끄기
-        /// 2. 잠금 조건 검사
-        /// 3. 잠겨 있으면 메시지 출력
-        /// 4. 잠금이 없으면 씬 이동 또는 이벤트 실행
+        /// 실제 상호작용 처리:
+        /// 1. UI 숨김
+        /// 2. 잠금 여부 검사
+        /// 3. 씬 전환 또는 UnityEvent 호출
+        /// 4. 잠금시 팝업 표시
         /// </summary>
         private void PerformInteraction()
         {
-            // 상호작용이 시작되면 안내 UI는 끔
+            // 상호작용 UI 숨기기
             if (interactUI != null)
             {
                 interactUI.SetActive(false);
             }
 
-            // 잠금 조건을 만족하지 못하면 잠금 메시지를 띄우고 종료
+            // 잠금 상태인 경우 메시지 출력 후 종료
             if (!CanInteract())
             {
                 SymbolLockMessageUI.Show(lockedMessage, lockedMessageDuration, lockedPopupResourcePath);
                 return;
             }
 
-            // 씬 이동 방식일 때
+            // 씬 전환 또는 이벤트 호출
             if (useSceneName)
             {
                 if (!string.IsNullOrEmpty(sceneNameValue))
@@ -194,18 +186,17 @@ namespace Episode3.Common
                 }
                 else
                 {
-                    Debug.LogWarning($"[InteractableSymbol] sceneName이 비어 있습니다. 오브젝트: {name}");
+                    Debug.LogWarning($"[InteractableSymbol] sceneNameValue가 비어있습니다. 오브젝트: {name}");
                 }
             }
             else
             {
-                // 씬 이동 대신 인스펙터에서 연결한 이벤트를 실행
                 onInteract?.Invoke();
             }
         }
 
         /// <summary>
-        /// 이 심볼과 상호작용 가능한지 검사
+        /// 현재 상호작용이 가능한지 여부를 반환
         /// </summary>
         private bool CanInteract()
         {
@@ -213,22 +204,30 @@ namespace Episode3.Common
             {
                 SymbolLockRequirement.None => true,
 
-                // 3-1을 한 번이라도 방문했을 때만 열리는 조건
+                // 3-1 스테이지 방문 여부에 따라 판정
                 SymbolLockRequirement.Stage3_1Visited =>
                     Ep_3Manager.Instance != null && Ep_3Manager.Instance.HasVisitedStage3_1,
 
                 _ => true
             };
         }
+
+        private void UpdateInteractUI()
+        {
+            if (interactUI != null)
+            {
+                interactUI.SetActive(interactionEnabled && playerInRange);
+            }
+        }
     }
 
     /// <summary>
-    /// 심볼이 잠겨 있을 때 메시지를 화면에 띄우는 UI 관리자
+    /// 잠긴 심볼에 대해 팝업 메시지를 표시하는 UI 헬퍼 클래스.
     /// 
-    /// 기능:
-    /// 1. Resources에서 잠금 팝업 프리팹을 불러옴
-    /// 2. 없으면 코드로 간단한 대체 UI를 생성
-    /// 3. 일정 시간 뒤 자동으로 숨김
+    /// 동작:
+    /// 1. Resources에서 팝업 프리팹을 로드 시도
+    /// 2. 프리팹이 없으면 대체(fallback) UI를 동적으로 생성
+    /// 3. 지정한 시간동안 메시지를 표시
     /// </summary>
     public sealed class SymbolLockMessageUI : MonoBehaviour
     {
@@ -243,7 +242,7 @@ namespace Episode3.Common
         private string currentPopupResourcePath = string.Empty;
 
         /// <summary>
-        /// 외부에서 잠금 메시지를 띄울 때 사용하는 정적 함수
+        /// 외부에서 호출하여 잠금 메시지를 보여준다.
         /// </summary>
         public static void Show(string message, float duration, string popupResourcePath)
         {
@@ -252,7 +251,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 인스턴스가 없으면 생성하고, 팝업도 준비함
+        /// 싱글톤 인스턴스 보장 및 팝업 로드
         /// </summary>
         private static void EnsureInstance(string popupResourcePath)
         {
@@ -270,7 +269,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 잠금 메시지를 띄울 전용 Canvas 생성
+        /// 화면에 표시할 Canvas 루트를 동적으로 구성
         /// </summary>
         private void BuildCanvasRoot()
         {
@@ -286,8 +285,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 지정한 경로의 팝업 프리팹을 불러옴
-        /// 프리팹이 없으면 fallback UI 사용
+        /// 지정한 리소스 경로에서 팝업 프리팹을 로드하고 없으면 fallback을 사용.
         /// </summary>
         private void EnsurePopupLoaded(string popupResourcePath)
         {
@@ -313,7 +311,7 @@ namespace Episode3.Common
 
             if (panelRoot == null || (popupText == null && fallbackText == null))
             {
-                Debug.LogWarning($"[SymbolLockMessageUI] 잠금 팝업 프리팹을 찾지 못해 fallback UI를 사용합니다. path: {resolvedPath}");
+                Debug.LogWarning($"[SymbolLockMessageUI] 팝업 프리팹을 찾을 수 없어 대체 UI를 생성합니다. 경로: {resolvedPath}");
                 BuildFallbackPopup();
                 currentPopupResourcePath = string.Empty;
                 return;
@@ -324,7 +322,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 기존 팝업 제거
+        /// 기존 팝업 정리
         /// </summary>
         private void ClearPopup()
         {
@@ -339,7 +337,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 프리팹이 없을 때 사용할 간단한 코드 생성 UI
+        /// 프리팹이 없을 때 사용할 대체 팝업을 동적으로 생성
         /// </summary>
         private void BuildFallbackPopup()
         {
@@ -379,7 +377,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 기본 폰트 로드
+        /// 기본 폰트 로드(내장 폰트를 우선 사용)
         /// </summary>
         private Font LoadDefaultFont()
         {
@@ -390,13 +388,13 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 실제 메시지를 화면에 표시
+        /// 내부적으로 메시지를 표시한다.
         /// </summary>
         private void ShowInternal(string message, float duration)
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                message = "3-1 심볼을 먼저 확인해야 할 것 같아";
+                message = "먼저 3-1 스테이지를 방문해야 합니다.";
             }
 
             if (panelRoot == null)
@@ -429,7 +427,7 @@ namespace Episode3.Common
         }
 
         /// <summary>
-        /// 일정 시간 뒤 메시지를 자동으로 숨김
+        /// 지정 시간(Realtime) 후 팝업을 숨긴다.
         /// </summary>
         private IEnumerator HideAfter(float duration)
         {

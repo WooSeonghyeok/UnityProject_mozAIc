@@ -47,6 +47,12 @@ public class ChatNPCManager : MonoBehaviour
     }
     public void NpcPersonTalk(Transform pos, NPCData npcData)
     {
+        if (playerMovement != null && playerMovement.IsMoveLocked)
+        {
+            Debug.Log("[ChatNPCManager] Player is locked, so NPC chat will not start.");
+            return;
+        }
+
         if (npcData == null)
         {
             Debug.LogError("[ChatNPCManager] NPCData가 null임");

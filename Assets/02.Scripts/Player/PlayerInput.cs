@@ -16,13 +16,30 @@ public class PlayerInput : MonoBehaviour
     public bool isLookLock = false;              // 특정 연출 중 시선 동작이 막힘
     public CameraSwitcher cameraSwitcher; // 🔥 추가
 
+    private void OnDisable()
+    {
+        ResetInputState();
+    }
+
+    public void ResetInputState()
+    {
+        moveInput = Vector2.zero;
+        lookInput = Vector2.zero;
+        isSprint = false;
+        jumpTriggered = false;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (isLookLock) return;
+        if (isLookLock)
+        {
+            lookInput = Vector2.zero;
+            return;
+        }
         lookInput = context.ReadValue<Vector2>();
     }
     public void OnSprint(InputAction.CallbackContext context)
