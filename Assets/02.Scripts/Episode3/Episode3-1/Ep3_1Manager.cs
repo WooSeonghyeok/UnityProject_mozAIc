@@ -44,7 +44,7 @@ public class Ep3_1Manager : MonoBehaviour
         if (collectedPieceCount >= requiredPieceCount && !_allPiecesEventRaised)
         {
             _allPiecesEventRaised = true;
-            SaveManager.instance.curData.ep3_paperClear = true;
+            MarkPaperPuzzleCleared();
             // 인스펙터에서 연결한 리스너들을 호출 (PuzzleComplete 등)
             try
             {
@@ -58,6 +58,27 @@ public class Ep3_1Manager : MonoBehaviour
             // 완료 처리는 외부(예: PuzzleComplete)가 Ep3_1Manager.CompleteStage()를 호출하도록 위임합니다.
             // 기존에는 여기서 바로 CompleteStage()를 호출했습니다.
         }
+    }
+    private void MarkPaperPuzzleCleared()
+    {
+        SaveDataObj data = SaveManager.instance != null ? SaveManager.instance.curData : SaveManager.ReadCurJSON();
+        if (data == null)
+        {
+            Debug.LogWarning("[Ep3_1Manager] SaveData를 찾을 수 없어 ep3_paperClear 저장을 건너뜁니다.");
+            return;
+        }
+
+        data.ep3_paperClear = true;
+
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.curData = data;
+            SaveManager.instance.WriteCurJSON();
+            return;
+        }
+
+        SaveManager.WriteCurJSON(data);
+        Debug.LogWarning("[Ep3_1Manager] SaveManager 인스턴스가 없어 정적 저장 경로로 ep3_paperClear를 기록했습니다.");
     }
     /// <summary>
     /// 힌트 요청 기록.

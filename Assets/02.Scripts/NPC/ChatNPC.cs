@@ -14,6 +14,7 @@ public class ChatNPC : MonoBehaviour
     [SerializeField] private bool lookAtPlayer = true;
     private float distance;
     private NPCData npcData;  // NPC의 이름/성격/프롬프트 데이터 참조
+    private PlayerInput subscribedUser;
 
     public bool isChat = false;
 
@@ -21,25 +22,37 @@ public class ChatNPC : MonoBehaviour
     {
         // 시작할 때 같은 오브젝트의 NPCData를 캐싱
         npcData = GetComponent<NPCData>();
-        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
-
         if (npcFollower == null)
             npcFollower = GetComponent<NPCFollower>();
+
+        TryResolvePlayerReferences();
     }
     private void OnEnable()
     {
-        user.Interact += StartNPCChat;
+        TryResolvePlayerReferences();
+        RefreshInteractSubscription();
     }
     private void OnDisable()
     {
-        user.Interact -= StartNPCChat;
+        RefreshInteractSubscription(clearSubscription: true);
     }
 
     void Update()
     {
-        distance = Vector3.Distance(this.transform.position, playerTr.transform.position);
+        if (!TryResolvePlayerReferences())
+        {
+            RefreshInteractSubscription(clearSubscription: true);
+            if (interChatUI != null && interChatUI.activeSelf)
+            {
+                interChatUI.SetActive(false);
+            }
+            return;
+        }
 
-        if (distance < 3 && !ChatNPCManager.instance.isTalking)
+        RefreshInteractSubscription();
+        distance = Vector3.Distance(this.transform.position, playerTr.position);
+
+        if (distance < 3 && ChatNPCManager.instance != null && !ChatNPCManager.instance.isTalking)
         {
             // 필요할 때만 플레이어를 바라보게 함
             if (lookAtPlayer)
@@ -49,17 +62,23 @@ public class ChatNPC : MonoBehaviour
                 transform.LookAt(targetPos);
             }
 
-            interChatUI.SetActive(true);
+            if (interChatUI != null)
+            {
+                interChatUI.SetActive(true);
+            }
         }
         else
         {
-            interChatUI.SetActive(false);
+            if (interChatUI != null)
+            {
+                interChatUI.SetActive(false);
+            }
         }
     }
 
     private void StartNPCChat()
     {
-        if (distance < 3 && !ChatNPCManager.instance.isTalking)
+        if (distance < 3 && ChatNPCManager.instance != null && !ChatNPCManager.instance.isTalking)
         {
             if (npcFollower != null) npcFollower.SetFollow(false);
             ChatNPCManager.instance.NpcPersonTalk(chatPos, npcData);
@@ -69,9 +88,53 @@ public class ChatNPC : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Camera.main != null)
+        if (interChatUI != null && Camera.main != null)
         {
             interChatUI.transform.forward = Camera.main.transform.forward;
+        }
+    }
+
+    private bool TryResolvePlayerReferences()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            user = null;
+            playerTr = null;
+            return false;
+        }
+
+        if (playerTr == null)
+        {
+            playerTr = player.transform;
+        }
+
+        if (user == null)
+        {
+            user = player.GetComponent<PlayerInput>();
+        }
+
+        return playerTr != null && user != null;
+    }
+
+    private void RefreshInteractSubscription(bool clearSubscription = false)
+    {
+        PlayerInput nextUser = clearSubscription ? null : user;
+        if (subscribedUser == nextUser)
+        {
+            return;
+        }
+
+        if (subscribedUser != null)
+        {
+            subscribedUser.Interact -= StartNPCChat;
+        }
+
+        subscribedUser = nextUser;
+
+        if (subscribedUser != null && isActiveAndEnabled)
+        {
+            subscribedUser.Interact += StartNPCChat;
         }
     }
 }

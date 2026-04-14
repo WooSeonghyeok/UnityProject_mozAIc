@@ -50,6 +50,7 @@ public class SaveManager : MonoBehaviour
         newData.npcInformations = curData.npcInformations;
         newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
         newData.isFirstEnterAtEP3Lobby = curData.isFirstEnterAtEP3Lobby;
+        newData.isFirstEnterAtEP3_1 = curData.isFirstEnterAtEP3_1;
         string json = JsonUtility.ToJson(newData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
@@ -164,6 +165,7 @@ public class SaveManager : MonoBehaviour
         }
         dataObj.isFirstEnterAtS3CP0 = false;
         dataObj.isFirstEnterAtEP3Lobby = false;
+        dataObj.isFirstEnterAtEP3_1 = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
     }
@@ -180,29 +182,41 @@ public class SaveManager : MonoBehaviour
         }
         return tags;
     }
+    public static void WriteCurJSON(SaveDataObj sourceData)
+    {
+        if (sourceData == null)
+        {
+            Debug.LogWarning("[SaveManager] 저장할 현재 데이터가 없습니다.");
+            return;
+        }
+
+        SaveDataObj newData = new SaveDataObj();
+        newData.ID = sourceData.ID;
+        newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        newData.ep1_open = sourceData.ep1_open;
+        newData.ep1_isCaveUnlocked = sourceData.ep1_isCaveUnlocked;
+        newData.ep1_isPuzzleCleared = sourceData.ep1_isPuzzleCleared;
+        newData.ep2_open = sourceData.ep2_open;
+        newData.ep2_paintClear = sourceData.ep2_paintClear;
+        newData.ep2_spaceClear = sourceData.ep2_spaceClear;
+        newData.ep3_open = sourceData.ep3_open;
+        newData.ep3_paperClear = sourceData.ep3_paperClear;
+        newData.ep3_jumpClear = sourceData.ep3_jumpClear;
+        newData.ep4_open = sourceData.ep4_open;
+        newData.ep4_puzzle1Clear = sourceData.ep4_puzzle1Clear;
+        newData.ep4_puzzle2Clear = sourceData.ep4_puzzle2Clear;
+        newData.ep4_puzzle3Clear = sourceData.ep4_puzzle2Clear;
+        newData.memory_reconstruction_rate = sourceData.memory_reconstruction_rate;
+        newData.CoreTag = sourceData.CoreTag;
+        newData.isFirstEnterAtS3CP0 = sourceData.isFirstEnterAtS3CP0;
+        newData.isFirstEnterAtEP3Lobby = sourceData.isFirstEnterAtEP3Lobby;
+        newData.isFirstEnterAtEP3_1 = sourceData.isFirstEnterAtEP3_1;
+        newData.npcInformations = sourceData.npcInformations;
+        string json = JsonUtility.ToJson(newData, true);
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);
+    }
     public void WriteCurJSON()
     {
-        SaveDataObj newData = new SaveDataObj();
-        newData.ID = curData.ID;
-        newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        newData.ep1_open = curData.ep1_open;
-        newData.ep1_isCaveUnlocked = curData.ep1_isCaveUnlocked;
-        newData.ep1_isPuzzleCleared = curData.ep1_isPuzzleCleared;
-        newData.ep2_open = curData.ep2_open;
-        newData.ep2_paintClear = curData.ep2_paintClear;
-        newData.ep2_spaceClear = curData.ep2_spaceClear;
-        newData.ep3_open = curData.ep3_open;
-        newData.ep3_paperClear = curData.ep3_paperClear;
-        newData.ep3_jumpClear = curData.ep3_jumpClear;
-        newData.ep4_open = curData.ep4_open;
-        newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
-        newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
-        newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
-        newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
-        newData.CoreTag = curData.CoreTag;
-        newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
-        newData.npcInformations = curData.npcInformations;
-        string json = JsonUtility.ToJson(newData, true);
-        File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터 파일을 갱신
+        WriteCurJSON(curData);  //현재 데이터 파일을 갱신
     }
 }
