@@ -86,6 +86,13 @@ public class SaveManager : MonoBehaviour
         newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
         return newData;
     }
+    public void ResetCurData()
+    {
+        string path = Path.Combine(Application.persistentDataPath, $"CurData.json");
+        SaveDataObj defaultSave = new SaveDataObj();
+        CreateCurData(path, defaultSave);
+        curData = defaultSave;
+    }
     public static void CreateCurData(string path, SaveDataObj dataObj)
     {
         dataObj.ID = 0;

@@ -136,6 +136,7 @@ public class EndingManager : MonoBehaviour
     }
     public void Regame()
     {
+        SaveManager.instance.ResetCurData();
         SceneManager.LoadScene("StartScene");
     }
     public void END()
