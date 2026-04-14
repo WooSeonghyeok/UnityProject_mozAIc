@@ -17,17 +17,18 @@ public class EP2CutsceneManager : MonoBehaviour
 
     void Awake()
     {
-        // ⭐ 싱글톤
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        Instance = this;
+        //// ⭐ 싱글톤
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
         // ⭐ 딕셔너리 초기화
         cutsceneDict = new Dictionary<string, Sprite[]>();

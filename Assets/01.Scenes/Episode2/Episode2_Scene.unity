@@ -3061,6 +3061,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 262477067}
+  - component: {fileID: 262477068}
   m_Layer: 0
   m_Name: EP2CutSceneManager
   m_TagString: Untagged
@@ -3083,6 +3084,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &262477068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262477065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62563cee760d1ec4c81e32fdd7b78c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneImage: {fileID: 1939786155}
+  cutscenes:
+  - name: Episode2_Intro
+    images:
+    - {fileID: 21300000, guid: 3bd7b3356c1412e43b834abd07e90991, type: 3}
+  - name: Space_Intro
+    images:
+    - {fileID: 21300000, guid: 4aeb622490c8fbc4193c7e932e68d517, type: 3}
+  - name: Space_Clear_Immediate
+    images:
+    - {fileID: 21300000, guid: 73e64168e0dba1040a93f51e5712c5bd, type: 3}
+  - name: Space_Clear
+    images:
+    - {fileID: 21300000, guid: f7e3ddabf6d558e44acd8d2ea2b36f82, type: 3}
+  - name: Paint_Intro
+    images:
+    - {fileID: 21300000, guid: f4856f802df254a4fb3f4bfa58a3637a, type: 3}
+    - {fileID: 21300000, guid: bc06fe9bf9a2f7b49a795b6cfa8bd2b7, type: 3}
+  - name: Paint_Clear_Immediate
+    images:
+    - {fileID: 21300000, guid: 3ee11621b02b5514380115075ab7833d, type: 3}
+    - {fileID: 21300000, guid: 5b371b432d4cead45be24edbbae1c994, type: 3}
+  - name: Paint_Clear
+    images:
+    - {fileID: 21300000, guid: bf3abac9f621d3e40abbb9594e020b4c, type: 3}
 --- !u!1 &266615447
 GameObject:
   m_ObjectHideFlags: 0
@@ -4654,8 +4692,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 798578882}
-  spawnPointSpace: {fileID: 0}
-  spawnPointPaint: {fileID: 0}
+  spawnPointSpace: {fileID: 1255636250}
+  spawnPointPaint: {fileID: 1255636250}
   spawnPointDefault: {fileID: 2080827538}
 --- !u!1 &503408518
 GameObject:
@@ -14390,7 +14428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1255636250}
   m_Layer: 0
-  m_Name: SpawnPoint_Episode2
+  m_Name: SpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16645,27 +16683,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1498172977}
-  - component: {fileID: 1498172976}
+  - component: {fileID: 1498172978}
   m_Layer: 0
-  m_Name: CutSceneTriggerManager
+  m_Name: EP2CutSceneTriggerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1498172976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498172975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a5559d114976d4992fdda9448b9116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cutsceneManager: {fileID: 0}
 --- !u!4 &1498172977
 Transform:
   m_ObjectHideFlags: 0
@@ -16681,6 +16706,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1498172978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498172975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bcafcd99bf5fc4baf0398b1f03f61a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetForTest: 1
 --- !u!1001 &1559490113
 PrefabInstance:
   m_ObjectHideFlags: 0
