@@ -23,7 +23,7 @@ public class NPCHintHelper
         var profile = db.GetNpcProfile(npcData.npcId);
         var scene = db.GetSceneContext(npcData.sceneId);
         string goal = scene != null ? scene.goal : "";
-        string npcName = profile != null ? profile.displayName : "NPC";
+        string npcName = profile != null ? profile.name : "NPC";
         return $"[힌트 요청]\n" +
                $"NPC: {npcName}\n" +
                $"현재 목표: {goal}\n" +

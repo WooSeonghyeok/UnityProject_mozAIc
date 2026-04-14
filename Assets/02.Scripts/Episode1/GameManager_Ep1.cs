@@ -87,6 +87,18 @@ public class GameManager_Ep1 : MonoBehaviour
             Debug.Log($"[GameManager_Ep1] 동굴 개방 -> 루나 기억 단계 상승: {caveOpenStage}");
         }
     }
+    public void OnEnterCave()
+    {
+        if (hasEnteredCave) return;
+        hasEnteredCave = true;
+        Debug.Log("[GameManager_Ep1] 동굴 진입 상태 활성화");
+        if (lunaNpcData != null)
+        {
+            lunaNpcData.sceneId = "ep_01_ice_cave";
+            lunaNpcData.RefreshPrompt();
+            Debug.Log($"[GameManager_Ep1] 퍼즐 클리어 -> 루나 기억 단계 상승: {puzzleClearStage}");
+        }
+    }
     public void OnPuzzleCleared()
     {
         // 이미 처리했으면 중복 실행 방지
@@ -97,6 +109,8 @@ public class GameManager_Ep1 : MonoBehaviour
         // 퍼즐이 클리어되면 루나 기억 단계를 더 올림
         if (lunaNpcData != null)
         {
+            lunaNpcData.sceneId = "ep_01_puzzle_clear";
+            lunaNpcData.RefreshPrompt();
             lunaNpcData.SetRevealStage(puzzleClearStage);
             Debug.Log($"[GameManager_Ep1] 퍼즐 클리어 -> 루나 기억 단계 상승: {puzzleClearStage}");
         }
@@ -109,12 +123,6 @@ public class GameManager_Ep1 : MonoBehaviour
         {
             Debug.LogWarning("[GameManager_Ep1] episodeEndPortal 오브젝트를 찾을 수 없습니다.");
         }
-    }
-    public void OnEnterCave()
-    {
-        if (hasEnteredCave) return;
-        hasEnteredCave = true;
-        Debug.Log("[GameManager_Ep1] 동굴 진입 상태 활성화");
     }
     public void SetLunaRevealStage(MemoryRevealStage newStage)
     {

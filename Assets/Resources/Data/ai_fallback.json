@@ -1,0 +1,38 @@
+[
+    {
+        "fallbackId": "common_timeout",
+        "triggerType": "api_timeout",
+        "speakerScope": "all",
+        "text": "잠깐만... 잘 생각이 안 나."
+    },
+    {
+        "fallbackId": "common_empty",
+        "triggerType": "empty_response",
+        "speakerScope": "all",
+        "text": "무슨 말인지 모르겠어."
+    },
+    {
+        "fallbackId": "ep1_banned",
+        "triggerType": "banned_topic",
+        "speakerScope": "npc_ep1_luna",
+        "text": "그건 아직 별빛이 닿지 않은 이야기야."
+    },
+    {
+        "fallbackId": "ep2_banned",
+        "triggerType": "banned_topic",
+        "speakerScope": "npc_ep2_painter",
+        "text": "그 장면은 아직 색이 다 마르지 않았어."
+    },
+    {
+        "fallbackId": "ep3_banned",
+        "triggerType": "banned_topic",
+        "speakerScope": "npc_ep3_musician",
+        "text": "그건 아직 마지막 음까지 닿지 못한 이야기야."
+    },
+    {
+        "fallbackId": "ep4_banned",
+        "triggerType": "banned_topic",
+        "speakerScope": "npc_ep4_core",
+        "text": "그 답은 네가 끝까지 마주해야 스스로 받아들일 수 있어."
+    }
+]

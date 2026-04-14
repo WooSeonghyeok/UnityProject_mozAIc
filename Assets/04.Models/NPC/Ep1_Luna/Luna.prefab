@@ -692,6 +692,8 @@ MonoBehaviour:
   chatPos: {fileID: 5531802427726858257}
   playerTr: {fileID: 0}
   npcFollower: {fileID: 2035946981320494668}
+  user: {fileID: 0}
+  lookAtPlayer: 1
   isChat: 0
 --- !u!114 &2420912099928970868
 MonoBehaviour:
@@ -706,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcId: npc_ep1_luna
-  sceneId: ep_01_field_cave_hill
+  sceneId: ep_01_village
   UseAffinity: 1
   startAffinity: 50
   Affinity: 0
