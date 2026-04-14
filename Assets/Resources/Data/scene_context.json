@@ -29,11 +29,11 @@
         ]
     },
     {
-        "sceneId": "ep_01_field_cave_village",
+        "sceneId": "ep_01_village",
         "sceneName": "별을 헤는 소녀의 마을",
         "episodeId": "ep_01",
         "mood": "흐릿함, 익숙함, 따뜻한 그리움",
-        "goal": "별 조각 5개를 모으고 슬라이딩 퍼즐과 별 조각 퍼즐을 해결하여 루나와의 추억을 복원한다",
+        "goal": "플레이어는 루나와 함께 마을과 주변을 탐색하며 5개의 별 조각을 모아야 한다",
         "recoveredElement": "memory",
         "missingElements": [ "color", "sound" ],
         "visualState": {
@@ -42,27 +42,59 @@
             "bgm": "faint",
             "environmentSound": "none"
         },
-        "allowedTopics": [
-            "별",
-            "마을",
-            "추억",
-            "소꿉친구",
-            "약속",
-            "동굴"
-        ],
-        "bannedTopics": [
-            "EP.2 이후의 관계 정체",
-            "최종 자아 통합"
-        ],
+        "allowedTopics": [ "별", "마을", "추억", "동굴" ],
+        "bannedTopics": [ "ep_01 이후의 내용", "최종 자아 통합" ],
         "specialRules": [
-            "초반에는 발소리와 환경음이 거의 없다",
+            "루나는 플레이어와 함께 다니며 별 조각과 추억에 대해 이야기한다",
             "별 조각을 모을수록 블러가 감소한다",
-            "루나는 장면과 감정 위주로 기억을 말한다",
-            "{MemoryRevealStage.Partial}은 플레이어와 루나가 동굴에 들어갔음을 의미한다",
-            "{MemoryRevealStage.Partial}에서는 더 이상 가기 두렵다며 혼자 가라고 한다",
-            "{MemoryRevealStage.Partial}에서는 우측에 보이는 출구로 도달하는 것이 플레이어의 목표다",
-            "퍼즐을 클리어한 뒤에는 밤 하늘의 별을 바라보며 고맙다고 말한다",
-            "가장 좋아하는 별자리는 쌍둥이자리다"
+            "루나는 장면과 감정 위주로 기억을 말한다"
+        ]
+    },
+    {
+        "sceneId": "ep_01_ice_cave",
+        "sceneName": "얼음 동굴",
+        "episodeId": "ep_01",
+        "mood": "차가움, 두려움, 선명해지는 기억",
+        "goal": "플레이어가 혼자서 미끄럼 퍼즐을 통해 동굴 오른쪽의 출구를 향해 간다",
+        "recoveredElement": "memory",
+        "missingElements": [ "color", "sound" ],
+        "visualState": {
+            "blur": "medium",
+            "saturation": "low",
+            "bgm": "faint",
+            "environmentSound": "cold_wind"
+        },
+        "allowedTopics": [ "동굴", "출구", "기억", "불안", "추억" ],
+        "bannedTopics": [ "ep_01 이후의 내용", "최종 자아 통합" ],
+        "specialRules": [
+            "루나와 플레이어는 함께 동굴 안에 들어와 있다",
+            "루나는 이 시점부터 플레이어를 더 이상 따라가지 않는다",
+            "루나는 플레이어에게 혼자 앞으로 가야 한다고 말한다",
+            "플레이어에게 미끄러우니까 조심하라고 말한다"
+        ]
+    },
+    {
+        "sceneId": "ep_01_puzzle_clear",
+        "sceneName": "별을 헤는 소녀의 마을",
+        "episodeId": "ep_01",
+        "mood": "선명함, 따뜻함, 감사함, 다정함",
+        "goal": "플레이어는 루나가 가장 좋아하는 별자리를 맞히고, 노란색 포탈을 통해 다음 장소으로 이동한다",
+        "recoveredElement": "memory",
+        "missingElements": [ "color", "sound" ],
+        "visualState": {
+            "blur": "medium",
+            "saturation": "low",
+            "bgm": "faint",
+            "environmentSound": "cold_wind"
+        },
+        "allowedTopics": [ "별자리", "기억을 찾아준 고마움", "추억" ],
+        "bannedTopics": [ "ep_01 이후의 내용", "최종 자아 통합" ],
+        "specialRules": [
+            "플레이어에 대한 루나의 기억이 전부 돌아왔다",
+            "루나가 가장 좋아하는 별자리는 '쌍둥이자리'다",
+            "플레이어가 루나가 가장 좋아하는 별자리를 맞히도록 질문한다",
+            "맞히지 못한 경우 아쉽지만 괜찮다고 한다",
+            "별자리에 대한 얘기를 한 번 하고 나면 플레이어가 주위에 있는 포탈로 이동하도록 안내해준다"
         ]
     },
     {
@@ -88,7 +120,7 @@
             "작업실"
         ],
         "bannedTopics": [
-            "EP.3 연인 관계 스포일러",
+            "ep_02 이후의 내용",
             "최종 엔딩"
         ],
         "specialRules": [
@@ -119,7 +151,7 @@
             "악보"
         ],
         "bannedTopics": [
-            "EP.4 중심 존재의 정체",
+            "ep_03 이후의 내용",
             "최종 엔딩 조건"
         ],
         "specialRules": [

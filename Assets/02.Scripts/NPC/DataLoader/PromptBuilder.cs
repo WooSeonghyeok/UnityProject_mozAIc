@@ -32,8 +32,8 @@ public static class PromptBuilder
         if (profile != null)
         {
             sb.AppendLine("[개발용 내부 설정 - 플레이어에게 직접 말하지 말 것]");
-            sb.AppendLine($"실제 이름: {profile.displayName}");
-            sb.AppendLine($"실제 역할: {profile.roleType}");
+            sb.AppendLine($"실제 이름: {profile.name}");
+            sb.AppendLine($"채팅 이름: {profile.chatName}");
             sb.AppendLine($"실제 관계: {profile.baseRelationship}");
             sb.AppendLine($"실제 핵심 배경: {profile.systemPromptCore}");
             sb.AppendLine("위 정보는 세계의 진실이지만, 현재 기억 단계에 맞지 않으면 직접 공개하면 안 된다.");
@@ -82,7 +82,11 @@ public static class PromptBuilder
 
             if (scene.specialRules != null && scene.specialRules.Count > 0)
             {
-                sb.AppendLine($"장면 특수 규칙: {string.Join(", ", scene.specialRules)}");
+                sb.AppendLine("[현재 반드시 반영해야 할 장면 규칙]");
+                foreach (var ruleText in scene.specialRules)
+                {
+                    sb.AppendLine($"- {ruleText}");
+                }
             }
         }
 
@@ -212,7 +216,7 @@ public static class PromptBuilder
 
                 if (profile != null)
                 {
-                    sb.AppendLine($"이제 자기 이름을 말해도 된다: {profile.displayName}");
+                    sb.AppendLine($"이제 자기 이름을 말해도 된다: {profile.name}");
                     sb.AppendLine($"이제 플레이어와의 관계를 말해도 된다: {profile.baseRelationship}");
                 }
                 break;

@@ -73,7 +73,14 @@ public class ServerChat : MonoBehaviour
         CheckWords(msg);
 
         string finalMsg = msg;
-
+        // 금지 주제 먼저 검사
+        if (IsBannedTopic(msg))
+        {
+            string bannedFallback = GetFallbackText("banned_topic");
+            CreateMessage($"{serverName} : {bannedFallback}", chatColor);
+            FinishChat();
+            return;
+        }
         // 힌트 요청 감지
         if (NPCHintHelper.IsHintRequest(msg) && currentNpcData != null)
         {
@@ -111,12 +118,27 @@ public class ServerChat : MonoBehaviour
         catch (System.Exception e)
         {
             Debug.LogError($"[ServerChat] OpenAI 오류: {e.Message}");
+            // 생각 중... 메시지를 fallback 문장으로 교체
+            string timeoutFallback = GetFallbackText("api_timeout");
+            serverTextObj.SendText($"{serverName} : {timeoutFallback}", chatColor);
+
+            // assistant 응답도 기록에 남겨서 대화 흐름 유지
+            chatMessages.Add(new ChatMessage
+            {
+                Role = "assistant",
+                Content = timeoutFallback
+            });
+
             FinishChat();
             return;
         }
-
         string servermsg = res.Choices[0].Message.Content;
 
+        // 응답이 비었을 때 fallback 처리
+        if (string.IsNullOrWhiteSpace(servermsg))
+        {
+            servermsg = GetFallbackText("empty_response");
+        }
         serverTextObj.SendText($"{serverName} : {servermsg}", chatColor);
 
         // assistant 응답도 기록에 저장
@@ -129,6 +151,55 @@ public class ServerChat : MonoBehaviour
         );
 
         FinishChat();
+    }
+
+    // 금지 주제일 때 true 반환
+    private bool IsBannedTopic(string msg)
+    {
+        if (currentNpcData == null || GameDialogueDatabase.Instance == null)
+            return false;
+
+        var db = GameDialogueDatabase.Instance;
+        var profile = db.GetNpcProfile(currentNpcData.npcId);
+        var scene = db.GetSceneContext(currentNpcData.sceneId);
+
+        // NPC 프로필 금지 주제 검사
+        if (profile != null && profile.bannedTopics != null)
+        {
+            foreach (string topic in profile.bannedTopics)
+            {
+                if (!string.IsNullOrEmpty(topic) && msg.Contains(topic))
+                    return true;
+            }
+        }
+        // 현재 씬 금지 주제 검사
+        if (scene != null && scene.bannedTopics != null)
+        {
+            foreach (string topic in scene.bannedTopics)
+            {
+                if (!string.IsNullOrEmpty(topic) && msg.Contains(topic))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    // triggerType에 해당하는 fallback 문장 반환
+    private string GetFallbackText(string triggerType)
+    {
+        if (GameDialogueDatabase.Instance == null || currentNpcData == null)
+            return "……";
+
+        AiFallbackData fallback = GameDialogueDatabase.Instance.GetFallback(
+            triggerType,
+            currentNpcData.npcId
+        );
+
+        if (fallback != null && !string.IsNullOrEmpty(fallback.text))
+            return fallback.text;
+
+        return "……";
     }
 
     private void FinishChat()

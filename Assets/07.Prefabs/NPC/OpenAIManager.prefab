@@ -84,3 +84,7 @@ MonoBehaviour:
   PositiveAffinity: 50
   NegativeAffinity: -10
   AffinityText: {fileID: 0}
+  words:
+  - word: "\uC30D\uB465\uC774\uC790\uB9AC"
+    memoryRate: 10
+    isUsed: 0

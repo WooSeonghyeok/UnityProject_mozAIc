@@ -38,7 +38,7 @@ public class NPCData : MonoBehaviour
         if (profile != null)
         {
             // 내부적으로는 실제 이름을 들고 있어도 됨
-            NpcName = profile.displayName;
+            NpcName = profile.name;
         }
         else
         {
