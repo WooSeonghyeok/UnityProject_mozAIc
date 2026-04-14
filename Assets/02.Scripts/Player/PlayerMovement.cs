@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;                 // 바닥 위에 있는지 여부
 
     private bool isMoveLocked = false;       // 대화 중 이동 잠금 여부
+    public bool IsMoveLocked => isMoveLocked;
 
     float yaw;  // 좌우 회전값
     float pitch;  // 상하 회전값
@@ -82,6 +83,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetMoveLock(bool isLocked)
     {
         isMoveLocked = isLocked;
+
+        if (input != null)
+        {
+            input.lookInput = Vector2.zero;
+        }
 
         if (isLocked)
         {

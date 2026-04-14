@@ -11,6 +11,7 @@ public class ChatNPC : MonoBehaviour
     [SerializeField] private Transform playerTr;
     [SerializeField] private NPCFollower npcFollower;
     [SerializeField] private PlayerInput user;
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private bool lookAtPlayer = true;
     private float distance;
     private NPCData npcData;  // NPC의 이름/성격/프롬프트 데이터 참조
@@ -52,6 +53,15 @@ public class ChatNPC : MonoBehaviour
         RefreshInteractSubscription();
         distance = Vector3.Distance(this.transform.position, playerTr.position);
 
+        if (playerMovement != null && playerMovement.IsMoveLocked)
+        {
+            if (interChatUI != null && interChatUI.activeSelf)
+            {
+                interChatUI.SetActive(false);
+            }
+            return;
+        }
+
         if (distance < 3 && ChatNPCManager.instance != null && !ChatNPCManager.instance.isTalking)
         {
             // 필요할 때만 플레이어를 바라보게 함
@@ -78,6 +88,11 @@ public class ChatNPC : MonoBehaviour
 
     private void StartNPCChat()
     {
+        if (playerMovement != null && playerMovement.IsMoveLocked)
+        {
+            return;
+        }
+
         if (distance < 3 && ChatNPCManager.instance != null && !ChatNPCManager.instance.isTalking)
         {
             if (npcFollower != null) npcFollower.SetFollow(false);
@@ -112,6 +127,11 @@ public class ChatNPC : MonoBehaviour
         if (user == null)
         {
             user = player.GetComponent<PlayerInput>();
+        }
+
+        if (playerMovement == null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
         }
 
         return playerTr != null && user != null;

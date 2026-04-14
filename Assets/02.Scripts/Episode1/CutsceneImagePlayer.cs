@@ -1,97 +1,281 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CutsceneImagePlayer : MonoBehaviour
 {
     [Header("컷씬 UI")]
-    [SerializeField] private GameObject cutscenePanel;   // 컷씬 전체 패널
-    [SerializeField] private Image cutsceneImage;        // 화면에 이미지를 표시할 UI Image
+    [SerializeField] private GameObject cutscenePanel;
+    [SerializeField] private Image cutsceneImage;
+
+    [Header("컷씬 자막")]
+    [SerializeField] private TextMeshProUGUI cutsceneText;
+    [SerializeField] private TMP_FontAsset subtitleFont;
+    [SerializeField] private bool autoCreateSubtitleUi = true;
+    [SerializeField] private Vector2 subtitlePanelSize = new Vector2(1280f, 156f);
+    [SerializeField] private Vector2 subtitlePanelOffset = new Vector2(0f, 42f);
+    [SerializeField] private Vector4 subtitlePadding = new Vector4(34f, 24f, 34f, 24f);
+    [SerializeField] private Color subtitleBackgroundColor = new Color(0.05f, 0.05f, 0.08f, 0.78f);
+    [SerializeField] private float subtitleFontSize = 34f;
+    [TextArea(2, 4)]
+    [SerializeField] private string[] cutsceneTexts;
+
     [Header("컷씬 이미지")]
-    [SerializeField] private Sprite[] cutsceneSprites;   // 순서대로 보여줄 컷씬 이미지들
-    [SerializeField] private float imageShowTime = 3f;   // 각 이미지 표시 시간
-    [SerializeField] private float fadeDuration = 1f;    // 페이드 시간
+    [SerializeField] private Sprite[] cutsceneSprites;
+    [SerializeField] private float imageShowTime = 3f;
+    [SerializeField] private float fadeDuration = 1f;
+
     [Header("플레이어 제어")]
-    [SerializeField] private PlayerMovement playerMovement; // 플레이어 이동 잠금용
-    private AspectRatioFitter aspectFitter;
+    [SerializeField] private PlayerMovement playerMovement;
+
     [Header("엔딩 컷씬")]
-    [SerializeField] private bool isEndCutscene = false;              // 엔딩 컷씬이면 페이드 아웃 안함
+    [SerializeField] private bool isEndCutscene = false;
+
+    [Header("이벤트")]
+    [SerializeField] private UnityEvent onCutsceneFinished;
+
+    private AspectRatioFitter aspectFitter;
+    private CanvasGroup subtitleCanvasGroup;
+    private Image subtitleBackground;
     private bool isPlaying = false;
+    private bool subtitleVisible;
+
     public bool IsPlaying => isPlaying;
+    public bool HasConfiguredImages => cutsceneSprites != null && cutsceneSprites.Length > 0;
+
+    public void AddFinishedListener(UnityAction listener)
+    {
+        onCutsceneFinished?.AddListener(listener);
+    }
+
+    public void RemoveFinishedListener(UnityAction listener)
+    {
+        onCutsceneFinished?.RemoveListener(listener);
+    }
+
     private void Awake()
     {
-        if (cutsceneImage != null)// 이미지 원본 비율 유지
+        if (cutsceneImage != null)
         {
             cutsceneImage.preserveAspect = true;
             aspectFitter = cutsceneImage.GetComponent<AspectRatioFitter>();
         }
-        if (cutscenePanel != null)  // 시작 시 컷씬 패널은 꺼둠
+
+        EnsureSubtitleUi();
+        SetSubtitle(string.Empty);
+
+        if (cutscenePanel != null)
         {
             cutscenePanel.SetActive(false);
         }
     }
-    public void PlayCutscene()  // 외부에서 호출하는 컷씬 시작 함수
+
+    public void PlayCutscene()
     {
-        if (isPlaying) return;  // 이미 재생 중이면 중복 실행 방지
+        if (isPlaying)
+            return;
+
+        if (!HasConfiguredImages)
+        {
+            onCutsceneFinished?.Invoke();
+            return;
+        }
+
         StartCoroutine(PlayCutsceneRoutine());
     }
-    private IEnumerator PlayCutsceneRoutine()  // 이미지 컷씬 순차 재생 코루틴
+
+    private IEnumerator PlayCutsceneRoutine()
     {
         isPlaying = true;
-        if (cutscenePanel != null) cutscenePanel.SetActive(true);  // 컷씬 패널 켜기
-        if (playerMovement != null)  // 플레이어 이동 잠금
+
+        if (cutscenePanel != null)
+            cutscenePanel.SetActive(true);
+
+        if (playerMovement != null)
+            playerMovement.SetMoveLock(true);
+
+        int stepCount = Mathf.Max(
+            cutsceneSprites != null ? cutsceneSprites.Length : 0,
+            cutsceneTexts != null ? cutsceneTexts.Length : 0);
+
+        for (int i = 0; i < stepCount; i++)
         {
-            playerMovement.SetMoveLock(true);  // PlayerMovement에 있는 이동 잠금 함수
-        }
-        for (int i = 0; i < cutsceneSprites.Length; i++)
-        {
-            if (cutsceneImage != null && cutsceneSprites[i] != null)
+            Sprite currentSprite = ResolveSpriteForStep(i);
+            if (cutsceneImage != null && currentSprite != null)
             {
-                cutsceneImage.sprite = cutsceneSprites[i];
+                cutsceneImage.sprite = currentSprite;
             }
-            yield return StartCoroutine(Fade(0f, 1f));  // 첫 이미지도 자연스럽게 보이도록 페이드 인
-            yield return new WaitForSeconds(imageShowTime);  // 이미지 유지 시간
-            if (i < cutsceneSprites.Length - 1)  // 마지막 이미지가 아니면 다음 이미지 전환 전 페이드 아웃
+
+            SetSubtitle(ResolveSubtitleForStep(i));
+
+            yield return StartCoroutine(Fade(0f, 1f));
+            yield return new WaitForSeconds(imageShowTime);
+
+            if (i < stepCount - 1)
             {
                 yield return StartCoroutine(Fade(1f, 0f));
             }
         }
+
         if (!isEndCutscene)
         {
-            yield return StartCoroutine(Fade(1f, 0f));  // 마지막 이미지 종료 후 페이드 아웃
-            if (cutscenePanel != null) cutscenePanel.SetActive(false);  // 컷씬 종료
+            yield return StartCoroutine(Fade(1f, 0f));
+            SetSubtitle(string.Empty);
+
+            if (cutscenePanel != null)
+                cutscenePanel.SetActive(false);
         }
         else
         {
-            SetImageAlpha(1f);  // 엔딩 컷씬이면 마지막 이미지 완전히 보이도록 유지
+            SetVisualAlpha(1f);
         }
-        if (playerMovement != null)  // 플레이어 이동 다시 허용
-        {
+
+        if (playerMovement != null)
             playerMovement.SetMoveLock(false);
-        }
-        
+
         isPlaying = false;
+        onCutsceneFinished?.Invoke();
     }
-    private IEnumerator Fade(float startAlpha, float endAlpha)  // 전체 컷씬 패널을 서서히 투명/불투명하게 만드는 코루틴
+
+    private IEnumerator Fade(float startAlpha, float endAlpha)
     {
-        if (cutsceneImage == null)  yield break;
+        if (cutsceneImage == null)
+            yield break;
+
         float elapsed = 0f;
-        SetImageAlpha(startAlpha);
+        SetVisualAlpha(startAlpha);
+
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
             float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / fadeDuration);
-            SetImageAlpha(alpha);
+            SetVisualAlpha(alpha);
             yield return null;
         }
-        SetImageAlpha(endAlpha);
+
+        SetVisualAlpha(endAlpha);
     }
-    private void SetImageAlpha(float alpha)  // 이미지 컬러의 알파만 변경
+
+    private void SetImageAlpha(float alpha)
     {
-        if (cutsceneImage == null)  return;
+        if (cutsceneImage == null)
+            return;
+
         Color color = cutsceneImage.color;
         color.a = alpha;
         cutsceneImage.color = color;
+    }
+
+    private void SetVisualAlpha(float alpha)
+    {
+        SetImageAlpha(alpha);
+
+        if (subtitleCanvasGroup != null)
+        {
+            subtitleCanvasGroup.alpha = subtitleVisible ? alpha : 0f;
+        }
+    }
+
+    private void EnsureSubtitleUi()
+    {
+        if (cutsceneText != null)
+        {
+            ConfigureSubtitleText(cutsceneText);
+
+            RectTransform existingRoot = cutsceneText.transform.parent as RectTransform ?? cutsceneText.rectTransform;
+            subtitleCanvasGroup = existingRoot.GetComponent<CanvasGroup>();
+            if (subtitleCanvasGroup == null)
+            {
+                subtitleCanvasGroup = existingRoot.gameObject.AddComponent<CanvasGroup>();
+            }
+
+            subtitleBackground = existingRoot.GetComponent<Image>();
+            subtitleCanvasGroup.alpha = 0f;
+            return;
+        }
+
+        if (!autoCreateSubtitleUi || cutscenePanel == null)
+            return;
+
+        GameObject subtitleRoot = new GameObject("SubtitlePanel", typeof(RectTransform), typeof(Image), typeof(CanvasGroup));
+        subtitleRoot.transform.SetParent(cutscenePanel.transform, false);
+
+        RectTransform subtitleRootRect = subtitleRoot.GetComponent<RectTransform>();
+        subtitleRootRect.anchorMin = new Vector2(0.5f, 0f);
+        subtitleRootRect.anchorMax = new Vector2(0.5f, 0f);
+        subtitleRootRect.pivot = new Vector2(0.5f, 0f);
+        subtitleRootRect.anchoredPosition = subtitlePanelOffset;
+        subtitleRootRect.sizeDelta = subtitlePanelSize;
+
+        subtitleBackground = subtitleRoot.GetComponent<Image>();
+        subtitleBackground.color = subtitleBackgroundColor;
+
+        subtitleCanvasGroup = subtitleRoot.GetComponent<CanvasGroup>();
+        subtitleCanvasGroup.alpha = 0f;
+
+        GameObject textObject = new GameObject("SubtitleText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textObject.transform.SetParent(subtitleRoot.transform, false);
+
+        RectTransform textRect = textObject.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = new Vector2(subtitlePadding.x, subtitlePadding.y);
+        textRect.offsetMax = new Vector2(-subtitlePadding.z, -subtitlePadding.w);
+
+        cutsceneText = textObject.GetComponent<TextMeshProUGUI>();
+        ConfigureSubtitleText(cutsceneText);
+    }
+
+    private void ConfigureSubtitleText(TextMeshProUGUI targetText)
+    {
+        if (targetText == null)
+            return;
+
+        targetText.font = subtitleFont != null ? subtitleFont : TMP_Settings.defaultFontAsset;
+        targetText.fontSize = subtitleFontSize;
+        targetText.color = Color.white;
+        targetText.enableWordWrapping = true;
+        targetText.overflowMode = TextOverflowModes.Overflow;
+        targetText.alignment = TextAlignmentOptions.MidlineLeft;
+    }
+
+    private void SetSubtitle(string subtitle)
+    {
+        subtitleVisible = !string.IsNullOrWhiteSpace(subtitle) && cutsceneText != null;
+
+        if (cutsceneText != null)
+        {
+            cutsceneText.text = subtitleVisible ? subtitle : string.Empty;
+            cutsceneText.enabled = subtitleVisible;
+        }
+
+        if (subtitleBackground != null)
+        {
+            subtitleBackground.enabled = subtitleVisible;
+        }
+
+        if (subtitleCanvasGroup != null)
+        {
+            subtitleCanvasGroup.alpha = subtitleVisible ? 1f : 0f;
+        }
+    }
+
+    private Sprite ResolveSpriteForStep(int stepIndex)
+    {
+        if (cutsceneSprites == null || cutsceneSprites.Length == 0)
+            return null;
+
+        int safeIndex = Mathf.Clamp(stepIndex, 0, cutsceneSprites.Length - 1);
+        return cutsceneSprites[safeIndex];
+    }
+
+    private string ResolveSubtitleForStep(int stepIndex)
+    {
+        if (cutsceneTexts == null || stepIndex < 0 || stepIndex >= cutsceneTexts.Length)
+            return string.Empty;
+
+        return cutsceneTexts[stepIndex];
     }
 }
