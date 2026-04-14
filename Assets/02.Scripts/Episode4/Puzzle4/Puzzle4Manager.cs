@@ -100,10 +100,7 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         CloseRetryPopup();
     }
-    public void CloseRetryPopup()  //다시하기 팝업 닫기 동작
-    {
-        retryPopup.SetActive(false);
-    }
+    public void CloseRetryPopup()  => retryPopup.SetActive(false);  //다시하기 팝업 닫기 동작
     void HintMessage()  //다시하기 지점 도착 시마다 힌트 메시지를 출력
     {
         if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력

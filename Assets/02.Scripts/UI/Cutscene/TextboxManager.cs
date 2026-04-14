@@ -43,18 +43,14 @@ public class TextboxManager : MonoBehaviour
 
     public void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
     {
-        if (user != null)
-            user.enabled = b;
+        if (user != null) user.enabled = b;
         if (userMove != null)
         {
             userMove.enabled = b;
             userMove.SetMoveLock(!b);
         }
     }
-    public void OnNextButton()
-    {
-        nextPressed = true;
-    }
+    public void OnNextButton() => nextPressed = true;
     public IEnumerator TalkSay(TalkType type, string say, float time = 1f, Talker talk = Talker.self, bool canSkip = false)
     {
         int talkID = ++curTalkID;
@@ -94,7 +90,6 @@ public class TextboxManager : MonoBehaviour
         box_voice.SetActive(false);
         nextBtn.SetActive(false);
     }
-
     private void ApplyTextboxLayout()
     {
         ConfigureSystemText();

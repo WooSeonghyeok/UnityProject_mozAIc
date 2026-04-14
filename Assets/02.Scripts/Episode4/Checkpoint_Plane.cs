@@ -15,10 +15,7 @@ public class Checkpoint_Plane : MonoBehaviour
         {
             isCheck = true;
             SaveCheckpointProgress();
-            if(cpNum == 0)
-            {
-                S3FirstCheck?.Invoke();
-            }
+            if(cpNum == 0) S3FirstCheck?.Invoke();
         }
     }
     private void SaveCheckpointProgress()

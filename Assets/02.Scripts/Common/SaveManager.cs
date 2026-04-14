@@ -222,8 +222,5 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);
     }
-    public void WriteCurJSON()
-    {
-        WriteCurJSON(curData);  //현재 데이터 파일을 갱신
-    }
+    public void WriteCurJSON() =>  WriteCurJSON(curData);  //현재 데이터 파일을 갱신
 }
