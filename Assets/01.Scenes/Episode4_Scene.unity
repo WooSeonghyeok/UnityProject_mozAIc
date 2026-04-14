@@ -7894,6 +7894,7 @@ MonoBehaviour:
   Ep4_EndCutscene: {fileID: 5694942923132168727}
   startSound: {fileID: 179385907}
   endSound: {fileID: 2026888085}
+  otherCanvas: {fileID: 2132636886}
 --- !u!4 &470098376
 Transform:
   m_ObjectHideFlags: 0
