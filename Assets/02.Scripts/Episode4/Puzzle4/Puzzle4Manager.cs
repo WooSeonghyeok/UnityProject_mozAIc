@@ -18,7 +18,6 @@ public class Puzzle4Manager : MonoBehaviour
     public GameObject retryPopup;
     public bool retryPopupOpen = false;
     public event Action retryEvent;
-    private bool scoreFinished = false;
     public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public NPCData coreNPC;
@@ -131,17 +130,10 @@ public class Puzzle4Manager : MonoBehaviour
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
-        if (scoreFinished == true) return;  //마지막 점수 계산 종료 확인
         SyncCheck();
-        FinalScore();
-        if (egoSync == 1f) SelfVoiceTag();
-    }
-    private void FinalScore()
-    {
-        puzzle4MemoryRate = Math.Clamp(retry_count, 0, 5);  //각 퍼즐당 최대 5점까지
+        puzzle4MemoryRate = Math.Clamp(retry_count, 0, 5);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
         SaveManager.instance.curData.memory_reconstruction_rate -= puzzle4MemoryRate;  //이전까지 총 점수에서 감점
-        Debug.Log($"최종점수: {SaveManager.instance.curData.memory_reconstruction_rate}");
-        scoreFinished = true;  //마지막 점수 계산 종료 확인
+        if (egoSync == 1f) SelfVoiceTag();
     }
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {

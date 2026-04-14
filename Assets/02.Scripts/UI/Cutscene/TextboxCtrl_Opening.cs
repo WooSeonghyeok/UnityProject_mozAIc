@@ -76,10 +76,10 @@ public class TextboxCtrl_Opening : MonoBehaviour
         pp_Volume.profile = pp_Volume_black;
         yield return oneSec;
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "더 늦기 전에 찾아야 해.", 1f, Talker.core));
-        yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "길을 따라가.", 2f, Talker.core));
+        yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "길을 따라가.", 2f, Talker.core, true));
         openingMidGate.SetActive(true);
         user.isLookLock = false;
-        yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "꼭 찾아야 해.", 2f, Talker.core));
+        yield return StartCoroutine(_manager.TalkSay(TalkType.voice, "꼭 찾아야 해.", 2f, Talker.core, true));
         _manager.UserCtrl(true);
         yield return StartCoroutine(_manager.TalkSay(TalkType.player, "너는 누구야?", 2f));
         StartCoroutine(_manager.TalkSay(TalkType.voice, "문 너머로 가면 알 수 있을 거야.", 1f, Talker.core));

@@ -92,6 +92,7 @@ public class InteractManager : MonoBehaviour
         }
         if (other.gameObject.CompareTag(endTag))
         {
+            Debug.Log($"최종점수: {SaveManager.instance.curData.memory_reconstruction_rate}");
             gameEnd?.Invoke();
         }
         if (other.gameObject.CompareTag(saveTag))
