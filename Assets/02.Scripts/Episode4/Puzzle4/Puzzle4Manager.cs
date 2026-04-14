@@ -83,10 +83,10 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         if (egoSync >= 0.5f && !isMidCutsceneOn)
         {
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "좋았던 것도, 아팠던 것도,\n끝내 미완성으로 남은 것도."));
             isMidCutsceneOn = true;
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "전부 나로 받아들이겠다."));
         }
-        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "흩어진 조각들이… 길이 되고 있다."));
+        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "전부 나로 받아들이겠다."));
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
     {

@@ -6723,6 +6723,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
+      propertyPath: isEndCutscene
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 769935707}

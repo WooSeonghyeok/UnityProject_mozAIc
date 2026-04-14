@@ -39,7 +39,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         pieceCnt.text = $"{memoryCollected} / {totalCollected}";
         if (memoryCollected >= (totalCollected / 2) && !isMidCutsceneOn)  //조각 절반 이상 수집 시점에 중간 대사 출력
         {
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "다시 지나가야 한다. 그때의 나처럼."));
+            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.voice, "없어진 게 아니야.\n흩어진 거지.", 1f, TextboxManager.Talker.core));
             isMidCutsceneOn = true;
         }
         if (memoryCollected >= totalCollected)  //조각 전부 수집 시 "split_self" 태그 획득
