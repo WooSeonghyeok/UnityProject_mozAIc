@@ -15,6 +15,9 @@ public class NPCFollower : MonoBehaviour
     [SerializeField] private float resumeDistance = 3.5f;
     [SerializeField] private float stopDistance = 2f;
     [SerializeField] private float arriveThreshold = 0.2f;
+    [SerializeField] private float targetSampleRadius = 3f;
+    [SerializeField] private float repathInterval = 0.2f;
+    [SerializeField] private float repathTargetMoveThreshold = 0.5f;
 
     [Header("애니메이션")]
     [SerializeField] private Animator animator;
@@ -23,6 +26,9 @@ public class NPCFollower : MonoBehaviour
     private readonly int hashMove = Animator.StringToHash("IsMove");
 
     private bool canFollow = true;
+    private bool hasRequestedDestination;
+    private float nextRepathTime;
+    private Vector3 lastRequestedDestination;
 
     private Transform moveTarget;
     private System.Action onArrived;
@@ -33,6 +39,7 @@ public class NPCFollower : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         if (animator == null)
             animator = GetComponent<Animator>();
+
         TryResolvePlayerMovement();
     }
 
@@ -50,6 +57,7 @@ public class NPCFollower : MonoBehaviour
         if (playerMovement != null && playerMovement.IsMoveLocked)
         {
             agent.ResetPath();
+            ClearRequestedDestination();
             UpdateMoveAnimation(false);
             return;
         }
@@ -58,6 +66,7 @@ public class NPCFollower : MonoBehaviour
         if (ChatNPCManager.instance != null && ChatNPCManager.instance.isTalking)
         {
             agent.ResetPath();
+            ClearRequestedDestination();
             UpdateMoveAnimation(false);
             return;
         }
@@ -65,12 +74,13 @@ public class NPCFollower : MonoBehaviour
         if (moveTarget != null)
         {
             agent.stoppingDistance = stopDistance;
-            agent.SetDestination(moveTarget.position);
+            RequestDestination(moveTarget.position, forceRefresh: true);
 
             // 목적지 도착 판정
             if (!agent.pathPending && agent.remainingDistance <= stopDistance + arriveThreshold)
             {
                 agent.ResetPath();
+                ClearRequestedDestination();
                 UpdateMoveAnimation(false);
 
                 Transform arrivedTarget = moveTarget;
@@ -92,20 +102,23 @@ public class NPCFollower : MonoBehaviour
         if (!canFollow)
         {
             agent.ResetPath();
+            ClearRequestedDestination();
             UpdateMoveAnimation(false);
             return;
         }
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        float distance = GetFollowDistance(player.position);
+        bool isPathActive = agent.hasPath || agent.pathPending;
 
         if (distance > resumeDistance)
         {
             agent.stoppingDistance = stopDistance;
-            agent.SetDestination(player.position);
+            RequestDestination(player.position, forceRefresh: !isPathActive);
         }
-        else if (distance <= stopDistance)
+        else if (isPathActive && distance <= stopDistance + arriveThreshold)
         {
             agent.ResetPath();
+            ClearRequestedDestination();
         }
 
         // 실제 속도를 기준으로 이동 애니메이션 판정
@@ -121,6 +134,7 @@ public class NPCFollower : MonoBehaviour
         if (!canFollow && agent != null)
         {
             agent.ResetPath();
+            ClearRequestedDestination();
             UpdateMoveAnimation(false);
         }
     }
@@ -147,6 +161,7 @@ public class NPCFollower : MonoBehaviour
         if (agent != null)
         {
             agent.ResetPath();
+            ClearRequestedDestination();
             agent.Warp(position);
         }
         else
@@ -187,5 +202,105 @@ public class NPCFollower : MonoBehaviour
                 playerMovement = playerObject.GetComponent<PlayerMovement>();
             }
         }
+    }
+
+    private float GetFollowDistance(Vector3 targetPosition)
+    {
+        if (TryGetNavMeshPathDistance(targetPosition, out float pathDistance))
+            return pathDistance;
+
+        return Vector3.Distance(transform.position, targetPosition);
+    }
+
+    private bool TryGetNavMeshPathDistance(Vector3 targetPosition, out float pathDistance)
+    {
+        pathDistance = 0f;
+
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh)
+            return false;
+
+        NavMeshPath followPath = new NavMeshPath();
+
+        if (!TryGetSampledDestination(targetPosition, out Vector3 destination))
+            return false;
+
+        if (!agent.CalculatePath(destination, followPath))
+            return false;
+
+        if (followPath.status == NavMeshPathStatus.PathInvalid)
+            return false;
+
+        Vector3[] corners = followPath.corners;
+        if (corners == null || corners.Length == 0)
+            return false;
+
+        if (corners.Length == 1)
+        {
+            pathDistance = Vector3.Distance(transform.position, corners[0]);
+            return true;
+        }
+
+        for (int i = 1; i < corners.Length; i++)
+        {
+            pathDistance += Vector3.Distance(corners[i - 1], corners[i]);
+        }
+
+        return true;
+    }
+
+    private void RequestDestination(Vector3 targetPosition, bool forceRefresh = false)
+    {
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh)
+            return;
+
+        Vector3 destination = targetPosition;
+        TryGetSampledDestination(targetPosition, out destination);
+
+        if (!forceRefresh && !ShouldRefreshDestination(destination))
+            return;
+
+        if (!agent.SetDestination(destination))
+            return;
+
+        hasRequestedDestination = true;
+        lastRequestedDestination = destination;
+        nextRepathTime = Time.time + repathInterval;
+    }
+
+    private bool TryGetSampledDestination(Vector3 targetPosition, out Vector3 sampledDestination)
+    {
+        sampledDestination = targetPosition;
+
+        if (agent == null || !agent.enabled)
+            return false;
+
+        if (!NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, targetSampleRadius, agent.areaMask))
+            return false;
+
+        sampledDestination = hit.position;
+        return true;
+    }
+
+    private bool ShouldRefreshDestination(Vector3 destination)
+    {
+        if (!hasRequestedDestination)
+            return true;
+
+        if (!agent.hasPath || agent.pathPending)
+            return true;
+
+        if (agent.pathStatus != NavMeshPathStatus.PathComplete)
+            return true;
+
+        if (Time.time >= nextRepathTime)
+            return true;
+
+        return Vector3.Distance(lastRequestedDestination, destination) >= repathTargetMoveThreshold;
+    }
+
+    private void ClearRequestedDestination()
+    {
+        hasRequestedDestination = false;
+        nextRepathTime = 0f;
     }
 }
