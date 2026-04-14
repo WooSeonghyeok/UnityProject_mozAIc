@@ -1780,12 +1780,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: imageShowTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 769935707}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: cutsceneSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4006a9b49ae70f449b2906206e5ab4c3, type: 3}
     - target: {fileID: 6054876049045596215, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: m_Name
       value: CutscenePlayer_OpeningMid
@@ -6716,7 +6720,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: imageShowTime
-      value: 0.3
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
+      propertyPath: isEndCutscene
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: playerMovement
@@ -6729,19 +6737,19 @@ PrefabInstance:
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: cutsceneSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 984437915, guid: 4c448aafc055a764aaf855381af8b3c8, type: 3}
+      objectReference: {fileID: 21300000, guid: ce84a5098b5b3fe4fa2a060e78fb0077, type: 3}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: cutsceneSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 1780567227, guid: 4c448aafc055a764aaf855381af8b3c8, type: 3}
+      objectReference: {fileID: 21300000, guid: ce84a5098b5b3fe4fa2a060e78fb0077, type: 3}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: cutsceneSprites.Array.data[2]
       value: 
-      objectReference: {fileID: 1582827354, guid: 4c448aafc055a764aaf855381af8b3c8, type: 3}
+      objectReference: {fileID: 21300000, guid: ce84a5098b5b3fe4fa2a060e78fb0077, type: 3}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: cutsceneSprites.Array.data[3]
       value: 
-      objectReference: {fileID: -2091334042, guid: 4c448aafc055a764aaf855381af8b3c8, type: 3}
+      objectReference: {fileID: 21300000, guid: ce84a5098b5b3fe4fa2a060e78fb0077, type: 3}
     - target: {fileID: 6054876049045596215, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: m_Name
       value: CutscenePlayer_OpeningEnd

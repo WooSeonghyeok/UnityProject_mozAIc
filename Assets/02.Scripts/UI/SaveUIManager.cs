@@ -4,6 +4,7 @@ using UnityEngine;
 public class SaveUIManager : MonoBehaviour
 {
     public static SaveUIManager instance;
+    public GameObject interactUI;
     public GameObject savedAlarm;
     public GameObject SavePopup;
     public TMP_Text savedText;
@@ -17,7 +18,12 @@ public class SaveUIManager : MonoBehaviour
         }
         else Destroy(gameObject);
         savedWS = new WaitForSeconds(2f);
+        interactUI.SetActive(false);
         savedAlarm.SetActive(false);
+    }
+    public void InteractUIOpen(bool b)
+    {
+        interactUI.SetActive(b);
     }
     public void OpenSavePopup() => SavePopup.SetActive(true);
     public void CloseSavePopup() => SavePopup.SetActive(false);

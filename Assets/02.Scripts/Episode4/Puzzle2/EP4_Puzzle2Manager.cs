@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 public class EP4_Puzzle2Manager : MonoBehaviour
 {
     public GameObject obj1;
@@ -14,10 +15,10 @@ public class EP4_Puzzle2Manager : MonoBehaviour
     void Update()
     {
         if (isActivated) return;
-        if (obj1.activeSelf ^ obj2.activeSelf)
+        if (obj1.activeSelf ^ obj2.activeSelf)  // 🔥 둘 중 하나만 활성화됐는지 체크
         {
             if (isMidCutsceneOn) return;
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "그때의 나는… 무엇을 보고 있었지."));
+            StartCoroutine(cutscene.Ep4_Puzzle2_Mid());
             isMidCutsceneOn = true;
         }
         if (obj1.activeSelf && obj2.activeSelf)  // 🔥 전부 활성화됐는지 체크
