@@ -12472,6 +12472,7 @@ MonoBehaviour:
   - {fileID: 1429142850}
   - {fileID: 966247295}
   centerParticle: {fileID: 329420767}
+  notifyEP2Manager: 0
   holdSound: {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
 --- !u!1001 &639146073
 PrefabInstance:
@@ -30293,6 +30294,7 @@ MonoBehaviour:
   - {fileID: 7164375}
   - {fileID: 116414788}
   centerParticle: {fileID: 1599177532}
+  notifyEP2Manager: 0
   holdSound: {fileID: 8300000, guid: bdca39364a9304244939eabc7b853679, type: 3}
 --- !u!1001 &1288085965
 PrefabInstance:
@@ -33865,9 +33867,6 @@ MonoBehaviour:
   onAllPiecesCollected:
     m_PersistentCalls:
       m_Calls: []
-  hintCount: 0
-  hintIntensity: 0
-  aiInteractionCount: 0
   collectedTags: []
 --- !u!65 &1399777281
 BoxCollider:

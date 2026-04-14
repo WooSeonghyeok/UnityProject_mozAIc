@@ -8,12 +8,11 @@ public class PieceCollect_EP4 : MonoBehaviour
     [SerializeField] private float destroyDelay = 0.1f;
     [Header("수집 연출")]
     [SerializeField] private bool useCollectFlyEffect = true;
-    [SerializeField] private GameObject visualRoot;   // 실제 보이는 자식 오브젝트
+    [SerializeField] private GameObject visualRoot;
     [SerializeField] private float flyDuration = 0.8f;
     private bool _collected = false;
     private void Reset()
     {
-        // 루트 콜라이더는 기본적으로 Trigger로 사용
         Collider col = GetComponent<Collider>();
         if (col != null) col.isTrigger = true;
     }
@@ -26,35 +25,18 @@ public class PieceCollect_EP4 : MonoBehaviour
     private void Collect()
     {
         _collected = true;
-        Vector3 effectSpawnPos = GetVisualWorldPosition();  // 기준 위치는 visualRoot가 있으면 그 위치, 없으면 루트 위치 사용
-        // 1. 연출용 복제본 생성
-        if (useCollectFlyEffect)
-        {
-            CreateCollectVisual();
-        }
-        // 2. 파티클 이펙트 재생
+        Vector3 effectSpawnPos = GetVisualWorldPosition();
+        if (useCollectFlyEffect) CreateCollectVisual();
         if (collectEffect != null)
         {
             ParticleSystem ps = Instantiate(collectEffect, effectSpawnPos, Quaternion.identity);
             ps.Play();
             Destroy(ps.gameObject, ps.main.duration + 0.5f);
         }
-        // 3. 사운드 재생
-        if (collectSound != null)
-        {
-            AudioSource.PlayClipAtPoint(collectSound, effectSpawnPos);
-        }
-        // 4. 매니저에 수집 보고
+        if (collectSound != null) AudioSource.PlayClipAtPoint(collectSound, effectSpawnPos);
         Ep4_Puzzle3Manager manager = FindObjectOfType<Ep4_Puzzle3Manager>();
-        if (manager != null)
-        {
-            manager.AddPiece();
-        }
-        else
-        {
-            Debug.LogWarning("[PieceCollect] Ep3_1Manager를 찾을 수 없습니다. AddPiece 호출 실패.");
-        }
-        // 5. 원본 숨기고 삭제
+        if (manager != null) manager.AddPiece();
+        else Debug.LogWarning("[PieceCollect] Ep4_3Manager를 찾을 수 없습니다. AddPiece 호출 실패.");
         HideAndDestroy();
     }
     private Vector3 GetVisualWorldPosition()
@@ -75,10 +57,7 @@ public class PieceCollect_EP4 : MonoBehaviour
             c.enabled = false;
         }
         PieceCollect pc = clone.GetComponent<PieceCollect>();  // 혹시 수집 스크립트가 따라왔으면 제거
-        if (pc != null)
-        {
-            Destroy(pc);
-        }
+        if (pc != null) Destroy(pc);
         CollectFlyEffect fly = clone.AddComponent<CollectFlyEffect>();  // 연출 스크립트 추가
         fly.Initialize(flyDuration);
     }

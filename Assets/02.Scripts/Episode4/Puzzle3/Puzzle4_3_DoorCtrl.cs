@@ -7,10 +7,7 @@ public class Puzzle4_3_DoorCtrl : MonoBehaviour
     private void Awake()
     {
         var ep = FindObjectOfType<Ep4_Puzzle3Manager>();
-        if (ep != null)
-        {
-            ep.onAllPiecesCollected.AddListener(OnAllPiecesCollected);
-        }
+        if (ep != null) ep.onAllPiecesCollected.AddListener(OnAllPiecesCollected);
         gameObject.SetActive(true);
     }
     public void OnAllPiecesCollected()

@@ -15,9 +15,6 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
     public UnityEvent onAllPiecesCollected;
-    [Header("태그")]
-    [SerializeField] private List<string> collectedTags = new List<string>();
-    private bool isCleared = false;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
     private void OnTriggerEnter(Collider other)
     {
@@ -58,26 +55,5 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
                 Debug.LogWarning($"[Ep4_3Manager] onAllPiecesCollected 호출 중 예외: {ex.Message}");
             }
         }
-    }
-    public void AddTag(string tag)
-    {
-        if (!collectedTags.Contains(tag))
-        {
-            collectedTags.Add(tag);
-        }
-    }
-    public void CompleteStage()
-    {
-        if (isCleared) return;
-        isCleared = true;
-    }
-    [ContextMenu("디버그 - 상태 초기화")]
-    public void ResetState()
-    {
-        collectedPieceCount = 0;
-        collectedTags.Clear();
-        isCleared = false;
-        _allPiecesEventRaised = false;
-        Debug.Log("[Ep3_1Manager] 상태 초기화");
     }
 }
