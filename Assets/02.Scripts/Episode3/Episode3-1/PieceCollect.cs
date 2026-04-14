@@ -58,7 +58,13 @@ public class PieceCollect : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[PieceCollect] Ep3_1Manager를 찾을 수 없습니다. AddPiece 호출 실패.");
+            Debug.LogWarning("[PieceCollect] Ep3_1Manager를 찾을 수 없습니다.");
+            var mgr4 = FindObjectOfType<Ep4_Puzzle3Manager>();
+            if (mgr4 != null) mgr4.AddPiece();
+            else
+            {
+                Debug.LogWarning("[PieceCollect] Ep4_Puzzle3Manager를 찾을 수 없습니다.");
+            }
         }
         // 5. 원본 숨기고 삭제
         HideAndDestroy();

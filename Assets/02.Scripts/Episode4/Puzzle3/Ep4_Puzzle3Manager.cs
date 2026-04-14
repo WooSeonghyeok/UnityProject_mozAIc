@@ -14,7 +14,7 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     private bool isMidCutsceneOn;
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
-    public UnityEvent onAllPiecesCollected;
+    public UnityEvent onAllCollected;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
     private void OnTriggerEnter(Collider other)
     {
@@ -48,7 +48,7 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
             if (SaveManager.instance != null) SaveManager.instance.curData.ep4_puzzle3Clear = true;
             try
             {
-                onAllPiecesCollected?.Invoke();
+                onAllCollected?.Invoke();
             }
             catch (System.Exception ex)
             {
