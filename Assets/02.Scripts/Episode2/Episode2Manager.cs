@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Data.SqlTypes;
 
 public class Episode2Manager : MonoBehaviour
 {
@@ -17,45 +16,85 @@ public class Episode2Manager : MonoBehaviour
 
     void Start()
     {
-        ApplyImmediateState(); // 🔥 먼저 바로 적용
-        StartCoroutine(ApplyDelayedState()); // 🔥 나중 연출
+        ApplyImmediateState();
+        StartCoroutine(ApplyDelayedState());
     }
-    void ApplyImmediateState()  // 🔥 이미 존재하는 가구 → 즉시 표시
+
+    void ApplyImmediateState()
     {
-        if (EP2_PuzzleManager.Instance.spaceClear && EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
+        if (EP2_PuzzleManager.Instance != null)
         {
-            ActivateFurniture(spaceFurniture, false);
-        }
-        if (EP2_PuzzleManager.Instance.paintClear && EP2_PuzzleManager.Instance.paintFurnitureSpawned)
-        {
-            ActivateFurniture(paintFurniture, false);
+            if (EP2_PuzzleManager.Instance.spaceClear &&
+                EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
+            {
+                ActivateFurniture(spaceFurniture, false);
+            }
+
+            if (EP2_PuzzleManager.Instance.paintClear &&
+                EP2_PuzzleManager.Instance.paintFurnitureSpawned)
+            {
+                ActivateFurniture(paintFurniture, false);
+            }
         }
     }
-    IEnumerator ApplyDelayedState()  // 🔥 새로 등장하는 가구 → delay + 연출
+
+    IEnumerator ApplyDelayedState()
     {
         yield return new WaitForSeconds(delay);
+
+        // ⭐ Instance 안전 처리
+        bool spaceClear = false;
+        bool paintClear = false;
+        bool spaceSpawned = false;
+        bool paintSpawned = false;
+
+        if (EP2_PuzzleManager.Instance != null)
+        {
+            spaceClear = EP2_PuzzleManager.Instance.spaceClear;
+            paintClear = EP2_PuzzleManager.Instance.paintClear;
+            spaceSpawned = EP2_PuzzleManager.Instance.spaceFurnitureSpawned;
+            paintSpawned = EP2_PuzzleManager.Instance.paintFurnitureSpawned;
+        }
+        else
+        {
+            // ⭐ fallback (혹시 Instance 없을 때 대비)
+            spaceClear = PlayerPrefs.GetInt("Space_Cleared", 0) == 1;
+            paintClear = PlayerPrefs.GetInt("Paint_Cleared", 0) == 1;
+        }
+
         // Space
-        if (EP2_PuzzleManager.Instance.spaceClear && !EP2_PuzzleManager.Instance.spaceFurnitureSpawned)
+        if (spaceClear && !spaceSpawned)
         {
             ActivateFurniture(spaceFurniture, true);
-            EP2_PuzzleManager.Instance.spaceFurnitureSpawned = true;
+
+            if (EP2_PuzzleManager.Instance != null)
+                EP2_PuzzleManager.Instance.spaceFurnitureSpawned = true;
         }
+
         // Paint
-        if (EP2_PuzzleManager.Instance.paintClear && !EP2_PuzzleManager.Instance.paintFurnitureSpawned)
+        if (paintClear && !paintSpawned)
         {
             ActivateFurniture(paintFurniture, true);
-            EP2_PuzzleManager.Instance.paintFurnitureSpawned = true;
+
+            if (EP2_PuzzleManager.Instance != null)
+                EP2_PuzzleManager.Instance.paintFurnitureSpawned = true;
         }
-        // 둘 다 클리어
-        if (EP2_PuzzleManager.Instance.AllClear())
+
+        // ⭐ 둘 다 클리어 (AllClear 대체)
+        if (spaceClear && paintClear)
         {
             if (finalObject != null)
             {
                 finalObject.SetActive(true);
             }
-            SaveManager.instance.curData.ep3_open = EP2_PuzzleManager.Instance.AllClear();
+
+            if (SaveManager.instance != null)
+            {
+                SaveManager.instance.curData.ep3_open = true;
+            }
         }
     }
+
     void ActivateFurniture(GameObject[] furnitureList, bool playEffect)
     {
         foreach (var obj in furnitureList)

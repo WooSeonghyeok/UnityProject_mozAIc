@@ -34,8 +34,9 @@ public class SpacePuzzleController : MonoBehaviour
     {
         Debug.Log("3개 완료 → 포탈 및 오브젝트 활성화");
 
-        // ⭐ 클리어 상태 저장 (추가🔥)
+        // ⭐ 클리어 상태 저장
         PlayerPrefs.SetInt("Space_Cleared", 1);
+        PlayerPrefs.Save(); // 🔥 필수
 
         if (SaveManager.instance != null)
             SaveManager.instance.curData.ep2_spaceClear = true;
@@ -53,7 +54,7 @@ public class SpacePuzzleController : MonoBehaviour
         }
 
         // ⭐ 컷씬
-        EP2CutsceneManager.Instance.Play("Space_Clear_Immediate");
+        EP2CutsceneManager.Instance?.Play("Space_Clear_Immediate");
 
         // ⭐ 타이머 정지
         scoreController?.StopTimer();
@@ -61,7 +62,7 @@ public class SpacePuzzleController : MonoBehaviour
         // ⭐ 점수
         Episode2ScoreManager.Instance?.AddClearScore(5);
 
-        // ⭐ 상태 처리
+        // ⭐ 퍼즐 상태
         EP2_PuzzleManager.Instance?.SolveSpacePuzzle();
     }
 }

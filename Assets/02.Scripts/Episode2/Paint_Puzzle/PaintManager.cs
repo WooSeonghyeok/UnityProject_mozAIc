@@ -32,16 +32,18 @@ public class PaintManager : MonoBehaviour
     {
         isActivated = true;
 
-        // ⭐ 클리어 상태 저장 (추가🔥)
+        // ⭐ 클리어 상태 저장
         PlayerPrefs.SetInt("Paint_Cleared", 1);
+        PlayerPrefs.Save(); // 🔥 필수
 
+        // ⭐ 점수
         Episode2ScoreManager.Instance?.AddClearScore(5);
 
         // ⭐ 컷씬
-        EP2CutsceneManager.Instance.Play("Paint_Clear_Immediate");
+        EP2CutsceneManager.Instance?.Play("Paint_Clear_Immediate");
 
         // ⭐ 퍼즐 매니저
-        EP2_PuzzleManager.Instance.SolvePaintPuzzle();
+        EP2_PuzzleManager.Instance?.SolvePaintPuzzle();
 
         if (activateObject != null)
         {
