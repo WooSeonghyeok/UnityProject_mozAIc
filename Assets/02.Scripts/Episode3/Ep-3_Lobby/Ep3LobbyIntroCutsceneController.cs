@@ -44,6 +44,12 @@ public class Ep3LobbyIntroShotData
     }
 }
 
+public enum Ep3IntroCutsceneSaveKey
+{
+    EP3Lobby = 0,
+    EP3Stage3_1 = 1
+}
+
 /// <summary>
 /// Plays the Episode 3 lobby intro once, using a Cinemachine Smooth Path and Tracked Dolly.
 /// </summary>
@@ -58,6 +64,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private const float DefaultLookDistance = 8f;
 
     [SerializeField] private string inspectorSequenceId = "EP3_LOBBY_INTRO";
+    [SerializeField] private Ep3IntroCutsceneSaveKey playOnceSaveKey = Ep3IntroCutsceneSaveKey.EP3Lobby;
     [SerializeField] private List<Ep3LobbyIntroShotData> inspectorShots = new List<Ep3LobbyIntroShotData>();
     [SerializeField] private string cutsceneResourcePath = DefaultResourcePath;
     [SerializeField] private string cutsceneAssetResourcePath = DefaultSequenceAssetPath;
@@ -160,7 +167,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private bool ShouldPlayCutscene()
     {
         SaveDataObj data = SaveManager.instance != null ? SaveManager.instance.curData : SaveManager.ReadCurJSON();
-        return data != null && !data.isFirstEnterAtEP3Lobby;
+        return data != null && !HasPlayedCutscene(data);
     }
 
     private void CachePlayerComponents()
@@ -561,12 +568,50 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
-        data.isFirstEnterAtEP3Lobby = true;
+        SetPlayedCutscene(data, true);
 
         if (SaveManager.instance != null)
         {
             SaveManager.instance.curData = data;
             SaveManager.instance.WriteCurJSON();
+        }
+    }
+
+    private bool HasPlayedCutscene(SaveDataObj data)
+    {
+        if (data == null)
+        {
+            return true;
+        }
+
+        switch (playOnceSaveKey)
+        {
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1:
+                return data.isFirstEnterAtEP3_1;
+
+            case Ep3IntroCutsceneSaveKey.EP3Lobby:
+            default:
+                return data.isFirstEnterAtEP3Lobby;
+        }
+    }
+
+    private void SetPlayedCutscene(SaveDataObj data, bool played)
+    {
+        if (data == null)
+        {
+            return;
+        }
+
+        switch (playOnceSaveKey)
+        {
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1:
+                data.isFirstEnterAtEP3_1 = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3Lobby:
+            default:
+                data.isFirstEnterAtEP3Lobby = played;
+                break;
         }
     }
 
@@ -612,6 +657,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private Ep3LobbyIntroSequenceData CreatePreferredFallbackSequence()
     {
+        if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1)
+        {
+            return CreateStage3_1FallbackSequence();
+        }
+
         return new Ep3LobbyIntroSequenceData
         {
             sequenceId = "EP3_LOBBY_INTRO",
@@ -688,6 +738,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private Ep3LobbyIntroSequenceData CreateFallbackSequence()
     {
+        if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1)
+        {
+            return CreateStage3_1FallbackSequence();
+        }
+
         return new Ep3LobbyIntroSequenceData
         {
             sequenceId = "EP3_LOBBY_INTRO",
@@ -757,6 +812,82 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     moveDuration = 2.4f,
                     holdDuration = 2.0f,
                     fieldOfView = 43f
+                }
+            }
+        };
+    }
+
+    private static Ep3LobbyIntroSequenceData CreateStage3_1FallbackSequence()
+    {
+        return new Ep3LobbyIntroSequenceData
+        {
+            sequenceId = "EP3_STAGE3_1_INTRO",
+            shots = new List<Ep3LobbyIntroShotData>
+            {
+                new Ep3LobbyIntroShotData
+                {
+                    dialogueId = "EP3_001",
+                    speakerType = "Narration",
+                    speakerName = string.Empty,
+                    subtitleText = "희미한 선율의 흔적이 긴 홀 너머로 이어지고 있었다.",
+                    showSpeakerName = false,
+                    cameraPosition = new Vector3(6.2f, -0.9f, 17.5f),
+                    lookAtPosition = new Vector3(5.4f, -2.7f, 10.2f),
+                    moveDuration = 1.8f,
+                    holdDuration = 1.5f,
+                    fieldOfView = 54f
+                },
+                new Ep3LobbyIntroShotData
+                {
+                    dialogueId = "EP3_002",
+                    speakerType = "Narration",
+                    speakerName = string.Empty,
+                    subtitleText = "흩어진 악보 조각들이, 잊힌 기억의 파편처럼 곳곳에 남아 있었다.",
+                    showSpeakerName = false,
+                    cameraPosition = new Vector3(1.4f, 4.1f, 7.6f),
+                    lookAtPosition = new Vector3(-1.8f, 2.2f, 4.9f),
+                    moveDuration = 2.1f,
+                    holdDuration = 1.6f,
+                    fieldOfView = 49f
+                },
+                new Ep3LobbyIntroShotData
+                {
+                    dialogueId = "EP3_003",
+                    speakerType = "Narration",
+                    speakerName = string.Empty,
+                    subtitleText = "닫힌 문과 끊긴 멜로디는, 아직 풀리지 않은 이야기가 남아 있음을 말해 주는 듯했다.",
+                    showSpeakerName = false,
+                    cameraPosition = new Vector3(1.9f, 3.8f, 2.4f),
+                    lookAtPosition = new Vector3(-1.35f, 2.25f, -0.1f),
+                    moveDuration = 2.2f,
+                    holdDuration = 1.7f,
+                    fieldOfView = 46f
+                },
+                new Ep3LobbyIntroShotData
+                {
+                    dialogueId = "EP3_004",
+                    speakerType = "Narration",
+                    speakerName = string.Empty,
+                    subtitleText = "그리고 홀의 끝에서, 레온은 말없이 이곳의 기억을 지키고 있었다.",
+                    showSpeakerName = false,
+                    cameraPosition = new Vector3(7.3f, 2.3f, -2.4f),
+                    lookAtPosition = new Vector3(5.26f, 1.1f, -7.96f),
+                    moveDuration = 2f,
+                    holdDuration = 1.7f,
+                    fieldOfView = 44f
+                },
+                new Ep3LobbyIntroShotData
+                {
+                    dialogueId = "EP3_005",
+                    speakerType = "Monologue",
+                    speakerName = string.Empty,
+                    subtitleText = "조각을 모아 이 흐름을 따라가면, 잃어버린 선율에 조금 더 가까워질 수 있을 것 같다.",
+                    showSpeakerName = false,
+                    cameraPosition = new Vector3(4.2f, 1.6f, -1.1f),
+                    lookAtPosition = new Vector3(5.26f, 1.1f, -7.96f),
+                    moveDuration = 2.3f,
+                    holdDuration = 2f,
+                    fieldOfView = 42f
                 }
             }
         };
