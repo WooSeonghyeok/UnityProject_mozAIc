@@ -9,7 +9,6 @@ public class StageSelect : MonoBehaviour
     public SaveDataObj curData;
     public VerticalLayoutGroup stageList;  //스테이지 리스트
     public StageSelectButton[] stageButtons;  //스테이지 리스트에 출력되는 스테이지
-    private bool isStageListEnable;
     public int stageSelect = 0;  //현재 선택한 스테이지 번호
     public event Action<int> TouchStageButtonEvent;  //스테이지 선택 이벤트
     public LayoutGroup checkpointList;  //체크포인트 리스트 구역

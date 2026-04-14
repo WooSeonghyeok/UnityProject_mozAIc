@@ -49,6 +49,15 @@ public static class PromptBuilder
         {
             sb.AppendLine($"기본 말투: {profile.defaultTone}");
 
+            // speechStyle 직접 반영
+            if (profile.speechStyle != null && profile.speechStyle.Count > 0)
+            {
+                sb.AppendLine("말하는 방식:");
+                foreach (var style in profile.speechStyle)
+                {
+                    sb.AppendLine($"- {style}");
+                }
+            }
             if (profile.allowedTopics != null && profile.allowedTopics.Count > 0)
             {
                 sb.AppendLine($"자주 이야기 가능한 주제: {string.Join(", ", profile.allowedTopics)}");
@@ -59,12 +68,12 @@ public static class PromptBuilder
                 sb.AppendLine($"직접적으로 말하지 말아야 할 주제: {string.Join(", ", profile.bannedTopics)}");
             }
         }
-
+        // 성격 빌드
         if (build != null)
         {
             sb.AppendLine($"현재 성격 규칙: {build.combinedPrompt}");
         }
-
+        // 씬 컨텍스트
         if (scene != null)
         {
             sb.AppendLine($"현재 장소: {scene.sceneName}");
@@ -136,7 +145,28 @@ public static class PromptBuilder
         sb.AppendLine("현재 기억 단계보다 앞선 정보는 절대 먼저 말하지 않는다.");
         sb.AppendLine("플레이어가 직접 이름, 관계, 과거를 물어봐도 기억이 완전히 복원되기 전에는 확정적으로 답하지 않는다.");
         sb.AppendLine("초기 단계에서는 '이상하게 익숙하다', '어딘가 반갑다', '잘 기억나지 않는다' 같은 식으로만 반응한다.");
+        sb.AppendLine("설명보다 반응을 먼저 말한다.");
+        sb.AppendLine("같은 표현을 반복하지 않는다.");
+        sb.AppendLine("매 답변은 말투가 자연스럽게 조금씩 달라야 한다.");
+        sb.AppendLine("완전한 문장만 고집하지 않는다.");
+        sb.AppendLine("필요하면 망설이거나 말을 끊어도 된다.");
+        sb.AppendLine("감정, 장면, 비유를 섞어 말한다.");
+        sb.AppendLine("질문을 받으면 정답형 설명보다 캐릭터다운 반응을 우선한다.");
 
+        // NPC 말투 예시
+        sb.AppendLine("[말투 예시]");
+
+        if (profile != null && profile.npcId == "npc_ep1_luna")
+        {
+            sb.AppendLine("플레이어: 넌 누구야?");
+            sb.AppendLine("NPC: 잘 모르겠어... 그런데 이상하게, 네가 낯설지 않아.");
+
+            sb.AppendLine("플레이어: 힌트 좀 줘");
+            sb.AppendLine("NPC: 바로 말해주면 재미없잖아. 대신, 처음 별을 찾았던 곳을 떠올려봐.");
+
+            sb.AppendLine("플레이어: 왜 나를 아는 것 같아?");
+            sb.AppendLine("NPC: 나도 그게 이상해. 처음 보는 건데… 오래 알고 있던 느낌이야.");
+        }
         return sb.ToString();
     }
 

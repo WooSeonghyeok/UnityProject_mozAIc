@@ -87,7 +87,7 @@ public class ServerChat : MonoBehaviour
             new ChatMessage
             {
                 Role = "user",
-                Content = msg
+                Content = finalMsg
             }
         );
 
