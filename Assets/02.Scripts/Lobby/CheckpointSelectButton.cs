@@ -16,8 +16,7 @@ public class CheckpointSelectButton : MonoBehaviour
 private void OnEnable()
     {
         UpdateLockState();
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchCPButtonEvent += OnCPTouch;
+        if (StageSelect.instance != null) StageSelect.instance.TouchCPButtonEvent += OnCPTouch;
         StartCoroutine(ButtonDelay());
     }
     private IEnumerator ButtonDelay()
@@ -27,8 +26,7 @@ private void OnEnable()
     }
     private void OnDisable()
     {
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchCPButtonEvent -= OnCPTouch;
+        if (StageSelect.instance != null) StageSelect.instance.TouchCPButtonEvent -= OnCPTouch;
     }
     private void UpdateLockState()
     {
@@ -38,25 +36,13 @@ private void OnEnable()
     }
     private void OnCPTouch(int cpSelect)
     {
-        if (isLock)
-        {
-            OnTouchCPButton(false);
-        }
-        else
-        {
-            OnTouchCPButton(cpSelect == cpNum);
-        }
+        if (isLock) OnTouchCPButton(false);
+        else OnTouchCPButton(cpSelect == cpNum);
     }
     public void OnClick()
     {
-        if (StageSelect.instance != null)
-        {
-            StageSelect.instance.SelectCP(StageNumber, cpNum);
-        }
-        else
-        {
-            OnTouchCPButton(true);
-        }
+        if (StageSelect.instance != null)  StageSelect.instance.SelectCP(StageNumber, cpNum);
+        else OnTouchCPButton(true);
     }
     public void OnTouchCPButton(bool b)
     {
@@ -90,12 +76,10 @@ private void OnEnable()
     }
     private void SelectImgCheck()
     {
-        if (selectImage != null)
-            selectImage.enabled = isSelect;
+        if (selectImage != null) selectImage.enabled = isSelect;
     }
     private void LockImgCheck()
     {
-        if (lockImage != null)
-            lockImage.enabled = isLock;
+        if (lockImage != null) lockImage.enabled = isLock;
     }
 }

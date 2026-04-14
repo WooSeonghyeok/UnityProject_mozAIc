@@ -21,16 +21,13 @@ public class SaveUIManager : MonoBehaviour
         interactUI.SetActive(false);
         savedAlarm.SetActive(false);
     }
-    public void InteractUIOpen(bool b)
-    {
-        interactUI.SetActive(b);
-    }
+    public void InteractUIOpen(bool b) => interactUI.SetActive(b);
     public void OpenSavePopup() => SavePopup.SetActive(true);
     public void CloseSavePopup() => SavePopup.SetActive(false);
-    public IEnumerator SaveAlarm()
+    public IEnumerator SaveAlarm(int slotNumber)
     {
         curData = SaveManager.instance.curData;
-        savedText.text = $"Slot {curData.ID} Saved";
+        savedText.text = $"Slot {slotNumber} Saved";
         savedAlarm.SetActive(true);
         yield return savedWS;
         savedAlarm.SetActive(false);

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7482768145968172590}
   - component: {fileID: 3945515564623050582}
   - component: {fileID: 2586251133578685922}
-  - component: {fileID: 9196787360117332888}
+  - component: {fileID: -3675466516885763153}
   - component: {fileID: -5774410296494209771}
   m_Layer: 0
   m_Name: Piece_3_Ep4
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4142557583457266085}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.849, y: 5.0187945, z: 3.9296021}
+  m_LocalPosition: {x: 0.849, y: 5.0187945, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -108,7 +108,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &3945515564623050582
 AudioSource:
@@ -220,12 +220,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTr: {fileID: 0}
   clip: {fileID: 8300000, guid: ba11da60fb68a744ea7c198cdd0e0335, type: 3}
-  maxDistance: 20
+  maxDistance: 10
   minDistance: 1
   maxVolume: 1
   minVolume: 0
   volChangeSpeed: 1.5
---- !u!114 &9196787360117332888
+--- !u!114 &-3675466516885763153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4142557583457266085}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3495042fb961b8142905f69319e91708, type: 3}
+  m_Script: {fileID: 11500000, guid: 6252c461eff072a4aa226906d71bba4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collectEffect: {fileID: 0}
@@ -255,8 +255,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843d7875c1e149749a2b1ad1a3c90e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneName: 1
+  useSceneName: 0
   sceneNameValue: 
+  lockRequirement: 0
+  lockedMessage: 
+  lockedMessageDuration: 0
+  lockedPopupResourcePath: 
+  interactUI: {fileID: 0}
   onInteract:
     m_PersistentCalls:
       m_Calls: []

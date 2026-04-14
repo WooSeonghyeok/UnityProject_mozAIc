@@ -55,7 +55,7 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
         SaveUIManager.instance.CloseSavePopup();
-        StartCoroutine(SaveUIManager.instance.SaveAlarm());
+        StartCoroutine(SaveUIManager.instance.SaveAlarm(slotNumber));
     }
     public SaveDataObj LoadSaveData(int slotNumber)
     {
@@ -87,6 +87,13 @@ public class SaveManager : MonoBehaviour
         newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
         return newData;
     }
+    public void ResetCurData()
+    {
+        string path = Path.Combine(Application.persistentDataPath, $"CurData.json");
+        SaveDataObj defaultSave = new SaveDataObj();
+        CreateCurData(path, defaultSave);
+        curData = defaultSave;
+    }
     public static void CreateCurData(string path, SaveDataObj dataObj)
     {
         dataObj.ID = 0;
@@ -104,7 +111,7 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 40;
+        dataObj.memory_reconstruction_rate = 30;
         dataObj.CoreTag = CreateDefaultMemoryTags();
         dataObj.npcInformations = new List<NPCInfo>();
         string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician", "npc_ep4_core" };
@@ -215,8 +222,5 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);
     }
-    public void WriteCurJSON()
-    {
-        WriteCurJSON(curData);  //현재 데이터 파일을 갱신
-    }
+    public void WriteCurJSON() =>  WriteCurJSON(curData);  //현재 데이터 파일을 갱신
 }
