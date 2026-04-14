@@ -1206,6 +1206,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 909746069}
     - target: {fileID: 3869711285224452692, guid: e51fcb0efd8f61b4bbdc6fe3aa9e0f3b, type: 3}
+      propertyPath: user
+      value: 
+      objectReference: {fileID: 1993392855}
+    - target: {fileID: 3869711285224452692, guid: e51fcb0efd8f61b4bbdc6fe3aa9e0f3b, type: 3}
       propertyPath: playerTr
       value: 
       objectReference: {fileID: 909746069}
@@ -1395,18 +1399,6 @@ PrefabInstance:
       propertyPath: currentNpcData
       value: 
       objectReference: {fileID: 1706671242}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[0].word
-      value: "\uC30D\uB465\uC774\uC790\uB9AC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[0].memoryRate
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: chatPanel
       value: 
@@ -1509,6 +1501,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fa47f84e9dc98649afb1a889497e65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1993392855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3875565683174984039, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
+  m_PrefabInstance: {fileID: 909746067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfddbf0abb15d3b41a5c0772c782c562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2031271098

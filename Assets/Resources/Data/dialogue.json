@@ -24,7 +24,7 @@
     {
         "dialogueId": "ep1_intro_01",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "intro",
         "text": "어라... 너는!?",
@@ -35,7 +35,7 @@
     {
         "dialogueId": "ep1_intro_02",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "intro",
         "text": "왜 이렇게 반갑지?",
@@ -46,7 +46,7 @@
     {
         "dialogueId": "ep1_intro_03",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "intro",
         "text": "처음 보는 것 같은데... 이상하게 낯설지가 않아.",
@@ -57,7 +57,7 @@
     {
         "dialogueId": "ep1_intro_04",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "intro",
         "text": "이상하다... 너를 보니까 뭔가 떠오를 것 같아.",
@@ -68,7 +68,7 @@
     {
         "dialogueId": "ep1_hint_after_first_star_01",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "first_star_hint",
         "text": "하나 찾았네! 나머지 별들은 다리 건너편에서 찾아보자.",
@@ -79,7 +79,7 @@
     {
         "dialogueId": "ep1_all_star_hint_01",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "all_star_collected_hint",
         "text": "저기에 뭔가 변화가 생긴 것 같아! 나를 따라와.",
@@ -90,10 +90,21 @@
     {
         "dialogueId": "ep1_cave_intro_01",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_ice_cave",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "cave_after_talk",
-        "text": "이제부턴 혼자 가야 해... 부디 내 기억을 찾아줘.",
+        "text": "여긴... 윽... 기억이 날 것만 같아",
+        "emotionTag": "sad_guiding",
+        "conditionGroupId": "cave_entered",
+        "eventGroupId": "cave_talk"
+    },
+    {
+        "dialogueId": "ep1_cave_intro_02",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_ice_cave",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "cave_after_talk",
+        "text": "이 동굴... 와 본 적이 있는 곳 같아...",
         "emotionTag": "sad_guiding",
         "conditionGroupId": "cave_entered",
         "eventGroupId": "cave_talk"
@@ -101,10 +112,21 @@
     {
         "dialogueId": "ep1_clear_01",
         "episodeId": "ep_01",
-        "sceneId": "ep_01_field_cave_hill",
+        "sceneId": "ep_01_puzzle_clear",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "clear",
-        "text": "내 이름은 루나였고.. 너는 나랑 같이 별을 세던 아이였어.",
+        "text": "전부 기억난 것 같아!",
+        "emotionTag": "memory_restored",
+        "conditionGroupId": "episode_clear",
+        "eventGroupId": "memory_recovered"
+    },
+    {
+        "dialogueId": "ep1_clear_02",
+        "episodeId": "ep_01",
+        "sceneId": "ep_01_puzzle_clear",
+        "speakerId": "npc_ep1_luna",
+        "dialogueType": "clear",
+        "text": "내 이름은... 맞아!",
         "emotionTag": "memory_restored",
         "conditionGroupId": "episode_clear",
         "eventGroupId": "memory_recovered"

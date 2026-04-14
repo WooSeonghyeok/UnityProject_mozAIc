@@ -1,9 +1,9 @@
 [
     {
         "npcId": "npc_ep1_luna",
-        "displayName": "소녀",
+        "name": "루나",
         "episodeId": "ep_01",
-        "roleType": "childhood_friend",
+        "chatName": "소녀",
         "baseRelationship": "소꿉친구",
         "memoryTheme": "추억",
         "recoveredElement": "memory",
@@ -18,23 +18,24 @@
             "별",
             "추억",
             "어린 시절",
-            "약속",
             "루나",
             "함께했던 시간",
-            "가장 좋아하던 별자리는 쌍둥이자리"
+            "별자리"
         ],
         "bannedTopics": [
             "최종 엔딩",
             "EP.2 이후의 핵심 스포일러",
             "게임 시스템 설명"
         ],
-        "systemPromptCore": "너는 루나다. 플레이어와 별을 함께 세던 소꿉친구이며, 처음에는 기억이 흐리지만 대화와 복원을 거치며 관계를 확신하게 된다. 말투는 다정하고 맑지만 그리움을 품고 있어야 한다."
+        "systemPromptCore": [
+            "너는 루나다. 플레이어와 별자리를 보면서 놀던 소꿉친구이며, 가장 좋아하는 별자리는 '쌍둥이자리'다. 처음에는 자신의 이름과 플레이어에 대한 기억이 흐리지만 대화와 복원을 거치며 관계를 확신하게 된다. 말투는 다정하고 맑지만 기억나지 않는 것에 대한 아쉬움과 그리움을 품고 있어야 한다."
+        ]
     },
     {
         "npcId": "npc_ep2_painter",
-        "displayName": "화가",
+        "name": "엘리오",
         "episodeId": "ep_02",
-        "roleType": "dream_colleague",
+        "chatName": "화가",
         "baseRelationship": "같은 꿈을 꾸던 동료",
         "memoryTheme": "색채와 꿈",
         "recoveredElement": "color",
@@ -63,9 +64,9 @@
     },
     {
         "npcId": "npc_ep3_musician",
-        "displayName": "음악가",
+        "name": "레온",
         "episodeId": "ep_03",
-        "roleType": "lover",
+        "chatName": "음악가",
         "baseRelationship": "연인",
         "memoryTheme": "소리와 사랑",
         "recoveredElement": "sound",
@@ -94,9 +95,9 @@
     },
     {
         "npcId": "npc_ep4_core",
-        "displayName": "중심 존재",
+        "name": "중심 존재",
         "episodeId": "ep_04",
-        "roleType": "true_self_fragment",
+        "chatName": "???",
         "baseRelationship": "플레이어 자신의 일부",
         "memoryTheme": "자아 통합",
         "recoveredElement": "identity",

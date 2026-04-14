@@ -72,7 +72,7 @@ public class ChatNPCManager : MonoBehaviour
 
         // 디버깅용 로그
         Debug.Log($"[ChatNPCManager] 생성된 Prompt:\n{prompt}");
-
+        Debug.Log($"[ChatNPCManager] 현재 npcData.sceneId = {npcData.sceneId}");
         // 프로필 정보 가져오기
         var profile = db.GetNpcProfile(npcData.npcId);
 
@@ -82,8 +82,8 @@ public class ChatNPCManager : MonoBehaviour
             return;
         }
 
-        // 채팅 표시 이름을 JSON displayName으로 설정
-        serverChat.SetNpcSpeaker(profile.displayName);
+        // 채팅 표시 이름을 JSON chatName으로 설정
+        serverChat.SetNpcSpeaker(profile.chatName);
 
         // 시스템 프롬프트 적용
         serverChat.NpcTypeChange(prompt);
@@ -102,15 +102,21 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         // intro 대사를 JSON에서 가져옴
-        var introDialogue = db.GetRandomDialogue(npcData.npcId, dialogueType);
+        var introDialogue = db.GetRandomDialogue(npcData.npcId, npcData.sceneId, dialogueType);
+
+        // sceneId가 맞는 대사가 없으면 fallback
+        if (introDialogue == null)
+        {
+            introDialogue = db.GetDialogueFallback(npcData.npcId, dialogueType);
+        }
 
         if (introDialogue != null)
         {
-            serverChat.CreateMessage($"{profile.displayName} : {introDialogue.text}", Color.blue);
+            serverChat.CreateMessage($"{profile.chatName} : {introDialogue.text}", Color.blue);
         }
         else
         {
-            serverChat.CreateMessage($"{profile.displayName} : 안녕.", Color.blue);
+            serverChat.CreateMessage($"{profile.chatName} : 안녕.", Color.blue);
         }
 
         // 대화 시작 시 플레이어 이동 잠금
@@ -173,7 +179,7 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         var profile = db.GetNpcProfile(npcData.npcId);
-        var dialogue = db.GetDialogue(npcData.npcId, dialogueType);
+        var dialogue = db.GetDialogue(npcData.npcId, npcData.sceneId, dialogueType);
 
         if (profile == null || dialogue == null)
         {
@@ -194,7 +200,7 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         // NPC 이름 + 대사 표시
-        speechBubbleText.text = $"{profile.displayName} : {dialogue.text}";
+        speechBubbleText.text = $"{profile.chatName} : {dialogue.text}";
         speechBubbleRoot.SetActive(true);
 
         // 5초 뒤 자동 닫기 시작

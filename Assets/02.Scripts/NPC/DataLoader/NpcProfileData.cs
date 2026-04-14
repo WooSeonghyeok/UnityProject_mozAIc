@@ -7,9 +7,9 @@ using UnityEngine;
 public class NpcProfileData
 {
     public string npcId;
-    public string displayName;
+    public string name;
     public string episodeId;
-    public string roleType;
+    public string chatName;
     public string baseRelationship;
     public string memoryTheme;
     public string recoveredElement;
