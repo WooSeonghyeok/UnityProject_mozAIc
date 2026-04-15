@@ -72,13 +72,16 @@ public class StageSelect : MonoBehaviour
     {
         if (stageButtons == null || index < 0 || index >= stageButtons.Length) return;
         stageSelect = index;
-        TouchStageButtonEvent?.Invoke(stageSelect);
-        cpSelect = -1;
-        CPButtonsPrint(stageSelect);
+        CPReset();
     }
+
     public void TouchStageButton()
     { 
         if (stageButtons == null || stageButtons.Length <= 0 || stageSelect < 0 || stageSelect >= stageButtons.Length) return;
+        CPReset();
+    }
+    private void CPReset()
+    {
         TouchStageButtonEvent?.Invoke(stageSelect);
         cpSelect = -1;
         CPButtonsPrint(stageSelect);

@@ -146,7 +146,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         climaxCam.Priority = 1;
         endSound.Play();
         yield return _manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나.", 2f);
-        yield return new WaitForSeconds(1f);  // 시네머신 변환 완료 대기
+        yield return new WaitForSeconds(0.5f);  // 시네머신 변환 완료 대기
         _manager.UserCtrl(true);
         otherCanvas.enabled = true;
     }

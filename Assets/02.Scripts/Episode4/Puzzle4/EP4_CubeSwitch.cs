@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.UI;
 public class EP4_CubeSwitch : MonoBehaviour
 {
@@ -68,27 +67,16 @@ public class EP4_CubeSwitch : MonoBehaviour
             {
                 case EP4_Puzzle4_Cube.switchCondition.near:
                     if (Mathf.Abs(cubeList[n].column - curCube.column) + Mathf.Abs(cubeList[n].row - curCube.row) <= 1)  //자기 자신 + 이웃한 발판(전후좌우 1칸씩)
-                    {
                         switchObjects.Add(cubeList[n]);
-                    }
                     break;
                 case EP4_Puzzle4_Cube.switchCondition.row:
-                    if (cubeList[n].row == curCube.row)  // 행 값이 같으면
-                    {
-                        switchObjects.Add(cubeList[n]);
-                    }
+                    if (cubeList[n].row == curCube.row) switchObjects.Add(cubeList[n]);  // 행 값이 같으면
                     break;
                 case EP4_Puzzle4_Cube.switchCondition.column:
-                    if (cubeList[n].column == curCube.column)  // 열 값이 같으면
-                    {
-                        switchObjects.Add(cubeList[n]);
-                    }
+                    if (cubeList[n].column == curCube.column)   switchObjects.Add(cubeList[n]);  // 열 값이 같으면
                     break;
                 case EP4_Puzzle4_Cube.switchCondition.color:
-                    if (cubeList[n].cubeColor == curCube.cubeColor)  // 색상이 같으면
-                    {
-                        switchObjects.Add(cubeList[n]);
-                    }
+                    if (cubeList[n].cubeColor == curCube.cubeColor) switchObjects.Add(cubeList[n]);  // 색상이 같으면
                     break;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager_Ep1 : MonoBehaviour
@@ -142,7 +143,16 @@ public class GameManager_Ep1 : MonoBehaviour
         if (lunaNpcData != null)
         {
             lunaNpcData.SetRevealStage(fullMemoryStage);
-            if (SaveManager.instance != null) SaveManager.instance.curData.CoreTag[1].tagGet = true;  //"star_promise" 플래그를 회수
+            var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "sstar_promise");  //진엔딩 조건 플래그인 "star_promise" 태그 획득
+            if (tag != null) tag.tagGet = true;
+            else
+            {
+                SaveManager.instance.curData.CoreTag.Add(new IsTagGet
+                {
+                    TagName = "star_promise",
+                    tagGet = true
+                });
+            }
             Debug.Log("[GameManager_Ep1] 완전 기억 복원 완료");
         }
     }

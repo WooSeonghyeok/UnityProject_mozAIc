@@ -21,10 +21,7 @@ public class Checkpoint_Plane : MonoBehaviour
     private void SaveCheckpointProgress()
     {
         if (SaveManager.instance == null) return;
-        if (!cpProgress.ContainsKey(3))
-        {
-            cpProgress[3] = new Dictionary<int, bool>();
-        }
+        if (!cpProgress.ContainsKey(3)) cpProgress[3] = new Dictionary<int, bool>();
         switch (cpNum)
         {
             case 0: cpProgress[3][0] = SaveManager.instance.curData.ep4_open; break;
