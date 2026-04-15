@@ -15,7 +15,7 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
             return;
         }
 
-        // 🎬 Episode2 Intro (한 번만)
+        // 🎬 Episode2 Intro
         if (scene == "Episode2_Scene" &&
             PlayerPrefs.GetInt("Played_Episode2_Intro", 0) == 0)
         {
@@ -26,7 +26,7 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
             return;
         }
 
-        // 🎬 Space Intro (한 번만)
+        // 🎬 Space Intro
         if (scene == "Space_Puzzle" &&
             PlayerPrefs.GetInt("Played_Space_Intro", 0) == 0)
         {
@@ -36,7 +36,7 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
             EP2CutsceneManager.Instance.Play("Space_Intro");
         }
 
-        // 🎬 Paint Intro (한 번만)
+        // 🎬 Paint Intro
         if (scene == "Paint_Puzzle" &&
             PlayerPrefs.GetInt("Played_Paint_Intro", 0) == 0)
         {
@@ -49,7 +49,6 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         // 🎬 Episode2 복귀 컷씬
         if (scene == "Episode2_Scene")
         {
-            // Space 클리어 복귀
             if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
                 PlayerPrefs.GetInt("Played_Space_Clear", 0) == 0)
             {
@@ -60,7 +59,6 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
                 return;
             }
 
-            // Paint 클리어 복귀
             if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
                 PlayerPrefs.GetInt("Played_Paint_Clear", 0) == 0)
             {
@@ -77,17 +75,18 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
     {
         if (EP2CutsceneManager.Instance == null) return;
 
-        // ⭐ F5 누르면 컷씬 초기화
+        // ⭐ F5 = 완전 초기화 (🔥 핵심)
         if (Input.GetKeyDown(KeyCode.F5))
         {
-            ResetCutscenes();
+            ResetAll();
         }
 
-        // ⭐ Space 클리어 즉시 컷씬
+        // ⭐ Space Clear (Intro 이후만)
         if (scene == "Space_Puzzle")
         {
             if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Space_Clear_Immediate", 0) == 0)
+                PlayerPrefs.GetInt("Played_Space_Clear_Immediate", 0) == 0 &&
+                PlayerPrefs.GetInt("Played_Space_Intro", 0) == 1)
             {
                 PlayerPrefs.SetInt("Played_Space_Clear_Immediate", 1);
                 PlayerPrefs.Save();
@@ -96,11 +95,12 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
             }
         }
 
-        // ⭐ Paint 클리어 즉시 컷씬
+        // ⭐ Paint Clear (Intro 이후만)
         if (scene == "Paint_Puzzle")
         {
             if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Paint_Clear_Immediate", 0) == 0)
+                PlayerPrefs.GetInt("Played_Paint_Clear_Immediate", 0) == 0 &&
+                PlayerPrefs.GetInt("Played_Paint_Intro", 0) == 1)
             {
                 PlayerPrefs.SetInt("Played_Paint_Clear_Immediate", 1);
                 PlayerPrefs.Save();
@@ -110,8 +110,8 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         }
     }
 
-    // ⭐ 컷씬만 초기화 (핵심)
-    void ResetCutscenes()
+    // 🔥 완전 초기화 (컷씬 + 클리어)
+    void ResetAll()
     {
         PlayerPrefs.DeleteKey("Played_Episode2_Intro");
         PlayerPrefs.DeleteKey("Played_Space_Intro");
@@ -123,8 +123,12 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Played_Space_Clear_Immediate");
         PlayerPrefs.DeleteKey("Played_Paint_Clear_Immediate");
 
+        // ⭐ 핵심 추가 (이게 중요)
+        PlayerPrefs.DeleteKey("Space_Cleared");
+        PlayerPrefs.DeleteKey("Paint_Cleared");
+
         PlayerPrefs.Save();
 
-        Debug.Log("컷씬 초기화 완료 (F5)");
+        Debug.Log("🔥 완전 초기화 완료 (F5)");
     }
 }

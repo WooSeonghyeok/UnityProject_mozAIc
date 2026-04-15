@@ -7,30 +7,20 @@ public class EP2CutsceneManager : MonoBehaviour
 {
     public static EP2CutsceneManager Instance;
 
+    public System.Action OnCutsceneEnd; // ⭐ 추가
+
     [Header("UI")]
     public Image cutsceneImage;
 
     [Header("Cutscene Data")]
-    public List<CutsceneData> cutscenes; // ⭐ 기존 CutsceneData 사용
+    public List<CutsceneData> cutscenes;
 
     private Dictionary<string, Sprite[]> cutsceneDict;
 
     void Awake()
     {
         Instance = this;
-        //// ⭐ 싱글톤
-        //if (Instance == null)
-        //{
-        //    Instance = this;
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
 
-        // ⭐ 딕셔너리 초기화
         cutsceneDict = new Dictionary<string, Sprite[]>();
 
         foreach (var c in cutscenes)
@@ -41,12 +31,10 @@ public class EP2CutsceneManager : MonoBehaviour
             }
         }
 
-        // ⭐ 처음엔 꺼두기
         if (cutsceneImage != null)
             cutsceneImage.gameObject.SetActive(false);
     }
 
-    // 🎬 컷씬 실행
     public void Play(string name)
     {
         if (!cutsceneDict.ContainsKey(name))
@@ -55,7 +43,7 @@ public class EP2CutsceneManager : MonoBehaviour
             return;
         }
 
-        StopAllCoroutines(); // 중복 실행 방지
+        StopAllCoroutines();
         StartCoroutine(PlayRoutine(cutsceneDict[name]));
     }
 
@@ -69,11 +57,14 @@ public class EP2CutsceneManager : MonoBehaviour
             cutsceneImage.color = new Color(1, 1, 1, 0);
 
             yield return Fade(0, 1);
-            yield return new WaitForSecondsRealtime(2f); // ⭐ TimeScale 영향 없음
+            yield return new WaitForSecondsRealtime(2f);
             yield return Fade(1, 0);
         }
 
         cutsceneImage.gameObject.SetActive(false);
+
+        // ⭐ 핵심
+        OnCutsceneEnd?.Invoke();
     }
 
     IEnumerator Fade(float start, float end)
@@ -85,7 +76,7 @@ public class EP2CutsceneManager : MonoBehaviour
         {
             float a = Mathf.Lerp(start, end, t / duration);
             cutsceneImage.color = new Color(1, 1, 1, a);
-            t += Time.unscaledDeltaTime; // ⭐ TimeScale 무시
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 

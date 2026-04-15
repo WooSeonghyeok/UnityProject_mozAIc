@@ -2,37 +2,48 @@
 
 public class PerspectivePuzzle : MonoBehaviour
 {
+    [Header("Player & View")]
     public Transform player;
     public Transform viewPoint;
     public Transform lookTarget;
+
+    [Header("Condition")]
     public float positionThreshold = 1.0f;
     public float angleThreshold = 15f;
     public float requiredTime = 5f;
-    public float effectDelay = 4f; // 🔥 이펙트 실행 시간
+    public float effectDelay = 4f;
+
+    [Header("Objects")]
     public GameObject completeObject;
     public GameObject[] pieces;
-    float timer = 0f;
-    bool isSolved = false;
-    bool isActivating = false;
-    bool hasPlayedEffect = false;
-    Renderer rend;
-    Vector3[] originalPositions;
+
+    [Header("Effects")]
     public ParticleSystem centerParticle;
-    public bool notifyEP2Manager = true;
-    // 🔥 사운드 추가
+
     [Header("Sound")]
     public AudioClip holdSound;
+
+    private float timer = 0f;
+    private bool isSolved = false;
+    private bool isActivating = false;
+    private bool hasPlayedEffect = false;
+
+    private Renderer rend;
+    private Vector3[] originalPositions;
     private AudioSource audioSource;
+
+    // ⭐ Solve 중복 방지 핵심
+    private bool hasTriggeredSolve = false;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
-        // 🔥 AudioSource 자동 추가
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.loop = true;
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f; // 3D 사운드 (원하면 0으로 바꾸면 2D)
+        audioSource.spatialBlend = 1f;
+
         originalPositions = new Vector3[pieces.Length];
         for (int i = 0; i < pieces.Length; i++)
         {
@@ -61,8 +72,10 @@ public class PerspectivePuzzle : MonoBehaviour
         UpdateColor(playerDist, angle);
         if (playerDist < positionThreshold && angle < angleThreshold)
         {
-            if (!isActivating) isActivating = true;
-            // 🔥 사운드 재생 (조건 만족 동안만)
+            if (!isActivating)
+                isActivating = true;
+
+            // 사운드
             if (holdSound != null && !audioSource.isPlaying)
             {
                 audioSource.clip = holdSound;
@@ -74,26 +87,30 @@ public class PerspectivePuzzle : MonoBehaviour
             ApplyShake(strength);
             UpdateParticle(timer);
 
-            // 🔥 일정 시간 후 이펙트
+            // 중간 이펙트
             if (!hasPlayedEffect && timer >= effectDelay)
             {
                 hasPlayedEffect = true;
-                if (centerParticle != null) centerParticle.Play();
+
+                if (centerParticle != null)
+                    centerParticle.Play();
             }
-            if (timer >= requiredTime)
+
+            // ⭐ 퍼즐 성공 (한 번만 실행되게)
+            if (timer >= requiredTime && !hasTriggeredSolve)
             {
+                hasTriggeredSolve = true;
                 SolvePuzzle();
-                isSolved = true;
-                // 🔥 퍼즐 완료 시 사운드 정지
-                if (audioSource.isPlaying) audioSource.Stop();
             }
         }
         else
         {
             timer = 0f;
             hasPlayedEffect = false;
-            // 🔥 조건 벗어나면 사운드 정지
-            if (audioSource.isPlaying) audioSource.Stop();
+
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+
             if (isActivating)
             {
                 ResetPositions();
@@ -102,6 +119,40 @@ public class PerspectivePuzzle : MonoBehaviour
             }
         }
     }
+
+    void SolvePuzzle()
+    {
+        Debug.Log("퍼즐 성공!");
+
+        isSolved = true; // ⭐ 먼저 막아버림
+
+        // ⭐ FlowManager 호출 (딱 1번)
+        EP2_SpacePuzzleFlowManager.Instance?.OnPuzzleSolved();
+
+        if (rend != null)
+            rend.material.color = Color.green;
+
+        foreach (GameObject piece in pieces)
+        {
+            if (piece != null)
+                piece.SetActive(false);
+        }
+
+        if (completeObject != null)
+        {
+            completeObject.SetActive(true);
+        }
+
+        if (EP2_PuzzleManager.Instance != null)
+        {
+            EP2_PuzzleManager.Instance.spaceClear = true;
+            EP2_PuzzleManager.Instance.SolveSpacePuzzle();
+        }
+
+        if (audioSource.isPlaying)
+            audioSource.Stop();
+    }
+
     void UpdateParticle(float currentTime)
     {
         if (centerParticle == null) return;
@@ -150,21 +201,6 @@ public class PerspectivePuzzle : MonoBehaviour
         var emission = centerParticle.emission;
         emission.rateOverTime = 0;
         centerParticle.Stop();
-    }
-    void SolvePuzzle()
-    {
-        Debug.Log("퍼즐 성공!");
-        if (rend != null) rend.material.color = Color.green;
-        foreach (GameObject piece in pieces)
-        {
-            piece.SetActive(false);
-        }
-        if (completeObject != null) completeObject.SetActive(true);
-        if (notifyEP2Manager && EP2_PuzzleManager.Instance != null)
-        {
-            EP2_PuzzleManager.Instance.spaceClear = true;
-            EP2_PuzzleManager.Instance.SolveSpacePuzzle();
-        }
     }
 
     void OnDrawGizmos()
