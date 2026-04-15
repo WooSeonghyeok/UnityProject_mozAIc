@@ -224,13 +224,13 @@ public class GameManager_Ep1 : MonoBehaviour
         int score = GetSlidePuzzleScore(); // 현재 점수 가져오기
 
         // 기존 memory_reconstruction_rate에 점수 누적
-        SaveManager.instance.curData.memory_reconstruction_rate += score;
+        SaveManager.instance.curData.memory_reconstruction_rate[2] = score;  // Episode 1의 퍼즐 점수는 index 2에 저장
 
         // 최대값 제한 (예: 100)
-        SaveManager.instance.curData.memory_reconstruction_rate =
-            Mathf.Clamp(SaveManager.instance.curData.memory_reconstruction_rate, 0, 100);
+        SaveManager.instance.curData.memory_reconstruction_rate[2] =
+            Mathf.Clamp(SaveManager.instance.curData.memory_reconstruction_rate[2], 0, baseScore);
 
-        Debug.Log($"[GameManager_Ep1] 기억 복원도 증가: +{score} → 현재값: {SaveManager.instance.curData.memory_reconstruction_rate}");
+        Debug.Log($"[GameManager_Ep1] 기억 복원도 증가: +{score} → 현재값: {SaveManager.instance.curData.memory_reconstruction_rate[2]}");
 
         // JSON 저장 반영
         SaveManager.instance.WriteCurJSON();

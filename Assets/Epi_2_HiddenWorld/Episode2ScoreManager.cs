@@ -36,33 +36,34 @@ public class Episode2ScoreManager : MonoBehaviour
     public void AddClearScore(int value)
     {
         clearScore += value;
+        SaveManager.instance.curData.memory_reconstruction_rate[4] = clearScore;  //클리어 점수를 Episode2의 관계 점수로 사용
     }
 
     // 🔵 Space 감점
     public void ReduceSpaceScore()
     {
         if (spaceScore <= 0) return;
-
         spaceScore = Mathf.Max(0, spaceScore - 1);
+        SaveManager.instance.curData.memory_reconstruction_rate[5] = spaceScore + paintScore;  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
     }
 
     // 🎨 Paint 감점
     public void ReducePaintScore()
     {
         if (paintScore <= 0) return;
-
         paintScore = Mathf.Max(0, paintScore - 1);
+        SaveManager.instance.curData.memory_reconstruction_rate[5] = spaceScore + paintScore;  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
     }
 
     // 🧠 NPC 점수 (중복 방지)
-    public void AddKeywordScore(string keyword)
+    public void AddKeywordScore(MemoryKeyword keyword)
     {
-        if (string.IsNullOrEmpty(keyword)) return;
+        if (string.IsNullOrEmpty(keyword.word)) return;
 
-        if (!usedKeywords.Contains(keyword))
+        if (!usedKeywords.Contains(keyword.word))
         {
-            usedKeywords.Add(keyword);
-            npcScore += 1;
+            usedKeywords.Add(keyword.word);
+            npcScore += keyword.memoryRate;  //ServerChat에서 이미 점수를 계산했으므로, 여기서는 GetTotalScore에 출력하는 값으로만 사용
         }
     }
 

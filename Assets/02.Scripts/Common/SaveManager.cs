@@ -111,7 +111,12 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 5;
+        dataObj.memory_reconstruction_rate = new int[13];
+        dataObj.memory_reconstruction_rate[0] = 5;  //기억 재구성 기본 점수 5점으로 시작
+        for (int i = 1; i < dataObj.memory_reconstruction_rate.Length; i++)  //나머지 기억 재구성 점수는 0점으로 시작
+        {
+            dataObj.memory_reconstruction_rate[i] = 0;
+        }
         dataObj.CoreTag = CreateDefaultMemoryTags();
         dataObj.npcInformations = new List<NPCInfo>();
         string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician", "npc_ep4_core" };
@@ -147,7 +152,7 @@ public class SaveManager : MonoBehaviour
                         dataObj.npcInformations[1].words.Add(new MemoryKeyword
                         {
                             word = keyword,
-                            memoryRate = 2,
+                            memoryRate = 1,
                             isUsed = false
                         });
                     }

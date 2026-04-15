@@ -21,7 +21,9 @@ public class SaveDataObj
     public bool ep4_puzzle1Clear;
     public bool ep4_puzzle2Clear;
     public bool ep4_puzzle3Clear;
-    public int memory_reconstruction_rate;
+    public int[] memory_reconstruction_rate = new int[13];
+    /* 0 : 기본 점수, 1~3 : Episode1, 4~6 : Episode2, 7~9 : Episode3, 10~12 : Episode4
+                      1/4/7/10 : 관계 점수, 2/5/8/11 : 퍼즐 점수, 3/6/9/12 : 감정 점수*/
     public List<IsTagGet> CoreTag;    // 진 엔딩 태그
     public List<NPCInfo> npcInformations;
 

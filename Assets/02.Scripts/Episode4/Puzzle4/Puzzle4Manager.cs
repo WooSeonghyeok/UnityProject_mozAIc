@@ -151,7 +151,7 @@ public class Puzzle4Manager : MonoBehaviour
     {
         SyncCheck();
         puzzle4MemoryRate = puzzle4BaseMemoryRate - Math.Clamp(retry_count, 0, puzzle4BaseMemoryRate);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
-        SaveManager.instance.curData.memory_reconstruction_rate += puzzle4MemoryRate;  //퍼즐 4 점수 획득
+        SaveManager.instance.curData.memory_reconstruction_rate[11] = puzzle4MemoryRate;  //퍼즐 4 점수 획득
         SelfVoiceTag(egoSync >= 1f);  //자아 통합도 100% 달성 여부에 따라 "self_voice" 태그를 획득
     }
     private void SelfVoiceTag(bool b)

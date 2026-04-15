@@ -5209,7 +5209,19 @@ MonoBehaviour:
   subtitleFont: {fileID: 0}
   onCutsceneFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 964949597}
+        m_TargetAssemblyTypeName: Ep3_1ScoreController, Assembly-CSharp
+        m_MethodName: StartTiming
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &817633582
 Transform:
   m_ObjectHideFlags: 0
@@ -6383,6 +6395,50 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1494195010}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &964949596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964949598}
+  - component: {fileID: 964949597}
+  m_Layer: 0
+  m_Name: Ep3_1ScoreController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &964949597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964949596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84508935bc9f58348adae36d58ba3c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &964949598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964949596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.886979, y: -1.9585443, z: 14.786279}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &972124914
 GameObject:
@@ -11973,6 +12029,7 @@ MonoBehaviour:
   nextSceneName: Ep3_2_Scene
   collectedPieceCount: 0
   requiredPieceCount: 10
+  scoreController: {fileID: 0}
   onAllPiecesCollected:
     m_PersistentCalls:
       m_Calls: []
@@ -13094,3 +13151,4 @@ SceneRoots:
   - {fileID: 385615293}
   - {fileID: 889824753}
   - {fileID: 1970373057}
+  - {fileID: 964949598}

@@ -36,10 +36,8 @@ public class ServerChat : MonoBehaviour
     [Header("호감도")]
     [SerializeField] private string[] positiveWords;
     [SerializeField] private string[] negativeWords;
-
     public int PositiveAffinity = 10;
     public int NegativeAffinity = -10;
-
     [SerializeField] private TMP_Text AffinityText;
     private void Start()
     {
@@ -289,7 +287,19 @@ public class ServerChat : MonoBehaviour
                     Debug.Log($"[MemoryKeyword] 발견됨: {keyword.word}, isUsed={keyword.isUsed}");
                     if (!keyword.isUsed)
                     {
-                        SaveManager.instance.curData.memory_reconstruction_rate += keyword.memoryRate;
+                        int i = 0;
+                        switch (npcInfo.npcId)
+                        {
+                            case "npc_ep1_luna":     i = 1;  break;  //ep1 루나는 관계 점수
+                            case "npc_ep2_painter":  i = 6;  break;  //ep2 엘리오는 감정 점수
+                            case "npc_ep3_musician": i = 9;  break;  //ep3 레온은 감정 점수  
+                            case "npc_ep4_core":     i = 10; break;  //ep4 중심 존재는 관계 점수
+                        }
+                        SaveManager.instance.curData.memory_reconstruction_rate[i] += keyword.memoryRate;
+                        if (npcInfo.npcId == "npc_ep2_painter")  // 엘리오의 경우 Episode2ScoreManager에도 반영
+                        {
+                            Episode2ScoreManager.Instance.AddKeywordScore(keyword);
+                        }
                         keyword.isUsed = true;
                         SaveManager.instance.WriteCurJSON();
                         Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {SaveManager.instance.curData.memory_reconstruction_rate}");

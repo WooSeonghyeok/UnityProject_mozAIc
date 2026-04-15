@@ -51,7 +51,7 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
             }
             catch (System.Exception ex)
             {
-                Debug.LogWarning($"[Ep4_3Manager] onAllPiecesCollected 호출 중 예외: {ex.Message}");
+                Debug.LogWarning($"[Ep4_3Manager] onAllCollected 호출 중 예외: {ex.Message}");
             }
         }
     }
