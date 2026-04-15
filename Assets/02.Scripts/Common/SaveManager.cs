@@ -111,7 +111,7 @@ public class SaveManager : MonoBehaviour
         dataObj.ep4_puzzle1Clear = false;
         dataObj.ep4_puzzle2Clear = false;
         dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 30;
+        dataObj.memory_reconstruction_rate = 5;
         dataObj.CoreTag = CreateDefaultMemoryTags();
         dataObj.npcInformations = new List<NPCInfo>();
         string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician", "npc_ep4_core" };

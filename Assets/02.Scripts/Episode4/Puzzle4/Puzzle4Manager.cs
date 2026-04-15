@@ -23,6 +23,7 @@ public class Puzzle4Manager : MonoBehaviour
     public NPCData coreNPC;
     public TextboxCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
+    [SerializeField] private int puzzle4BaseMemoryRate = 5;  //퍼즐 클리어 시 기본으로 획득하는 기억 퍼즐 재구성 점수
     public int puzzle4MemoryRate = 0;
     private SoundTrigger clearSound;
     public GameObject interactionUI;   // "E" 상호작용 UI
@@ -128,8 +129,8 @@ public class Puzzle4Manager : MonoBehaviour
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
         SyncCheck();
-        puzzle4MemoryRate = Math.Clamp(retry_count, 0, 5);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
-        SaveManager.instance.curData.memory_reconstruction_rate -= puzzle4MemoryRate;  //이전까지 총 점수에서 감점
+        puzzle4MemoryRate = puzzle4BaseMemoryRate - Math.Clamp(retry_count, 0, puzzle4BaseMemoryRate);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
+        SaveManager.instance.curData.memory_reconstruction_rate += puzzle4MemoryRate;  //이전까지 총 점수에서 감점
         if (egoSync == 1f) SelfVoiceTag();
     }
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
