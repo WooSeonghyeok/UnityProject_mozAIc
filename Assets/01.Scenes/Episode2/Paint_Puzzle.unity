@@ -9586,7 +9586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df42363b9155c049bd3d2163ef90a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
 --- !u!4 &1860740132
 Transform:
   m_ObjectHideFlags: 0
@@ -9770,9 +9769,11 @@ MonoBehaviour:
     images:
     - {fileID: 21300000, guid: f4856f802df254a4fb3f4bfa58a3637a, type: 3}
     - {fileID: 21300000, guid: bc06fe9bf9a2f7b49a795b6cfa8bd2b7, type: 3}
-  - name: Paint_Clear_Immediate
+  - name: Paint_Clear_Immediate_1
     images:
     - {fileID: 21300000, guid: 3ee11621b02b5514380115075ab7833d, type: 3}
+  - name: Paint_Clear_Immediate_2
+    images:
     - {fileID: 21300000, guid: 5b371b432d4cead45be24edbbae1c994, type: 3}
   - name: Paint_Clear
     images:
