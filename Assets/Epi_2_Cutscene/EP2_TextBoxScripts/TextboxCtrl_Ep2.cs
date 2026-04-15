@@ -50,17 +50,17 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "…누구지..", Talker.core));
+            "…누구지..", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "처음 보는 것 같은데.", Talker.core));
+            "처음 보는 것 같은데.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "왜 네가 여기 있는 게 이상하지 않지?", Talker.core));
+            "왜 네가 여기 있는 게 이상하지 않지?", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -78,27 +78,27 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "같은 장면도 어디에서 보느냐에 따라 완전히 달라지지.", Talker.core));
+            "같은 장면도 어디에서 보느냐에 따라 완전히 달라지지.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "우린 그런 이야기를 자주 했던 것 같아.", Talker.core));
+            "우린 그런 이야기를 자주 했던 것 같아.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "…기억난다..", Talker.core));
+            "…기억난다..", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "너는 늘 나랑 다른 곳을 봤어.", Talker.core));
+            "너는 늘 나랑 다른 곳을 봤어.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "그래서 내가 못 보던 모양을 먼저 찾아냈지.", Talker.core));
+            "그래서 내가 못 보던 모양을 먼저 찾아냈지.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -121,12 +121,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         _manager.UserCtrl(false);
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "같은 장면도 어디에서 보느냐에 따라 완전히 달라지지.", Talker.core));
+            "같은 장면도 어디에서 보느냐에 따라 완전히 달라지지.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "우린 그런 이야기를 자주 했던 것 같아.", Talker.core));
+            "우린 그런 이야기를 자주 했던 것 같아.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -141,12 +141,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "너는 늘 나랑 다른 곳을 봤어.", Talker.core));
+            "너는 늘 나랑 다른 곳을 봤어.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "그래서 내가 못 보던 모양을 먼저 찾아냈지.", Talker.core));
+            "그래서 내가 못 보던 모양을 먼저 찾아냈지.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -164,12 +164,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "우린 같은 그림을 봐도 서로 다른 색을 떠올렸어.", Talker.core));
+            "우린 같은 그림을 봐도 서로 다른 색을 떠올렸어.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "그리고 이상하게, 그게 늘 더 좋았어.", Talker.core));
+            "그리고 이상하게, 그게 늘 더 좋았어.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -187,7 +187,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "네가 잊고 있던 장면이야.", Talker.core));
+            "네가 잊고 있던 장면이야.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -205,7 +205,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.player,
-            "머리보다 손이 먼저 기억하는 것 같아.", Talker.core));
+            "머리보다 손이 먼저 기억하는 것 같아."));
 
         _manager.UserCtrl(true);
     }
@@ -215,12 +215,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         _manager.UserCtrl(false);
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "너는 색을 고를 때 망설이지 않았어.", Talker.core));
+            "너는 색을 고를 때 망설이지 않았어.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", Talker.core));
+            "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -235,12 +235,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "우린 같은 그림을 봐도 서로 다른 색을 떠올렸어.", Talker.core));
+            "우린 같은 그림을 봐도 서로 다른 색을 떠올렸어.", 1f, Talker.core));
 
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "그리고 이상하게, 그게 늘 더 좋았어.", Talker.core));
+            "그리고 이상하게, 그게 늘 더 좋았어.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -258,7 +258,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return oneSec;
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "이제 거의 다 왔어.", Talker.core));
+            "이제 거의 다 왔어.", 1f, Talker.core));
 
         _manager.UserCtrl(true);
     }
@@ -276,7 +276,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         _manager.UserCtrl(false);
 
         yield return StartCoroutine(_manager.TalkSay(TalkType.voice,
-            "이제 모든 조각이 돌아왔어.", Talker.core));
+            "이제 모든 조각이 돌아왔어.", 1f,  Talker.core));
 
         yield return onehalfSec;
 

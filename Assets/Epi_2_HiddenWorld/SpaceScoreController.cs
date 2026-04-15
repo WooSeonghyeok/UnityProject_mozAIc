@@ -23,6 +23,7 @@ public class SpaceScoreController : MonoBehaviour
             Episode2ScoreManager.Instance?.ReduceSpaceScore();
             Debug.Log("Space 점수 -1");
         }
+        Episode2ScoreManager.Instance.Ep2_PuzzleScore();
     }
 
     public void StopTimer()
