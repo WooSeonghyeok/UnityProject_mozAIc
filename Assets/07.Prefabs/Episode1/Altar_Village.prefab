@@ -127,6 +127,7 @@ MonoBehaviour:
   requirePuzzleClear: 1
   playCutsceneOnlyOnce: 1
   cutscenePlayer: {fileID: 0}
+  needPuzzleClear: 1
 --- !u!1 &3305444436750846374
 GameObject:
   m_ObjectHideFlags: 0

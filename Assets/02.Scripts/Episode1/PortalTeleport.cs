@@ -21,6 +21,9 @@ public class PortalTeleport : MonoBehaviour
     public bool playCutsceneOnlyOnce = true;    // 컷씬 1회만 재생할지
     public CutsceneImagePlayer cutscenePlayer;  // 컷씬 이미지 플레이어 연결
 
+    [Header("포탈4")]
+    public bool needPuzzleClear = false; // 퍼즐이 클리어되어야만 텔레포트 허용 여부
+
     private bool canTeleport = true;
 
     private void OnTriggerEnter(Collider other)
@@ -36,6 +39,9 @@ public class PortalTeleport : MonoBehaviour
 
         // 목적지가 비어 있으면 무시
         if (destination == null) return;
+        
+        // 퍼즐 클리어가 필요하지만 클리어되지 않았으면 무시
+        if (needPuzzleClear && GameManager_Ep1.Instance != null && !GameManager_Ep1.Instance.isPuzzleCleared) return;
 
         TeleportPlayer(other);
     }
