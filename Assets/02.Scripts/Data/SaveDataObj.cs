@@ -31,20 +31,21 @@ public class SaveDataObj
     public bool isFirstEnterAtEP3_1;
 }
 [Serializable]
-public class IsTagGet
+public class IsTagGet  // 진 엔딩 태그 정보(이름, 획득 여부)
 {
     public string TagName;
     public bool tagGet;
 }
 [Serializable]
-public class NPCInfo
+public class NPCInfo  // NPC 정보(이름, 친밀도, 대화 횟수, 기억 단어 리스트)
 {
     public string npcId;
     public int Affinity;
+    public int talkCount;
     public List<MemoryKeyword> words;
 }
 [Serializable]
-public class MemoryKeyword
+public class MemoryKeyword  // NPC 기억 단어 정보(단어, 기억 재구성 점수, 사용 여부)
 {
     public string word;
     public int memoryRate;

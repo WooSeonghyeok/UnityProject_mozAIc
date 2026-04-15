@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 public class SaveManager : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class SaveManager : MonoBehaviour
         "self_voice",
         "split_self"
     };
+    [Serializable]
+    public class NPCInfoWrapper
+    {
+        public NPCInfo[] list;
+    }
     private void Awake()
     {
         if (instance == null)
@@ -29,29 +35,9 @@ public class SaveManager : MonoBehaviour
     }
     public void CreateSaveData(int slotNumber)
     {
-        SaveDataObj newData = new SaveDataObj();
-        newData.ID = (byte)slotNumber;
-        newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        newData.memory_reconstruction_rate = curData.memory_reconstruction_rate;
-        newData.ep1_open = curData.ep1_open;
-        newData.ep1_isCaveUnlocked = curData.ep1_isCaveUnlocked;
-        newData.ep1_isPuzzleCleared = curData.ep1_isPuzzleCleared;
-        newData.ep2_open = curData.ep2_open;
-        newData.ep2_paintClear = curData.ep2_paintClear;
-        newData.ep2_spaceClear = curData.ep2_spaceClear;
-        newData.ep3_open = curData.ep3_open;
-        newData.ep3_paperClear = curData.ep3_paperClear;
-        newData.ep3_jumpClear = curData.ep3_jumpClear;
-        newData.ep4_open = curData.ep4_open;
-        newData.ep4_puzzle1Clear = curData.ep4_puzzle1Clear;
-        newData.ep4_puzzle2Clear = curData.ep4_puzzle2Clear;
-        newData.ep4_puzzle3Clear = curData.ep4_puzzle2Clear;
-        newData.CoreTag = curData.CoreTag;
-        newData.npcInformations = curData.npcInformations;
-        newData.isFirstEnterAtS3CP0 = curData.isFirstEnterAtS3CP0;
-        newData.isFirstEnterAtEP3Lobby = curData.isFirstEnterAtEP3Lobby;
-        newData.isFirstEnterAtEP3_1 = curData.isFirstEnterAtEP3_1;
-        string json = JsonUtility.ToJson(newData,true);
+        curData.ID = (byte)slotNumber;
+        curData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        string json = JsonUtility.ToJson(curData,true);
         File.WriteAllText(GetSavePath(slotNumber), json);  //선택한 슬롯에 세이브 데이터를 저장
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);  //현재 데이터를 저장한 데이터로 갱신
         SaveUIManager.instance.CloseSavePopup();
@@ -98,78 +84,10 @@ public class SaveManager : MonoBehaviour
     {
         dataObj.ID = 0;
         dataObj.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        dataObj.ep1_open = false;
-        dataObj.ep1_isCaveUnlocked = false;
-        dataObj.ep1_isPuzzleCleared = false;
-        dataObj.ep2_open = false;
-        dataObj.ep2_paintClear = false;
-        dataObj.ep2_spaceClear = false;
-        dataObj.ep3_open = false;
-        dataObj.ep3_paperClear = false;
-        dataObj.ep3_jumpClear = false;
-        dataObj.ep4_open = false;
-        dataObj.ep4_puzzle1Clear = false;
-        dataObj.ep4_puzzle2Clear = false;
-        dataObj.ep4_puzzle3Clear = false;
-        dataObj.memory_reconstruction_rate = 30;
+        dataObj.memory_reconstruction_rate = new int[13];
+        dataObj.memory_reconstruction_rate[0] = 5;  //기억 재구성 기본 점수 5점으로 시작
         dataObj.CoreTag = CreateDefaultMemoryTags();
-        dataObj.npcInformations = new List<NPCInfo>();
-        string[] npcNames = { "npc_ep1_luna", "npc_ep2_painter", "npc_ep3_musician", "npc_ep4_core" };
-        foreach (var name in npcNames)
-        {
-            dataObj.npcInformations.Add(new NPCInfo
-            {
-                npcId = name,
-                Affinity = 50,
-                words = new List<MemoryKeyword>()
-            });
-            switch (name)
-            {
-                case "npc_ep1_luna":
-                {
-                    string[] RateTagNames = { "쌍둥이자리" };
-                    foreach (var keyword in RateTagNames)
-                    {
-                        dataObj.npcInformations[0].words.Add(new MemoryKeyword
-                        {
-                            word = keyword,
-                            memoryRate = 10,
-                            isUsed = false
-                        });
-                    }
-                    break;
-                }
-                case "npc_ep2_painter":
-                    {
-                        string[] RateTagNames = { "동료", "작업실", "색", "?", "!" };
-                        foreach (var keyword in RateTagNames)
-                        {
-                            dataObj.npcInformations[1].words.Add(new MemoryKeyword
-                            {
-                                word = keyword,
-                                memoryRate = 2,
-                                isUsed = false
-                            });
-                        }
-                        break;
-                    }
-                case "npc_ep3_musician": break;
-                case "npc_ep4_core":
-                {
-                    string[] RateTagNames = { "기억", "동료", "하모니", "삶", "마지막 조각" };
-                    foreach (var keyword in RateTagNames)
-                    {
-                        dataObj.npcInformations[3].words.Add(new MemoryKeyword
-                        {
-                            word = keyword,
-                            memoryRate = 2,
-                            isUsed = false
-                        });
-                    }
-                    break;
-                }
-            }
-        }
+        dataObj.npcInformations = LoadDefaultNPCInfo();
         dataObj.isFirstEnterAtS3CP0 = false;
         dataObj.isFirstEnterAtEP3Lobby = false;
         dataObj.isFirstEnterAtEP3_1 = false;
@@ -189,6 +107,27 @@ public class SaveManager : MonoBehaviour
         }
         return tags;
     }
+    public static List<NPCInfo> LoadDefaultNPCInfo()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>("Data/npc_Info_default");
+        if (jsonFile == null)
+        {
+            Debug.LogError("[SaveManager] npc_Info_default.json 파일을 찾을 수 없습니다. 경로를 확인하세요.");
+            return new List<NPCInfo>();
+        }
+        NPCInfo[] npcArray = JsonHelper.FromJson<NPCInfo>(jsonFile.text);
+        // talkCount, isUsed 초기화
+        foreach (var npc in npcArray)
+        {
+            npc.talkCount = 0;
+            if (npc.words != null)
+            {
+                foreach (var w in npc.words)
+                    w.isUsed = false;
+            }
+        }
+        return new List<NPCInfo>(npcArray);
+    }
     public static void WriteCurJSON(SaveDataObj sourceData)
     {
         if (sourceData == null)
@@ -196,40 +135,27 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("[SaveManager] 저장할 현재 데이터가 없습니다.");
             return;
         }
-
-        SaveDataObj newData = new SaveDataObj();
-        newData.ID = sourceData.ID;
-        newData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        newData.ep1_open = sourceData.ep1_open;
-        newData.ep1_isCaveUnlocked = sourceData.ep1_isCaveUnlocked;
-        newData.ep1_isPuzzleCleared = sourceData.ep1_isPuzzleCleared;
-        newData.ep2_open = sourceData.ep2_open;
-        newData.ep2_paintClear = sourceData.ep2_paintClear;
-        newData.ep2_spaceClear = sourceData.ep2_spaceClear;
-        newData.ep3_open = sourceData.ep3_open;
-        newData.ep3_paperClear = sourceData.ep3_paperClear;
-        newData.ep3_jumpClear = sourceData.ep3_jumpClear;
-        newData.ep4_open = sourceData.ep4_open;
-        newData.ep4_puzzle1Clear = sourceData.ep4_puzzle1Clear;
-        newData.ep4_puzzle2Clear = sourceData.ep4_puzzle2Clear;
-        newData.ep4_puzzle3Clear = sourceData.ep4_puzzle2Clear;
-        newData.memory_reconstruction_rate = sourceData.memory_reconstruction_rate;
-        newData.CoreTag = sourceData.CoreTag;
-        newData.isFirstEnterAtS3CP0 = sourceData.isFirstEnterAtS3CP0;
-        newData.isFirstEnterAtEP3Lobby = sourceData.isFirstEnterAtEP3Lobby;
-        newData.isFirstEnterAtEP3_1 = sourceData.isFirstEnterAtEP3_1;
-        newData.npcInformations = sourceData.npcInformations;
-        string json = JsonUtility.ToJson(newData, true);
-        File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);
+        sourceData.savedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        string json = JsonUtility.ToJson(sourceData, true);
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "CurData.json"), json);
     }
     public void WriteCurJSON() =>  WriteCurJSON(curData);  //현재 데이터 파일을 갱신
     public int TotalScore()
     {
-        int totalPoint = 0;
-        foreach (int i in SaveManager.instance.curData.memory_reconstruction_rate)  //저장된 기억 재구성 점수를 모두 합산
+        return curData.memory_reconstruction_rate.Sum();
+    }
+    public static class JsonHelper
+    {
+        public static T[] FromJson<T>(string json)
         {
-            totalPoint += i;
+            string newJson = "{ \"array\": " + json + "}";
+            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
+            return wrapper.array;
         }
-        return totalPoint;
+        [Serializable]
+        private class Wrapper<T>
+        {
+            public T[] array;
+        }
     }
 }
