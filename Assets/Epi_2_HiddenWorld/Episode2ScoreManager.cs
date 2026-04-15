@@ -45,7 +45,6 @@ public class Episode2ScoreManager : MonoBehaviour
         if (spaceScore <= 0) return;
 
         spaceScore = Mathf.Max(0, spaceScore - 1);
-        CurData.memory_reconstruction_rate[5] = spaceScore + paintScore;  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
     }
 
     // 🎨 Paint 감점
@@ -54,7 +53,6 @@ public class Episode2ScoreManager : MonoBehaviour
         if (paintScore <= 0) return;
 
         paintScore = Mathf.Max(0, paintScore - 1);
-        CurData.memory_reconstruction_rate[5] = spaceScore + paintScore;  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
     }
 
     // 🧠 NPC 점수 (중복 방지)
@@ -67,6 +65,11 @@ public class Episode2ScoreManager : MonoBehaviour
             usedKeywords.Add(keyword);
             npcScore += 1;
         }
+    }
+
+    public void Ep2_PuzzleScore()  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
+    {
+        SaveManager.instance.curData.memory_reconstruction_rate[5] = spaceScore + paintScore;
     }
 
     // ⭐ 총 점수

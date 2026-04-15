@@ -13928,6 +13928,28 @@ MonoBehaviour:
   spaceScore: 5
   paintScore: 5
   npcScore: 0
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    isFirstEnterAtS3CP0: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
 --- !u!4 &1166692392
 Transform:
   m_ObjectHideFlags: 0
