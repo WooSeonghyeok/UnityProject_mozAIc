@@ -39,6 +39,11 @@ public class ServerChat : MonoBehaviour
     public int PositiveAffinity = 10;
     public int NegativeAffinity = -10;
     [SerializeField] private TMP_Text AffinityText;
+
+    [Header("기억 재구성 키워드")]
+    public MemoryKeyword[] words;
+    [SerializeField] private int minTalkCountForMemory = 5;
+    [SerializeField] private int memoryReward = 10;
     private void Start()
     {
         openAI = new OpenAIApi();
@@ -91,6 +96,20 @@ public class ServerChat : MonoBehaviour
                 Content = finalMsg
             }
         );
+
+        var npcList = SaveManager.instance.curData.npcInformations;
+        NPCInfo npcInfo = npcList.Find(n => n.npcId == currentNpcData.npcId);
+        int prevCount = npcInfo.talkCount;
+        npcInfo.talkCount = prevCount + 1;
+        Debug.Log($"[ServerChat] NPC '{npcInfo.npcId}' talkCount 증가: {prevCount} -> {npcInfo.talkCount}");
+        if (npcInfo.npcId == "npc_ep3_musician" && minTalkCountForMemory > 0 && npcInfo.talkCount == minTalkCountForMemory)  // "npc_ep3_musician"의 talkCount가 정확히 minTalkCountForMemory에 도달했을 때만 보상
+        {
+            if (SaveManager.instance.curData.memory_reconstruction_rate != null)
+            {
+                SaveManager.instance.curData.memory_reconstruction_rate[7] += memoryReward;
+            }
+        }
+        SaveManager.instance.WriteCurJSON();  // 변경 사항 저장
 
         isWaiting = true;
 
