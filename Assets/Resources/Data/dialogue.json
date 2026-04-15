@@ -71,7 +71,7 @@
         "sceneId": "ep_01_village",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "first_star_hint",
-        "text": "하나 찾았네! 나머지 별들은 다리 건너편에서 찾아보자.",
+        "text": "하나 찾았네! 다른 별들도 찾아보자!",
         "emotionTag": "guiding",
         "conditionGroupId": "first_star_collected",
         "eventGroupId": "field_hint"
