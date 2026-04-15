@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class EP2CutsceneTriggerManager : MonoBehaviour
 {
     private string scene;
+
+    private bool paintSequencePlaying = false;
 
     void Start()
     {
@@ -75,13 +78,13 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
     {
         if (EP2CutsceneManager.Instance == null) return;
 
-        // ⭐ F5 = 완전 초기화 (🔥 핵심)
+        // ⭐ F5 = 완전 초기화
         if (Input.GetKeyDown(KeyCode.F5))
         {
             ResetAll();
         }
 
-        // ⭐ Space Clear (Intro 이후만)
+        // ⭐ Space Clear
         if (scene == "Space_Puzzle")
         {
             if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
@@ -95,22 +98,64 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
             }
         }
 
-        // ⭐ Paint Clear (Intro 이후만)
+        // 🔥 Paint 전체 연출 (핵심🔥🔥🔥)
         if (scene == "Paint_Puzzle")
         {
             if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Paint_Clear_Immediate", 0) == 0 &&
-                PlayerPrefs.GetInt("Played_Paint_Intro", 0) == 1)
+                PlayerPrefs.GetInt("Played_Paint_Sequence", 0) == 0 &&
+                PlayerPrefs.GetInt("Played_Paint_Intro", 0) == 1 &&
+                !paintSequencePlaying)
             {
-                PlayerPrefs.SetInt("Played_Paint_Clear_Immediate", 1);
+                PlayerPrefs.SetInt("Played_Paint_Sequence", 1);
                 PlayerPrefs.Save();
 
-                EP2CutsceneManager.Instance.Play("Paint_Clear_Immediate");
+                StartCoroutine(PaintSequence());
             }
         }
     }
 
-    // 🔥 완전 초기화 (컷씬 + 클리어)
+    // ===============================
+    // 🎬 Paint 연출 전체
+    // ===============================
+    IEnumerator PaintSequence()
+    {
+        paintSequencePlaying = true;
+
+        var ctrl = FindObjectOfType<TextboxCtrl_Ep2>();
+        if (ctrl == null) yield break;
+
+        // 1️⃣ 이미지1
+        yield return StartCoroutine(PlayCutsceneAndWait("Paint_Clear_Immediate_1"));
+
+        // 2️⃣ 텍스트1
+        yield return StartCoroutine(ctrl.PaintStep3());
+
+        // 3️⃣ 이미지2
+        yield return StartCoroutine(PlayCutsceneAndWait("Paint_Clear_Immediate_2"));
+
+        // 4️⃣ 텍스트2
+        yield return StartCoroutine(ctrl.PaintPuzzleComplete());
+
+        paintSequencePlaying = false;
+    }
+
+    IEnumerator PlayCutsceneAndWait(string name)
+    {
+        bool done = false;
+
+        System.Action callback = () => { done = true; };
+
+        EP2CutsceneManager.Instance.OnCutsceneEnd += callback;
+        EP2CutsceneManager.Instance.Play(name);
+
+        yield return new WaitUntil(() => done);
+
+        EP2CutsceneManager.Instance.OnCutsceneEnd -= callback;
+    }
+
+    // ===============================
+    // 🔥 초기화
+    // ===============================
     void ResetAll()
     {
         PlayerPrefs.DeleteKey("Played_Episode2_Intro");
@@ -121,9 +166,10 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Played_Paint_Clear");
 
         PlayerPrefs.DeleteKey("Played_Space_Clear_Immediate");
-        PlayerPrefs.DeleteKey("Played_Paint_Clear_Immediate");
 
-        // ⭐ 핵심 추가 (이게 중요)
+        // ⭐ 핵심
+        PlayerPrefs.DeleteKey("Played_Paint_Sequence");
+
         PlayerPrefs.DeleteKey("Space_Cleared");
         PlayerPrefs.DeleteKey("Paint_Cleared");
 
