@@ -223,4 +223,13 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"CurData.json"), json);
     }
     public void WriteCurJSON() =>  WriteCurJSON(curData);  //현재 데이터 파일을 갱신
+    public int TotalScore()
+    {
+        int totalPoint = 0;
+        foreach (int i in SaveManager.instance.curData.memory_reconstruction_rate)  //저장된 기억 재구성 점수를 모두 합산
+        {
+            totalPoint += i;
+        }
+        return totalPoint;
+    }
 }
