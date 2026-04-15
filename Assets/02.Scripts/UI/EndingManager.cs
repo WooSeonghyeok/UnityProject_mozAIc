@@ -35,12 +35,8 @@ public class EndingManager : MonoBehaviour
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
-        int totalPoint = 0;
-        foreach(int i in SaveManager.instance.curData.memory_reconstruction_rate)  //저장된 기억 재구성 점수를 모두 합산
-        {
-            totalPoint += i;
-        }
-        bool ReconstructionRateCond = totalPoint >= EndingPoint();
+        int total = SaveManager.instance.TotalScore();
+        bool ReconstructionRateCond = total >= EndingPoint();
         bool TagsCond = TagCnt();
         isCompleteEnding = ReconstructionRateCond && TagsCond;
     }
