@@ -63,22 +63,15 @@ public class EP4_CubeSwitch : MonoBehaviour
     {
         for (int n = 0; n < cubeList.Length; n++)
         {
-            switch (curCube.condition)
+            bool b = curCube.condition switch
             {
-                case EP4_Puzzle4_Cube.switchCondition.near:
-                    if (Mathf.Abs(cubeList[n].column - curCube.column) + Mathf.Abs(cubeList[n].row - curCube.row) <= 1)  //자기 자신 + 이웃한 발판(전후좌우 1칸씩)
-                        switchObjects.Add(cubeList[n]);
-                    break;
-                case EP4_Puzzle4_Cube.switchCondition.row:
-                    if (cubeList[n].row == curCube.row) switchObjects.Add(cubeList[n]);  // 행 값이 같으면
-                    break;
-                case EP4_Puzzle4_Cube.switchCondition.column:
-                    if (cubeList[n].column == curCube.column)   switchObjects.Add(cubeList[n]);  // 열 값이 같으면
-                    break;
-                case EP4_Puzzle4_Cube.switchCondition.color:
-                    if (cubeList[n].cubeColor == curCube.cubeColor) switchObjects.Add(cubeList[n]);  // 색상이 같으면
-                    break;
-            }
+                EP4_Puzzle4_Cube.switchCondition.near   => Mathf.Abs(cubeList[n].column - curCube.column) + Mathf.Abs(cubeList[n].row - curCube.row) <= 1,
+                EP4_Puzzle4_Cube.switchCondition.row    => cubeList[n].row == curCube.row,
+                EP4_Puzzle4_Cube.switchCondition.column => cubeList[n].column == curCube.column,
+                EP4_Puzzle4_Cube.switchCondition.color  => cubeList[n].cubeColor == curCube.cubeColor,
+                _ => false
+            };
+            if (b) switchObjects.Add(cubeList[n]);  // 조건을 만족하는 발판을 리스트에 포함
         }
     }
     private void OnTriggerExit(Collider other)

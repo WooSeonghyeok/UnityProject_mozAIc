@@ -52,11 +52,11 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
     {
         SwitchSet();
         HintSet();
-        if (Puzzle4Manager.instance != null) Puzzle4Manager.instance.retryEvent += HandleRetry;
+        if (Puzzle4Manager.instance != null) Puzzle4Manager.instance.RetryEvent += HandleRetry;
     }
     private void OnDisable()
     {
-        if (Puzzle4Manager.instance != null) Puzzle4Manager.instance.retryEvent -= HandleRetry;
+        if (Puzzle4Manager.instance != null) Puzzle4Manager.instance.RetryEvent -= HandleRetry;
     }
     public void OnColorSwitch(int colorCode)  // colorCode: 1 for red, 2 for green, 4 for blue
     {

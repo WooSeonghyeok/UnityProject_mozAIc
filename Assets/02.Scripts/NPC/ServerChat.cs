@@ -32,6 +32,7 @@ public class ServerChat : MonoBehaviour
 
     private ChatTextObject serverTextObj;
     public NPCData currentNpcData;
+    public SaveDataObj CurData;
 
     [Header("호감도")]
     [SerializeField] private string[] positiveWords;
@@ -49,6 +50,7 @@ public class ServerChat : MonoBehaviour
         openAI = new OpenAIApi();
         input.ActivateInputField();
         input.onSubmit.AddListener(OnEnterSubmit);
+        CurData = SaveManager.instance.curData;
     }
 
     private void OnEnterSubmit(string text)
@@ -97,16 +99,16 @@ public class ServerChat : MonoBehaviour
             }
         );
 
-        var npcList = SaveManager.instance.curData.npcInformations;
+        var npcList = CurData.npcInformations;
         NPCInfo npcInfo = npcList.Find(n => n.npcId == currentNpcData.npcId);
         int prevCount = npcInfo.talkCount;
         npcInfo.talkCount = prevCount + 1;
         Debug.Log($"[ServerChat] NPC '{npcInfo.npcId}' talkCount 증가: {prevCount} -> {npcInfo.talkCount}");
         if (npcInfo.npcId == "npc_ep3_musician" && minTalkCountForMemory > 0 && npcInfo.talkCount == minTalkCountForMemory)  // "npc_ep3_musician"의 talkCount가 정확히 minTalkCountForMemory에 도달했을 때만 보상
         {
-            if (SaveManager.instance.curData.memory_reconstruction_rate != null)
+            if (CurData.memory_reconstruction_rate != null)
             {
-                SaveManager.instance.curData.memory_reconstruction_rate[7] += memoryReward;
+                CurData.memory_reconstruction_rate[7] += memoryReward;
             }
         }
         SaveManager.instance.WriteCurJSON();  // 변경 사항 저장
@@ -294,8 +296,8 @@ public class ServerChat : MonoBehaviour
     public void CheckWords(string msg)
     {
         if (currentNpcData == null) return;
-        if (SaveManager.instance == null || SaveManager.instance.curData == null || SaveManager.instance.curData.npcInformations == null) return;
-        NPCInfo npcInfo = SaveManager.instance.curData.npcInformations.Find(n => n.npcId == currentNpcData.npcId);
+        if (SaveManager.instance == null || SaveManager.instance.curData == null || CurData.npcInformations == null) return;
+        NPCInfo npcInfo = CurData.npcInformations.Find(n => n.npcId == currentNpcData.npcId);
         if (npcInfo != null && npcInfo.words != null)
         {
             foreach (MemoryKeyword keyword in npcInfo.words)
@@ -314,14 +316,14 @@ public class ServerChat : MonoBehaviour
                             case "npc_ep3_musician": i = 9;  break;  //ep3 레온은 감정 점수  
                             case "npc_ep4_core":     i = 10; break;  //ep4 중심 존재는 관계 점수
                         }
-                        SaveManager.instance.curData.memory_reconstruction_rate[i] += keyword.memoryRate;
+                        CurData.memory_reconstruction_rate[i] += keyword.memoryRate;
                         if (npcInfo.npcId == "npc_ep2_painter")  // 엘리오의 경우 Episode2ScoreManager에도 반영
                         {
                             Episode2ScoreManager.Instance.AddKeywordScore(keyword);
                         }
                         keyword.isUsed = true;
                         SaveManager.instance.WriteCurJSON();
-                        Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {SaveManager.instance.curData.memory_reconstruction_rate}");
+                        Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {CurData.memory_reconstruction_rate}");
                     }
                     else
                     {

@@ -21,7 +21,7 @@ public class EP4_Puzzle2Manager : MonoBehaviour
             StartCoroutine(cutscene.Ep4_Puzzle2_Mid());
             isMidCutsceneOn = true;
         }
-        if (obj1.activeSelf && obj2.activeSelf)  // 🔥 전부 활성화됐는지 체크
+        if (obj1.activeSelf && obj2.activeSelf)  // 🔥 둘 다 활성화됐는지 체크
         {
             ActivatePortal();
             isActivated = true;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -59,6 +59,7 @@ public enum Ep3IntroCutsceneSaveKey
 public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 {
     public const string SceneName = "Episode3_Scene";
+    public SaveDataObj CurData;
 
     private const string PlayerTag = "Player";
     private const string DefaultResourcePath = "Data/ep3_lobby_intro_cutscene";
@@ -143,6 +144,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         {
             StartCoroutine(BeginCutsceneCoroutine(false));
         }
+        CurData = SaveManager.instance.curData;
     }
 
     public void PlayCutsceneManually()
@@ -217,7 +219,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return true;
         }
 
-        SaveDataObj data = SaveManager.instance != null ? SaveManager.instance.curData : SaveManager.ReadCurJSON();
+        SaveDataObj data = SaveManager.instance != null ? CurData : SaveManager.ReadCurJSON();
         return data != null && !HasPlayedCutscene(data);
     }
 
@@ -625,7 +627,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
-        SaveDataObj data = SaveManager.instance != null ? SaveManager.instance.curData : SaveManager.ReadCurJSON();
+        SaveDataObj data = SaveManager.instance != null ? CurData : SaveManager.ReadCurJSON();
         if (data == null)
         {
             return;
@@ -635,7 +637,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
         if (SaveManager.instance != null)
         {
-            SaveManager.instance.curData = data;
+            CurData = data;
             SaveManager.instance.WriteCurJSON();
         }
     }
