@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CheckpointSelectButton : MonoBehaviour
 {
-    public SaveDataObj curData;
+    public SaveDataObj CurData;
     public int StageNumber;
     public int cpNum;
     public bool isLock = true;
@@ -52,20 +52,20 @@ private void OnEnable()
     }
     public void Refresh()
     {
-        curData = SaveManager.instance.curData;
+        CurData = SaveManager.instance.curData;
         switch (StageNumber)
         {
-            case 0: isLock = !curData.ep1_open; break;
-            case 1: isLock = !curData.ep2_open; break;
-            case 2: isLock = !curData.ep3_open; break;
+            case 0: isLock = !CurData.ep1_open; break;
+            case 1: isLock = !CurData.ep2_open; break;
+            case 2: isLock = !CurData.ep3_open; break;
             case 3:
                 {
                     switch (cpNum)
                     {
-                        case 0: isLock = !curData.ep4_open; break;
-                        case 1: isLock = !curData.ep4_puzzle1Clear; break;
-                        case 2: isLock = !curData.ep4_puzzle2Clear; break;
-                        case 3: isLock = !curData.ep4_puzzle3Clear; break;
+                        case 0: isLock = !CurData.ep4_open; break;
+                        case 1: isLock = !CurData.ep4_puzzle1Clear; break;
+                        case 2: isLock = !CurData.ep4_puzzle2Clear; break;
+                        case 3: isLock = !CurData.ep4_puzzle3Clear; break;
                     }
                 }
                 break;

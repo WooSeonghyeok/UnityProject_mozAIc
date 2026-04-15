@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class StageSelectButton : MonoBehaviour
 {
-    public SaveDataObj curData;
+    public SaveDataObj CurData;
     public int StageNumber;
     public bool isLock = true;
     public TextMeshProUGUI stageName;
@@ -40,13 +40,13 @@ public class StageSelectButton : MonoBehaviour
     public void Refresh()
     {
         if (SaveManager.instance == null) return;
-        curData = SaveManager.instance.curData;
+        CurData = SaveManager.instance.curData;
         switch (StageNumber)
         {
-            case 0: isLock = !curData.ep1_open; break;
-            case 1: isLock = !curData.ep2_open; break;
-            case 2: isLock = !curData.ep3_open; break;
-            case 3: isLock = !curData.ep4_open; break;
+            case 0: isLock = !CurData.ep1_open; break;
+            case 1: isLock = !CurData.ep2_open; break;
+            case 2: isLock = !CurData.ep3_open; break;
+            case 3: isLock = !CurData.ep4_open; break;
         }
         if (stageName != null) stageName.text = $"Stage {StageNumber + 1}";
         SelectImgCheck();

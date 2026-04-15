@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Puzzle4Manager : MonoBehaviour
 {
     public static Puzzle4Manager instance;
+    public SaveDataObj CurData;
     private PlayerMovement user;
     public GameObject cubes;
     private EP4_CubeSwitch[] cswitch;
@@ -17,7 +18,7 @@ public class Puzzle4Manager : MonoBehaviour
     public Button retryButton;
     public GameObject retryPopup;
     public bool retryPopupOpen = false;
-    public event Action retryEvent;
+    public event Action RetryEvent;
     public int retry_count = 0;
     [SerializeField] private float egoSync = 0f;
     public NPCData coreNPC;
@@ -40,6 +41,7 @@ public class Puzzle4Manager : MonoBehaviour
         retryPopupOpen = false;
         clearSound = GetComponent<SoundTrigger>();
         interactionUI.SetActive(false);
+        CurData = SaveManager.instance.curData;
     }
     private void OnEnable()
     {
@@ -47,7 +49,7 @@ public class Puzzle4Manager : MonoBehaviour
         {
             foreach (EP4_CubeSwitch c in cswitch)
             {
-                c.SwitchClick += Switch_CountUp;
+                c.SwitchClick += Switch_Click;
             }
         }
         if (user != null)
@@ -58,12 +60,27 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         InteractManager.Instance.puzzle4Hint += HintMessage;
     }
-
+    private void OnDisable()  //이벤트 구독 해제
+    {
+        if (cswitch != null)
+        {
+            foreach (EP4_CubeSwitch c in cswitch)
+            {
+                c.SwitchClick -= Switch_CountUp;
+            }
+        }
+        if (user != null)
+        {
+            var ib = user.GetComponent<InteractManager>();
+            if (ib != null) ib.puzzle4Goal -= Puzzle4Complete;
+        }
+        InteractManager.Instance.puzzle4Hint -= HintMessage;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            CountTxt();
+            RetryTxt();
             retryButton.gameObject.SetActive(true);
             RetryBox.SetActive(true);
         }
@@ -77,7 +94,7 @@ public class Puzzle4Manager : MonoBehaviour
             RetryBox.SetActive(false);
         }
     }
-    public void Switch_CountUp()  //스위치 상호작용 횟수 누적 메소드
+    public void Switch_Click()  //스위치 상호작용 횟수 누적 메소드
     {
         SyncCheck();
         if (egoSync >= 0.5f && !isMidCutsceneOn)
@@ -96,9 +113,10 @@ public class Puzzle4Manager : MonoBehaviour
     {
         if (user != null && retryPos != null) user.transform.position = retryPos.position;
         retry_count++;
-        retryEvent?.Invoke();  // 전체 PuzzleCubeCtrl에 다시 초기화 이벤트 전달
+        RetryEvent?.Invoke();  // 전체 PuzzleCubeCtrl에 다시 초기화 이벤트 전달
         SyncCheck();
         CloseRetryPopup();
+        RetryTxt();
     }
     public void CloseRetryPopup()  => retryPopup.SetActive(false);  //다시하기 팝업 닫기 동작
     void HintMessage()  //다시하기 지점 도착 시마다 힌트 메시지를 출력
@@ -128,17 +146,17 @@ public class Puzzle4Manager : MonoBehaviour
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
         SyncCheck();
-        puzzle4MemoryRate = Math.Clamp(retry_count, 0, 5);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
-        SaveManager.instance.curData.memory_reconstruction_rate -= puzzle4MemoryRate;  //이전까지 총 점수에서 감점
-        if (egoSync == 1f) SelfVoiceTag();
+        puzzle4MemoryRate = puzzle4BaseMemoryRate - Math.Clamp(retry_count, 0, puzzle4BaseMemoryRate);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
+        CurData.memory_reconstruction_rate[11] = puzzle4MemoryRate;  //퍼즐 4 점수 획득
+        SelfVoiceTag(egoSync >= 1f);  //자아 통합도 100% 달성 여부에 따라 "self_voice" 태그를 획득
     }
     private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
     {
-        var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "self_voice");
-        if (tag != null) tag.tagGet = true;
+        var tag = CurData.CoreTag.FirstOrDefault(t => t.TagName == "self_voice");
+        if (tag != null) tag.tagGet = b;
         else
         {
-            SaveManager.instance.curData.CoreTag.Add(new IsTagGet
+            CurData.CoreTag.Add(new IsTagGet
             {
                 TagName = "self_voice",
                 tagGet = true
@@ -162,7 +180,7 @@ public class Puzzle4Manager : MonoBehaviour
         }
         egoSync = (float)count / (float)acube.Length;
     }
-    private void CountTxt()  //텍스트 갱신 메소드
+    private void RetryTxt()  //다시하기 횟수 텍스트 갱신
     {
         if (RetryCnt != null) RetryCnt.text = $"Retry: {retry_count}";
     }

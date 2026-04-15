@@ -16,7 +16,7 @@ public class Episode2ScoreManager : MonoBehaviour
     public int npcScore = 0;
 
     private HashSet<string> usedKeywords = new HashSet<string>();
-
+    public SaveDataObj CurData;
     void Awake()
     {
         // ⭐ 싱글톤 + DontDestroyOnLoad (핵심)
@@ -29,12 +29,14 @@ public class Episode2ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        CurData = SaveManager.instance.curData;
     }
 
     // 🔥 클리어 점수 추가
     public void AddClearScore(int value)
     {
         clearScore += value;
+        CurData.memory_reconstruction_rate[4] = clearScore;  //클리어 점수를 Episode2의 관계 점수로 사용
     }
 
     // 🔵 Space 감점
@@ -43,6 +45,7 @@ public class Episode2ScoreManager : MonoBehaviour
         if (spaceScore <= 0) return;
 
         spaceScore = Mathf.Max(0, spaceScore - 1);
+        CurData.memory_reconstruction_rate[5] = spaceScore + paintScore;  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
     }
 
     // 🎨 Paint 감점
@@ -51,6 +54,7 @@ public class Episode2ScoreManager : MonoBehaviour
         if (paintScore <= 0) return;
 
         paintScore = Mathf.Max(0, paintScore - 1);
+        CurData.memory_reconstruction_rate[5] = spaceScore + paintScore;  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
     }
 
     // 🧠 NPC 점수 (중복 방지)

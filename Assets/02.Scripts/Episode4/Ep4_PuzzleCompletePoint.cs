@@ -9,9 +9,11 @@ public class Ep4_PuzzleCompletePoint : MonoBehaviour
     private readonly string player = "Player";
     public TextboxCtrl_Ep4 cutsceneManager;
     private bool isPlayed = false;  //각 완료 지점마다 대사 연출을 1회만 재생하도록 체크
+    public SaveDataObj CurData;
     private void Awake()  //씬 진입 시 해제
     {
         exit_Wall.SetActive(false);
+        CurData = SaveManager.instance.curData;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -26,19 +28,19 @@ public class Ep4_PuzzleCompletePoint : MonoBehaviour
                 {
                     case 1:
                         {
-                            SaveManager.instance.curData.ep4_puzzle1Clear = true;
+                            CurData.ep4_puzzle1Clear = true;
                             StartCoroutine(cutsceneManager.Puzzle1Complete());
                             break;
                         }
                     case 2:
                         {
-                            SaveManager.instance.curData.ep4_puzzle2Clear = true;
+                            CurData.ep4_puzzle2Clear = true;
                             StartCoroutine(cutsceneManager.Puzzle2Complete());
                             break;
                         }
                     case 3:
                         {
-                            SaveManager.instance.curData.ep4_puzzle3Clear = true;
+                            CurData.ep4_puzzle3Clear = true;
                             StartCoroutine(cutsceneManager.Puzzle3Complete());
                             break;
                         }
