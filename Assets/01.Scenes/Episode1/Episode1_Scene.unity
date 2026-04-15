@@ -2086,17 +2086,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 07adee69188fa3d45bbbb70845f2b58e, type: 3}
---- !u!114 &4638737952316573914 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8807033860077105766, guid: aba7668693e571949b460eadbe967891, type: 3}
-  m_PrefabInstance: {fileID: 2751984270205526337}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11dc4ff6f9394d948b0291e13f14a4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5015323781659492233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2109,10 +2098,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Village
       objectReference: {fileID: 0}
-    - target: {fileID: 5253920004970094858, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      propertyPath: cutscenePlayer
-      value: 
-      objectReference: {fileID: 4638737952316573914}
     - target: {fileID: 5993447998162044667, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
       propertyPath: virtualCam
       value: 

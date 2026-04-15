@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 6148937708711592704}
   - component: {fileID: 3790295411632456594}
   - component: {fileID: 3052319151681280016}
+  - component: {fileID: 8435205793554235458}
   m_Layer: 3
   m_Name: Portal3_IceCaveExit
   m_TagString: Untagged
@@ -756,8 +757,28 @@ MonoBehaviour:
   virtualCam: {fileID: 0}
   useCutscene: 0
   requirePuzzleClear: 0
-  enterCaveCutscene: 1
+  playCutsceneOnlyOnce: 1
   cutscenePlayer: {fileID: 0}
+--- !u!114 &8435205793554235458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407088909395401675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2bb2b455b6ada4c90357f4712c7c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: "\uCD9C\uAD6C"
+  includeInHint: 1
+  nearDistance: 2.5
+  hintFlavorText: "\uC2E0\uBE44\uD55C \uAE30\uC6B4\uC774 \uB290\uAEF4\uC9C0\uB294
+    \uACF3"
+  description: "\uBBF8\uB044\uB7EC\uC6CC\uC11C \uD55C \uBC29\uD5A5\uC73C\uB85C \uCB49
+    \uBBF8\uB044\uB7EC\uC9C0\uB294 \uD37C\uC990\uC744 \uC798 \uC774\uC6A9\uD558\uBA74
+    \uB3C4\uB2EC\uD560 \uC218 \uC788\uB2E4."
 --- !u!1 &2892780507730428805
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,7 +2372,7 @@ MonoBehaviour:
   virtualCam: {fileID: 0}
   useCutscene: 0
   requirePuzzleClear: 0
-  enterCaveCutscene: 1
+  playCutsceneOnlyOnce: 1
   cutscenePlayer: {fileID: 0}
 --- !u!1001 &455563768250634466
 PrefabInstance:

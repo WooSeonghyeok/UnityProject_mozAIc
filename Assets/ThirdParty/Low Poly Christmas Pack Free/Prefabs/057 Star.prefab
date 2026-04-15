@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2844539676620022710}
   - component: {fileID: 2844539676619022710}
   - component: {fileID: 2844539676614922518}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lowpoly_Christmas_Pack_057:pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2844539676617122706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lowpoly_Christmas_Pack_057:group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2844539676617122708}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,11 +180,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2844539676617122710}
   - component: {fileID: 6783714499994824640}
+  - component: {fileID: 2186631587307896355}
   - component: {fileID: 8079652173950738663}
   - component: {fileID: 6023197350280540686}
-  - component: {fileID: 2186631587307896355}
   - component: {fileID: 1063569824118953738}
-  m_Layer: 0
+  - component: {fileID: 8678715900761013789}
+  m_Layer: 9
   m_Name: 057 Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,33 +231,6 @@ CapsuleCollider:
   m_Height: 0.55
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8079652173950738663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2844539676617031606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e9b9b53004f59a48a75f60a0120214a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  starData: {fileID: 11400000, guid: df7636e976e1adc4c8378f5cf2231e43, type: 2}
-  playerTag: Player
---- !u!114 &6023197350280540686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2844539676617031606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fd6d2ac8f0a4124b9c3dab857fee97a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateSpeed: 90
 --- !u!108 &2186631587307896355
 Light:
   m_ObjectHideFlags: 0
@@ -270,7 +244,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 1
+  m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -319,6 +293,33 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &8079652173950738663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844539676617031606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9b9b53004f59a48a75f60a0120214a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starData: {fileID: 11400000, guid: df7636e976e1adc4c8378f5cf2231e43, type: 2}
+  playerTag: Player
+--- !u!114 &6023197350280540686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844539676617031606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd6d2ac8f0a4124b9c3dab857fee97a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 90
 --- !u!114 &1063569824118953738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,3 +343,20 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &8678715900761013789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844539676617031606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2bb2b455b6ada4c90357f4712c7c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: "\uB178\uB780 \uBCC4\uC870\uAC01"
+  includeInHint: 1
+  nearDistance: 2.5
+  hintFlavorText: "\uD76C\uBBF8\uD558\uAC8C \uBC18\uC9DD\uC774\uB294 \uC870\uAC01"
+  description: 
