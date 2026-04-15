@@ -140,20 +140,34 @@ public class SaveManager : MonoBehaviour
                     break;
                 }
                 case "npc_ep2_painter":
+                {
+                    string[] RateTagNames = { "동료", "작업실", "색", "?", "!" };
+                    foreach (var keyword in RateTagNames)
                     {
-                        string[] RateTagNames = { "동료", "작업실", "색", "?", "!" };
-                        foreach (var keyword in RateTagNames)
+                        dataObj.npcInformations[1].words.Add(new MemoryKeyword
                         {
-                            dataObj.npcInformations[1].words.Add(new MemoryKeyword
-                            {
-                                word = keyword,
-                                memoryRate = 2,
-                                isUsed = false
-                            });
-                        }
-                        break;
+                            word = keyword,
+                            memoryRate = 2,
+                            isUsed = false
+                        });
                     }
-                case "npc_ep3_musician": break;
+                    break;
+                }
+                case "npc_ep3_musician":
+                {
+                    string[] RateTagNames = { "멜로디", "리듬", "하모니"};
+                    foreach (var keyword in RateTagNames)    //기억 재구성 2점으로 태그 생성
+                        {
+                        dataObj.npcInformations[2].words.Add(new MemoryKeyword
+                        {
+                            word = keyword,
+                            memoryRate = 2,
+                            isUsed = false
+                        });
+                    }
+                    dataObj.npcInformations[2].words[2].memoryRate = 1;  //"하모니"는 기억 재구성 1점 획득
+                    break;
+                }
                 case "npc_ep4_core":
                 {
                     string[] RateTagNames = { "기억", "동료", "하모니", "삶", "마지막 조각" };
