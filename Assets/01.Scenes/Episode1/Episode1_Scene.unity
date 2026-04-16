@@ -2263,6 +2263,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1997945053754294340, guid: e9358858e355f494ab973b6221fd76d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3011171123184548089, guid: e9358858e355f494ab973b6221fd76d0, type: 3}
       propertyPath: puzzleVolume
       value: 

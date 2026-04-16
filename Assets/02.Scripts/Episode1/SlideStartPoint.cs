@@ -23,6 +23,22 @@ public class SlideStartPoint : MonoBehaviour
             // PlayerMovement가 존재하면 비활성화
             if (pm != null)
             {
+                // 슬라이드 시작 전에 카메라를 정면으로 강제 고정
+                Transform camTarget = pm.cameraTarget;
+
+                if (camTarget != null)
+                {
+                    // 카메라를 정면으로 (pitch = 0)
+                    camTarget.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                }
+
+                // 플레이어가 현재 바라보는 방향 기준으로 정렬 (yaw 유지)
+                Vector3 forward = col.transform.forward;
+                forward.y = 0f;
+                if (forward != Vector3.zero)
+                {
+                    col.transform.forward = forward.normalized;
+                }
                 // 슬라이드 존 진입 순간 애니메이션을 Idle 전용 모드로 맞춤
                 pm.EnterSlideZoneAnimationMode();
                 pm.enabled = false;
@@ -44,7 +60,7 @@ public class SlideStartPoint : MonoBehaviour
             }
         }
     }
-    private Vector3 GetWorldStartDirection()  /// 시작점이 사용할 월드 방향 반환
+    private Vector3 GetWorldStartDirection()  // 시작점이 사용할 월드 방향 반환
     {
         switch (startDirection)
         {
