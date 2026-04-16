@@ -89,8 +89,11 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.player,
             "여긴... 어디지?", 2f, Talker.self, true);
 
-        // 🔥 변경된 부분
-        yield return StartCoroutine(PlayIntroCams());
+        if (introCams.Length > 0 && introCams[0] != null)
+        {
+            SwitchToCam(introCams[0]);
+            yield return new WaitForSecondsRealtime(2f);
+        }
 
         yield return _manager.TalkSay(TalkType.voice,
             "…누구지..", 2f, Talker.core, true);
@@ -99,7 +102,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             "처음 보는 것 같은데.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "왜 네가 여기 있는 게 이상하지 않지?", 2f, Talker.core, true);
+            "왜 낯이 익은 것 같지?", 2f, Talker.core, true);
 
         BackToPlayerCam();
 
@@ -195,10 +198,10 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             "…기억난다.", 2f, Talker.self, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "너는 늘 나랑 다른 곳을 봤어.", 2f, Talker.core, false);
+            "너는 늘 나랑 다른 곳을 봤어.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "그래서 내가 못 보던 모양을 먼저 찾아냈지.", 2f, Talker.core, false);
+            "그래서 내가 못 보던 모양을 먼저 찾아냈지.", 2f, Talker.core, true);
 
         _manager.UserCtrl(true);
     }
@@ -208,14 +211,35 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     // ===============================
     public IEnumerator PaintPuzzleStart()
     {
+
         _manager.UserCtrl(false);
 
+
         yield return _manager.TalkSay(TalkType.player,
-            "이 그림... 어딘가 익숙한데", 2f, Talker.self, true);
+                   "이 공간... 어딘가 익숙한데", 2f, Talker.self, true);
 
-        yield return _manager.TalkSay(TalkType.voice,
-            "네가 잊고 있던 장면이야.", 2f, Talker.core, false);
+        for (int i = 0; i < introCams.Length; i++)
+        {
+            if (introCams[i] == null) continue;
 
+            // 🎬 카메라 이동
+            SwitchToCam(introCams[i]);
+            yield return new WaitForSecondsRealtime(1.5f);
+
+            // 💬 텍스트
+            if (i == 0)
+            {
+                yield return _manager.TalkSay(TalkType.voice,
+                      "너는 줄곧 색을 잘 조합하곤 했지", 2f, Talker.core, true);
+            }
+            else if (i == 1)
+            {
+                yield return _manager.TalkSay(TalkType.voice,
+                   "네가 잊고 있던 그림이야.", 2f, Talker.core, true);
+            }
+
+        }
+        BackToPlayerCam();
         _manager.UserCtrl(true);
     }
 
@@ -231,10 +255,10 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     public IEnumerator PaintStep2()
     {
         yield return _manager.TalkSay(TalkType.voice,
-            "너는 색을 고를 때 망설이지 않았어.", 2f, Talker.core, false);
+            "너는 색을 고를 때 망설이지 않았어.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", 2f, Talker.core, false);
+            "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", 2f, Talker.core, true);
     }
 
     public IEnumerator PaintStep3()
@@ -269,14 +293,64 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     IEnumerator EndingSequence()
     {
         _manager.UserCtrl(false);
+        for (int i = 1; i < introCams.Length; i++)
+        {
+            if (introCams[i] == null) continue;
 
-        yield return _manager.TalkSay(TalkType.voice,
-            "이제 모든 조각이 돌아왔어.", 2f, Talker.core, true);
+            // 🎬 카메라 이동
+            SwitchToCam(introCams[i]);
+            yield return new WaitForSecondsRealtime(2f);
 
-        yield return _manager.TalkSay(TalkType.player,
-            "이게... 나였던 거구나.", 2f, Talker.self, true);
+            // 💬 텍스트
+            if (i == 1)
+            {
+                yield return _manager.TalkSay(TalkType.player,
+                    "이제 모든 기억이 돌아왔어.", 4f, Talker.self, true);
 
-        SceneManager.LoadScene("NextScene");
+                yield return _manager.TalkSay(TalkType.player,
+                    "이게... 나였던 거구나.", 4f, Talker.self, true);
+            }
+            else if (i == 2)
+            {
+                yield return _manager.TalkSay(TalkType.voice,
+                 "너는 그냥 여기 들른 사람이 아니야.", 4f, Talker.core, true);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                   "내 동료였어.", 4f, Talker.core, true);
+                yield return _manager.TalkSay(TalkType.voice,
+                  "같이 그리고, 같이 고민하고….", 4f, Talker.core, true);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                  "같이 끝까지 가려고 했던 사람.", 4f, Talker.core, true);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                  "왜 멈췄는지 이제 조금 알 것 같아.", 4f, Talker.core, true);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                  "이건 너무 중요해서… 쉽게 끝낼 수 없었던 거야.", 4f, Talker.core, true);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                  "이건 내 그림이 아니라, 우리 그림이었으니까.", 4f, Talker.core, true);
+            }
+            else if (i == 3)
+            {
+                var manager = FindObjectOfType<Episode2Manager>();
+                if (manager != null && manager.finalObject != null)
+                {
+                    manager.finalObject.SetActive(true);
+                }
+                yield return new WaitForSecondsRealtime(2f);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                 "네가 꿈꾸던 장면은 돌아왔어.", 4f, Talker.core, true);
+
+                yield return _manager.TalkSay(TalkType.voice,
+                 "이제 그 장면에 남아 있던 마지막 울림을 찾으러 가.", 4f, Talker.core, true);
+            }
+
+        }
+
+        BackToPlayerCam();
 
         _manager.UserCtrl(true);
     }

@@ -70,7 +70,7 @@ public class EP2CutsceneManager : MonoBehaviour
     IEnumerator Fade(float start, float end)
     {
         float t = 0;
-        float duration = 1f;
+        float duration = 0.5f;
 
         while (t < duration)
         {

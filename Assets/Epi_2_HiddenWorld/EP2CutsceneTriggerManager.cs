@@ -83,7 +83,23 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         {
             ResetAll();
         }
+        // ⭐ 엔딩 조건 (추가🔥)
+        if (scene == "Episode2_Scene")
+        {
+            if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
+                PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
+                PlayerPrefs.GetInt("Played_EP2_Ending", 0) == 0)
+            {
+                PlayerPrefs.SetInt("Played_EP2_Ending", 1);
+                PlayerPrefs.Save();
 
+                var ctrl = FindObjectOfType<TextboxCtrl_Ep2>();
+                if (ctrl != null)
+                {
+                    ctrl.Episode2Ending();
+                }
+            }
+        }
         // ⭐ Space Clear
         if (scene == "Space_Puzzle")
         {
@@ -191,7 +207,7 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Played_Paint_Clear");
 
         PlayerPrefs.DeleteKey("Played_Space_Clear_Immediate");
-
+        PlayerPrefs.DeleteKey("Played_EP2_Ending");
         // ⭐ 핵심
         PlayerPrefs.DeleteKey("Played_Paint_Sequence");
         PlayerPrefs.DeleteKey("Played_Space_Text");
