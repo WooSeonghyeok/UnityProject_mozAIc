@@ -69,7 +69,7 @@ public class Puzzle4Manager : MonoBehaviour
         {
             foreach (EP4_CubeSwitch c in cswitch)
             {
-                c.SwitchClick -= Switch_Click;
+                c.SwitchClick -= Switch_CountUp;
             }
         }
         if (user != null)

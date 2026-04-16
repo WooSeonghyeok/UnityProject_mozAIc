@@ -54,6 +54,23 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
         HintSet();
         if (Puzzle4Manager.instance != null) Puzzle4Manager.instance.RetryEvent += HandleRetry;
     }
+    private void SwitchSet()
+    {
+        if (colorSwitch != null)
+        {
+            colorSwitch.gameObject.SetActive(switchValue != 0);
+            colorSwitch.GetComponent<BoxCollider>().enabled = (switchValue != 0);
+        }
+    }
+    private void HintSet()
+    {
+        if (hint != null)
+        {
+            hint.SetActive(switchValue != 0);
+            hint_cond.GetComponent<Renderer>().material = CondSetup(condition);
+            hint_eff.GetComponent<Renderer>().material.color = EffColorSetup(switchValue);
+        }
+    }
     private void OnDisable()
     {
         if (Puzzle4Manager.instance != null) Puzzle4Manager.instance.RetryEvent -= HandleRetry;
