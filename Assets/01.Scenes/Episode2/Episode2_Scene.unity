@@ -1321,8 +1321,8 @@ MonoBehaviour:
   box_voice: {fileID: 1337236360}
   text_system: {fileID: 173759132}
   text_player: {fileID: 1246085800}
-  text_voice: {fileID: 2029032033}
-  voice_Name: {fileID: 1155664276}
+  text_voice: {fileID: 1155664276}
+  voice_Name: {fileID: 2029032033}
 --- !u!1 &104939211
 GameObject:
   m_ObjectHideFlags: 0
