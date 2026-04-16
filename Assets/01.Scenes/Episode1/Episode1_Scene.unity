@@ -311,33 +311,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1654991678638700023, guid: f6e261bdf16de8b45a9023acfb5f880c, type: 3}
   m_PrefabInstance: {fileID: 2018813919}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &360965490 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1522933866447899859, guid: f6e261bdf16de8b45a9023acfb5f880c, type: 3}
-  m_PrefabInstance: {fileID: 2018813919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b66c64acf6adc48b10d98bce44fa63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &459341239 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2690322922169336647, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
   m_PrefabInstance: {fileID: 1551876810}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &459341240 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7903282535820720385, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
-  m_PrefabInstance: {fileID: 1551876810}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2c8351a670580b4b9144fba52f07032, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &555506315 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333593439544459544, guid: 460b03358d83c88439d00ec5965d64fc, type: 3}
@@ -1544,10 +1522,10 @@ PrefabInstance:
     - target: {fileID: 7779179856378969893, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 360965490}
+      objectReference: {fileID: 2018813920}
     - target: {fileID: 7779179856378969893, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenLoadPopup
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 8505852422597672447, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1566,6 +1544,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+--- !u!114 &1551876811 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4969661969751739495, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+  m_PrefabInstance: {fileID: 1551876810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1627659119
 GameObject:
   m_ObjectHideFlags: 3
@@ -2043,9 +2032,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 459341240}
-        m_TargetAssemblyTypeName: OptionPopupManager, Assembly-CSharp
-        m_MethodName: OpenOptionPopup
+      - m_Target: {fileID: 1551876811}
+        m_TargetAssemblyTypeName: PopupOpenClose, Assembly-CSharp
+        m_MethodName: OpenPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2390,6 +2379,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6e261bdf16de8b45a9023acfb5f880c, type: 3}
+--- !u!114 &2018813920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2357335300102651587, guid: f6e261bdf16de8b45a9023acfb5f880c, type: 3}
+  m_PrefabInstance: {fileID: 2018813919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2031271098
 GameObject:
   m_ObjectHideFlags: 0
