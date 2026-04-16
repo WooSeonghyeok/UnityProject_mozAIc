@@ -161,6 +161,7 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Played_Episode2_Intro");
         PlayerPrefs.DeleteKey("Played_Space_Intro");
         PlayerPrefs.DeleteKey("Played_Paint_Intro");
+        PlayerPrefs.DeleteKey("Played_EP2_Text_Intro");
 
         PlayerPrefs.DeleteKey("Played_Space_Clear");
         PlayerPrefs.DeleteKey("Played_Paint_Clear");

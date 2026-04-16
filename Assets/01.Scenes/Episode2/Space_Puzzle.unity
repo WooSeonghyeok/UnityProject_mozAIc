@@ -14351,6 +14351,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2134037921703268966, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134037921703268966, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134037921703268966, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2838389052227991134, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
       propertyPath: m_Name
       value: Canvas_Cutscene_EP2
@@ -14366,6 +14378,18 @@ PrefabInstance:
     - target: {fileID: 2938627213442081795, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645983891057185531, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645983891057185531, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645983891057185531, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6442226956594460315, guid: a5da4668bad44194c980bcdf9cf2bcbb, type: 3}
       propertyPath: m_IsActive
