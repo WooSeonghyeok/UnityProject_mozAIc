@@ -39,7 +39,7 @@ EditorBuildSettings:
     path: Assets/01.Scenes/Episode3/Ep3_3_ReturnedLobby.unity
     guid: 8c3d7ee645f8e98479d41cd2ba22acd1
   - enabled: 1
-    path: Assets/01.Scenes/Episode4_Scene.unity
+    path: Assets/01.Scenes/Episode4/Episode4_Scene.unity
     guid: fc0eef8256f94b24f85fd1a3207457f0
   - enabled: 1
     path: Assets/01.Scenes/EndingScene.unity

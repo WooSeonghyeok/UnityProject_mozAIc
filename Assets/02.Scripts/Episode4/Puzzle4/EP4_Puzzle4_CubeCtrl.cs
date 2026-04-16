@@ -42,17 +42,6 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         CubeDataSetup();
     }
-    public void CubeDataSetup()
-    {
-        ID = data.cubeData.place[0] * 10 + data.cubeData.place[1];
-        row = data.cubeData.place[0];
-        column = data.cubeData.place[1];
-        isRed = data.cubeData.colorBool[0];
-        isGreen = data.cubeData.colorBool[1];
-        isBlue = data.cubeData.colorBool[2];
-        condition = data.cubeData.cond;
-        switchValue = data.cubeData.value;
-    }
     void OnEnable()
     {
         transform.position = new Vector3(row * 2.5f, 0f, column * 2.5f);
@@ -95,24 +84,6 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
         cube.GetComponent<Renderer>().material.color = cubeColor;
         OnColorChanged?.Invoke();
     }
-    public Material CondSetup(EP4_Puzzle4_Cube.switchCondition cond)
-    {
-        switch (cond)
-        {
-            case EP4_Puzzle4_Cube.switchCondition.near:     return CondMaterial_near;
-            case EP4_Puzzle4_Cube.switchCondition.column:   return CondMaterial_column;
-            case EP4_Puzzle4_Cube.switchCondition.row:      return CondMaterial_row;
-            case EP4_Puzzle4_Cube.switchCondition.color:    return CondMaterial_color;
-            default:                                        return null;
-        }
-    }
-    public Color EffColorSetup(int switchValue)
-    {
-        float redV = (switchValue & 1) == 1 ? 1 : 0;
-        float greenV = (switchValue & 2) == 2 ? 1 : 0;
-        float blueV = (switchValue & 4) == 4 ? 1 : 0;
-        return new Color(redV, greenV, blueV);
-    }
     private void HandleRetry()
     {
         CubeDataSetup();  // 데이터 재불러오기
@@ -123,5 +94,51 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
         if (colorSwitch != null) SwitchSet();
         if (hint != null) HintSet();
         OnColorChanged?.Invoke();
+    }
+    private void HintSet()
+    {
+        if (hint != null)
+        {
+            hint.SetActive(switchValue != 0);
+            hint_cond.GetComponent<Renderer>().material = CondSetup(condition);
+            hint_eff.GetComponent<Renderer>().material.color = EffColorSetup(switchValue);
+        }
+    }
+    public Material CondSetup(EP4_Puzzle4_Cube.switchCondition cond)
+    {
+        switch (cond)
+        {
+            case EP4_Puzzle4_Cube.switchCondition.near:     return CondMaterial_near;
+            case EP4_Puzzle4_Cube.switchCondition.column:   return CondMaterial_column;
+            case EP4_Puzzle4_Cube.switchCondition.row:      return CondMaterial_row;
+            case EP4_Puzzle4_Cube.switchCondition.color:    return CondMaterial_color;
+            default: return null;
+        }
+    }
+    public Color EffColorSetup(int switchValue)
+    {
+        float redV = (switchValue & 1) == 1 ? 1 : 0;
+        float greenV = (switchValue & 2) == 2 ? 1 : 0;
+        float blueV = (switchValue & 4) == 4 ? 1 : 0;
+        return new Color(redV, greenV, blueV);
+    }
+    private void SwitchSet()
+    {
+        if (colorSwitch != null)
+        {
+            colorSwitch.gameObject.SetActive(switchValue != 0);
+            colorSwitch.GetComponent<BoxCollider>().enabled = (switchValue != 0);
+        }
+    }
+    public void CubeDataSetup()
+    {
+        ID = data.cubeData.place[0] * 10 + data.cubeData.place[1];
+        row = data.cubeData.place[0];
+        column = data.cubeData.place[1];
+        isRed = data.cubeData.colorBool[0];
+        isGreen = data.cubeData.colorBool[1];
+        isBlue = data.cubeData.colorBool[2];
+        condition = data.cubeData.cond;
+        switchValue = data.cubeData.value;
     }
 }

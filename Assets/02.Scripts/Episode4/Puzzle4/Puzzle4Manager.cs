@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static TextboxManager;
 public class Puzzle4Manager : MonoBehaviour
 {
     public static Puzzle4Manager instance;
@@ -24,10 +25,12 @@ public class Puzzle4Manager : MonoBehaviour
     public NPCData coreNPC;
     public TextboxCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
+    [SerializeField] private int puzzle4BaseMemoryRate = 5;  //퍼즐 클리어 시 기본으로 획득하는 기억 퍼즐 재구성 점수
     public int puzzle4MemoryRate = 0;
     private SoundTrigger clearSound;
     public GameObject interactionUI;   // "E" 상호작용 UI
     private bool isMidCutsceneOn = false;
+    private bool isCompleteCutsceneOn = false;
     void Awake()
     {
         if (instance == null) instance = this;
@@ -43,7 +46,7 @@ public class Puzzle4Manager : MonoBehaviour
         interactionUI.SetActive(false);
         CurData = SaveManager.instance.curData;
     }
-    private void OnEnable()
+    private void OnEnable()  //이벤트 구독 실행
     {
         if (cswitch != null)
         {
@@ -99,10 +102,14 @@ public class Puzzle4Manager : MonoBehaviour
         SyncCheck();
         if (egoSync >= 0.5f && !isMidCutsceneOn)
         {
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "좋았던 것도, 아팠던 것도,\n끝내 미완성으로 남은 것도."));
+            StartCoroutine(cutscene._manager.TalkSay(TalkType.player, "좋았던 것도, 아팠던 것도,\n끝내 미완성으로 남은 것도."));
             isMidCutsceneOn = true;
         }
-        if (egoSync == 1f) StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "전부 나로 받아들이겠다."));
+        if (egoSync >= 1f && !isCompleteCutsceneOn)
+        {
+            StartCoroutine(cutscene._manager.TalkSay(TalkType.player, "전부 나로 받아들이겠다."));
+            isCompleteCutsceneOn = true;
+        }
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
     {
@@ -123,7 +130,7 @@ public class Puzzle4Manager : MonoBehaviour
     {
         if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력
         {
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, "도망치지 않겠다.")); 
+            StartCoroutine(cutscene._manager.TalkSay(TalkType.player, "도망치지 않겠다.")); 
             isFirstContact = true;
         }
         else
@@ -140,7 +147,7 @@ public class Puzzle4Manager : MonoBehaviour
                 7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
                 _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
             };
-            StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.player, msg));
+            StartCoroutine(cutscene._manager.TalkSay(TalkType.player, msg));
         }
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
@@ -150,7 +157,7 @@ public class Puzzle4Manager : MonoBehaviour
         CurData.memory_reconstruction_rate[11] = puzzle4MemoryRate;  //퍼즐 4 점수 획득
         SelfVoiceTag(egoSync >= 1f);  //자아 통합도 100% 달성 여부에 따라 "self_voice" 태그를 획득
     }
-    private void SelfVoiceTag()  //자아 통합도 100% 달성해야 "self_voice" 태그를 획득
+    private void SelfVoiceTag(bool b)
     {
         var tag = CurData.CoreTag.FirstOrDefault(t => t.TagName == "self_voice");
         if (tag != null) tag.tagGet = b;
@@ -159,12 +166,15 @@ public class Puzzle4Manager : MonoBehaviour
             CurData.CoreTag.Add(new IsTagGet
             {
                 TagName = "self_voice",
-                tagGet = true
+                tagGet = b
             });
         }
-        Debug.Log($"마지막 기억 획득!");
-        clearSound.Play();
-        coreNPC.revealStage = MemoryRevealStage.Full;
+        if (b == true)
+        {
+            Debug.Log($"마지막 기억 획득!");
+            clearSound.Play();
+            coreNPC.revealStage = MemoryRevealStage.Full;
+        }
     }
     public void SyncCheck()  //자아 통합도 계산
     {

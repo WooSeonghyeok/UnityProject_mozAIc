@@ -20,7 +20,7 @@ public class MemoryRateTagPoint : MonoBehaviour
         if (other.gameObject.CompareTag(playerTag))
         {
             if (thisTagGet) return;
-            SaveManager.instance.curData.memory_reconstruction_rate += memoryRateUp;
+            SaveManager.instance.curData.memory_reconstruction_rate[12] += memoryRateUp;  //에피소드 4 감정 점수 태그
             tagBubble.SetActive(false);
             StartCoroutine(cutscene.TalkSay(TextboxManager.TalkType.player, tagHint));
             thisTagGet = true;

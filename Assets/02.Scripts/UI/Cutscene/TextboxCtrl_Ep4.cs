@@ -134,7 +134,9 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.voice, "넌 잊은 게 아니야.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도… 전부 네가 감당해야 했던 삶이었어.", 1.5f, Talker.core);
+        yield return new WaitForSeconds(0.15f);
         climaxCam.Priority = 15;
+        yield return new WaitForSeconds(0.15f);
         yield return _manager.TalkSay(TalkType.voice, "하지만 그때의 너는 너무 무너져 있었지.", 1.5f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "그래서 나를 남겨 둔 거야.", 1.5f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 1f, Talker.core, true);
@@ -143,7 +145,8 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 1f, Talker.core, true);
         climaxCam.Priority = 1;
         endSound.Play();
-        yield return StartCoroutine(_manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나."));
+        yield return _manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나.", 2f);
+        yield return new WaitForSeconds(0.5f);  // 시네머신 변환 완료 대기
         _manager.UserCtrl(true);
         otherCanvas.enabled = true;
     }
