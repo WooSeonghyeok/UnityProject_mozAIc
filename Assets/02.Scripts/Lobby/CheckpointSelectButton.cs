@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CheckpointSelectButton : MonoBehaviour
 {
-    public SaveDataObj curData;
+    public SaveDataObj CurData;
     public int StageNumber;
     public int cpNum;
     public bool isLock = true;
@@ -16,8 +16,7 @@ public class CheckpointSelectButton : MonoBehaviour
 private void OnEnable()
     {
         UpdateLockState();
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchCPButtonEvent += OnCPTouch;
+        if (StageSelect.instance != null) StageSelect.instance.TouchCPButtonEvent += OnCPTouch;
         StartCoroutine(ButtonDelay());
     }
     private IEnumerator ButtonDelay()
@@ -27,8 +26,7 @@ private void OnEnable()
     }
     private void OnDisable()
     {
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchCPButtonEvent -= OnCPTouch;
+        if (StageSelect.instance != null) StageSelect.instance.TouchCPButtonEvent -= OnCPTouch;
     }
     private void UpdateLockState()
     {
@@ -38,25 +36,13 @@ private void OnEnable()
     }
     private void OnCPTouch(int cpSelect)
     {
-        if (isLock)
-        {
-            OnTouchCPButton(false);
-        }
-        else
-        {
-            OnTouchCPButton(cpSelect == cpNum);
-        }
+        if (isLock) OnTouchCPButton(false);
+        else OnTouchCPButton(cpSelect == cpNum);
     }
     public void OnClick()
     {
-        if (StageSelect.instance != null)
-        {
-            StageSelect.instance.SelectCP(StageNumber, cpNum);
-        }
-        else
-        {
-            OnTouchCPButton(true);
-        }
+        if (StageSelect.instance != null)  StageSelect.instance.SelectCP(StageNumber, cpNum);
+        else OnTouchCPButton(true);
     }
     public void OnTouchCPButton(bool b)
     {
@@ -66,20 +52,20 @@ private void OnEnable()
     }
     public void Refresh()
     {
-        curData = SaveManager.instance.curData;
+        CurData = SaveManager.instance.curData;
         switch (StageNumber)
         {
-            case 0: isLock = !curData.ep1_open; break;
-            case 1: isLock = !curData.ep2_open; break;
-            case 2: isLock = !curData.ep3_open; break;
+            case 0: isLock = !CurData.ep1_open; break;
+            case 1: isLock = !CurData.ep2_open; break;
+            case 2: isLock = !CurData.ep3_open; break;
             case 3:
                 {
                     switch (cpNum)
                     {
-                        case 0: isLock = !curData.ep4_open; break;
-                        case 1: isLock = !curData.ep4_puzzle1Clear; break;
-                        case 2: isLock = !curData.ep4_puzzle2Clear; break;
-                        case 3: isLock = !curData.ep4_puzzle3Clear; break;
+                        case 0: isLock = !CurData.ep4_open; break;
+                        case 1: isLock = !CurData.ep4_puzzle1Clear; break;
+                        case 2: isLock = !CurData.ep4_puzzle2Clear; break;
+                        case 3: isLock = !CurData.ep4_puzzle3Clear; break;
                     }
                 }
                 break;
@@ -90,12 +76,10 @@ private void OnEnable()
     }
     private void SelectImgCheck()
     {
-        if (selectImage != null)
-            selectImage.enabled = isSelect;
+        if (selectImage != null) selectImage.enabled = isSelect;
     }
     private void LockImgCheck()
     {
-        if (lockImage != null)
-            lockImage.enabled = isLock;
+        if (lockImage != null) lockImage.enabled = isLock;
     }
 }

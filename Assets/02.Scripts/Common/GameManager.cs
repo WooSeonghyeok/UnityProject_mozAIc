@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             AudioListener.volume = PlayerPrefs.GetFloat("Volume", 1f);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        else Destroy(gameObject);
     }
 }

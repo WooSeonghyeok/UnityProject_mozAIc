@@ -12,6 +12,7 @@ public class Ep3_1Manager : MonoBehaviour
     [Header("조각/수집")]
     [SerializeField] private int collectedPieceCount = 0;
     [SerializeField] private int requiredPieceCount = 10;
+    public Ep3_1ScoreController scoreController;  // 점수 감점 타이머 컨트롤러 참조
     [Header("옵션 이벤트")]
     [Tooltip("모든 조각을 수집했을 때 호출되는 이벤트. PuzzleComplete가 구독합니다.")]
     public UnityEvent onAllPiecesCollected;
@@ -54,7 +55,6 @@ public class Ep3_1Manager : MonoBehaviour
             {
                 Debug.LogWarning($"[Ep3_1Manager] onAllPiecesCollected 호출 중 예외: {ex.Message}");
             }
-
             // 완료 처리는 외부(예: PuzzleComplete)가 Ep3_1Manager.CompleteStage()를 호출하도록 위임합니다.
             // 기존에는 여기서 바로 CompleteStage()를 호출했습니다.
         }
@@ -67,9 +67,8 @@ public class Ep3_1Manager : MonoBehaviour
             Debug.LogWarning("[Ep3_1Manager] SaveData를 찾을 수 없어 ep3_paperClear 저장을 건너뜁니다.");
             return;
         }
-
         data.ep3_paperClear = true;
-
+        scoreController?.TimerSwitch(false);  // 점수 감점 타이머 정지
         if (SaveManager.instance != null)
         {
             SaveManager.instance.curData = data;

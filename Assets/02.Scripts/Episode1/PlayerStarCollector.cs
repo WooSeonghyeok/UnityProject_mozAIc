@@ -7,7 +7,6 @@ public class PlayerStarCollector : MonoBehaviour
     [Header("획득한 별 목록")]
     public List<StarData> collectedStars = new List<StarData>();
     public event Action<int> OnStarCountChanged;  // 별 개수가 바뀔 때 호출할 이벤트
-    public int memoryReconstructionRate = 0;  // 기억 재구성률, 별 획득 시 증가
     public void AddStar(StarData starData)  // 별 획득 처리
     {
         collectedStars.Add(starData);  // 별 추가
@@ -19,7 +18,7 @@ public class PlayerStarCollector : MonoBehaviour
             }
         }
         OnStarCountChanged?.Invoke(collectedStars.Count);  // 현재 별 개수를 외부에 알림
-        memoryReconstructionRate += 1;  // 별 획득 시 기억 재구성률 1 증가
+        SaveManager.instance.curData.memory_reconstruction_rate[3] = GetStarCount();  // 별 획득 개수만큼 Episode 1의 감정 점수 증가
     }
     public bool HasStar(string starId)  // 특정 ID의 별을 이미 가지고 있는지 확인
     {

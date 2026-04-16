@@ -1,0 +1,40 @@
+[
+    {
+        "npcId": "npc_ep1_luna",
+        "Affinity": 50,
+        "words":[
+            {"word": "쌍둥이자리", "memoryRate": 10}
+        ]
+    },
+    {
+        "npcId": "npc_ep2_painter",
+        "Affinity": 50,
+        "words": [
+            {"word": "동료", "memoryRate": 1},
+            {"word": "작업실", "memoryRate": 1},
+            {"word": "색", "memoryRate": 1},
+            {"word": "?", "memoryRate": 1},
+            {"word": "!", "memoryRate": 1}
+        ]
+    },
+    {
+        "npcId": "npc_ep3_musician",
+        "Affinity": 50,
+        "words": [
+            {"word": "멜로디", "memoryRate": 2},
+            {"word": "리듬", "memoryRate": 2},
+            {"word": "하모니", "memoryRate": 1}
+        ]
+    },
+    {
+        "npcId": "npc_ep4_core",
+        "Affinity": 50,
+        "words": [
+            {"word": "기억", "memoryRate": 2},
+            {"word": "동료", "memoryRate": 2},
+            {"word": "하모니", "memoryRate": 2},
+            {"word": "삶", "memoryRate": 2},
+            {"word": "마지막 조각", "memoryRate": 2}
+        ]
+    }
+]

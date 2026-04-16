@@ -37,33 +37,25 @@ public class TextboxManager : MonoBehaviour
         {
             Debug.Log("Player 오브젝트가 존재하지 않는 신입니다.");
         }
-
         ApplyTextboxLayout();
-
-        box_system.SetActive(false);
-        box_player.SetActive(false);
-        box_voice.SetActive(false);
-        nextBtn.SetActive(false);
+        CloseBox();
     }
+
     public void UserCtrl(bool b)  //유저 입력 적용 여부 컨트롤
     {
-        if (user != null)
-            user.enabled = b;
+        if (user != null) user.enabled = b;
         if (userMove != null)
         {
             userMove.enabled = b;
             userMove.SetMoveLock(!b);
         }
     }
-    public void OnNextButton()
-    {
-        nextPressed = true;
-    }
+    public void OnNextButton() => nextPressed = true;
     public IEnumerator TalkSay(TalkType type, string say, float time = 1f, Talker talk = Talker.self, bool canSkip = false)
     {
         int talkID = ++curTalkID;
         nextPressed = false;
-        nextBtn.SetActive(canSkip);
+        if(nextBtn != null) nextBtn.SetActive(canSkip);
         switch (talk)
         {
             case Talker.girl:       voice_Name.text = "luna";   voice_Name.color = Color.red;   break;
@@ -89,12 +81,15 @@ public class TextboxManager : MonoBehaviour
                 yield return null;
             }
         }
+        CloseBox();
+    }
+    public void CloseBox()
+    {
         box_system.SetActive(false);
         box_player.SetActive(false);
         box_voice.SetActive(false);
-        nextBtn.SetActive(false);
+        if (nextBtn != null) nextBtn.SetActive(false);
     }
-
     private void ApplyTextboxLayout()
     {
         ConfigureSystemText();

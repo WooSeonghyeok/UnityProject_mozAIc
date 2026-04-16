@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6619190425406738549}
   - component: {fileID: 4479451118123559155}
   - component: {fileID: 4010647941904436021}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Portal4_Altar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +127,7 @@ MonoBehaviour:
   requirePuzzleClear: 1
   playCutsceneOnlyOnce: 1
   cutscenePlayer: {fileID: 0}
+  needPuzzleClear: 1
 --- !u!1 &3305444436750846374
 GameObject:
   m_ObjectHideFlags: 0

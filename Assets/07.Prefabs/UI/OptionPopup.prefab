@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8575281785976196730, guid: 8c8ba499dca16894493d0e9c2ff207ab, type: 3}
         m_TargetAssemblyTypeName: QuitManager, Assembly-CSharp
         m_MethodName: OpenQuitPopup
         m_Mode: 1
@@ -2353,9 +2353,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadPopupManager, Assembly-CSharp
-        m_MethodName: OpenLoadPopup
+      - m_Target: {fileID: 4969661969751739495}
+        m_TargetAssemblyTypeName: PopupOpenClose, Assembly-CSharp
+        m_MethodName: OpenPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2507,6 +2507,7 @@ GameObject:
   - component: {fileID: 2414650234239140338}
   - component: {fileID: 3922629148012815196}
   - component: {fileID: 7903282535820720385}
+  - component: {fileID: 4969661969751739495}
   - component: {fileID: 6810960517897712051}
   m_Layer: 5
   m_Name: OptionPopup
@@ -2606,6 +2607,19 @@ MonoBehaviour:
   sfxSlider: {fileID: 2427980666233202044}
   volumeValue: {fileID: 4510557368896952621}
   mouseValue: {fileID: 1849725845415088241}
+--- !u!114 &4969661969751739495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999646001614652988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Popup: {fileID: 3999646001614652988}
 --- !u!114 &6810960517897712051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3233,9 +3247,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7903282535820720385}
-        m_TargetAssemblyTypeName: OptionPopupManager, Assembly-CSharp
-        m_MethodName: CloseOptionPopup
+      - m_Target: {fileID: 4969661969751739495}
+        m_TargetAssemblyTypeName: PopupOpenClose, Assembly-CSharp
+        m_MethodName: ClosePopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

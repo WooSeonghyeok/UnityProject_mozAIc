@@ -32,24 +32,25 @@ public class ServerChat : MonoBehaviour
 
     private ChatTextObject serverTextObj;
     public NPCData currentNpcData;
+    public SaveDataObj CurData;
 
     [Header("호감도")]
     [SerializeField] private string[] positiveWords;
     [SerializeField] private string[] negativeWords;
-
     public int PositiveAffinity = 10;
     public int NegativeAffinity = -10;
-
     [SerializeField] private TMP_Text AffinityText;
 
     [Header("기억 재구성 키워드")]
     public MemoryKeyword[] words;
-
+    [SerializeField] private int minTalkCountForMemory = 5;
+    [SerializeField] private int memoryReward = 10;
     private void Start()
     {
         openAI = new OpenAIApi();
         input.ActivateInputField();
         input.onSubmit.AddListener(OnEnterSubmit);
+        CurData = SaveManager.instance.curData;
     }
 
     private void OnEnterSubmit(string text)
@@ -73,7 +74,14 @@ public class ServerChat : MonoBehaviour
         CheckWords(msg);
 
         string finalMsg = msg;
-
+        // 금지 주제 먼저 검사
+        if (IsBannedTopic(msg))
+        {
+            string bannedFallback = GetFallbackText("banned_topic");
+            CreateMessage($"{serverName} : {bannedFallback}", chatColor);
+            FinishChat();
+            return;
+        }
         // 힌트 요청 감지
         if (NPCHintHelper.IsHintRequest(msg) && currentNpcData != null)
         {
@@ -90,6 +98,20 @@ public class ServerChat : MonoBehaviour
                 Content = finalMsg
             }
         );
+
+        var npcList = CurData.npcInformations;
+        NPCInfo npcInfo = npcList.Find(n => n.npcId == currentNpcData.npcId);
+        int prevCount = npcInfo.talkCount;
+        npcInfo.talkCount = prevCount + 1;
+        Debug.Log($"[ServerChat] NPC '{npcInfo.npcId}' talkCount 증가: {prevCount} -> {npcInfo.talkCount}");
+        if (npcInfo.npcId == "npc_ep3_musician" && minTalkCountForMemory > 0 && npcInfo.talkCount == minTalkCountForMemory)  // "npc_ep3_musician"의 talkCount가 정확히 minTalkCountForMemory에 도달했을 때만 보상
+        {
+            if (CurData.memory_reconstruction_rate != null)
+            {
+                CurData.memory_reconstruction_rate[7] += memoryReward;
+            }
+        }
+        SaveManager.instance.WriteCurJSON();  // 변경 사항 저장
 
         isWaiting = true;
 
@@ -111,12 +133,27 @@ public class ServerChat : MonoBehaviour
         catch (System.Exception e)
         {
             Debug.LogError($"[ServerChat] OpenAI 오류: {e.Message}");
+            // 생각 중... 메시지를 fallback 문장으로 교체
+            string timeoutFallback = GetFallbackText("api_timeout");
+            serverTextObj.SendText($"{serverName} : {timeoutFallback}", chatColor);
+
+            // assistant 응답도 기록에 남겨서 대화 흐름 유지
+            chatMessages.Add(new ChatMessage
+            {
+                Role = "assistant",
+                Content = timeoutFallback
+            });
+
             FinishChat();
             return;
         }
-
         string servermsg = res.Choices[0].Message.Content;
 
+        // 응답이 비었을 때 fallback 처리
+        if (string.IsNullOrWhiteSpace(servermsg))
+        {
+            servermsg = GetFallbackText("empty_response");
+        }
         serverTextObj.SendText($"{serverName} : {servermsg}", chatColor);
 
         // assistant 응답도 기록에 저장
@@ -129,6 +166,55 @@ public class ServerChat : MonoBehaviour
         );
 
         FinishChat();
+    }
+
+    // 금지 주제일 때 true 반환
+    private bool IsBannedTopic(string msg)
+    {
+        if (currentNpcData == null || GameDialogueDatabase.Instance == null)
+            return false;
+
+        var db = GameDialogueDatabase.Instance;
+        var profile = db.GetNpcProfile(currentNpcData.npcId);
+        var scene = db.GetSceneContext(currentNpcData.sceneId);
+
+        // NPC 프로필 금지 주제 검사
+        if (profile != null && profile.bannedTopics != null)
+        {
+            foreach (string topic in profile.bannedTopics)
+            {
+                if (!string.IsNullOrEmpty(topic) && msg.Contains(topic))
+                    return true;
+            }
+        }
+        // 현재 씬 금지 주제 검사
+        if (scene != null && scene.bannedTopics != null)
+        {
+            foreach (string topic in scene.bannedTopics)
+            {
+                if (!string.IsNullOrEmpty(topic) && msg.Contains(topic))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    // triggerType에 해당하는 fallback 문장 반환
+    private string GetFallbackText(string triggerType)
+    {
+        if (GameDialogueDatabase.Instance == null || currentNpcData == null)
+            return "……";
+
+        AiFallbackData fallback = GameDialogueDatabase.Instance.GetFallback(
+            triggerType,
+            currentNpcData.npcId
+        );
+
+        if (fallback != null && !string.IsNullOrEmpty(fallback.text))
+            return fallback.text;
+
+        return "……";
     }
 
     private void FinishChat()
@@ -210,20 +296,39 @@ public class ServerChat : MonoBehaviour
     public void CheckWords(string msg)
     {
         if (currentNpcData == null) return;
-        foreach (MemoryKeyword keyword in words)
+        if (SaveManager.instance == null || SaveManager.instance.curData == null || CurData.npcInformations == null) return;
+        NPCInfo npcInfo = CurData.npcInformations.Find(n => n.npcId == currentNpcData.npcId);
+        if (npcInfo != null && npcInfo.words != null)
         {
-            if (msg.ToLower().Contains(keyword.word.ToLower()))
+            foreach (MemoryKeyword keyword in npcInfo.words)
             {
-                Debug.Log($"[MemoryKeyword] 발견됨: {keyword.word}, isUsed={keyword.isUsed}");
-                if (!keyword.isUsed)
+                if (string.IsNullOrEmpty(keyword.word)) continue;
+                if (msg.IndexOf(keyword.word, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    SaveManager.instance.curData.memory_reconstruction_rate += keyword.memoryRate;
-                    keyword.isUsed = true;
-                    Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {SaveManager.instance.curData.memory_reconstruction_rate}");
-                }
-                else
-                {
-                    Debug.Log($"[MemoryKeyword] 이미 사용됨. 증가 없음.");
+                    Debug.Log($"[MemoryKeyword] 발견됨: {keyword.word}, isUsed={keyword.isUsed}");
+                    if (!keyword.isUsed)
+                    {
+                        int i = 0;
+                        switch (npcInfo.npcId)
+                        {
+                            case "npc_ep1_luna":     i = 1;  break;  //ep1 루나는 관계 점수
+                            case "npc_ep2_painter":  i = 6;  break;  //ep2 엘리오는 감정 점수
+                            case "npc_ep3_musician": i = 9;  break;  //ep3 레온은 감정 점수  
+                            case "npc_ep4_core":     i = 10; break;  //ep4 중심 존재는 관계 점수
+                        }
+                        CurData.memory_reconstruction_rate[i] += keyword.memoryRate;
+                        if (npcInfo.npcId == "npc_ep2_painter")  // 엘리오의 경우 Episode2ScoreManager에도 반영
+                        {
+                            Episode2ScoreManager.Instance.AddKeywordScore(keyword);
+                        }
+                        keyword.isUsed = true;
+                        SaveManager.instance.WriteCurJSON();
+                        Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {CurData.memory_reconstruction_rate}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[MemoryKeyword] 이미 사용됨. 증가 없음.");
+                    }
                 }
             }
         }

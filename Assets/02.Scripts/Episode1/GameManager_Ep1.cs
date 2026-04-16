@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager_Ep1 : MonoBehaviour
 {
     public static GameManager_Ep1 Instance;
+    public SaveDataObj CurData;
     [Header("EP.1 진행 상태")]
     public bool isCaveUnlocked = false;      // 별 5개 달성으로 동굴이 열렸는지
     public bool isPuzzleCleared = false;     // 제단 퍼즐을 클리어했는지
@@ -62,6 +64,7 @@ public class GameManager_Ep1 : MonoBehaviour
         {
             episodeEndPortal.SetPortalActive(false);
         }
+        CurData = SaveManager.instance.curData;  // 현재 세이브 데이터의 reference를 가져옴
     }
     public void OnFirstStarCollected()
     {
@@ -79,7 +82,7 @@ public class GameManager_Ep1 : MonoBehaviour
         // 이미 처리했으면 중복 실행 방지
         if (isCaveUnlocked) return;
         isCaveUnlocked = true;
-        if (SaveManager.instance != null) SaveManager.instance.curData.ep1_isCaveUnlocked = true;
+        if (SaveManager.instance != null) CurData.ep1_isCaveUnlocked = true;
         // 동굴이 열리면 루나의 기억 단계를 한 단계 올림
         if (lunaNpcData != null)
         {
@@ -87,16 +90,30 @@ public class GameManager_Ep1 : MonoBehaviour
             Debug.Log($"[GameManager_Ep1] 동굴 개방 -> 루나 기억 단계 상승: {caveOpenStage}");
         }
     }
+    public void OnEnterCave()
+    {
+        if (hasEnteredCave) return;
+        hasEnteredCave = true;
+        Debug.Log("[GameManager_Ep1] 동굴 진입 상태 활성화");
+        if (lunaNpcData != null)
+        {
+            lunaNpcData.sceneId = "ep_01_ice_cave";
+            lunaNpcData.RefreshPrompt();
+            Debug.Log($"[GameManager_Ep1] 퍼즐 클리어 -> 루나 기억 단계 상승: {puzzleClearStage}");
+        }
+    }
     public void OnPuzzleCleared()
     {
         // 이미 처리했으면 중복 실행 방지
         if (isPuzzleCleared) return;
         isPuzzleCleared = true;
-        if (SaveManager.instance != null) SaveManager.instance.curData.ep1_isPuzzleCleared = true;
+        if (SaveManager.instance != null) CurData.ep1_isPuzzleCleared = true;
         ApplyScoreToMemory();
         // 퍼즐이 클리어되면 루나 기억 단계를 더 올림
         if (lunaNpcData != null)
         {
+            lunaNpcData.sceneId = "ep_01_puzzle_clear";
+            lunaNpcData.RefreshPrompt();
             lunaNpcData.SetRevealStage(puzzleClearStage);
             Debug.Log($"[GameManager_Ep1] 퍼즐 클리어 -> 루나 기억 단계 상승: {puzzleClearStage}");
         }
@@ -109,12 +126,6 @@ public class GameManager_Ep1 : MonoBehaviour
         {
             Debug.LogWarning("[GameManager_Ep1] episodeEndPortal 오브젝트를 찾을 수 없습니다.");
         }
-    }
-    public void OnEnterCave()
-    {
-        if (hasEnteredCave) return;
-        hasEnteredCave = true;
-        Debug.Log("[GameManager_Ep1] 동굴 진입 상태 활성화");
     }
     public void SetLunaRevealStage(MemoryRevealStage newStage)
     {
@@ -134,7 +145,16 @@ public class GameManager_Ep1 : MonoBehaviour
         if (lunaNpcData != null)
         {
             lunaNpcData.SetRevealStage(fullMemoryStage);
-            if (SaveManager.instance != null) SaveManager.instance.curData.CoreTag[1].tagGet = true;  //"star_promise" 플래그를 회수
+            var tag = CurData.CoreTag.FirstOrDefault(t => t.TagName == "sstar_promise");  //진엔딩 조건 플래그인 "star_promise" 태그 획득
+            if (tag != null) tag.tagGet = true;
+            else
+            {
+                CurData.CoreTag.Add(new IsTagGet
+                {
+                    TagName = "star_promise",
+                    tagGet = true
+                });
+            }
             Debug.Log("[GameManager_Ep1] 완전 기억 복원 완료");
         }
     }
@@ -202,18 +222,11 @@ public class GameManager_Ep1 : MonoBehaviour
             Debug.LogWarning("[GameManager_Ep1] SaveManager 없음");
             return;
         }
-
         int score = GetSlidePuzzleScore(); // 현재 점수 가져오기
-
-        // 기존 memory_reconstruction_rate에 점수 누적
-        SaveManager.instance.curData.memory_reconstruction_rate += score;
-
-        // 최대값 제한 (예: 100)
-        SaveManager.instance.curData.memory_reconstruction_rate =
-            Mathf.Clamp(SaveManager.instance.curData.memory_reconstruction_rate, 0, 100);
-
-        Debug.Log($"[GameManager_Ep1] 기억 복원도 증가: +{score} → 현재값: {SaveManager.instance.curData.memory_reconstruction_rate}");
-
+        // memory_reconstruction_rate에 점수 누적
+        CurData.memory_reconstruction_rate[2] = score;  // Episode 1의 퍼즐 점수는 index 2에 저장
+        CurData.memory_reconstruction_rate[2] = Mathf.Clamp(CurData.memory_reconstruction_rate[2], 0, baseScore);  // 최소 0 ~ 최대 baseScore 값 이내로 보정
+        Debug.Log($"[GameManager_Ep1] 기억 복원도 증가: +{score} → 현재값: {CurData.memory_reconstruction_rate[2]}");
         // JSON 저장 반영
         SaveManager.instance.WriteCurJSON();
     }

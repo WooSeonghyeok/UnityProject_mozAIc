@@ -19,6 +19,7 @@ public class EndingManager : MonoBehaviour
     public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
+    private Coroutine cutsceneCoroutine;
     private TextboxCtrl_Ending cutscene;
     void Awake()
     {
@@ -34,7 +35,8 @@ public class EndingManager : MonoBehaviour
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
-        bool ReconstructionRateCond = SaveManager.instance.curData.memory_reconstruction_rate >= EndingPoint();
+        int total = SaveManager.instance.TotalScore();
+        bool ReconstructionRateCond = total >= EndingPoint();
         bool TagsCond = TagCnt();
         isCompleteEnding = ReconstructionRateCond && TagsCond;
     }
@@ -90,7 +92,7 @@ public class EndingManager : MonoBehaviour
         soundCtrl_normal.gameObject.SetActive(false);
         soundCtrl_true.gameObject.SetActive(true);
         Debug.Log("TRUE ENDING!");
-        StartCoroutine(cutscene.TrueEndCutscene());
+        if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.TrueEndCutscene());
         EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
     }
     void NormalEnding()
@@ -99,7 +101,7 @@ public class EndingManager : MonoBehaviour
         soundCtrl_true.gameObject.SetActive(false);
         soundCtrl_normal.gameObject.SetActive(true);
         Debug.Log("normal ending...");
-        StartCoroutine(cutscene.NormalEndCutscene());
+        if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.NormalEndCutscene());
         EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
@@ -110,6 +112,7 @@ public class EndingManager : MonoBehaviour
     public void OnEndingSkip()
     {
         EndingStop();
+        if (cutscene != null && cutscene._manager != null) cutscene._manager.CloseBox();
         EndingClear();
     }
     private void EndingClear()
@@ -133,9 +136,16 @@ public class EndingManager : MonoBehaviour
             StopCoroutine(endingPlayCoroutine);
             endingPlayCoroutine = null;
         }
+        if (cutsceneCoroutine != null)     // 실행 중인 컷씬(대사) 코루틴 중단
+        {
+            StopCoroutine(cutsceneCoroutine);
+            cutsceneCoroutine = null;
+        }
+        if (cutscene != null && cutscene._manager != null)  cutscene._manager.CloseBox();  // 안전장치: 컷씬 내부에서 열려 있는 대화 박스가 있을 수 있으니 닫음
     }
     public void Regame()
     {
+        SaveManager.instance.ResetCurData();
         SceneManager.LoadScene("StartScene");
     }
     public void END()

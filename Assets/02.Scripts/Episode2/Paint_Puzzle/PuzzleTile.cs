@@ -38,13 +38,12 @@ public class PuzzleTile : MonoBehaviour
                     MeshRenderer mesh = GetComponent<MeshRenderer>();
                     if (mesh != null)
                         mesh.enabled = false;
-
                     isCleared = true;
                 }
-
                 // 공통 처리
                 player.ResetColor();
                 Teleport();
+                Episode2ScoreManager.Instance.Ep2_PuzzleScore();
             }
         }
     }

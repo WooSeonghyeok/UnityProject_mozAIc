@@ -39,6 +39,9 @@ public class Ep_3Manager : MonoBehaviour
     public Ep3EndingStateData CachedEndingStateData => cachedEndingStateData;
     public bool IsEvaluated => isEvaluated;
     public bool HasVisitedStage3_1 => hasVisitedStage3_1;
+    [Header("기억 재구성 점수 계산")]
+    public int Ep3_1puzzleLoss = 0;  // 3-1 퍼즐 점수 감점 누적값
+    public int Ep3_2restarted = 0;  // 3-2 퍼즐 재시작 횟수 추적 (점수 감점용)
     /// <summary>
     /// 싱글톤 초기화.
     /// 이미 다른 인스턴스가 있으면 자신은 파괴하고,

@@ -21,7 +21,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         totalCollected = memoryPieces.Length;
         foreach (var piece in memoryPieces)
         {
-            piece.collectMemory += MemoryCnt;
+            piece.CollectMemory += MemoryCnt;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -42,28 +42,23 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
             StartCoroutine(cutscene._manager.TalkSay(TextboxManager.TalkType.voice, "없어진 게 아니야.\n흩어진 거지.", 1f, TextboxManager.Talker.core));
             isMidCutsceneOn = true;
         }
-        if (memoryCollected >= totalCollected)  //조각 전부 수집 시 "split_self" 태그 획득
-        {
-            var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "split_self");
-            if (tag != null)
-            {
-                tag.tagGet = true;
-            }
-            else
-            {
-                SaveManager.instance.curData.CoreTag.Add(new IsTagGet
-                {
-                    TagName = "split_self",
-                    tagGet = true
-                });
-            }
-        }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             pieceBox.SetActive(false);
+        }
+        bool MemoryComplete = memoryCollected >= totalCollected;  //조각 전부 수집 시 "split_self" 태그 획득
+        var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "split_self");
+        if (tag != null) tag.tagGet = MemoryComplete;
+        else
+        {
+            SaveManager.instance.curData.CoreTag.Add(new IsTagGet
+            {
+                TagName = "split_self",
+                tagGet = MemoryComplete
+            });
         }
     }
 }

@@ -94,8 +94,15 @@ public class FinalPianoInteraction : MonoBehaviour
         {
             Debug.Log($"[FinalPianoInteraction] 랜덤 곡 재생: {selectedClip.name}");
         }
-    }
 
+        PuzzleScore();  // 퍼즐 점수 계산 및 저장 처리
+    }
+    public void PuzzleScore()
+    {
+        int Ep3_puzzleBase = 10;  //Episode3 퍼즐 점수 기본 최대값
+        int Ep3_puzzleLoss = Ep_3Manager.Instance.Ep3_1puzzleLoss + Ep_3Manager.Instance.Ep3_2restarted;
+        SaveManager.instance.curData.memory_reconstruction_rate[8] = Ep3_puzzleBase - Ep3_puzzleLoss;  // 3-1과 3-2 퍼즐 감점 누적값을 기반으로 재구성률 계산
+    }
     /// <summary>
     /// 컷씬 없이 바로 음악 재생 + 저장 처리
     /// </summary>
