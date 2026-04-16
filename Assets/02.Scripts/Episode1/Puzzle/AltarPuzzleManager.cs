@@ -8,7 +8,6 @@ public class AltarPuzzleManager : MonoBehaviour
 {
     [Header("UI 참조")]
     public GameObject puzzlePanel;            // 퍼즐 패널
-    public Text infoText;                     // 레거시 Text
     public AltarPuzzleSlot[] slots;           // 8칸 슬롯
     public List<StarData> invalidStars = new List<StarData>();  // 오답용 별 데이터
     public bool showIcon = true;              // true면 아이콘, false면 색 위주 표시
@@ -148,9 +147,6 @@ public class AltarPuzzleManager : MonoBehaviour
         puzzlePanel.SetActive(true);
         SetPlayerControl(false);
 
-        if (infoText != null)
-            infoText.text = $"획득한 별과 같은 색상 {ownedStars.Count}개를 모두 찾으세요.";
-
         GeneratePuzzle();
     }
 
@@ -202,9 +198,6 @@ public class AltarPuzzleManager : MonoBehaviour
             correctPressedCount++;
             clickedSlot.SetSuccessVisual();
 
-            if (infoText != null)
-                infoText.text = $"정답 {correctPressedCount} / {ownedStars.Count}";
-
             if (correctPressedCount >= ownedStars.Count)
             {
                 PuzzleSuccess();
@@ -247,7 +240,7 @@ public class AltarPuzzleManager : MonoBehaviour
         {
             source.PlayOneShot(successClip, 1f);
         }
-        if (infoText != null) infoText.text = "별이 감사를 표합니다";
+
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].SetInteractable(false);
@@ -259,9 +252,6 @@ public class AltarPuzzleManager : MonoBehaviour
     private void PuzzleFail()
     {
         isPuzzleActive = false;
-
-        if (infoText != null)
-            infoText.text = "틀렸습니다. 퍼즐을 다시 구성합니다.";
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -282,9 +272,6 @@ public class AltarPuzzleManager : MonoBehaviour
         correctPressedCount = 0;
         isPuzzleActive = true;
         isPuzzleCleared = false;
-
-        if (infoText != null)
-            infoText.text = "다시 시도하세요.";
 
         GeneratePuzzle();
     }
