@@ -14,7 +14,6 @@ public class TextboxCtrl_Opening : MonoBehaviour
     private PlayerInput user;
     public Image blackboard;
     private WaitForSecondsRealtime oneSec = new WaitForSecondsRealtime(1f);
-    public RawImage openLight;
     public CutsceneImagePlayer OpeningMidCutscene;
     public GameObject openingMidGate;
     private bool isMidtalkOn = false;
@@ -23,7 +22,6 @@ public class TextboxCtrl_Opening : MonoBehaviour
     {
         user = _manager.user;
         blackboard.enabled = true;
-        openLight.enabled = false;
         openingMidGate.SetActive(false);
         isMidtalkOn = false;
     }

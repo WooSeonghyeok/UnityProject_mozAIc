@@ -246,9 +246,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522933866447899859}
-        m_TargetAssemblyTypeName: LoadPopupManager, Assembly-CSharp
-        m_MethodName: CloseLoadPopup
+      - m_Target: {fileID: 2357335300102651587}
+        m_TargetAssemblyTypeName: PopupOpenClose, Assembly-CSharp
+        m_MethodName: ClosePopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 1654991678638700023}
   - component: {fileID: 3834058341746278734}
   - component: {fileID: 2919645257483510286}
-  - component: {fileID: 1522933866447899859}
+  - component: {fileID: 2357335300102651587}
   m_Layer: 5
   m_Name: LoadPopup
   m_TagString: Untagged
@@ -816,7 +816,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1522933866447899859
+--- !u!114 &2357335300102651587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -825,10 +825,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8318194136557394661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b66c64acf6adc48b10d98bce44fa63, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadPopup: {fileID: 8318194136557394661}
+  Popup: {fileID: 8318194136557394661}
 --- !u!1 &8692070598543515513
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,10 +881,6 @@ PrefabInstance:
       propertyPath: slotData
       value: 
       objectReference: {fileID: 11400000, guid: 507bc1c7970de744b9dc704f34352c30, type: 2}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 5
@@ -1004,10 +1000,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b0c0a47dd3d826642899da1f0bcc2bbd, type: 2}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 3
       objectReference: {fileID: 0}
@@ -1126,10 +1118,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f0f69b0bc4a0dfb4eb730950178885e9, type: 2}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 2
       objectReference: {fileID: 0}
@@ -1235,10 +1223,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2107469044727995819}
     m_Modifications:
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
     - target: {fileID: 6713729793474153282, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: m_Name
       value: Button_SaveSlot
@@ -1349,10 +1333,6 @@ PrefabInstance:
       propertyPath: slotData
       value: 
       objectReference: {fileID: 11400000, guid: 1974576ab5f969940975806d055d06f3, type: 2}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 7
@@ -1468,10 +1448,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 34d42fff27ae3c648ba5df8cf8d16b13, type: 2}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 9
       objectReference: {fileID: 0}
@@ -1585,10 +1561,6 @@ PrefabInstance:
       propertyPath: slotData
       value: 
       objectReference: {fileID: 11400000, guid: 7324654f56eda0840b1a4a8f5232d84c, type: 2}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 8
@@ -1708,10 +1680,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e49d23be4d4ef5f408f3f132e12afd50, type: 2}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 1
       objectReference: {fileID: 0}
@@ -1826,10 +1794,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 53076443240f130429b9212ae96a04f4, type: 2}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 6
       objectReference: {fileID: 0}
@@ -1943,10 +1907,6 @@ PrefabInstance:
       propertyPath: slotData
       value: 
       objectReference: {fileID: 11400000, guid: 3e46d9477c459ad4797ce3c713e06a30, type: 2}
-    - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
-      propertyPath: loadPopup
-      value: 
-      objectReference: {fileID: 1522933866447899859}
     - target: {fileID: 6105837893050534388, guid: 39085817759fbd0429b76e6500a2f328, type: 3}
       propertyPath: slotData.ID
       value: 4

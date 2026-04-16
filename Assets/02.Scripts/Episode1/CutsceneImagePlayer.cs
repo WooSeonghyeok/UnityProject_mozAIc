@@ -44,6 +44,7 @@ public class CutsceneImagePlayer : MonoBehaviour
 
     public bool IsPlaying => isPlaying;
     public bool HasConfiguredImages => cutsceneSprites != null && cutsceneSprites.Length > 0;
+    public int TotalStepCount => GetTotalStepCount();
 
     public void AddFinishedListener(UnityAction listener)
     {
@@ -57,6 +58,8 @@ public class CutsceneImagePlayer : MonoBehaviour
 
     private void Awake()
     {
+        TryResolvePlayerMovement();
+
         if (cutsceneImage != null)
         {
             cutsceneImage.preserveAspect = true;
@@ -74,19 +77,43 @@ public class CutsceneImagePlayer : MonoBehaviour
 
     public void PlayCutscene()
     {
+        PlayCutsceneSegment(0, 0);
+    }
+
+    public void PlayCutsceneStep(int stepIndex)
+    {
+        PlayCutsceneSegment(stepIndex, 1);
+    }
+
+    public void PlayCutsceneSegment(int startIndex, int stepCount)
+    {
+        TryResolvePlayerMovement();
+
         if (isPlaying)
             return;
 
-        if (!HasConfiguredImages)
+        int totalStepCount = GetTotalStepCount();
+        if (totalStepCount <= 0)
         {
             onCutsceneFinished?.Invoke();
             return;
         }
 
-        StartCoroutine(PlayCutsceneRoutine());
+        int clampedStartIndex = Mathf.Clamp(startIndex, 0, totalStepCount - 1);
+        int remainingStepCount = totalStepCount - clampedStartIndex;
+        int resolvedStepCount = stepCount <= 0
+            ? remainingStepCount
+            : Mathf.Clamp(stepCount, 1, remainingStepCount);
+
+        StartCoroutine(PlayCutsceneRoutine(clampedStartIndex, resolvedStepCount));
     }
 
-    private IEnumerator PlayCutsceneRoutine()
+    public bool HasStepContent(int stepIndex)
+    {
+        return stepIndex >= 0 && stepIndex < GetTotalStepCount();
+    }
+
+    private IEnumerator PlayCutsceneRoutine(int startIndex, int stepCount)
     {
         isPlaying = true;
 
@@ -96,19 +123,16 @@ public class CutsceneImagePlayer : MonoBehaviour
         if (playerMovement != null)
             playerMovement.SetMoveLock(true);
 
-        int stepCount = Mathf.Max(
-            cutsceneSprites != null ? cutsceneSprites.Length : 0,
-            cutsceneTexts != null ? cutsceneTexts.Length : 0);
-
         for (int i = 0; i < stepCount; i++)
         {
-            Sprite currentSprite = ResolveSpriteForStep(i);
-            if (cutsceneImage != null && currentSprite != null)
+            int stepIndex = startIndex + i;
+            Sprite currentSprite = ResolveSpriteForStep(stepIndex);
+            if (cutsceneImage != null)
             {
                 cutsceneImage.sprite = currentSprite;
             }
 
-            SetSubtitle(ResolveSubtitleForStep(i));
+            SetSubtitle(ResolveSubtitleForStep(stepIndex));
 
             yield return StartCoroutine(Fade(0f, 1f));
             yield return new WaitForSeconds(imageShowTime);
@@ -277,5 +301,24 @@ public class CutsceneImagePlayer : MonoBehaviour
             return string.Empty;
 
         return cutsceneTexts[stepIndex];
+    }
+
+    private int GetTotalStepCount()
+    {
+        int spriteCount = cutsceneSprites != null ? cutsceneSprites.Length : 0;
+        int textCount = cutsceneTexts != null ? cutsceneTexts.Length : 0;
+        return Mathf.Max(spriteCount, textCount);
+    }
+
+    private void TryResolvePlayerMovement()
+    {
+        if (playerMovement != null)
+            return;
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject == null)
+            return;
+
+        playerMovement = playerObject.GetComponent<PlayerMovement>();
     }
 }

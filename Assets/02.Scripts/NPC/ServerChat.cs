@@ -37,10 +37,8 @@ public class ServerChat : MonoBehaviour
     [Header("호감도")]
     [SerializeField] private string[] positiveWords;
     [SerializeField] private string[] negativeWords;
-
     public int PositiveAffinity = 10;
     public int NegativeAffinity = -10;
-
     [SerializeField] private TMP_Text AffinityText;
 
     [Header("기억 재구성 키워드")]
@@ -302,10 +300,10 @@ public class ServerChat : MonoBehaviour
         NPCInfo npcInfo = CurData.npcInformations.Find(n => n.npcId == currentNpcData.npcId);
         if (npcInfo != null && npcInfo.words != null)
         {
-            if (msg.ToLower().Contains(keyword.word.ToLower()))
+            foreach (MemoryKeyword keyword in npcInfo.words)
             {
-                Debug.Log($"[MemoryKeyword] 발견됨: {keyword.word}, isUsed={keyword.isUsed}");
-                if (!keyword.isUsed)
+                if (string.IsNullOrEmpty(keyword.word)) continue;
+                if (msg.IndexOf(keyword.word, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     Debug.Log($"[MemoryKeyword] 발견됨: {keyword.word}, isUsed={keyword.isUsed}");
                     if (!keyword.isUsed)

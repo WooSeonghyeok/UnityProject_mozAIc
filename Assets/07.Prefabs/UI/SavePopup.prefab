@@ -246,9 +246,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SaveUIManager, Assembly-CSharp
-        m_MethodName: CloseSavePopup
+      - m_Target: {fileID: 6531951786655270175}
+        m_TargetAssemblyTypeName: PopupOpenClose, Assembly-CSharp
+        m_MethodName: ClosePopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 1654991678638700023}
   - component: {fileID: 3834058341746278734}
   - component: {fileID: 2919645257483510286}
+  - component: {fileID: 6531951786655270175}
   m_Layer: 5
   m_Name: SavePopup
   m_TagString: Untagged
@@ -815,6 +816,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6531951786655270175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318194136557394661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Popup: {fileID: 8318194136557394661}
 --- !u!1 &8692070598543515513
 GameObject:
   m_ObjectHideFlags: 0

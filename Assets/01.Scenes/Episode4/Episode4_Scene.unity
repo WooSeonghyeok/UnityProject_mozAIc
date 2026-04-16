@@ -4020,8 +4020,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 639146075}
-        m_TargetAssemblyTypeName: OptionPopupManager, Assembly-CSharp
-        m_MethodName: OpenOptionPopup
+        m_TargetAssemblyTypeName: PopupOpenClose, Assembly-CSharp
+        m_MethodName: OpenPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12648,7 +12648,7 @@ PrefabInstance:
       objectReference: {fileID: 963538059}
     - target: {fileID: 7779179856378969893, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenLoadPopup
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 8505852422597672447, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12674,13 +12674,13 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &639146075 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7903282535820720385, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4969661969751739495, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
   m_PrefabInstance: {fileID: 639146073}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2c8351a670580b4b9144fba52f07032, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &640384653
@@ -22079,13 +22079,13 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &963538059 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1522933866447899859, guid: f6e261bdf16de8b45a9023acfb5f880c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2357335300102651587, guid: f6e261bdf16de8b45a9023acfb5f880c, type: 3}
   m_PrefabInstance: {fileID: 963538057}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b66c64acf6adc48b10d98bce44fa63, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &964977520
@@ -33864,10 +33864,9 @@ MonoBehaviour:
   pieceBox: {fileID: 758079147}
   pieceCnt: {fileID: 934968324}
   cutscene: {fileID: 470098375}
-  onAllPiecesCollected:
+  onAllCollected:
     m_PersistentCalls:
       m_Calls: []
-  collectedTags: []
 --- !u!65 &1399777281
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49415,6 +49414,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 1ff8b328a8ea38a49a2bd3e61f236342, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2031038860}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 1ff8b328a8ea38a49a2bd3e61f236342, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2031038861}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff8b328a8ea38a49a2bd3e61f236342, type: 3}
 --- !u!4 &2031038857 stripped
 Transform:
@@ -49436,12 +49438,33 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.2, y: 4, z: 0.45}
-  m_Center: {x: 0, y: 1.875, z: 0}
+  m_Size: {x: 2.5, y: 4, z: 0.45}
+  m_Center: {x: 1.85, y: 1.875, z: 0}
+--- !u!65 &2031038861
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156995993}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.25, y: 4, z: 0.45}
+  m_Center: {x: -2, y: 1.875, z: 0}
 --- !u!1001 &2032133325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50365,6 +50388,7 @@ MonoBehaviour:
   playerTr: {fileID: 292202128}
   npcFollower: {fileID: 0}
   user: {fileID: 0}
+  playerMovement: {fileID: 0}
   lookAtPlayer: 1
   isChat: 0
 --- !u!4 &2053638452 stripped

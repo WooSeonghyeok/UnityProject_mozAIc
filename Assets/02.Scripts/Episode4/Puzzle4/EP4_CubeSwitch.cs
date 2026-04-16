@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.UI;
 public class EP4_CubeSwitch : MonoBehaviour
 {
@@ -66,9 +65,9 @@ public class EP4_CubeSwitch : MonoBehaviour
         {
             bool b = curCube.condition switch
             {
-                EP4_Puzzle4_Cube.switchCondition.near   => Mathf.Abs(cubeList[n].column - curCube.column) + Mathf.Abs(cubeList[n].row - curCube.row) <= 1,
-                EP4_Puzzle4_Cube.switchCondition.row    => cubeList[n].row == curCube.row,
-                EP4_Puzzle4_Cube.switchCondition.column => cubeList[n].column == curCube.column,
+                EP4_Puzzle4_Cube.switchCondition.near   => Mathf.Abs(cubeList[n].posY - curCube.posY) + Mathf.Abs(cubeList[n].posX - curCube.posX) <= 1,
+                EP4_Puzzle4_Cube.switchCondition.row    => cubeList[n].posX == curCube.posX,
+                EP4_Puzzle4_Cube.switchCondition.column => cubeList[n].posY == curCube.posY,
                 EP4_Puzzle4_Cube.switchCondition.color  => cubeList[n].cubeColor == curCube.cubeColor,
                 _ => false
             };

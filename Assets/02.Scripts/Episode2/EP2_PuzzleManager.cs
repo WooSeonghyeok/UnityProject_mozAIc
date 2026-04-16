@@ -46,7 +46,7 @@ public class EP2_PuzzleManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Episode2")
+        if (scene.name == "Episode2_Scene")
         {
             GameObject spaceObj = GameObject.Find("SpaceQuad");
             GameObject paintObj = GameObject.Find("PictureQuad");

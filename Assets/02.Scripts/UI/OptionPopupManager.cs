@@ -43,8 +43,6 @@ public class OptionPopupManager : MonoBehaviour
         UpdateMouseText(sens);
         UpdateVolText(vol);
     }
-    public void OpenOptionPopup() => OptionPopup.SetActive(true);
-    public void CloseOptionPopup() => OptionPopup.SetActive(false);
     public void OnSensitivityChanged(float value)
     {
         PlayerPrefs.SetFloat(mouseKey, value);
