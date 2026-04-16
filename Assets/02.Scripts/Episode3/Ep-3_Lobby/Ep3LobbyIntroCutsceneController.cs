@@ -917,10 +917,10 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_001",
                     speakerType = "Narration",
                     speakerName = string.Empty,
-                    subtitleText = "희미한 선율의 흔적이 긴 홀 너머로 이어지고 있었다.",
+                    subtitleText = "이곳은 전에 지나온 공간들과는 분위기가 다르다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(6.2f, -0.9f, 17.5f),
-                    lookAtPosition = new Vector3(5.4f, -2.7f, 10.2f),
+                    cameraPosition = new Vector3(2.7829013f, 2.1086717f, -8.384186f),
+                    lookAtPosition = new Vector3(-0.3103757f, 0.75217676f, 3.798327f),
                     moveDuration = 1.8f,
                     holdDuration = 1.5f,
                     fieldOfView = 54f
@@ -930,10 +930,10 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_002",
                     speakerType = "Narration",
                     speakerName = string.Empty,
-                    subtitleText = "흩어진 악보 조각들이, 잊힌 기억의 파편처럼 곳곳에 남아 있었다.",
+                    subtitleText = "발밑에는 황혼빛 구름이 낮게 깔려 있고, 주변에는 흩어진 음표와 선율의 흔적이 떠다닌다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(1.4f, 4.1f, 7.6f),
-                    lookAtPosition = new Vector3(-1.8f, 2.2f, 4.9f),
+                    cameraPosition = new Vector3(-0.84414005f, 5.0954046f, 2.9775188f),
+                    lookAtPosition = new Vector3(5.7418184f, 0.543448f, 3.2705357f),
                     moveDuration = 2.1f,
                     holdDuration = 1.6f,
                     fieldOfView = 49f
@@ -941,12 +941,12 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 new Ep3LobbyIntroShotData
                 {
                     dialogueId = "EP3_003",
-                    speakerType = "Narration",
+                    speakerType = "Monologue",
                     speakerName = string.Empty,
-                    subtitleText = "닫힌 문과 끊긴 멜로디는, 아직 풀리지 않은 이야기가 남아 있음을 말해 주는 듯했다.",
+                    subtitleText = "마치 하늘 위 어딘가에 홀로 떠 있는 공간에 들어선 듯한 느낌이 든다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(1.9f, 3.8f, 2.4f),
-                    lookAtPosition = new Vector3(-1.35f, 2.25f, -0.1f),
+                    cameraPosition = new Vector3(0.7610698f, 0.94867814f, 4.8600473f),
+                    lookAtPosition = new Vector3(0.049334288f, -0.93554145f, -0.3181162f),
                     moveDuration = 2.2f,
                     holdDuration = 1.7f,
                     fieldOfView = 46f
@@ -954,28 +954,15 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 new Ep3LobbyIntroShotData
                 {
                     dialogueId = "EP3_004",
-                    speakerType = "Narration",
-                    speakerName = string.Empty,
-                    subtitleText = "그리고 홀의 끝에서, 레온은 말없이 이곳의 기억을 지키고 있었다.",
-                    showSpeakerName = false,
-                    cameraPosition = new Vector3(7.3f, 2.3f, -2.4f),
-                    lookAtPosition = new Vector3(5.26f, 1.1f, -7.96f),
-                    moveDuration = 2f,
-                    holdDuration = 1.7f,
-                    fieldOfView = 44f
-                },
-                new Ep3LobbyIntroShotData
-                {
-                    dialogueId = "EP3_005",
                     speakerType = "Monologue",
                     speakerName = string.Empty,
-                    subtitleText = "조각을 모아 이 흐름을 따라가면, 잃어버린 선율에 조금 더 가까워질 수 있을 것 같다.",
+                    subtitleText = "이곳에 남아 있는 것은, 아직 끝나지 않은 어떤 흐름뿐이다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(4.2f, 1.6f, -1.1f),
-                    lookAtPosition = new Vector3(5.26f, 1.1f, -7.96f),
+                    cameraPosition = new Vector3(6.5975795f, -1.8673064f, 12.0882015f),
+                    lookAtPosition = new Vector3(6.40379f, -2.6425843f, 13.714412f),
                     moveDuration = 2.3f,
                     holdDuration = 2f,
-                    fieldOfView = 42f
+                    fieldOfView = 44f
                 }
             }
         };
@@ -1152,23 +1139,19 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             switch (shot.dialogueId)
             {
                 case "EP3_001":
-                    ApplyNarration(shot, "이번엔 색이 아니라, 소리가 비어 있다.");
+                    ApplyNarration(shot, "이곳은 전에 지나온 공간들과는 분위기가 다르다.");
                     break;
 
                 case "EP3_002":
-                    ApplyNarration(shot, "음악이 머물렀던 자리인데, 지금은 울림만 비어 있다.");
+                    ApplyNarration(shot, "발밑에는 황혼빛 구름이 낮게 깔려 있고, 주변에는 흩어진 음표와 선율의 흔적이 떠다닌다.");
                     break;
 
                 case "EP3_003":
-                    ApplyMonologue(shot, "낯선 공간인데도, 이상하게 누군가를 기다리던 감각이 남아 있다.");
+                    ApplyMonologue(shot, "마치 하늘 위 어딘가에 홀로 떠 있는 공간에 들어선 듯한 느낌이 든다.");
                     break;
 
                 case "EP3_004":
-                    ApplyMonologue(shot, "누군지는 기억나지 않는데… 왜 이렇게 오래 누군가를 기다렸던 것만 같지?");
-                    break;
-
-                case "EP3_005":
-                    ApplyMonologue(shot, "끝까지 완성해야 했던 노래가 있었던 것 같다. 멜로디도, 박자도 전부 끊겨 있다.");
+                    ApplyMonologue(shot, "이곳에 남아 있는 것은, 아직 끝나지 않은 어떤 흐름뿐이다.");
                     break;
             }
         }

@@ -3,6 +3,7 @@
     using System.Collections;
     using TMPro;
     using UnityEngine;
+    using UnityEngine.AI;
     using UnityEngine.Events;
     using UnityEngine.SceneManagement;
     using UnityEngine.UI;
@@ -49,6 +50,39 @@
         [Tooltip("플레이어가 범위에 있을 때 보여줄 UI 오브젝트")]
         [SerializeField] private GameObject interactUI;
 
+        [Header("도착 연출")]
+        [Tooltip("플레이어가 범위에 처음 들어왔을 때 컷씬/연출을 실행합니다.")]
+        [SerializeField] private bool playArrivalSequenceOnEnter = false;
+
+        [Tooltip("도착 연출을 한 번만 실행할지 여부")]
+        [SerializeField] private bool playArrivalSequenceOnlyOnce = true;
+
+        [Tooltip("도착 연출에 사용할 컷씬 플레이어")]
+        [SerializeField] private CutsceneImagePlayer arrivalCutscenePlayer;
+
+        [SerializeField] private int arrivalCutsceneStartIndex = 0;
+        [SerializeField] private int arrivalCutsceneStepCount = 0;
+
+        [Tooltip("도착 연출이 끝난 직후 기존 상호작용을 자동 실행합니다.")]
+        [SerializeField] private bool autoInteractAfterArrivalSequence = false;
+
+        [Header("상호작용 직전 컷씬")]
+        [Tooltip("상호작용을 실제로 수행하기 직전에 컷씬을 먼저 재생합니다.")]
+        [SerializeField] private bool playInteractionCutsceneBeforeAction = false;
+
+        [SerializeField] private CutsceneImagePlayer interactionCutscenePlayer;
+        [SerializeField] private int interactionCutsceneStartIndex = 0;
+        [SerializeField] private int interactionCutsceneStepCount = 0;
+        [SerializeField] private bool playInteractionCutsceneOnlyOnce = true;
+
+        [Header("NPC 합류 연출")]
+        [Tooltip("도착 연출 시작 시 NPC를 지정 위치로 합류시킵니다.")]
+        [SerializeField] private bool teleportNpcOnArrival = false;
+
+        [SerializeField] private Transform npcTransform;
+        [SerializeField] private Transform npcTeleportPoint;
+        [SerializeField] private Transform npcLookTarget;
+
         [Header("Designer Hook")]
         [Tooltip("useSceneName이 비활성화되어 있을 때 호출되는 이벤트입니다.")]
         [SerializeField] private UnityEvent onInteract;
@@ -69,6 +103,12 @@
         /// </summary>
         private bool playerInRange;
         private bool interactionEnabled = true;
+        private bool arrivalSequencePlayed;
+        private bool arrivalSequenceRunning;
+        private bool arrivalCutsceneListenerAdded;
+        private bool interactionCutscenePlayed;
+        private bool interactionCutsceneRunning;
+        private bool interactionCutsceneListenerAdded;
 
         private void Awake()
         {
@@ -107,6 +147,15 @@
             {
                 user.Interact -= SymbolInteract;
             }
+
+            RemoveArrivalCutsceneListener();
+            RemoveInteractionCutsceneListener();
+        }
+
+        private void OnDestroy()
+        {
+            RemoveArrivalCutsceneListener();
+            RemoveInteractionCutsceneListener();
         }
 
         private void Reset()
@@ -126,6 +175,7 @@
 
             playerInRange = true;
             UpdateInteractUI();
+            TryStartArrivalSequence();
         }
 
         private void OnTriggerExit(Collider other)
@@ -144,6 +194,7 @@
         public void SymbolInteract()
         {
             if (!interactionEnabled) return;
+            if (IsAnySequenceRunning()) return;
             if (!playerInRange) return;
 
             PerformInteraction();
@@ -164,18 +215,25 @@
         /// </summary>
         private void PerformInteraction()
         {
-            // 상호작용 UI 숨기기
-            if (interactUI != null)
-            {
-                interactUI.SetActive(false);
-            }
-
             // 잠금 상태인 경우 메시지 출력 후 종료
             if (!CanInteract())
             {
+                HideInteractUI();
                 SymbolLockMessageUI.Show(lockedMessage, lockedMessageDuration, lockedPopupResourcePath);
                 return;
             }
+
+            if (TryStartInteractionCutscene())
+            {
+                return;
+            }
+
+            ExecuteInteractionAction();
+        }
+
+        private void ExecuteInteractionAction()
+        {
+            HideInteractUI();
 
             // 씬 전환 또는 이벤트 호출
             if (useSceneName)
@@ -216,8 +274,250 @@
         {
             if (interactUI != null)
             {
-                interactUI.SetActive(interactionEnabled && playerInRange);
+                interactUI.SetActive(interactionEnabled && playerInRange && !IsAnySequenceRunning());
             }
+        }
+
+        private bool IsAnySequenceRunning()
+        {
+            return arrivalSequenceRunning || interactionCutsceneRunning;
+        }
+
+        private void TryStartArrivalSequence()
+        {
+            if (!playArrivalSequenceOnEnter || !interactionEnabled || !playerInRange)
+            {
+                return;
+            }
+
+            if (arrivalSequenceRunning)
+            {
+                return;
+            }
+
+            if (playArrivalSequenceOnlyOnce && arrivalSequencePlayed)
+            {
+                return;
+            }
+
+            if (!CanInteract())
+            {
+                return;
+            }
+
+            arrivalSequencePlayed = true;
+            arrivalSequenceRunning = true;
+            HideInteractUI();
+            TeleportNpcToArrivalPoint();
+
+            if (ShouldPlayArrivalCutscene())
+            {
+                AddArrivalCutsceneListener();
+                arrivalCutscenePlayer.PlayCutsceneSegment(arrivalCutsceneStartIndex, arrivalCutsceneStepCount);
+                return;
+            }
+
+            CompleteArrivalSequence();
+        }
+
+        private bool ShouldPlayArrivalCutscene()
+        {
+            return arrivalCutscenePlayer != null &&
+                   arrivalCutscenePlayer.HasStepContent(arrivalCutsceneStartIndex) &&
+                   !arrivalCutscenePlayer.IsPlaying;
+        }
+
+        private void OnArrivalCutsceneFinished()
+        {
+            CompleteArrivalSequence();
+        }
+
+        private void CompleteArrivalSequence()
+        {
+            RemoveArrivalCutsceneListener();
+
+            if (!arrivalSequenceRunning)
+            {
+                return;
+            }
+
+            arrivalSequenceRunning = false;
+
+            if (autoInteractAfterArrivalSequence && interactionEnabled && playerInRange)
+            {
+                PerformInteraction();
+                return;
+            }
+
+            UpdateInteractUI();
+        }
+
+        private bool TryStartInteractionCutscene()
+        {
+            if (!playInteractionCutsceneBeforeAction)
+            {
+                return false;
+            }
+
+            if (interactionCutsceneRunning)
+            {
+                return true;
+            }
+
+            if (playInteractionCutsceneOnlyOnce && interactionCutscenePlayed)
+            {
+                return false;
+            }
+
+            if (!ShouldPlayInteractionCutscene())
+            {
+                return false;
+            }
+
+            interactionCutscenePlayed = true;
+            interactionCutsceneRunning = true;
+            HideInteractUI();
+            AddInteractionCutsceneListener();
+            interactionCutscenePlayer.PlayCutsceneSegment(interactionCutsceneStartIndex, interactionCutsceneStepCount);
+            return true;
+        }
+
+        private bool ShouldPlayInteractionCutscene()
+        {
+            return interactionCutscenePlayer != null &&
+                   !interactionCutscenePlayer.IsPlaying &&
+                   interactionCutscenePlayer.HasStepContent(interactionCutsceneStartIndex);
+        }
+
+        private void OnInteractionCutsceneFinished()
+        {
+            RemoveInteractionCutsceneListener();
+
+            if (!interactionCutsceneRunning)
+            {
+                return;
+            }
+
+            interactionCutsceneRunning = false;
+            ExecuteInteractionAction();
+        }
+
+        private void AddArrivalCutsceneListener()
+        {
+            if (arrivalCutsceneListenerAdded || arrivalCutscenePlayer == null)
+            {
+                return;
+            }
+
+            arrivalCutscenePlayer.AddFinishedListener(OnArrivalCutsceneFinished);
+            arrivalCutsceneListenerAdded = true;
+        }
+
+        private void RemoveArrivalCutsceneListener()
+        {
+            if (!arrivalCutsceneListenerAdded || arrivalCutscenePlayer == null)
+            {
+                return;
+            }
+
+            arrivalCutscenePlayer.RemoveFinishedListener(OnArrivalCutsceneFinished);
+            arrivalCutsceneListenerAdded = false;
+        }
+
+        private void AddInteractionCutsceneListener()
+        {
+            if (interactionCutsceneListenerAdded || interactionCutscenePlayer == null)
+            {
+                return;
+            }
+
+            interactionCutscenePlayer.AddFinishedListener(OnInteractionCutsceneFinished);
+            interactionCutsceneListenerAdded = true;
+        }
+
+        private void RemoveInteractionCutsceneListener()
+        {
+            if (!interactionCutsceneListenerAdded || interactionCutscenePlayer == null)
+            {
+                return;
+            }
+
+            interactionCutscenePlayer.RemoveFinishedListener(OnInteractionCutsceneFinished);
+            interactionCutsceneListenerAdded = false;
+        }
+
+        private void HideInteractUI()
+        {
+            if (interactUI != null)
+            {
+                interactUI.SetActive(false);
+            }
+        }
+
+        private void TeleportNpcToArrivalPoint()
+        {
+            if (!teleportNpcOnArrival || npcTransform == null || npcTeleportPoint == null)
+            {
+                return;
+            }
+
+            Vector3 targetPosition = npcTeleportPoint.position;
+            Quaternion targetRotation = ResolveNpcRotation(targetPosition);
+
+            NPCFollower npcFollower = npcTransform.GetComponent<NPCFollower>();
+            if (npcFollower != null)
+            {
+                npcFollower.SetFollow(false);
+                npcFollower.WarpTo(targetPosition, targetRotation);
+                return;
+            }
+
+            NavMeshAgent agent = npcTransform.GetComponent<NavMeshAgent>();
+            if (agent != null && agent.enabled)
+            {
+                if (agent.isOnNavMesh)
+                {
+                    agent.ResetPath();
+                }
+
+                if (!agent.Warp(targetPosition))
+                {
+                    npcTransform.position = targetPosition;
+                }
+
+                npcTransform.rotation = targetRotation;
+                return;
+            }
+
+            Rigidbody targetRigidbody = npcTransform.GetComponent<Rigidbody>();
+            if (targetRigidbody != null)
+            {
+                targetRigidbody.velocity = Vector3.zero;
+                targetRigidbody.angularVelocity = Vector3.zero;
+                targetRigidbody.position = targetPosition;
+                targetRigidbody.rotation = targetRotation;
+                return;
+            }
+
+            npcTransform.SetPositionAndRotation(targetPosition, targetRotation);
+        }
+
+        private Quaternion ResolveNpcRotation(Vector3 targetPosition)
+        {
+            if (npcLookTarget == null)
+            {
+                return npcTeleportPoint != null ? npcTeleportPoint.rotation : Quaternion.identity;
+            }
+
+            Vector3 lookDirection = npcLookTarget.position - targetPosition;
+            lookDirection.y = 0f;
+
+            if (lookDirection.sqrMagnitude <= 0.0001f)
+            {
+                return npcTeleportPoint != null ? npcTeleportPoint.rotation : Quaternion.identity;
+            }
+
+            return Quaternion.LookRotation(lookDirection.normalized, Vector3.up);
         }
     }
 

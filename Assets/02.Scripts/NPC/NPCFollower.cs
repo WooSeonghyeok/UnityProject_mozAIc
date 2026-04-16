@@ -53,10 +53,17 @@ public class NPCFollower : MonoBehaviour
 
         TryResolvePlayerMovement();
 
+        if (!CanUseAgent())
+        {
+            ClearRequestedDestination();
+            UpdateMoveAnimation(false);
+            return;
+        }
+
         // 컷씬/대화 등으로 플레이어 조작이 잠겨 있는 동안에는 NPC도 멈춘다.
         if (playerMovement != null && playerMovement.IsMoveLocked)
         {
-            agent.ResetPath();
+            ResetAgentPathIfPossible();
             ClearRequestedDestination();
             UpdateMoveAnimation(false);
             return;
@@ -65,7 +72,7 @@ public class NPCFollower : MonoBehaviour
         // 대화 중이면 이동 금지
         if (ChatNPCManager.instance != null && ChatNPCManager.instance.isTalking)
         {
-            agent.ResetPath();
+            ResetAgentPathIfPossible();
             ClearRequestedDestination();
             UpdateMoveAnimation(false);
             return;
@@ -79,7 +86,7 @@ public class NPCFollower : MonoBehaviour
             // 목적지 도착 판정
             if (!agent.pathPending && agent.remainingDistance <= stopDistance + arriveThreshold)
             {
-                agent.ResetPath();
+                ResetAgentPathIfPossible();
                 ClearRequestedDestination();
                 UpdateMoveAnimation(false);
 
@@ -101,7 +108,7 @@ public class NPCFollower : MonoBehaviour
         // 외부에서 따라가기 금지 상태면 멈춤
         if (!canFollow)
         {
-            agent.ResetPath();
+            ResetAgentPathIfPossible();
             ClearRequestedDestination();
             UpdateMoveAnimation(false);
             return;
@@ -117,7 +124,7 @@ public class NPCFollower : MonoBehaviour
         }
         else if (isPathActive && distance <= stopDistance + arriveThreshold)
         {
-            agent.ResetPath();
+            ResetAgentPathIfPossible();
             ClearRequestedDestination();
         }
 
@@ -133,7 +140,7 @@ public class NPCFollower : MonoBehaviour
 
         if (!canFollow && agent != null)
         {
-            agent.ResetPath();
+            ResetAgentPathIfPossible();
             ClearRequestedDestination();
             UpdateMoveAnimation(false);
         }
@@ -160,9 +167,16 @@ public class NPCFollower : MonoBehaviour
     {
         if (agent != null)
         {
-            agent.ResetPath();
+            ResetAgentPathIfPossible();
             ClearRequestedDestination();
-            agent.Warp(position);
+            if (CanUseAgent())
+            {
+                agent.Warp(position);
+            }
+            else
+            {
+                transform.position = position;
+            }
         }
         else
         {
@@ -302,5 +316,18 @@ public class NPCFollower : MonoBehaviour
     {
         hasRequestedDestination = false;
         nextRepathTime = 0f;
+    }
+
+    private bool CanUseAgent()
+    {
+        return agent != null && agent.enabled && agent.isActiveAndEnabled && agent.isOnNavMesh;
+    }
+
+    private void ResetAgentPathIfPossible()
+    {
+        if (!CanUseAgent())
+            return;
+
+        agent.ResetPath();
     }
 }

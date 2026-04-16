@@ -1,89 +1,88 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
-/// ºñÆ® ±×·ì »ı¼º/Á¦°Å¿¡ ¸ÂÃç Àå½Ä ¿ÀºêÁ§Æ®¸¦ ·£´ı ½ºÆùÇÏ´Â ½ºÆ÷³Ê.
-/// 
-/// ¼³°è ÀÇµµ:
-/// - Àå½ÄÀº ¾À ÀüÃ¼¿¡ ÇÑ ¹ø ±ò¸®´Â °ÍÀÌ ¾Æ´Ï¶ó
-///   "ÇöÀç »ì¾Æ ÀÖ´Â ¹ßÆÇ ±×·ì ±ÙÃ³"¿¡¸¸ »ı¼ºµÇ¾î°¡Áö°í
-///   ±× ºñÆ®°¡ »ç¶óÁú ¶§ ÇÔ²² Á¦°ÅµÈ´Ù.
-/// 
-/// ÇÙ½É ¿ªÇÒ:
-/// 1. Decos ÀÚ½Ä ¿ÀºêÁ§Æ®¸¦ Àå½Ä ¿øº»(prefab ÈÄº¸)Ã³·³ ¼öÁı
-/// 2. Æ¯Á¤ ºñÆ® ±×·ì ±âÁØÀ¸·Î Àå½Ä »ı¼º
-/// 3. Æ¯Á¤ ºñÆ® ±×·ì Á¦°Å ½Ã Àå½Äµµ ÇÔ²² Á¦°Å
-/// 4. ÀüÃ¼ ¸®¼Â ½Ã ¸ğµç Àå½Ä Á¤¸®
+/// ë¹„íŠ¸ ê·¸ë£¹ ìƒì„±/ì œê±°ì— ë§ì¶° ì¥ì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ ëœë¤ ìŠ¤í°í•˜ëŠ” ìŠ¤í¬ë„ˆ.
+///
+/// ì„¤ê³„ ì˜ë„:
+/// - ì¥ì‹ì€ ì”¬ ì „ì²´ì— í•œ ë²ˆ ê¹”ë¦¬ëŠ” ê²ƒì´ ì•„ë‹ˆë¼
+///   "í˜„ì¬ ì‚´ì•„ ìˆëŠ” ë°œíŒ ê·¸ë£¹ ê·¼ì²˜"ì—ë§Œ ìƒì„±ëœë‹¤.
+/// - í•„ìš”ì— ë”°ë¼ ì›ë³¸ ì¥ì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ ì”¬ì— ê·¸ëŒ€ë¡œ ë³´ì´ê²Œ ë‘˜ ìˆ˜ë„ ìˆë‹¤.
+/// - ì „ì§„í˜• í¼ì¦ì˜ ë°œë°‘ ë¶„ìœ„ê¸°ë¥¼ ìœ„í•´ ë¹„íŠ¸ ê·¸ë£¹ ì•„ë˜ êµ¬ë¦„ ë ˆì´ì–´ë„ í•¨ê»˜ ìƒì„±í•  ìˆ˜ ìˆë‹¤.
 /// </summary>
 public class DecoRandomSpawn : MonoBehaviour
 {
-    [Header("½ºÆù ºÎ¸ğ")]
+    private const string CloudTextureResourcePath = "Ep.3/Stage3_Skybox/Cloud";
+
+    [Header("ìŠ¤í° ë¶€ëª¨")]
     [SerializeField] private Transform spawnedDecoParent;
     [SerializeField] private BoxCollider spawnAreaBox;
 
-    [Header("ºñÆ®º° Àå½Ä »ı¼º ¼³Á¤")]
+    [Header("ë¹„íŠ¸ë³„ ì¥ì‹ ìƒì„± ì„¤ì •")]
     [SerializeField] private int minDecoPerBeat = 2;
     [SerializeField] private int maxDecoPerBeat = 5;
     [SerializeField] private float spawnRadius = 6f;
     [SerializeField] private float forwardBias = 2f;
 
-    [Header("À§Ä¡ º¸Á¤")]
+    [Header("ìœ„ì¹˜ ë³´ì •")]
     [SerializeField] private float verticalOffset = 0f;
     [SerializeField] private int maxSpawnPositionRetryCount = 20;
     [SerializeField] private float minDistanceBetweenDecos = 1.5f;
 
-    [Header("Áö¸é º¸Á¤")]
+    [Header("ì§€ë©´ ë³´ì •")]
     [SerializeField] private bool alignToGround = true;
     [SerializeField] private float raycastStartHeight = 10f;
     [SerializeField] private float raycastDistance = 50f;
     [SerializeField] private LayerMask groundLayerMask = Physics.DefaultRaycastLayers;
 
-    [Header("È¸Àü/Å©±â ·£´ı")]
+    [Header("íšŒì „/í¬ê¸° ëœë¤")]
     [SerializeField] private bool randomYawRotation = true;
     [SerializeField] private Vector2 randomScaleRange = new Vector2(1f, 1f);
 
-    /// <summary>
-    /// Decos ÀÚ½Ä ¿ÀºêÁ§Æ®¿¡¼­ ¼öÁıÇÑ Àå½Ä ¿øº» ¸ñ·Ï.
-    /// 
-    /// ½ÇÁ¦ ·±Å¸ÀÓ¿¡¼­´Â ÀÌ ¿ÀºêÁ§Æ®µéÀ» Á÷Á¢ ÀÌµ¿ÇÏÁö ¾Ê°í,
-    /// InstantiateÀÇ ¿øº»Ã³·³ »ç¿ëÇÑ´Ù.
-    /// </summary>
+    [Header("ì›ë³¸ í‘œì‹œ")]
+    [SerializeField] private bool hideSourceObjectsOnAwake = true;
+
+    [Header("ë¹„íŠ¸ë³„ êµ¬ë¦„ ë ˆì´ì–´")]
+    [SerializeField] private bool spawnCloudLayersPerBeat = true;
+    [SerializeField] private Transform spawnedCloudParent;
+    [SerializeField] private float cloudBaseHeightOffset = -6.5f;
+    [SerializeField] private float cloudForwardOffset = 4f;
+    [SerializeField] private float cloudSidePadding = 18f;
+    [SerializeField] private float cloudForwardPadding = 26f;
+    [SerializeField] private float minimumCloudWidth = 64f;
+    [SerializeField] private float minimumCloudLength = 96f;
+    [SerializeField] private float lowerCloudHeightOffset = -3.2f;
+    [SerializeField] private float lowerCloudWidthMultiplier = 1.4f;
+    [SerializeField] private float lowerCloudLengthMultiplier = 1.8f;
+    [SerializeField] private Vector2 cloudYawRandomRange = new Vector2(-18f, 18f);
+    [SerializeField] private Color upperCloudColor = new Color(1f, 0.7f, 0.58f, 0.34f);
+    [SerializeField] private Color lowerCloudColor = new Color(0.33f, 0.28f, 0.46f, 0.24f);
+    [SerializeField] private Vector2 upperCloudTilingDivisor = new Vector2(22f, 44f);
+    [SerializeField] private Vector2 lowerCloudTilingDivisor = new Vector2(30f, 56f);
+
     private readonly List<GameObject> decoPrefabs = new List<GameObject>();
-
-    /// <summary>
-    /// beatIndexº°·Î ÇöÀç »ı¼ºµÇ¾î ÀÖ´Â Àå½Ä ¿ÀºêÁ§Æ® ¸ñ·Ï.
-    /// 
-    /// ¾î¶² ºñÆ® ±×·ìÀÌ »ç¶óÁú ¶§ ÇØ´ç ºñÆ® Àå½Ä¸¸ Á¦°ÅÇÏ±â À§ÇØ ÇÊ¿äÇÏ´Ù.
-    /// </summary>
     private readonly Dictionary<int, List<GameObject>> spawnedDecosByBeatIndex = new Dictionary<int, List<GameObject>>();
-
-    /// <summary>
-    /// ÇöÀç »ì¾Æ ÀÖ´Â Àå½ÄµéÀÇ À§Ä¡ ¸ñ·Ï.
-    /// 
-    /// Àå½Ä³¢¸® ³Ê¹« °¡±îÀÌ ºÙÁö ¾Ê°Ô ÇÏ±â À§ÇÑ °Å¸® °Ë»ç¿¡ »ç¿ëÇÑ´Ù.
-    /// </summary>
+    private readonly Dictionary<int, List<GameObject>> spawnedCloudsByBeatIndex = new Dictionary<int, List<GameObject>>();
     private readonly List<Vector3> activeSpawnedPositions = new List<Vector3>();
 
-    /// <summary>
-    /// ¾À ½ÃÀÛ Àü¿¡ ¿øº» Àå½Ä ÈÄº¸¸¦ ¼öÁıÇÑ´Ù.
-    /// Decos ÀÚ½Ä ¿ÀºêÁ§Æ®´Â ¿øº» ¿ªÇÒ¸¸ ÇÏ°í, Á÷Á¢ º¸ÀÌÁø ¾Êµµ·Ï ºñÈ°¼ºÈ­ÇÑ´Ù.
-    /// </summary>
+    private Mesh sharedCloudQuadMesh;
+    private Texture2D cloudTexture;
+
     private void Awake()
     {
         CacheDecoPrefabsFromChildren();
     }
 
-    /// <summary>
-    /// Æ¯Á¤ ºñÆ® ±×·ì ¹ßÆÇµéÀ» ±âÁØÀ¸·Î Àå½ÄÀ» »ı¼ºÇÑ´Ù.
-    /// 
-    /// µ¿ÀÛ:
-    /// 1. °°Àº beatIndex Àå½ÄÀÌ ÀÌ¹Ì ÀÖÀ¸¸é ¸ÕÀú Á¦°Å
-    /// 2. ºñÆ®´ç »ı¼º °³¼ö ·£´ı °áÁ¤
-    /// 3. ¹ßÆÇ Áß ÇÏ³ª¸¦ ¾ŞÄ¿·Î °ñ¶ó ÁÖº¯¿¡ Àå½Ä »ı¼º
-    /// 4. »ı¼ºµÈ Àå½Ä ¸ñ·ÏÀ» beatIndex ±âÁØÀ¸·Î ±â·Ï
-    /// 
-    /// ÀÌ ¸Ş¼­µå´Â RhythmBeatWindowManager°¡ ºñÆ® ±×·ì »ı¼º Á÷ÈÄ È£ÃâÇÑ´Ù.
-    /// </summary>
+    private void OnDestroy()
+    {
+        if (sharedCloudQuadMesh != null)
+        {
+            Destroy(sharedCloudQuadMesh);
+            sharedCloudQuadMesh = null;
+        }
+    }
+
     public void SpawnForBeatGroup(int beatIndex, List<RhythmPlatform> platforms)
     {
         if (platforms == null || platforms.Count == 0)
@@ -93,105 +92,115 @@ public class DecoRandomSpawn : MonoBehaviour
 
         ReleaseForBeatGroup(beatIndex);
 
-        if (decoPrefabs.Count == 0)
+        if (decoPrefabs.Count > 0)
         {
-            Debug.LogWarning("[DecoRandomSpawn] ½ºÆùÇÒ Àå½Ä ÇÁ¸®ÆÕÀÌ ¾ø½À´Ï´Ù.");
-            return;
+            Transform parent = spawnedDecoParent != null ? spawnedDecoParent : transform;
+            int spawnCount = Random.Range(minDecoPerBeat, maxDecoPerBeat + 1);
+            List<GameObject> spawnedObjects = new List<GameObject>();
+
+            for (int i = 0; i < spawnCount; i++)
+            {
+                RhythmPlatform anchorPlatform = platforms[Random.Range(0, platforms.Count)];
+                if (anchorPlatform == null)
+                {
+                    continue;
+                }
+
+                if (!TryGetSpawnPosition(anchorPlatform.transform, out Vector3 spawnPosition))
+                {
+                    continue;
+                }
+
+                GameObject prefab = decoPrefabs[Random.Range(0, decoPrefabs.Count)];
+                if (prefab == null)
+                {
+                    continue;
+                }
+
+                Quaternion spawnRotation = prefab.transform.rotation;
+                if (randomYawRotation)
+                {
+                    spawnRotation *= Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+                }
+
+                GameObject spawnedObject = Instantiate(prefab, spawnPosition, spawnRotation, parent);
+                spawnedObject.SetActive(true);
+
+                float randomScale = Random.Range(randomScaleRange.x, randomScaleRange.y);
+                spawnedObject.transform.localScale = prefab.transform.localScale * randomScale;
+
+                spawnedObjects.Add(spawnedObject);
+                activeSpawnedPositions.Add(spawnPosition);
+            }
+
+            if (spawnedObjects.Count > 0)
+            {
+                spawnedDecosByBeatIndex[beatIndex] = spawnedObjects;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[DecoRandomSpawn] ìŠ¤í°í•  ì¥ì‹ í”„ë¦¬íŒ¹ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        Transform parent = spawnedDecoParent != null ? spawnedDecoParent : transform;
-        int spawnCount = Random.Range(minDecoPerBeat, maxDecoPerBeat + 1);
-        List<GameObject> spawnedObjects = new List<GameObject>();
-
-        for (int i = 0; i < spawnCount; i++)
+        if (spawnCloudLayersPerBeat)
         {
-            // ÇöÀç ºñÆ® ±×·ì ¹ßÆÇµé Áß ÇÏ³ª¸¦ ±âÁØÁ¡À¸·Î »ï¾Æ ÁÖº¯ Àå½ÄÀ» ¹èÄ¡ÇÑ´Ù.
-            // ÀÌ·¸°Ô ÇØ¾ß Àå½ÄÀÌ ÆÛÁñ ÁøÇà ¹æÇâÀ» µû¶ó ÇÔ²² ¿òÁ÷ÀÌ´Â °ÍÃ³·³ º¸ÀÎ´Ù.
-            RhythmPlatform anchorPlatform = platforms[Random.Range(0, platforms.Count)];
-            if (anchorPlatform == null)
-            {
-                continue;
-            }
-
-            if (!TryGetSpawnPosition(anchorPlatform.transform, out Vector3 spawnPosition))
-            {
-                continue;
-            }
-
-            GameObject prefab = decoPrefabs[Random.Range(0, decoPrefabs.Count)];
-            if (prefab == null)
-            {
-                continue;
-            }
-
-            Quaternion spawnRotation = prefab.transform.rotation;
-            if (randomYawRotation)
-            {
-                spawnRotation *= Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            }
-
-            GameObject spawnedObject = Instantiate(prefab, spawnPosition, spawnRotation, parent);
-            spawnedObject.SetActive(true);
-
-            float randomScale = Random.Range(randomScaleRange.x, randomScaleRange.y);
-            spawnedObject.transform.localScale = prefab.transform.localScale * randomScale;
-
-            spawnedObjects.Add(spawnedObject);
-            activeSpawnedPositions.Add(spawnPosition);
-        }
-
-        if (spawnedObjects.Count > 0)
-        {
-            spawnedDecosByBeatIndex[beatIndex] = spawnedObjects;
+            SpawnCloudLayersForBeatGroup(beatIndex, platforms);
         }
     }
 
-    /// <summary>
-    /// Æ¯Á¤ ºñÆ® ±×·ì¿¡ ¼ÓÇÑ Àå½Ä¸¸ Á¦°ÅÇÑ´Ù.
-    /// 
-    /// ºñÆ® ±×·ìÀÌ È­¸é¿¡¼­ ºüÁú ¶§ ¹ßÆÇ°ú ÇÔ²² Àå½Äµµ Á¤¸®ÇÏ±â À§ÇØ »ç¿ëÇÑ´Ù.
-    /// </summary>
     public void ReleaseForBeatGroup(int beatIndex)
     {
-        if (!spawnedDecosByBeatIndex.TryGetValue(beatIndex, out List<GameObject> spawnedObjects))
+        bool hadSpawnedObjects = false;
+
+        if (spawnedDecosByBeatIndex.TryGetValue(beatIndex, out List<GameObject> spawnedObjects))
+        {
+            hadSpawnedObjects = true;
+
+            for (int i = 0; i < spawnedObjects.Count; i++)
+            {
+                GameObject spawnedObject = spawnedObjects[i];
+                if (spawnedObject != null)
+                {
+                    RemoveSpawnedPosition(spawnedObject.transform.position);
+                    Destroy(spawnedObject);
+                }
+            }
+
+            spawnedDecosByBeatIndex.Remove(beatIndex);
+        }
+
+        if (spawnedCloudsByBeatIndex.TryGetValue(beatIndex, out List<GameObject> spawnedClouds))
+        {
+            hadSpawnedObjects = true;
+
+            for (int i = 0; i < spawnedClouds.Count; i++)
+            {
+                DestroyCloudObject(spawnedClouds[i]);
+            }
+
+            spawnedCloudsByBeatIndex.Remove(beatIndex);
+        }
+
+        if (!hadSpawnedObjects)
         {
             return;
         }
-
-        for (int i = 0; i < spawnedObjects.Count; i++)
-        {
-            GameObject spawnedObject = spawnedObjects[i];
-            if (spawnedObject != null)
-            {
-                RemoveSpawnedPosition(spawnedObject.transform.position);
-                Destroy(spawnedObject);
-            }
-        }
-
-        spawnedDecosByBeatIndex.Remove(beatIndex);
     }
 
-    /// <summary>
-    /// ÇöÀç »ı¼ºµÈ ¸ğµç Àå½ÄÀ» Á¦°ÅÇÑ´Ù.
-    /// ÆÛÁñ Á¾·á/¸®¼Â ½Ã ÀüÃ¼ ÃÊ±âÈ­¿ëÀ¸·Î »ç¿ëµÈ´Ù.
-    /// </summary>
     public void ClearAllSpawnedObjects()
     {
-        List<int> beatIndices = new List<int>(spawnedDecosByBeatIndex.Keys);
-        for (int i = 0; i < beatIndices.Count; i++)
+        HashSet<int> beatIndices = new HashSet<int>(spawnedDecosByBeatIndex.Keys);
+        beatIndices.UnionWith(spawnedCloudsByBeatIndex.Keys);
+
+        foreach (int beatIndex in beatIndices)
         {
-            ReleaseForBeatGroup(beatIndices[i]);
+            ReleaseForBeatGroup(beatIndex);
         }
 
         activeSpawnedPositions.Clear();
     }
 
-    /// <summary>
-    /// Decos ÀÚ½ÄµéÀ» Àå½Ä ¿øº» ¸ñ·ÏÀ¸·Î ¼öÁıÇÑ´Ù.
-    /// 
-    /// ¿øº» ÀÚ½ÄÀº ¾À¿¡¼­ Á÷Á¢ º¸ÀÏ ÇÊ¿ä°¡ ¾øÀ¸¹Ç·Î ºñÈ°¼ºÈ­ÇÑ´Ù.
-    /// ÀÌÈÄ ·±Å¸ÀÓ¿¡¼­´Â ÀÌ ¸ñ·Ï¿¡¼­ ·£´ı ¿øº»À» °ñ¶ó InstantiateÇÑ´Ù.
-    /// </summary>
     private void CacheDecoPrefabsFromChildren()
     {
         decoPrefabs.Clear();
@@ -206,20 +215,14 @@ public class DecoRandomSpawn : MonoBehaviour
 
             GameObject childObject = child.gameObject;
             decoPrefabs.Add(childObject);
-            childObject.SetActive(false);
+
+            if (hideSourceObjectsOnAwake)
+            {
+                childObject.SetActive(false);
+            }
         }
     }
 
-    /// <summary>
-    /// Æ¯Á¤ ¹ßÆÇÀ» ±âÁØÀ¸·Î Àå½Ä ½ºÆù À§Ä¡¸¦ Ã£´Â´Ù.
-    /// 
-    /// À§Ä¡ »ı¼º ±ÔÄ¢:
-    /// - ¹ßÆÇ ÁÖº¯ ¿øÇü ¹üÀ§ ³»¿¡¼­ ·£´ı À§Ä¡ ¼±ÅÃ
-    /// - ¾à°£ÀÇ forwardBias¸¦ Áà¼­ ÁøÇà ¹æÇâ Àü¹æ ÂÊ¿¡µµ ¹èÄ¡
-    /// - spawnAreaBox°¡ ÀÖÀ¸¸é ±× ¹Ú½º ³»ºÎ¿¡¼­¸¸ Çã¿ë
-    /// - Áö¸é º¸Á¤ÀÌ ÄÑÁ® ÀÖÀ¸¸é Raycast·Î ¹Ù´Ú¿¡ ºÙÀÓ
-    /// - ±âÁ¸ Àå½Ä°ú ³Ê¹« °¡±î¿ì¸é Àç½Ãµµ
-    /// </summary>
     private bool TryGetSpawnPosition(Transform anchorTransform, out Vector3 finalPosition)
     {
         finalPosition = anchorTransform.position;
@@ -262,12 +265,6 @@ public class DecoRandomSpawn : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// ¿ùµå ÁÂÇ¥°¡ spawnAreaBox ³»ºÎÀÎÁö °Ë»çÇÑ´Ù.
-    /// 
-    /// ¹Ú½º Äİ¶óÀÌ´õÀÇ ·ÎÄÃ ÁÂÇ¥°è·Î º¯È¯ÇÑ µÚ halfSize ¹üÀ§ ¾ÈÀÎÁö È®ÀÎÇÑ´Ù.
-    /// ÀÌ·¸°Ô ÇÏ¸é ¹Ú½º°¡ ÀÌµ¿/È¸Àü/½ºÄÉÀÏµÇ¾îµµ ÀÏ°üµÇ°Ô °Ë»çÇÒ ¼ö ÀÖ´Ù.
-    /// </summary>
     private bool IsInsideSpawnArea(Vector3 worldPosition)
     {
         if (spawnAreaBox == null)
@@ -284,12 +281,6 @@ public class DecoRandomSpawn : MonoBehaviour
             Mathf.Abs(localPoint.z) <= halfSize.z;
     }
 
-    /// <summary>
-    /// ÈÄº¸ À§Ä¡ À§¿¡¼­ ¾Æ·¡·Î Raycast¸¦ ½÷ ½ÇÁ¦ Áö¸é À§Ä¡¸¦ Ã£´Â´Ù.
-    /// 
-    /// Áö¸éÀ» ¸ÂÃßÁö ¸øÇÏ¸é ¿ø·¡ À§Ä¡ + verticalOffsetÀ» »ç¿ëÇÑ´Ù.
-    /// Áï, Áö¸éÀÌ ¹İµå½Ã ÀÖ¾î¾ß¸¸ »ı¼ºµÇ´Â °­Á¦ ±¸Á¶´Â ¾Æ´Ï´Ù.
-    /// </summary>
     private Vector3 GetGroundAdjustedPosition(Vector3 targetPosition)
     {
         Vector3 rayOrigin = targetPosition + Vector3.up * raycastStartHeight;
@@ -302,11 +293,6 @@ public class DecoRandomSpawn : MonoBehaviour
         return targetPosition + Vector3.up * verticalOffset;
     }
 
-    /// <summary>
-    /// »õ Àå½Ä À§Ä¡°¡ ±âÁ¸ Àå½Äµé°ú ÃÖ¼Ò °Å¸® ÀÌ»ó ¶³¾îÁ® ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
-    /// 
-    /// Àå½Ä³¢¸® °úµµÇÏ°Ô ¹¶Ä¡´Â ½Ã°¢Àû ¹®Á¦¸¦ ÁÙÀÌ±â À§ÇÑ ´Ü¼ø °Å¸® ±â¹İ ¹æ¾î´Ù.
-    /// </summary>
     private bool IsFarEnough(Vector3 candidatePosition)
     {
         float minimumDistance = Mathf.Max(0f, minDistanceBetweenDecos);
@@ -324,12 +310,6 @@ public class DecoRandomSpawn : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Àå½Ä Á¦°Å ½Ã activeSpawnedPositions¿¡¼­µµ ÇØ´ç À§Ä¡¸¦ Á¦°ÅÇÑ´Ù.
-    /// 
-    /// ¿ÏÀüÈ÷ µ¿ÀÏÇÑ ºÎµ¿¼Ò¼ö ÁÂÇ¥ ºñ±³´Â ºÒ¾ÈÁ¤ÇÒ ¼ö ÀÖÀ¸¹Ç·Î
-    /// ¾ÆÁÖ ÀÛÀº ¿ÀÂ÷ ¹üÀ§ ¾ÈÀÌ¸é °°Àº À§Ä¡·Î °£ÁÖÇÑ´Ù.
-    /// </summary>
     private void RemoveSpawnedPosition(Vector3 worldPosition)
     {
         for (int i = activeSpawnedPositions.Count - 1; i >= 0; i--)
@@ -341,5 +321,333 @@ public class DecoRandomSpawn : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private void SpawnCloudLayersForBeatGroup(int beatIndex, List<RhythmPlatform> platforms)
+    {
+        if (!TryCalculateBeatBounds(platforms, out Bounds beatBounds))
+        {
+            return;
+        }
+
+        Texture2D loadedCloudTexture = GetOrLoadCloudTexture();
+        if (loadedCloudTexture == null)
+        {
+            Debug.LogWarning("[DecoRandomSpawn] êµ¬ë¦„ í…ìŠ¤ì²˜ë¥¼ Resourcesì—ì„œ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+            return;
+        }
+
+        if (sharedCloudQuadMesh == null)
+        {
+            sharedCloudQuadMesh = CreateQuadMesh();
+        }
+
+        Transform parent = spawnedCloudParent != null ? spawnedCloudParent : (spawnedDecoParent != null ? spawnedDecoParent : transform);
+        List<GameObject> spawnedClouds = new List<GameObject>(2);
+
+        Vector3 beatCenter = beatBounds.center;
+        float baseWidth = Mathf.Max(minimumCloudWidth, beatBounds.size.x + cloudSidePadding * 2f);
+        float baseLength = Mathf.Max(minimumCloudLength, beatBounds.size.z + cloudForwardPadding * 2f);
+        float baseY = beatBounds.min.y + cloudBaseHeightOffset;
+        float yaw = Random.Range(cloudYawRandomRange.x, cloudYawRandomRange.y);
+
+        Vector3 upperPosition = new Vector3(
+            beatCenter.x,
+            baseY,
+            beatCenter.z + cloudForwardOffset);
+
+        Vector3 lowerPosition = new Vector3(
+            beatCenter.x,
+            baseY + lowerCloudHeightOffset,
+            beatCenter.z + cloudForwardOffset * 0.8f);
+
+        spawnedClouds.Add(CreateCloudObject(
+            $"BeatCloud_{beatIndex}_Upper",
+            parent,
+            upperPosition,
+            new Vector2(baseWidth, baseLength),
+            yaw,
+            upperCloudColor,
+            upperCloudTilingDivisor));
+
+        spawnedClouds.Add(CreateCloudObject(
+            $"BeatCloud_{beatIndex}_Lower",
+            parent,
+            lowerPosition,
+            new Vector2(baseWidth * lowerCloudWidthMultiplier, baseLength * lowerCloudLengthMultiplier),
+            -yaw * 0.45f,
+            lowerCloudColor,
+            lowerCloudTilingDivisor));
+
+        spawnedCloudsByBeatIndex[beatIndex] = spawnedClouds;
+    }
+
+    private bool TryCalculateBeatBounds(List<RhythmPlatform> platforms, out Bounds bounds)
+    {
+        bounds = default;
+        bool initialized = false;
+
+        for (int i = 0; i < platforms.Count; i++)
+        {
+            RhythmPlatform platform = platforms[i];
+            if (platform == null)
+            {
+                continue;
+            }
+
+            if (TryGetPlatformBounds(platform.gameObject, out Bounds platformBounds))
+            {
+                if (!initialized)
+                {
+                    bounds = platformBounds;
+                    initialized = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(platformBounds);
+                }
+            }
+            else
+            {
+                Vector3 position = platform.transform.position;
+                if (!initialized)
+                {
+                    bounds = new Bounds(position, Vector3.zero);
+                    initialized = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(position);
+                }
+            }
+        }
+
+        return initialized;
+    }
+
+    private bool TryGetPlatformBounds(GameObject platformObject, out Bounds bounds)
+    {
+        bounds = default;
+        bool initialized = false;
+
+        Collider[] colliders = platformObject.GetComponentsInChildren<Collider>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Collider collider = colliders[i];
+            if (collider == null || !collider.enabled)
+            {
+                continue;
+            }
+
+            if (!initialized)
+            {
+                bounds = collider.bounds;
+                initialized = true;
+            }
+            else
+            {
+                bounds.Encapsulate(collider.bounds);
+            }
+        }
+
+        if (initialized)
+        {
+            return true;
+        }
+
+        Renderer[] renderers = platformObject.GetComponentsInChildren<Renderer>(true);
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            Renderer renderer = renderers[i];
+            if (renderer == null || !renderer.enabled)
+            {
+                continue;
+            }
+
+            if (!initialized)
+            {
+                bounds = renderer.bounds;
+                initialized = true;
+            }
+            else
+            {
+                bounds.Encapsulate(renderer.bounds);
+            }
+        }
+
+        return initialized;
+    }
+
+    private Texture2D GetOrLoadCloudTexture()
+    {
+        if (cloudTexture == null)
+        {
+            cloudTexture = Resources.Load<Texture2D>(CloudTextureResourcePath);
+        }
+
+        return cloudTexture;
+    }
+
+    private GameObject CreateCloudObject(
+        string objectName,
+        Transform parent,
+        Vector3 worldPosition,
+        Vector2 worldSize,
+        float yaw,
+        Color color,
+        Vector2 tilingDivisor)
+    {
+        GameObject cloudObject = new GameObject(objectName);
+        cloudObject.transform.SetParent(parent, false);
+        cloudObject.transform.position = worldPosition;
+        cloudObject.transform.rotation = Quaternion.Euler(90f, yaw, 0f);
+        cloudObject.transform.localScale = new Vector3(worldSize.x, worldSize.y, 1f);
+
+        MeshFilter meshFilter = cloudObject.AddComponent<MeshFilter>();
+        meshFilter.sharedMesh = sharedCloudQuadMesh;
+
+        MeshRenderer meshRenderer = cloudObject.AddComponent<MeshRenderer>();
+        meshRenderer.sharedMaterial = CreateCloudMaterial(color, worldSize, tilingDivisor);
+        meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        meshRenderer.receiveShadows = false;
+        meshRenderer.lightProbeUsage = LightProbeUsage.Off;
+        meshRenderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
+        meshRenderer.motionVectorGenerationMode = MotionVectorGenerationMode.ForceNoMotion;
+
+        return cloudObject;
+    }
+
+    private Material CreateCloudMaterial(Color color, Vector2 worldSize, Vector2 tilingDivisor)
+    {
+        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+        if (shader == null)
+        {
+            shader = Shader.Find("Unlit/Transparent");
+        }
+
+        Material material = new Material(shader);
+        material.name = "Runtime_BeatCloudMat";
+
+        Vector2 tiling = GetCloudTiling(worldSize, tilingDivisor);
+        Vector2 offset = GetRandomCloudOffset();
+
+        if (material.HasProperty("_BaseMap"))
+        {
+            material.SetTexture("_BaseMap", cloudTexture);
+            material.SetTextureScale("_BaseMap", tiling);
+            material.SetTextureOffset("_BaseMap", offset);
+        }
+        else if (material.HasProperty("_MainTex"))
+        {
+            material.SetTexture("_MainTex", cloudTexture);
+            material.SetTextureScale("_MainTex", tiling);
+            material.SetTextureOffset("_MainTex", offset);
+        }
+
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", color);
+        }
+        else if (material.HasProperty("_Color"))
+        {
+            material.SetColor("_Color", color);
+        }
+
+        if (material.HasProperty("_Surface"))
+        {
+            material.SetFloat("_Surface", 1f);
+        }
+
+        if (material.HasProperty("_Blend"))
+        {
+            material.SetFloat("_Blend", 0f);
+        }
+
+        if (material.HasProperty("_AlphaClip"))
+        {
+            material.SetFloat("_AlphaClip", 0f);
+        }
+
+        if (material.HasProperty("_Cull"))
+        {
+            material.SetFloat("_Cull", 0f);
+        }
+
+        if (material.HasProperty("_ZWrite"))
+        {
+            material.SetFloat("_ZWrite", 0f);
+        }
+
+        if (material.HasProperty("_SrcBlend"))
+        {
+            material.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
+        }
+
+        if (material.HasProperty("_DstBlend"))
+        {
+            material.SetFloat("_DstBlend", (float)BlendMode.OneMinusSrcAlpha);
+        }
+
+        material.renderQueue = (int)RenderQueue.Transparent;
+        return material;
+    }
+
+    private Vector2 GetCloudTiling(Vector2 worldSize, Vector2 tilingDivisor)
+    {
+        float widthDivisor = Mathf.Max(0.01f, tilingDivisor.x);
+        float lengthDivisor = Mathf.Max(0.01f, tilingDivisor.y);
+
+        return new Vector2(
+            Mathf.Max(1f, worldSize.x / widthDivisor),
+            Mathf.Max(1f, worldSize.y / lengthDivisor));
+    }
+
+    private Vector2 GetRandomCloudOffset()
+    {
+        return new Vector2(Random.value, Random.value);
+    }
+
+    private void DestroyCloudObject(GameObject cloudObject)
+    {
+        if (cloudObject == null)
+        {
+            return;
+        }
+
+        MeshRenderer meshRenderer = cloudObject.GetComponent<MeshRenderer>();
+        if (meshRenderer != null && meshRenderer.sharedMaterial != null)
+        {
+            Destroy(meshRenderer.sharedMaterial);
+        }
+
+        Destroy(cloudObject);
+    }
+
+    private Mesh CreateQuadMesh()
+    {
+        Mesh mesh = new Mesh();
+        mesh.name = "Ep3_2BeatCloudQuad";
+        mesh.vertices = new[]
+        {
+            new Vector3(-0.5f, -0.5f, 0f),
+            new Vector3(0.5f, -0.5f, 0f),
+            new Vector3(-0.5f, 0.5f, 0f),
+            new Vector3(0.5f, 0.5f, 0f),
+        };
+        mesh.uv = new[]
+        {
+            new Vector2(0f, 0f),
+            new Vector2(1f, 0f),
+            new Vector2(0f, 1f),
+            new Vector2(1f, 1f),
+        };
+        mesh.triangles = new[]
+        {
+            0, 2, 1,
+            2, 3, 1
+        };
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+        return mesh;
     }
 }
