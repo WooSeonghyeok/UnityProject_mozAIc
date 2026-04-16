@@ -97,7 +97,7 @@ public class Puzzle4Manager : MonoBehaviour
             RetryBox.SetActive(false);
         }
     }
-    public void Switch_Click()  //스위치 상호작용 횟수 누적 메소드
+    public void Switch_Click()
     {
         SyncCheck();
         if (egoSync >= 0.5f && !isMidCutsceneOn)

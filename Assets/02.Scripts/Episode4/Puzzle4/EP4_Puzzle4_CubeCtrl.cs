@@ -10,8 +10,8 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
     public GameObject colorSwitch;
     public EP4_Puzzle4_CubeData data;
     public int ID;
-    public int row;
-    public int column;
+    public int posX;
+    public int posY;
     public bool isRed;
     public bool isGreen;
     public bool isBlue;
@@ -44,7 +44,7 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
     }
     void OnEnable()
     {
-        transform.position = new Vector3(row * 2.5f, 0f, column * 2.5f);
+        transform.position = new Vector3(posX * 2.5f, 0f, posY * 2.5f);
         cubeColor = new Color(isRed ? 1 : 0, isGreen ? 1 : 0, isBlue ? 1 : 0);
         cube.GetComponent<Renderer>().material.color = cubeColor;
     }
@@ -70,7 +70,7 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
     private void HandleRetry()
     {
         CubeDataSetup();  // 데이터 재불러오기
-        transform.position = new Vector3(row * 2.5f, 0f, column * 2.5f);  // 위치/색상/힌트 등 Start 및 OnEnable에서 한 설정 재적용
+        transform.position = new Vector3(posX * 2.5f, 0f, posY * 2.5f);  // 위치/색상/힌트 등 Start 및 OnEnable에서 한 설정 재적용
         cubeColor = new Color(isRed ? 1 : 0, isGreen ? 1 : 0, isBlue ? 1 : 0);
         var rend = cube.GetComponent<Renderer>();
         if (rend != null) rend.material.color = cubeColor;
@@ -116,8 +116,8 @@ public class EP4_Puzzle4_CubeCtrl : MonoBehaviour
     public void CubeDataSetup()
     {
         ID = data.cubeData.place[0] * 10 + data.cubeData.place[1];
-        row = data.cubeData.place[0];
-        column = data.cubeData.place[1];
+        posX = data.cubeData.place[0];
+        posY = data.cubeData.place[1];
         isRed = data.cubeData.colorBool[0];
         isGreen = data.cubeData.colorBool[1];
         isBlue = data.cubeData.colorBool[2];

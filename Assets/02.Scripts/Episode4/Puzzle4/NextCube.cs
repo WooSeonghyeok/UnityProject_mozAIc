@@ -20,25 +20,25 @@ public class NextCube : MonoBehaviour
         switch (dir)
         {
             case CubeDir.west:
-                nextX = curCube.row - 1;
-                nextY = curCube.column;
+                nextX = curCube.posX - 1;
+                nextY = curCube.posY;
                 break;
             case CubeDir.east:
-                nextX = curCube.row + 1;
-                nextY = curCube.column;
+                nextX = curCube.posX + 1;
+                nextY = curCube.posY;
                 break;
             case CubeDir.north:
-                nextX = curCube.row;
-                nextY = curCube.column + 1;
+                nextX = curCube.posX;
+                nextY = curCube.posY + 1;
                 break;
             case CubeDir.south:
-                nextX = curCube.row;
-                nextY = curCube.column - 1;
+                nextX = curCube.posX;
+                nextY = curCube.posY - 1;
                 break;
         }
         for (int i = 0; i < cubeList.Length; i++)
         {
-            if (cubeList[i].row == nextX && cubeList[i].column == nextY)
+            if (cubeList[i].posX == nextX && cubeList[i].posY == nextY)
             {
                 nextCube = cubeList[i];
                 break;
