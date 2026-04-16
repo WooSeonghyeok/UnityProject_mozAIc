@@ -55,7 +55,7 @@ public class TextboxManager : MonoBehaviour
     {
         int talkID = ++curTalkID;
         nextPressed = false;
-        nextBtn.SetActive(canSkip);
+        if(nextBtn != null) nextBtn.SetActive(canSkip);
         switch (talk)
         {
             case Talker.girl:       voice_Name.text = "luna";   voice_Name.color = Color.red;   break;
@@ -88,7 +88,7 @@ public class TextboxManager : MonoBehaviour
         box_system.SetActive(false);
         box_player.SetActive(false);
         box_voice.SetActive(false);
-        nextBtn.SetActive(false);
+        if (nextBtn != null) nextBtn.SetActive(false);
     }
     private void ApplyTextboxLayout()
     {
