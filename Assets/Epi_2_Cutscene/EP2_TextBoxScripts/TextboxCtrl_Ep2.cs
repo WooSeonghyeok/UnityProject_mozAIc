@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static TextboxManager;
@@ -11,20 +12,47 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     public WaitForSecondsRealtime oneSec = new(1f);
     public WaitForSecondsRealtime onehalfSec = new(1.5f);
     public WaitForSecondsRealtime twoSec = new(2f);
-    public Cinemachine.CinemachineVirtualCamera playerCam;
-    public Cinemachine.CinemachineVirtualCamera introCam1;
+    public CinemachineVirtualCamera playerCam;
+    public CinemachineVirtualCamera[] introCams;
 
     private bool introPlayed = false;
-    void SwitchToCam(Cinemachine.CinemachineVirtualCamera cam)
+    void SwitchToCam(CinemachineVirtualCamera cam)
     {
+        if (cam == null) return;
+
         playerCam.Priority = 0;
+
+        foreach (var c in introCams)
+        {
+            if (c != null)
+                c.Priority = 0;
+        }
+
         cam.Priority = 20;
     }
+    // 🎬 공용 카메라 시퀀스 (추가된 부분)
+    IEnumerator PlayIntroCams()
+    {
+        if (introCams == null || introCams.Length == 0)
+            yield break;
 
+        foreach (var cam in introCams)
+        {
+            if (cam == null) continue;
+
+            SwitchToCam(cam);
+            yield return new WaitForSecondsRealtime(2f);
+        }
+    }
     void BackToPlayerCam()
     {
         playerCam.Priority = 20;
-        introCam1.Priority = 0;
+
+        foreach (var c in introCams)
+        {
+            if (c != null)
+                c.Priority = 0;
+        }
     }
     void Awake()
     {
@@ -61,9 +89,8 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.player,
             "여긴... 어디지?", 2f, Talker.self, true);
 
-        // 🎬 여기서 카메라 전환
-        SwitchToCam(introCam1);
-        yield return new WaitForSeconds(2f);
+        // 🔥 변경된 부분
+        yield return StartCoroutine(PlayIntroCams());
 
         yield return _manager.TalkSay(TalkType.voice,
             "…누구지..", 2f, Talker.core, true);
@@ -74,7 +101,6 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.voice,
             "왜 네가 여기 있는 게 이상하지 않지?", 2f, Talker.core, false);
 
-        // 🎬 여기서 다시 플레이어 카메라
         BackToPlayerCam();
 
         _manager.UserCtrl(true);
@@ -90,11 +116,19 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.player,
             "여기는 어디지..??", 2f, Talker.self, true);
 
+        // 🔥 변경된 부분 (핵심)
+        yield return StartCoroutine(PlayIntroCams());
+
         yield return _manager.TalkSay(TalkType.voice,
             "너는 옛날부터 다양한 각도로 그림을 바라봤어.", 2f, Talker.core, false);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "네가 구도를 잡을 때 기억을 떠올려봐.", 2f, Talker.core, false);
+             "네가 구도를 잡을 때 기억을 떠올려봐.", 2f, Talker.core, false);
+
+        yield return _manager.TalkSay(TalkType.voice,
+             "넌 찾아낼 수 있을거야.", 2f, Talker.core, false);
+
+        BackToPlayerCam();
 
         _manager.UserCtrl(true);
     }
