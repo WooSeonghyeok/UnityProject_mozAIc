@@ -11,9 +11,21 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     public WaitForSecondsRealtime oneSec = new(1f);
     public WaitForSecondsRealtime onehalfSec = new(1.5f);
     public WaitForSecondsRealtime twoSec = new(2f);
+    public Cinemachine.CinemachineVirtualCamera playerCam;
+    public Cinemachine.CinemachineVirtualCamera introCam1;
 
     private bool introPlayed = false;
+    void SwitchToCam(Cinemachine.CinemachineVirtualCamera cam)
+    {
+        playerCam.Priority = 0;
+        cam.Priority = 20;
+    }
 
+    void BackToPlayerCam()
+    {
+        playerCam.Priority = 20;
+        introCam1.Priority = 0;
+    }
     void Awake()
     {
         user = _manager.user;
@@ -49,14 +61,21 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.player,
             "여긴... 어디지?", 2f, Talker.self, true);
 
+        // 🎬 여기서 카메라 전환
+        SwitchToCam(introCam1);
+        yield return new WaitForSeconds(2f);
+
         yield return _manager.TalkSay(TalkType.voice,
-            "…누구지..", 2f, Talker.core, false);
+            "…누구지..", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
             "처음 보는 것 같은데.", 2f, Talker.core, false);
 
         yield return _manager.TalkSay(TalkType.voice,
             "왜 네가 여기 있는 게 이상하지 않지?", 2f, Talker.core, false);
+
+        // 🎬 여기서 다시 플레이어 카메라
+        BackToPlayerCam();
 
         _manager.UserCtrl(true);
     }
