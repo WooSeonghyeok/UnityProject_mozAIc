@@ -51,7 +51,7 @@ public class TextboxManager : MonoBehaviour
         }
     }
     public void OnNextButton() => nextPressed = true;
-    public IEnumerator TalkSay(TalkType type, string say, float time = 1f, Talker talk = Talker.self, bool canSkip = false)
+    public IEnumerator TalkSay(TalkType type, string say, float time = 1f, Talker talk = Talker.self, bool canSkip = true)
     {
         int talkID = ++curTalkID;
         nextPressed = false;
