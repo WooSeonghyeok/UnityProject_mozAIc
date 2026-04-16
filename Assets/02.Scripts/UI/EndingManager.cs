@@ -65,11 +65,6 @@ public class EndingManager : MonoBehaviour
             Debug.LogError("MemoryTag 리스트를 찾을 수 없습니다.");
             return true;
         }
-        if (SaveManager.instance.curData.npcInformations == null || SaveManager.instance.curData.npcInformations.Count == 0)
-        {
-            Debug.LogError("NPC 리스트를 찾을 수 없습니다.");
-            return true;
-        }
         int a = 0;
         foreach (IsTagGet tag in SaveManager.instance.curData.CoreTag)
         {
