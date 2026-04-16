@@ -29,6 +29,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
 
     IEnumerator Episode2Intro()
     {
+        if (PlayerPrefs.GetInt("Played_EP2_Text_Intro", 0) == 1)
+            yield break;
+
+        PlayerPrefs.SetInt("Played_EP2_Text_Intro", 1);
+        PlayerPrefs.Save();
+
         if (introPlayed) yield break;
         introPlayed = true;
 
