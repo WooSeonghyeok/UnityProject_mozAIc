@@ -96,10 +96,10 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             "…누구지..", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "처음 보는 것 같은데.", 2f, Talker.core, false);
+            "처음 보는 것 같은데.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "왜 네가 여기 있는 게 이상하지 않지?", 2f, Talker.core, false);
+            "왜 네가 여기 있는 게 이상하지 않지?", 2f, Talker.core, true);
 
         BackToPlayerCam();
 
@@ -116,18 +116,34 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.player,
             "여기는 어디지..??", 2f, Talker.self, true);
 
-        // 🔥 변경된 부분 (핵심)
-        yield return StartCoroutine(PlayIntroCams());
+        // 🔥 여기다가 넣으면 됨
+        for (int i = 0; i < introCams.Length; i++)
+        {
+            if (introCams[i] == null) continue;
 
-        yield return _manager.TalkSay(TalkType.voice,
-            "너는 옛날부터 다양한 각도로 그림을 바라봤어.", 2f, Talker.core, false);
+            // 🎬 카메라 이동
+            SwitchToCam(introCams[i]);
+            yield return new WaitForSecondsRealtime(1.5f);
 
-        yield return _manager.TalkSay(TalkType.voice,
-             "네가 구도를 잡을 때 기억을 떠올려봐.", 2f, Talker.core, false);
+            // 💬 텍스트
+            if (i == 0)
+            {
+                yield return _manager.TalkSay(TalkType.voice,
+                    "너는 옛날부터 다양한 각도로 그림을 바라봤어.", 2f, Talker.core, false);
+            }
+            else if (i == 1)
+            {
+                yield return _manager.TalkSay(TalkType.voice,
+                    "네가 구도를 잡을 때 기억을 떠올려봐.", 2f, Talker.core, false);
+            }
+            else if (i == 2)
+            {
+                yield return _manager.TalkSay(TalkType.voice,
+                    "넌 찾아낼 수 있을거야.", 2f, Talker.core, false);
+            }
+        }
 
-        yield return _manager.TalkSay(TalkType.voice,
-             "넌 찾아낼 수 있을거야.", 2f, Talker.core, false);
-
+        // 🎬 다시 플레이어 카메라
         BackToPlayerCam();
 
         _manager.UserCtrl(true);
