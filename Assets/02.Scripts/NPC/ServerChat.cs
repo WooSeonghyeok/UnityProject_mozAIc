@@ -48,9 +48,13 @@ public class ServerChat : MonoBehaviour
     private void Start()
     {
         openAI = new OpenAIApi();
-        input.ActivateInputField();
-        input.onSubmit.AddListener(OnEnterSubmit);
-        CurData = SaveManager.instance.curData;
+        if (input != null)
+        {
+            input.ActivateInputField();
+            input.onSubmit.AddListener(OnEnterSubmit);
+        }
+
+        CurData = ResolveSaveData();
     }
 
     private void OnEnterSubmit(string text)
@@ -58,9 +62,32 @@ public class ServerChat : MonoBehaviour
         ServerMessageSend();
     }
 
+    private SaveDataObj ResolveSaveData()
+    {
+        if (SaveManager.instance != null)
+        {
+            if (SaveManager.instance.curData == null)
+            {
+                SaveManager.instance.curData = SaveManager.ReadCurJSON();
+            }
+
+            SaveManager.instance.curData = SaveManager.NormalizeSaveData(SaveManager.instance.curData);
+            return SaveManager.instance.curData;
+        }
+
+        if (CurData == null)
+        {
+            CurData = SaveManager.ReadCurJSON();
+        }
+
+        CurData = SaveManager.NormalizeSaveData(CurData);
+        return CurData;
+    }
+
     private async void ServerMessageSend()
     {
         if (isWaiting) return;
+        if (input == null) return;
         if (string.IsNullOrEmpty(input.text)) return;
 
         string msg = input.text;
@@ -99,19 +126,23 @@ public class ServerChat : MonoBehaviour
             }
         );
 
-        var npcList = CurData.npcInformations;
-        NPCInfo npcInfo = npcList.Find(n => n.npcId == currentNpcData.npcId);
-        int prevCount = npcInfo.talkCount;
-        npcInfo.talkCount = prevCount + 1;
-        Debug.Log($"[ServerChat] NPC '{npcInfo.npcId}' talkCount 증가: {prevCount} -> {npcInfo.talkCount}");
-        if (npcInfo.npcId == "npc_ep3_musician" && minTalkCountForMemory > 0 && npcInfo.talkCount == minTalkCountForMemory)  // "npc_ep3_musician"의 talkCount가 정확히 minTalkCountForMemory에 도달했을 때만 보상
+        CurData = ResolveSaveData();
+        NPCInfo npcInfo = EnsureCurrentNpcInfo();
+        if (npcInfo != null)
         {
-            if (CurData.memory_reconstruction_rate != null)
+            int prevCount = npcInfo.talkCount;
+            npcInfo.talkCount = prevCount + 1;
+            Debug.Log($"[ServerChat] NPC '{npcInfo.npcId}' talkCount 증가: {prevCount} -> {npcInfo.talkCount}");
+            if (npcInfo.npcId == "npc_ep3_musician" && minTalkCountForMemory > 0 && npcInfo.talkCount == minTalkCountForMemory)  // "npc_ep3_musician"의 talkCount가 정확히 minTalkCountForMemory에 도달했을 때만 보상
             {
-                CurData.memory_reconstruction_rate[7] += memoryReward;
+                if (CurData.memory_reconstruction_rate != null)
+                {
+                    CurData.memory_reconstruction_rate[7] += memoryReward;
+                }
             }
+
+            SaveManager.WriteCurJSON(CurData);  // 변경 사항 저장
         }
-        SaveManager.instance.WriteCurJSON();  // 변경 사항 저장
 
         isWaiting = true;
 
@@ -220,12 +251,20 @@ public class ServerChat : MonoBehaviour
     private void FinishChat()
     {
         isWaiting = false;
-        input.interactable = true;
-        input.ActivateInputField();
+        if (input != null)
+        {
+            input.interactable = true;
+            input.ActivateInputField();
+        }
     }
 
     private void ServerChatMessage()
     {
+        if (chatTextObject == null || contentParent == null)
+        {
+            return;
+        }
+
         serverTextObj = Instantiate(chatTextObject, contentParent);
         serverTextObj.SendText("생각 중...", Color.red);
         StartCoroutine(Scroll());
@@ -233,6 +272,11 @@ public class ServerChat : MonoBehaviour
 
     public void CreateMessage(string msg, Color textColor)
     {
+        if (chatTextObject == null || contentParent == null)
+        {
+            return;
+        }
+
         ChatTextObject chatObj = Instantiate(chatTextObject, contentParent);
         chatObj.SendText(msg, textColor);
         StartCoroutine(Scroll());
@@ -241,7 +285,10 @@ public class ServerChat : MonoBehaviour
     private IEnumerator Scroll()
     {
         yield return null;
-        scrollRect.verticalNormalizedPosition = 0f;
+        if (scrollRect != null)
+        {
+            scrollRect.verticalNormalizedPosition = 0f;
+        }
     }
 
     public void ChatReset()
@@ -296,8 +343,9 @@ public class ServerChat : MonoBehaviour
     public void CheckWords(string msg)
     {
         if (currentNpcData == null) return;
-        if (SaveManager.instance == null || SaveManager.instance.curData == null || CurData.npcInformations == null) return;
-        NPCInfo npcInfo = CurData.npcInformations.Find(n => n.npcId == currentNpcData.npcId);
+        CurData = ResolveSaveData();
+        if (CurData == null || CurData.npcInformations == null) return;
+        NPCInfo npcInfo = EnsureCurrentNpcInfo();
         if (npcInfo != null && npcInfo.words != null)
         {
             foreach (MemoryKeyword keyword in npcInfo.words)
@@ -322,7 +370,7 @@ public class ServerChat : MonoBehaviour
                             Episode2ScoreManager.Instance.AddKeywordScore(keyword);
                         }
                         keyword.isUsed = true;
-                        SaveManager.instance.WriteCurJSON();
+                        SaveManager.WriteCurJSON(CurData);
                         Debug.Log($"[MemoryKeyword] 증가! 현재 memory_reconstruction_rate = {CurData.memory_reconstruction_rate}");
                     }
                     else
@@ -373,5 +421,76 @@ public class ServerChat : MonoBehaviour
         string systemType = PromptBuilder.BuildPrompt(currentNpcData);
         currentNpcData.CurrentPrompt = systemType;
         NpcTypeChange(systemType);
+    }
+
+    private NPCInfo EnsureCurrentNpcInfo()
+    {
+        if (currentNpcData == null)
+        {
+            return null;
+        }
+
+        CurData = ResolveSaveData();
+        if (CurData == null)
+        {
+            return null;
+        }
+
+        if (CurData.npcInformations == null)
+        {
+            CurData.npcInformations = new List<NPCInfo>();
+        }
+
+        NPCInfo npcInfo = CurData.npcInformations.Find(n => n != null && n.npcId == currentNpcData.npcId);
+        if (npcInfo != null)
+        {
+            return npcInfo;
+        }
+
+        List<NPCInfo> defaults = SaveManager.LoadDefaultNPCInfo();
+        NPCInfo defaultNpc = defaults.Find(n => n != null && n.npcId == currentNpcData.npcId);
+
+        npcInfo = new NPCInfo
+        {
+            npcId = currentNpcData.npcId,
+            Affinity = defaultNpc != null ? defaultNpc.Affinity : currentNpcData.Affinity,
+            talkCount = 0,
+            words = defaultNpc != null && defaultNpc.words != null ? CloneMemoryKeywords(defaultNpc.words) : new List<MemoryKeyword>()
+        };
+
+        CurData.npcInformations.Add(npcInfo);
+
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.curData = CurData;
+        }
+
+        return npcInfo;
+    }
+
+    private static List<MemoryKeyword> CloneMemoryKeywords(List<MemoryKeyword> source)
+    {
+        List<MemoryKeyword> clone = new List<MemoryKeyword>();
+        if (source == null)
+        {
+            return clone;
+        }
+
+        foreach (MemoryKeyword keyword in source)
+        {
+            if (keyword == null)
+            {
+                continue;
+            }
+
+            clone.Add(new MemoryKeyword
+            {
+                word = keyword.word,
+                memoryRate = keyword.memoryRate,
+                isUsed = keyword.isUsed
+            });
+        }
+
+        return clone;
     }
 }

@@ -5,6 +5,7 @@ using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [Serializable]
 public class Ep3LobbyIntroSequenceData
@@ -84,6 +85,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     [SerializeField] private bool syncSceneRigWithSequence = true;
     [SerializeField] private bool enableSubtitles = true;
     [SerializeField] private TMP_FontAsset subtitleFont;
+    [SerializeField] private bool useRuntimeHintOverlay = false;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private GameObject nextButtonRoot;
+    [SerializeField] private Button skipButton;
+    [SerializeField] private GameObject skipButtonRoot;
     [SerializeField] private UnityEvent onCutsceneFinished;
 
     private PlayerInput playerInput;
@@ -114,6 +120,9 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private float initialFieldOfView = 60f;
     private Vector3 initialLookAtPosition;
     private bool hasCapturedCameraState;
+    private bool advanceRequested;
+    private bool skipRequested;
+    private CutsceneHintOverlay hintOverlay;
 
     public bool PlaysOnStart => playOnStart;
     public bool IsPlaying => isPlaying;
@@ -140,11 +149,14 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private void Start()
     {
+        CurData = ResolveSaveData();
+        InitializeCutsceneButtons();
+        SetCutsceneButtonsVisible(false);
+
         if (playOnStart && !isPlaying)
         {
             StartCoroutine(BeginCutsceneCoroutine(false));
         }
-        CurData = SaveManager.instance.curData;
     }
 
     public void PlayCutsceneManually()
@@ -160,6 +172,32 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         }
 
         StartCoroutine(BeginCutsceneCoroutine(true));
+    }
+
+    public void RequestAdvance()
+    {
+        if (isPlaying)
+        {
+            advanceRequested = true;
+        }
+    }
+
+    public void RequestSkip()
+    {
+        if (isPlaying)
+        {
+            skipRequested = true;
+        }
+    }
+
+    public void OnNextButton()
+    {
+        RequestAdvance();
+    }
+
+    public void OnSkipButton()
+    {
+        RequestSkip();
     }
 
     private IEnumerator BeginCutsceneCoroutine(bool ignorePlayOnceCheck)
@@ -185,6 +223,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         CaptureCurrentCameraState();
         EnsureIntroRig(sequence);
         EnsureSubtitlePresenter();
+        InitializeCutsceneButtons();
+        if (useRuntimeHintOverlay)
+        {
+            EnsureHintOverlay();
+        }
 
         if (playerMovement == null)
         {
@@ -219,7 +262,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return true;
         }
 
-        SaveDataObj data = SaveManager.instance != null ? CurData : SaveManager.ReadCurJSON();
+        SaveDataObj data = ResolveSaveData();
         return data != null && !HasPlayedCutscene(data);
     }
 
@@ -241,7 +284,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         CinemachineVirtualCamera[] cameras = FindObjectsOfType<CinemachineVirtualCamera>();
         foreach (CinemachineVirtualCamera candidate in cameras)
         {
-            if (candidate == null || !candidate.isActiveAndEnabled)
+            if (!IsGameplayCameraCandidate(candidate))
             {
                 continue;
             }
@@ -256,6 +299,21 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         {
             originalGameplayPriority = gameplayCamera.Priority;
         }
+    }
+
+    private bool IsGameplayCameraCandidate(CinemachineVirtualCamera candidate)
+    {
+        if (candidate == null || !candidate.isActiveAndEnabled)
+        {
+            return false;
+        }
+
+        if (candidate == introCamera || candidate == sceneIntroCamera)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private void CaptureCurrentCameraState()
@@ -420,8 +478,15 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private IEnumerator PlayCutscene(Ep3LobbyIntroSequenceData sequence, bool markPlayedOnFinish)
     {
         isPlaying = true;
+        advanceRequested = false;
+        skipRequested = false;
         PrepareIntroRigForStart(sequence);
         SetPlayerControl(false);
+        SetCutsceneButtonsVisible(true);
+        if (useRuntimeHintOverlay)
+        {
+            hintOverlay?.Show(fontAsset: subtitleFont);
+        }
 
         if (gameplayCamera != null)
         {
@@ -454,7 +519,12 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
         for (int i = 0; i < sequence.shots.Count; i++)
         {
+            advanceRequested = false;
             yield return PlayShot(sequence.shots[i], Mathf.Min(i + 1f, introPath != null ? introPath.MaxPos : i + 1f));
+            if (skipRequested)
+            {
+                break;
+            }
         }
 
         if (markPlayedOnFinish)
@@ -464,6 +534,8 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
         RestoreState();
         isPlaying = false;
+        advanceRequested = false;
+        skipRequested = false;
         onCutsceneFinished?.Invoke();
     }
 
@@ -486,6 +558,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         float moveDuration = Mathf.Max(0f, shot.moveDuration);
         if (moveDuration <= 0.01f)
         {
+            if (skipRequested)
+            {
+                yield break;
+            }
+
             introTrackedDolly.m_PathPosition = targetPathPosition;
             lookAtTarget.position = shot.lookAtPosition;
             introCamera.m_Lens.FieldOfView = ResolveFieldOfView(shot.fieldOfView, startFieldOfView);
@@ -494,9 +571,22 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         {
             float elapsed = 0f;
             float targetFieldOfView = ResolveFieldOfView(shot.fieldOfView, startFieldOfView);
+            bool interruptedBySkip = false;
             while (elapsed < moveDuration)
             {
-                elapsed += Time.deltaTime;
+                PollCutsceneInput();
+                if (skipRequested)
+                {
+                    interruptedBySkip = true;
+                    break;
+                }
+
+                if (advanceRequested)
+                {
+                    break;
+                }
+
+                elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / moveDuration);
                 t = t * t * (3f - (2f * t));
 
@@ -506,12 +596,34 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 yield return null;
             }
 
+            if (interruptedBySkip)
+            {
+                yield break;
+            }
+
             introTrackedDolly.m_PathPosition = targetPathPosition;
             lookAtTarget.position = shot.lookAtPosition;
             introCamera.m_Lens.FieldOfView = targetFieldOfView;
         }
 
-        yield return new WaitForSeconds(Mathf.Max(0.5f, shot.holdDuration));
+        if (skipRequested || advanceRequested)
+        {
+            yield break;
+        }
+
+        float elapsedHold = 0f;
+        float holdDuration = Mathf.Max(0.5f, shot.holdDuration);
+        while (elapsedHold < holdDuration)
+        {
+            PollCutsceneInput();
+            if (skipRequested || advanceRequested)
+            {
+                yield break;
+            }
+
+            elapsedHold += Time.unscaledDeltaTime;
+            yield return null;
+        }
     }
 
     private static float ResolveFieldOfView(float targetFieldOfView, float fallbackFieldOfView)
@@ -566,10 +678,16 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private void RestoreState()
     {
         SetPlayerControl(true);
+        SetCutsceneButtonsVisible(false);
+        if (useRuntimeHintOverlay)
+        {
+            hintOverlay?.Hide();
+        }
 
         if (gameplayCamera != null)
         {
             gameplayCamera.Priority = originalGameplayPriority;
+            gameplayCamera.PreviousStateIsValid = false;
         }
 
         if (introCamera != null)
@@ -609,6 +727,40 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         }
     }
 
+    private void PollCutsceneInput()
+    {
+        if (!skipRequested && CutsceneInputHelper.IsSkipPressedThisFrame())
+        {
+            skipRequested = true;
+            return;
+        }
+
+        if (!advanceRequested && CutsceneInputHelper.IsAdvancePressedThisFrame())
+        {
+            advanceRequested = true;
+        }
+    }
+
+    private void EnsureHintOverlay()
+    {
+        Transform overlayParent = subtitlePresenter != null ? subtitlePresenter.transform : transform;
+        hintOverlay = CutsceneHintOverlay.GetOrCreate(overlayParent, subtitleFont);
+        hintOverlay?.Hide();
+    }
+
+    private void InitializeCutsceneButtons()
+    {
+        CutsceneControlButtonHelper.TryAutoResolve(ref nextButton, ref nextButtonRoot, ref skipButton, ref skipButtonRoot);
+        CutsceneControlButtonHelper.Register(nextButton, OnNextButton);
+        CutsceneControlButtonHelper.Register(skipButton, OnSkipButton);
+    }
+
+    private void SetCutsceneButtonsVisible(bool visible)
+    {
+        CutsceneControlButtonHelper.SetVisible(nextButton, nextButtonRoot, visible);
+        CutsceneControlButtonHelper.SetVisible(skipButton, skipButtonRoot, visible);
+    }
+
     private void FinishController()
     {
         if (destroyWhenFinished)
@@ -627,19 +779,42 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
-        SaveDataObj data = SaveManager.instance != null ? CurData : SaveManager.ReadCurJSON();
+        SaveDataObj data = ResolveSaveData();
         if (data == null)
         {
             return;
         }
 
         SetPlayedCutscene(data, true);
+        CurData = data;
 
         if (SaveManager.instance != null)
         {
-            CurData = data;
-            SaveManager.instance.WriteCurJSON();
+            SaveManager.instance.curData = data;
         }
+
+        SaveManager.WriteCurJSON(data);
+    }
+
+    private SaveDataObj ResolveSaveData()
+    {
+        if (SaveManager.instance != null)
+        {
+            if (SaveManager.instance.curData == null)
+            {
+                SaveManager.instance.curData = SaveManager.ReadCurJSON();
+            }
+
+            CurData = SaveManager.instance.curData;
+            return CurData;
+        }
+
+        if (CurData == null)
+        {
+            CurData = SaveManager.ReadCurJSON();
+        }
+
+        return CurData;
     }
 
     private bool HasPlayedCutscene(SaveDataObj data)
@@ -919,10 +1094,10 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_001",
                     speakerType = "Narration",
                     speakerName = string.Empty,
-                    subtitleText = "희미한 선율의 흔적이 긴 홀 너머로 이어지고 있었다.",
+                    subtitleText = "이곳은 전에 지나온 공간들과는 분위기가 다르다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(6.2f, -0.9f, 17.5f),
-                    lookAtPosition = new Vector3(5.4f, -2.7f, 10.2f),
+                    cameraPosition = new Vector3(2.7829013f, 2.1086717f, -8.384186f),
+                    lookAtPosition = new Vector3(-0.3103757f, 0.75217676f, 3.798327f),
                     moveDuration = 1.8f,
                     holdDuration = 1.5f,
                     fieldOfView = 54f
@@ -932,10 +1107,10 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_002",
                     speakerType = "Narration",
                     speakerName = string.Empty,
-                    subtitleText = "흩어진 악보 조각들이, 잊힌 기억의 파편처럼 곳곳에 남아 있었다.",
+                    subtitleText = "발밑에는 황혼빛 구름이 낮게 깔려 있고, 주변에는 흩어진 음표와 선율의 흔적이 떠다닌다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(1.4f, 4.1f, 7.6f),
-                    lookAtPosition = new Vector3(-1.8f, 2.2f, 4.9f),
+                    cameraPosition = new Vector3(-0.84414005f, 5.0954046f, 2.9775188f),
+                    lookAtPosition = new Vector3(5.7418184f, 0.543448f, 3.2705357f),
                     moveDuration = 2.1f,
                     holdDuration = 1.6f,
                     fieldOfView = 49f
@@ -943,12 +1118,12 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 new Ep3LobbyIntroShotData
                 {
                     dialogueId = "EP3_003",
-                    speakerType = "Narration",
+                    speakerType = "Monologue",
                     speakerName = string.Empty,
-                    subtitleText = "닫힌 문과 끊긴 멜로디는, 아직 풀리지 않은 이야기가 남아 있음을 말해 주는 듯했다.",
+                    subtitleText = "마치 하늘 위 어딘가에 홀로 떠 있는 공간에 들어선 듯한 느낌이 든다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(1.9f, 3.8f, 2.4f),
-                    lookAtPosition = new Vector3(-1.35f, 2.25f, -0.1f),
+                    cameraPosition = new Vector3(0.7610698f, 0.94867814f, 4.8600473f),
+                    lookAtPosition = new Vector3(0.049334288f, -0.93554145f, -0.3181162f),
                     moveDuration = 2.2f,
                     holdDuration = 1.7f,
                     fieldOfView = 46f
@@ -956,28 +1131,15 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 new Ep3LobbyIntroShotData
                 {
                     dialogueId = "EP3_004",
-                    speakerType = "Narration",
-                    speakerName = string.Empty,
-                    subtitleText = "그리고 홀의 끝에서, 레온은 말없이 이곳의 기억을 지키고 있었다.",
-                    showSpeakerName = false,
-                    cameraPosition = new Vector3(7.3f, 2.3f, -2.4f),
-                    lookAtPosition = new Vector3(5.26f, 1.1f, -7.96f),
-                    moveDuration = 2f,
-                    holdDuration = 1.7f,
-                    fieldOfView = 44f
-                },
-                new Ep3LobbyIntroShotData
-                {
-                    dialogueId = "EP3_005",
                     speakerType = "Monologue",
                     speakerName = string.Empty,
-                    subtitleText = "조각을 모아 이 흐름을 따라가면, 잃어버린 선율에 조금 더 가까워질 수 있을 것 같다.",
+                    subtitleText = "이곳에 남아 있는 것은, 아직 끝나지 않은 어떤 흐름뿐이다.",
                     showSpeakerName = false,
-                    cameraPosition = new Vector3(4.2f, 1.6f, -1.1f),
-                    lookAtPosition = new Vector3(5.26f, 1.1f, -7.96f),
+                    cameraPosition = new Vector3(6.5975795f, -1.8673064f, 12.0882015f),
+                    lookAtPosition = new Vector3(6.40379f, -2.6425843f, 13.714412f),
                     moveDuration = 2.3f,
                     holdDuration = 2f,
-                    fieldOfView = 42f
+                    fieldOfView = 44f
                 }
             }
         };
@@ -995,7 +1157,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_031_CLEAR_001",
                     speakerType = "Narration",
                     speakerName = string.Empty,
-                    subtitleText = "흩어져 있던 음표들은 마침내 한 곡의 숨결로 겹쳐졌다.",
+                    subtitleText = "처음에는 그저 조용한 로비처럼 보였던 공간이다.",
                     showSpeakerName = false,
                     cameraPosition = new Vector3(6.5975795f, -1.8673064f, 12.0882015f),
                     lookAtPosition = new Vector3(6.40379f, -2.6425843f, 13.714412f),
@@ -1008,7 +1170,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_031_CLEAR_002",
                     speakerType = "Narration",
                     speakerName = string.Empty,
-                    subtitleText = "멈춰 있던 피아노는 늦게 도착한 고백처럼 조용히 울리기 시작했다.",
+                    subtitleText = "하지만 기억이 되살아난 지금, 이곳의 정적은 더 이상 비어 있지 않다.",
                     showSpeakerName = false,
                     cameraPosition = new Vector3(4.8597326f, -2.3806152f, 20.503187f),
                     lookAtPosition = new Vector3(5.4538097f, -2.7240057f, 17.524256f),
@@ -1019,10 +1181,10 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 new Ep3LobbyIntroShotData
                 {
                     dialogueId = "EP3_031_CLEAR_003",
-                    speakerType = "Dialogue",
-                    speakerName = "음악가",
-                    subtitleText = "이 멜로디... 이제야, 끝까지 닿았구나.",
-                    showSpeakerName = true,
+                    speakerType = "Narration",
+                    speakerName = string.Empty,
+                    subtitleText = "새로 놓인 피아노와 머그컵, 사진 속에 남아 있는 작은 흔적들까지도",
+                    showSpeakerName = false,
                     cameraPosition = new Vector3(9.406369f, 1.0203038f, 4.3200746f),
                     lookAtPosition = new Vector3(7.060455f, -1.8923355f, -4.0589986f),
                     moveDuration = 2.1f,
@@ -1034,7 +1196,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                     dialogueId = "EP3_031_CLEAR_004",
                     speakerType = "Monologue",
                     speakerName = string.Empty,
-                    subtitleText = "남아 있던 길도, 이제는 열릴 것 같은 기분이 든다.",
+                    subtitleText = "마치 오래전부터 이 자리에 있었던 의미처럼 다르게 다가온다.",
                     showSpeakerName = false,
                     cameraPosition = new Vector3(0.7610698f, 0.94867814f, 4.8600473f),
                     lookAtPosition = new Vector3(0.049334288f, -0.93554145f, -0.3181162f),
@@ -1154,23 +1316,19 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             switch (shot.dialogueId)
             {
                 case "EP3_001":
-                    ApplyNarration(shot, "이번엔 색이 아니라, 소리가 비어 있다.");
+                    ApplyNarration(shot, "이곳은 전에 지나온 공간들과는 분위기가 다르다.");
                     break;
 
                 case "EP3_002":
-                    ApplyNarration(shot, "음악이 머물렀던 자리인데, 지금은 울림만 비어 있다.");
+                    ApplyNarration(shot, "발밑에는 황혼빛 구름이 낮게 깔려 있고, 주변에는 흩어진 음표와 선율의 흔적이 떠다닌다.");
                     break;
 
                 case "EP3_003":
-                    ApplyMonologue(shot, "낯선 공간인데도, 이상하게 누군가를 기다리던 감각이 남아 있다.");
+                    ApplyMonologue(shot, "마치 하늘 위 어딘가에 홀로 떠 있는 공간에 들어선 듯한 느낌이 든다.");
                     break;
 
                 case "EP3_004":
-                    ApplyMonologue(shot, "누군지는 기억나지 않는데… 왜 이렇게 오래 누군가를 기다렸던 것만 같지?");
-                    break;
-
-                case "EP3_005":
-                    ApplyMonologue(shot, "끝까지 완성해야 했던 노래가 있었던 것 같다. 멜로디도, 박자도 전부 끊겨 있다.");
+                    ApplyMonologue(shot, "이곳에 남아 있는 것은, 아직 끝나지 않은 어떤 흐름뿐이다.");
                     break;
             }
         }
