@@ -32,7 +32,9 @@ private void OnEnable()
     {
         bool isCleared = Checkpoint_Plane.IsCheckpointCleared(cpNum);
         isLock = !isCleared;
+#if UNITY_EDITOR
         AssetDatabase.SaveAssets();
+#endif
     }
     private void OnCPTouch(int cpSelect)
     {
