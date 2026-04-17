@@ -18,7 +18,6 @@ public class PlayerStarCollector : MonoBehaviour
             }
         }
         OnStarCountChanged?.Invoke(collectedStars.Count);  // 현재 별 개수를 외부에 알림
-        SaveManager.instance.curData.memory_reconstruction_rate[3] = GetStarCount();  // 별 획득 개수만큼 Episode 1의 감정 점수 증가
     }
     public bool HasStar(string starId)  // 특정 ID의 별을 이미 가지고 있는지 확인
     {

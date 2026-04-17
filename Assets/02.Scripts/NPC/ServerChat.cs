@@ -46,7 +46,7 @@ public class ServerChat : MonoBehaviour
     [Header("기억 재구성 키워드")]
     public MemoryKeyword[] words;
     [SerializeField] private int minTalkCountForMemory = 5;
-    [SerializeField] private int memoryReward = 10;
+    [SerializeField] private int memoryReward = 5;
     private void Start()
     {
         openAI = new OpenAIApi();
@@ -361,10 +361,10 @@ public class ServerChat : MonoBehaviour
                         int i = 0;
                         switch (npcInfo.npcId)
                         {
-                            case "npc_ep1_luna":     i = 1;  break;  //ep1 루나는 관계 점수
-                            case "npc_ep2_painter":  i = 6;  break;  //ep2 엘리오는 감정 점수
-                            case "npc_ep3_musician": i = 9;  break;  //ep3 레온은 감정 점수  
-                            case "npc_ep4_core":     i = 10; break;  //ep4 중심 존재는 관계 점수
+                            case "npc_ep1_luna":     i = 1;  break;  //ep1 관계 점수
+                            case "npc_ep2_painter":  i = 4;  break;  //ep2 관계 점수
+                            case "npc_ep3_musician": i = 9;  break;  //ep3 감정 점수  
+                            case "npc_ep4_core":     i = 10; break;  //ep4 관계 점수
                         }
                         CurData.memory_reconstruction_rate[i] += keyword.memoryRate;
                         if (npcInfo.npcId == "npc_ep2_painter")  // 엘리오의 경우 Episode2ScoreManager에도 반영

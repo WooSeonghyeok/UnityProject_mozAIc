@@ -1108,9 +1108,18 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
-    isFirstEnterAtS3CP0: 0
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_STAGE3_3_Intro
@@ -1848,9 +1857,18 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
-    isFirstEnterAtS3CP0: 0
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
@@ -1899,6 +1917,51 @@ MonoBehaviour:
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &909546714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909546703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276ed384c35ff154c8007063a01ed35e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 7
+  memoryRateUp: 5
 --- !u!1001 &964198057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2667,9 +2730,18 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
-    isFirstEnterAtS3CP0: 0
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
@@ -5602,6 +5674,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6506597505611787631, guid: 8fd3574c73ca0b14e813a3d3530e7b23, type: 3}
       insertIndex: -1
       addedObject: {fileID: 909546713}
+    - targetCorrespondingSourceObject: {fileID: 6506597505611787631, guid: 8fd3574c73ca0b14e813a3d3530e7b23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 909546714}
   m_SourcePrefab: {fileID: 100100000, guid: 8fd3574c73ca0b14e813a3d3530e7b23, type: 3}
 --- !u!1 &1139851901872243158 stripped
 GameObject:
