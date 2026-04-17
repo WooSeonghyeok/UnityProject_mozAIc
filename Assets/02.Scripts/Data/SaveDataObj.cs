@@ -28,13 +28,15 @@ public class SaveDataObj
     public List<NPCInfo> npcInformations;
 
     /* 연출 사용 여부 확인 데이터 */
-    public bool Episode2_Visited;               //에피소드 2 첫 진입
-    public bool Space_Visited;                  //에피소드 2 Space 퍼즐 첫 진입
-    public bool Paint_Visited;                  //에피소드 2 Paint 퍼즐 첫 진입
+    public bool Played_Episode2_Intro;          //에피소드 2 첫 진입
+    public bool Played_Space_Intro;             //에피소드 2 Space 퍼즐 첫 진입
+    public bool Played_Paint_Intro;             //에피소드 2 Paint 퍼즐 첫 진입
+    public bool Played_Space_Text;              //에피소드 2 Space 퍼즐 중간 텍스트
     public bool Played_Space_Clear_Immediate;   //에피소드 2 Space 퍼즐 클리어 직후
-    public bool Played_Paint_Sequences;                //에피소드 2 Paint 퍼즐 클리어 직후
+    public bool Played_Paint_Sequences;         //에피소드 2 Paint 퍼즐 클리어 직후
     public bool Played_Space_Clear;             //에피소드 2 Space 퍼즐 클리어 후 복귀
     public bool Played_Paint_Clear;             //에피소드 2 Paint 퍼즐 클리어 후 복귀
+    public bool Played_EP2_Ending;              //에피소드 2 엔딩
     public bool isFirstEnterAtEP3Lobby;         //에피소드 3 첫 진입
     public bool isFirstEnterAtEP3_1;            //에피소드 3 악보 퍼즐 진입
     public bool isFirstEnterAtS3CP0;            //에피소드 4 첫 진입

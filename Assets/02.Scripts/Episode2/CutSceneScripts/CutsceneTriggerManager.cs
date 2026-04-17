@@ -10,19 +10,19 @@ public class CutsceneTriggerManager : MonoBehaviour
     {
         scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         CurData = SaveManager.instance.curData;
-        if (scene == "Episode2_Scene" && !CurData.Episode2_Visited)  // Episode2 처음 진입
+        if (scene == "Episode2_Scene" && !CurData.Played_Episode2_Intro)  // Episode2 처음 진입
         {
-            CurData.Episode2_Visited = true;
+            CurData.Played_Episode2_Intro = true;
             cutsceneManager.Play("Episode2_Intro");
         }
-        if (scene == "Space_Puzzle" && !CurData.Space_Visited)  // Space 퍼즐 처음
+        if (scene == "Space_Puzzle" && !CurData.Played_Space_Intro)  // Space 퍼즐 처음
         {
-            CurData.Space_Visited = true;
+            CurData.Played_Space_Intro = true;
             cutsceneManager.Play("Space_Intro");
         }  
-        if (scene == "Paint_Puzzle" && !CurData.Paint_Visited)  // Paint 퍼즐 처음
+        if (scene == "Paint_Puzzle" && !CurData.Played_Paint_Intro)  // Paint 퍼즐 처음
         {
-            CurData.Paint_Visited = true;
+            CurData.Played_Paint_Intro = true;
             cutsceneManager.Play("Paint_Intro");
         }
         if (scene == "Episode2_Scene")  // Episode2 복귀 컷씬
