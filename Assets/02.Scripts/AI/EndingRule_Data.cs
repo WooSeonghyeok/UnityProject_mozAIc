@@ -13,6 +13,6 @@ public class EndingRule_Data  //개별 데이터 줄
     public string[] requiredTags;
     public string[] requiredFlags;
     public string failDowngradeTo;
-    public string outputEndingStatId;
+    public string outputEndingStateId;
     public string notes;
 }
