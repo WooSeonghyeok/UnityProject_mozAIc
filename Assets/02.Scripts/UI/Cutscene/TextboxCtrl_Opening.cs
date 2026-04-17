@@ -25,11 +25,6 @@ public class TextboxCtrl_Opening : MonoBehaviour
         openingMidGate.SetActive(false);
         isMidtalkOn = false;
     }
-    void OnEnable()
-    {
-        InteractManager.Instance.OpeningMid += OpeningMid;
-        InteractManager.Instance.OpeningGoal += OpeningEnd;
-    }
     void Start()
     {
         user.isJumpLock = true;
@@ -37,15 +32,12 @@ public class TextboxCtrl_Opening : MonoBehaviour
         _manager.UserCtrl(false);
         pp_Volume.profile = pp_Volume_black;
         StartCoroutine(DarkEnter());
+        InteractManager.Instance.OpeningMid += OpeningMid;
+        InteractManager.Instance.OpeningGoal += OpeningEnd;
     }
     private void FixedUpdate()
     {
         user.isSprint = false;  //달리기 불가
-    }
-    void OnDisable()
-    {
-        InteractManager.Instance.OpeningMid -= OpeningMid;
-        InteractManager.Instance.OpeningGoal -= OpeningEnd;
     }
     IEnumerator DarkEnter()
     {
@@ -58,7 +50,11 @@ public class TextboxCtrl_Opening : MonoBehaviour
         _manager.UserCtrl(true);
         yield return _manager.TalkSay(TalkType.player, "내가... 왜 여기에 있지?");
     }
-    public void OpeningMid() => StartCoroutine(MidVoice());
+    public void OpeningMid()
+    {
+        Debug.Log("OpeningMid() CALLED");
+        StartCoroutine(MidVoice());
+    }
     public IEnumerator MidVoice()
     {
         if (isMidtalkOn) yield break;

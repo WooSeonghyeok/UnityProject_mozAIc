@@ -180,12 +180,15 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         // 싱글톤 중복 생성 방지
-        if (Instance != null && Instance != this)
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-        Instance = this;
         DontDestroyOnLoad(gameObject);
         BuildDictionaries();
         masterVolume = PlayerPrefs.GetFloat("Volume");
@@ -195,6 +198,7 @@ public class SoundManager : MonoBehaviour
         sfxVolume = PlayerPrefs.GetFloat("SFX_Volume");
         ApplyVolumes();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        Debug.Log("SoundManager Awake CALLED");
     }
     private void OnDestroy()
     {
