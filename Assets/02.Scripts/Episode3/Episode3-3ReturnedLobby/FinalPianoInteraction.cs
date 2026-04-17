@@ -1,8 +1,18 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class FinalPianoInteraction : MonoBehaviour
 {
+    [Header("컷씬 재생기")]
+    [SerializeField] private CutsceneImagePlayer cutscenePlayer;
+    [SerializeField] private GameObject cutscenePanel;
+    [SerializeField] private Image cutsceneImage;
+    [SerializeField] private FinalDialogueController finalDialogueController;
+    [SerializeField] private bool autoResolveSceneReferences = true;
+    [SerializeField] private bool unlockExitAfterCutscene = true;
+    [SerializeField] private bool fallbackToMusicIfCutsceneUnavailable = true;
+
     [Header("오디오 재생기")]
     [SerializeField] private AudioSource audioSource;
 
@@ -22,12 +32,23 @@ public class FinalPianoInteraction : MonoBehaviour
     [SerializeField] private bool debugLog = true;
 
     private bool hasPlayed = false;
+    private bool isSequenceRunning = false;
     private Coroutine musicWaitRoutine;
 
-    /// <summary>
-    /// 상호작용 시 호출할 함수
-    /// 두 곡 중 하나를 랜덤으로 골라 재생한다.
-    /// </summary>
+    private void Awake()
+    {
+        ResolveReferences();
+        BindCutsceneFinished();
+    }
+
+    private void OnDestroy()
+    {
+        if (cutscenePlayer != null)
+        {
+            cutscenePlayer.RemoveFinishedListener(HandleCutsceneFinished);
+        }
+    }
+
     public void PlayRandomMusic()
     {
         if (playOnlyOnce && hasPlayed)
@@ -88,6 +109,7 @@ public class FinalPianoInteraction : MonoBehaviour
         {
             StopCoroutine(musicWaitRoutine);
         }
+
         musicWaitRoutine = StartCoroutine(CoWaitMusicEnd(selectedClip.length));
 
         if (debugLog)
@@ -95,39 +117,80 @@ public class FinalPianoInteraction : MonoBehaviour
             Debug.Log($"[FinalPianoInteraction] 랜덤 곡 재생: {selectedClip.name}");
         }
 
-        PuzzleScore();  // 퍼즐 점수 계산 및 저장 처리
+        PuzzleScore();
     }
+
     public void PuzzleScore()
     {
-        int Ep3_puzzleBase = 10;  //Episode3 퍼즐 점수 기본 최대값
-        int Ep3_puzzleLoss = Ep_3Manager.Instance.Ep3_1puzzleLoss + Ep_3Manager.Instance.Ep3_2restarted;
-        SaveManager.instance.curData.memory_reconstruction_rate[8] = Ep3_puzzleBase - Ep3_puzzleLoss;  // 3-1과 3-2 퍼즐 감점 누적값을 기반으로 재구성률 계산
+        if (Ep_3Manager.Instance == null || SaveManager.instance == null || SaveManager.instance.curData == null)
+        {
+            return;
+        }
+
+        const int ep3PuzzleBase = 10;
+        int ep3PuzzleLoss = Ep_3Manager.Instance.Ep3_1puzzleLoss + Ep_3Manager.Instance.Ep3_2restarted;
+        SaveManager.instance.curData.memory_reconstruction_rate[8] = ep3PuzzleBase - ep3PuzzleLoss;
     }
-    /// <summary>
-    /// 컷씬 없이 바로 음악 재생 + 저장 처리
-    /// </summary>
+
     public void PlayCutsceneThenMusic()
     {
-        PlayRandomMusic();
-
-        if (SaveManager.instance != null && SaveManager.instance.curData != null)
+        if (isSequenceRunning)
         {
-            SaveManager.instance.curData.ep4_open = true;
-
             if (debugLog)
             {
-                Debug.Log("[FinalPianoInteraction] ep4_open 저장 완료");
+                Debug.Log("[FinalPianoInteraction] 최종 연출이 이미 진행 중입니다.");
             }
+            return;
         }
-        else
+
+        if (playOnlyOnce && hasPlayed)
         {
-            Debug.LogWarning("[FinalPianoInteraction] SaveManager 또는 curData가 없습니다.");
+            if (debugLog)
+            {
+                Debug.Log("[FinalPianoInteraction] 이미 최종 연출이 완료되어 다시 재생하지 않습니다.");
+            }
+            return;
         }
+
+        ResolveReferences();
+        BindCutsceneFinished();
+        isSequenceRunning = true;
+
+        if (finalDialogueController != null)
+        {
+            finalDialogueController.LockExit();
+        }
+
+        bool canPlayCutscene = cutscenePlayer != null
+            && cutscenePanel != null
+            && cutsceneImage != null
+            && cutscenePlayer.HasConfiguredImages;
+
+        if (canPlayCutscene)
+        {
+            if (debugLog)
+            {
+                Debug.Log("[FinalPianoInteraction] 피아노 컷씬 재생 시작");
+            }
+
+            cutscenePlayer.PlayCutscene();
+            return;
+        }
+
+        if (debugLog)
+        {
+            Debug.LogWarning("[FinalPianoInteraction] 컷씬 참조가 부족해 음악 재생으로 대체합니다.");
+        }
+
+        if (fallbackToMusicIfCutsceneUnavailable)
+        {
+            HandleCutsceneFinished();
+            return;
+        }
+
+        isSequenceRunning = false;
     }
 
-    /// <summary>
-    /// 현재 재생 중인 곡을 멈춘다.
-    /// </summary>
     public void StopMusic()
     {
         if (audioSource == null)
@@ -147,6 +210,196 @@ public class FinalPianoInteraction : MonoBehaviour
         {
             Debug.Log("[FinalPianoInteraction] 곡 재생 중지");
         }
+    }
+
+    private void HandleCutsceneFinished()
+    {
+        PlayRandomMusic();
+        MarkEpisode4Open();
+
+        if (unlockExitAfterCutscene && finalDialogueController != null)
+        {
+            finalDialogueController.OnFinalDialogueEnd();
+        }
+
+        isSequenceRunning = false;
+    }
+
+    private void ResolveReferences()
+    {
+        if (cutscenePlayer == null)
+        {
+            cutscenePlayer = GetComponent<CutsceneImagePlayer>();
+        }
+
+        if (finalDialogueController == null)
+        {
+            finalDialogueController = FindSceneComponent<FinalDialogueController>();
+        }
+
+        if (!autoResolveSceneReferences)
+        {
+            if (cutscenePlayer != null)
+            {
+                cutscenePlayer.ApplyExternalUiRefs(cutscenePanel, cutsceneImage);
+            }
+            return;
+        }
+
+        if (cutscenePanel == null)
+        {
+            cutscenePanel = FindSceneGameObject("Canvas_PianoCutScene");
+        }
+
+        if (cutsceneImage == null && cutscenePanel != null)
+        {
+            cutsceneImage = FindBestCutsceneImage(cutscenePanel);
+        }
+
+        if (cutscenePlayer != null)
+        {
+            cutscenePlayer.ApplyExternalUiRefs(cutscenePanel, cutsceneImage);
+        }
+    }
+
+    private static Image FindBestCutsceneImage(GameObject panelRoot)
+    {
+        if (panelRoot == null)
+        {
+            return null;
+        }
+
+        Image[] images = panelRoot.GetComponentsInChildren<Image>(true);
+        Image bestImage = null;
+        int bestScore = int.MinValue;
+
+        foreach (Image candidate in images)
+        {
+            if (candidate == null || candidate.gameObject == panelRoot)
+            {
+                continue;
+            }
+
+            int score = GetCutsceneImageScore(candidate, panelRoot.transform);
+            if (score <= bestScore)
+            {
+                continue;
+            }
+
+            bestScore = score;
+            bestImage = candidate;
+        }
+
+        return bestImage;
+    }
+
+    private static int GetCutsceneImageScore(Image candidate, Transform panelRoot)
+    {
+        int score = 0;
+
+        if (candidate.sprite == null)
+        {
+            score += 100;
+        }
+
+        if (candidate.transform.parent != null && candidate.transform.parent != panelRoot)
+        {
+            score += 50;
+        }
+
+        if (candidate.type == Image.Type.Simple)
+        {
+            score += 20;
+        }
+
+        score += GetTransformDepth(candidate.transform, panelRoot);
+        return score;
+    }
+
+    private static int GetTransformDepth(Transform target, Transform stopAt)
+    {
+        int depth = 0;
+        Transform current = target;
+
+        while (current != null && current != stopAt)
+        {
+            depth++;
+            current = current.parent;
+        }
+
+        return depth;
+    }
+
+    private void BindCutsceneFinished()
+    {
+        if (cutscenePlayer == null)
+        {
+            return;
+        }
+
+        cutscenePlayer.RemoveFinishedListener(HandleCutsceneFinished);
+        cutscenePlayer.AddFinishedListener(HandleCutsceneFinished);
+    }
+
+    private void MarkEpisode4Open()
+    {
+        SaveDataObj saveData = SaveManager.instance != null
+            ? SaveManager.instance.curData
+            : SaveManager.ReadCurJSON();
+
+        if (saveData == null)
+        {
+            Debug.LogWarning("[FinalPianoInteraction] SaveData를 찾지 못해 ep4_open 저장을 건너뜁니다.");
+            return;
+        }
+
+        saveData.ep4_open = true;
+        SaveManager.WriteCurJSON(saveData);
+
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.curData = saveData;
+        }
+
+        if (debugLog)
+        {
+            Debug.Log("[FinalPianoInteraction] ep4_open 저장 완료");
+        }
+    }
+
+    private static T FindSceneComponent<T>() where T : Component
+    {
+        T[] components = Resources.FindObjectsOfTypeAll<T>();
+        foreach (T component in components)
+        {
+            if (component == null || !component.gameObject.scene.IsValid())
+            {
+                continue;
+            }
+
+            return component;
+        }
+
+        return null;
+    }
+
+    private static GameObject FindSceneGameObject(string objectName)
+    {
+        Transform[] transforms = Resources.FindObjectsOfTypeAll<Transform>();
+        foreach (Transform target in transforms)
+        {
+            if (target == null || !target.gameObject.scene.IsValid())
+            {
+                continue;
+            }
+
+            if (target.name == objectName)
+            {
+                return target.gameObject;
+            }
+        }
+
+        return null;
     }
 
     private System.Collections.IEnumerator CoWaitMusicEnd(float clipLength)

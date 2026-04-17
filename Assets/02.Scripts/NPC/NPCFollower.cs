@@ -32,6 +32,7 @@ public class NPCFollower : MonoBehaviour
 
     private Transform moveTarget;
     private System.Action onArrived;
+    private bool hasWarnedMissingNavMesh;
 
     private void Awake()
     {
@@ -41,17 +42,24 @@ public class NPCFollower : MonoBehaviour
             animator = GetComponent<Animator>();
 
         TryResolvePlayerMovement();
+        TryRestoreAgentOnNavMesh();
+    }
+
+    private void Start()
+    {
+        TryRestoreAgentOnNavMesh();
     }
 
     private void Update()
     {
+        TryResolvePlayerMovement();
+        TryRestoreAgentOnNavMesh();
+
         if (player == null || agent == null)
         {
             UpdateMoveAnimation(false);
             return;
         }
-
-        TryResolvePlayerMovement();
 
         if (!CanUseAgent())
         {
@@ -316,6 +324,64 @@ public class NPCFollower : MonoBehaviour
     {
         hasRequestedDestination = false;
         nextRepathTime = 0f;
+    }
+
+    private void TryRestoreAgentOnNavMesh()
+    {
+        if (agent == null || !gameObject.activeInHierarchy)
+            return;
+
+        if (CanUseAgent())
+        {
+            hasWarnedMissingNavMesh = false;
+            return;
+        }
+
+        if (!TryFindClosestNavMeshPosition(out Vector3 navMeshPosition))
+        {
+            if (agent.enabled)
+            {
+                agent.enabled = false;
+            }
+
+            if (!hasWarnedMissingNavMesh)
+            {
+                Debug.LogWarning($"[NPCFollower] '{name}' 주변에 유효한 NavMesh가 없어 에이전트를 대기 상태로 전환합니다.");
+                hasWarnedMissingNavMesh = true;
+            }
+
+            return;
+        }
+
+        if (!agent.enabled)
+        {
+            agent.enabled = true;
+        }
+
+        if (agent.isOnNavMesh)
+        {
+            agent.Warp(navMeshPosition);
+            hasWarnedMissingNavMesh = false;
+        }
+    }
+
+    private bool TryFindClosestNavMeshPosition(out Vector3 navMeshPosition)
+    {
+        navMeshPosition = transform.position;
+
+        if (agent == null)
+            return false;
+
+        float sampleRadius = Mathf.Max(targetSampleRadius, agent.radius + 0.5f);
+
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, sampleRadius, agent.areaMask) ||
+            NavMesh.SamplePosition(transform.position, out hit, sampleRadius * 4f, agent.areaMask))
+        {
+            navMeshPosition = hit.position;
+            return true;
+        }
+
+        return false;
     }
 
     private bool CanUseAgent()

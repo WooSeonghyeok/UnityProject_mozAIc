@@ -35,12 +35,21 @@ public class CutsceneImagePlayer : MonoBehaviour
 
     [Header("이벤트")]
     [SerializeField] private UnityEvent onCutsceneFinished;
+    [Header("Cutscene Controls")]
+    [SerializeField] private bool useRuntimeHintOverlay = false;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private GameObject nextButtonRoot;
+    [SerializeField] private Button skipButton;
+    [SerializeField] private GameObject skipButtonRoot;
 
     private AspectRatioFitter aspectFitter;
     private CanvasGroup subtitleCanvasGroup;
     private Image subtitleBackground;
     private bool isPlaying = false;
     private bool subtitleVisible;
+    private bool advanceRequested;
+    private bool skipRequested;
+    private CutsceneHintOverlay hintOverlay;
 
     public bool IsPlaying => isPlaying;
     public bool HasConfiguredImages => cutsceneSprites != null && cutsceneSprites.Length > 0;
@@ -73,6 +82,13 @@ public class CutsceneImagePlayer : MonoBehaviour
         {
             cutscenePanel.SetActive(false);
         }
+
+        InitializeCutsceneButtons();
+        SetCutsceneButtonsVisible(false);
+        if (useRuntimeHintOverlay)
+        {
+            EnsureHintOverlay();
+        }
     }
 
     public void PlayCutscene()
@@ -83,6 +99,89 @@ public class CutsceneImagePlayer : MonoBehaviour
     public void PlayCutsceneStep(int stepIndex)
     {
         PlayCutsceneSegment(stepIndex, 1);
+    }
+
+    public void ApplyExternalUiRefs(
+        GameObject panel,
+        Image image,
+        TextMeshProUGUI text = null,
+        Button next = null,
+        GameObject nextRoot = null,
+        Button skip = null,
+        GameObject skipRoot = null)
+    {
+        if (panel != null)
+        {
+            cutscenePanel = panel;
+        }
+
+        if (image != null)
+        {
+            cutsceneImage = image;
+            cutsceneImage.preserveAspect = true;
+            aspectFitter = cutsceneImage.GetComponent<AspectRatioFitter>();
+        }
+
+        if (text != null)
+        {
+            cutsceneText = text;
+        }
+
+        if (next != null)
+        {
+            nextButton = next;
+        }
+
+        if (nextRoot != null)
+        {
+            nextButtonRoot = nextRoot;
+        }
+
+        if (skip != null)
+        {
+            skipButton = skip;
+        }
+
+        if (skipRoot != null)
+        {
+            skipButtonRoot = skipRoot;
+        }
+
+        EnsureSubtitleUi();
+        SetSubtitle(string.Empty);
+        InitializeCutsceneButtons();
+        SetCutsceneButtonsVisible(false);
+
+        if (useRuntimeHintOverlay)
+        {
+            EnsureHintOverlay();
+        }
+    }
+
+    public void RequestAdvance()
+    {
+        if (isPlaying)
+        {
+            advanceRequested = true;
+        }
+    }
+
+    public void RequestSkip()
+    {
+        if (isPlaying)
+        {
+            skipRequested = true;
+        }
+    }
+
+    public void OnNextButton()
+    {
+        RequestAdvance();
+    }
+
+    public void OnSkipButton()
+    {
+        RequestSkip();
     }
 
     public void PlayCutsceneSegment(int startIndex, int stepCount)
@@ -116,6 +215,8 @@ public class CutsceneImagePlayer : MonoBehaviour
     private IEnumerator PlayCutsceneRoutine(int startIndex, int stepCount)
     {
         isPlaying = true;
+        advanceRequested = false;
+        skipRequested = false;
 
         if (cutscenePanel != null)
             cutscenePanel.SetActive(true);
@@ -123,8 +224,15 @@ public class CutsceneImagePlayer : MonoBehaviour
         if (playerMovement != null)
             playerMovement.SetMoveLock(true);
 
+        SetCutsceneButtonsVisible(true);
+        if (useRuntimeHintOverlay)
+        {
+            hintOverlay?.Show(fontAsset: subtitleFont);
+        }
+
         for (int i = 0; i < stepCount; i++)
         {
+            advanceRequested = false;
             int stepIndex = startIndex + i;
             Sprite currentSprite = ResolveSpriteForStep(stepIndex);
             if (cutsceneImage != null)
@@ -134,18 +242,40 @@ public class CutsceneImagePlayer : MonoBehaviour
 
             SetSubtitle(ResolveSubtitleForStep(stepIndex));
 
-            yield return StartCoroutine(Fade(0f, 1f));
-            yield return new WaitForSeconds(imageShowTime);
+            yield return StartCoroutine(FadeInterruptible(0f, 1f));
+            if (skipRequested)
+            {
+                break;
+            }
+
+            if (!advanceRequested)
+            {
+                yield return StartCoroutine(WaitInterruptible(imageShowTime));
+            }
+
+            if (skipRequested)
+            {
+                break;
+            }
 
             if (i < stepCount - 1)
             {
-                yield return StartCoroutine(Fade(1f, 0f));
+                yield return StartCoroutine(FadeInterruptible(1f, 0f));
+                if (skipRequested)
+                {
+                    break;
+                }
             }
         }
 
-        if (!isEndCutscene)
+        if (!isEndCutscene || skipRequested)
         {
-            yield return StartCoroutine(Fade(1f, 0f));
+            if (!skipRequested)
+            {
+                yield return StartCoroutine(FadeInterruptible(1f, 0f));
+            }
+
+            SetVisualAlpha(0f);
             SetSubtitle(string.Empty);
 
             if (cutscenePanel != null)
@@ -156,30 +286,64 @@ public class CutsceneImagePlayer : MonoBehaviour
             SetVisualAlpha(1f);
         }
 
+        SetCutsceneButtonsVisible(false);
+        if (useRuntimeHintOverlay)
+        {
+            hintOverlay?.Hide();
+        }
+
         if (playerMovement != null)
             playerMovement.SetMoveLock(false);
 
         isPlaying = false;
+        advanceRequested = false;
+        skipRequested = false;
         onCutsceneFinished?.Invoke();
     }
 
-    private IEnumerator Fade(float startAlpha, float endAlpha)
+    private IEnumerator FadeInterruptible(float startAlpha, float endAlpha)
     {
         if (cutsceneImage == null)
             yield break;
 
         float elapsed = 0f;
-        SetVisualAlpha(startAlpha);
+        float duration = Mathf.Max(0.0001f, fadeDuration);
 
+        SetVisualAlpha(startAlpha);
         while (elapsed < fadeDuration)
         {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / fadeDuration);
+            PollCutsceneInput();
+            if (skipRequested || advanceRequested)
+            {
+                SetVisualAlpha(endAlpha);
+                yield break;
+            }
+
+            elapsed += Time.unscaledDeltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsed / duration));
             SetVisualAlpha(alpha);
             yield return null;
         }
 
         SetVisualAlpha(endAlpha);
+    }
+
+    private IEnumerator WaitInterruptible(float duration)
+    {
+        float elapsed = 0f;
+        float safeDuration = Mathf.Max(0f, duration);
+
+        while (elapsed < safeDuration)
+        {
+            PollCutsceneInput();
+            if (skipRequested || advanceRequested)
+            {
+                yield break;
+            }
+
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
     }
 
     private void SetImageAlpha(float alpha)
@@ -308,6 +472,40 @@ public class CutsceneImagePlayer : MonoBehaviour
         int spriteCount = cutsceneSprites != null ? cutsceneSprites.Length : 0;
         int textCount = cutsceneTexts != null ? cutsceneTexts.Length : 0;
         return Mathf.Max(spriteCount, textCount);
+    }
+
+    private void PollCutsceneInput()
+    {
+        if (!skipRequested && CutsceneInputHelper.IsSkipPressedThisFrame())
+        {
+            skipRequested = true;
+            return;
+        }
+
+        if (!advanceRequested && CutsceneInputHelper.IsAdvancePressedThisFrame())
+        {
+            advanceRequested = true;
+        }
+    }
+
+    private void EnsureHintOverlay()
+    {
+        Transform overlayParent = cutscenePanel != null ? cutscenePanel.transform : transform;
+        hintOverlay = CutsceneHintOverlay.GetOrCreate(overlayParent, subtitleFont);
+        hintOverlay?.Hide();
+    }
+
+    private void InitializeCutsceneButtons()
+    {
+        CutsceneControlButtonHelper.TryAutoResolve(ref nextButton, ref nextButtonRoot, ref skipButton, ref skipButtonRoot);
+        CutsceneControlButtonHelper.Register(nextButton, OnNextButton);
+        CutsceneControlButtonHelper.Register(skipButton, OnSkipButton);
+    }
+
+    private void SetCutsceneButtonsVisible(bool visible)
+    {
+        CutsceneControlButtonHelper.SetVisible(nextButton, nextButtonRoot, visible);
+        CutsceneControlButtonHelper.SetVisible(skipButton, skipButtonRoot, visible);
     }
 
     private void TryResolvePlayerMovement()
