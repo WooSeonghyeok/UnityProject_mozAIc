@@ -83,7 +83,23 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         {
             ResetAll();
         }
+        // ⭐ 엔딩 조건 (추가🔥)
+        if (scene == "Episode2_Scene")
+        {
+            if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
+                PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
+                PlayerPrefs.GetInt("Played_EP2_Ending", 0) == 0)
+            {
+                PlayerPrefs.SetInt("Played_EP2_Ending", 1);
+                PlayerPrefs.Save();
 
+                var ctrl = FindObjectOfType<TextboxCtrl_Ep2>();
+                if (ctrl != null)
+                {
+                    ctrl.Episode2Ending();
+                }
+            }
+        }
         // ⭐ Space Clear
         if (scene == "Space_Puzzle")
         {
@@ -112,6 +128,18 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
                 StartCoroutine(PaintSequence());
             }
         }
+
+        if (scene == "Space_Puzzle")
+        {
+            if (PlayerPrefs.GetInt("Played_Space_Intro", 0) == 1 &&
+                PlayerPrefs.GetInt("Played_Space_Text", 0) == 0)
+            {
+                PlayerPrefs.SetInt("Played_Space_Text", 1);
+                PlayerPrefs.Save();
+
+                StartCoroutine(SpaceIntroSequence());
+            }
+        }
     }
 
     // ===============================
@@ -137,6 +165,18 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         yield return StartCoroutine(ctrl.PaintPuzzleComplete());
 
         paintSequencePlaying = false;
+    }
+
+    IEnumerator SpaceIntroSequence()
+    {
+        var ctrl = FindObjectOfType<TextboxCtrl_Ep2>();
+        if (ctrl == null) yield break;
+
+        // ⭐ 이미지 끝날 때까지 기다림
+        yield return StartCoroutine(PlayCutsceneAndWait("Space_Intro"));
+
+        // ⭐ 텍스트 실행
+        yield return StartCoroutine(ctrl.SpacePuzzleStart());
     }
 
     IEnumerator PlayCutsceneAndWait(string name)
@@ -167,9 +207,10 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Played_Paint_Clear");
 
         PlayerPrefs.DeleteKey("Played_Space_Clear_Immediate");
-
+        PlayerPrefs.DeleteKey("Played_EP2_Ending");
         // ⭐ 핵심
         PlayerPrefs.DeleteKey("Played_Paint_Sequence");
+        PlayerPrefs.DeleteKey("Played_Space_Text");
 
         PlayerPrefs.DeleteKey("Space_Cleared");
         PlayerPrefs.DeleteKey("Paint_Cleared");
