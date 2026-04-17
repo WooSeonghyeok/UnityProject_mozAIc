@@ -83,10 +83,10 @@ public class Episode2Manager : MonoBehaviour
         // ⭐ 둘 다 클리어 (AllClear 대체)
         if (spaceClear && paintClear)
         {
-            if (finalObject != null)
-            {
-                finalObject.SetActive(true);
-            }
+            //if (finalObject != null)
+            //{
+            //    finalObject.SetActive(true);
+            //}
 
             if (SaveManager.instance != null)
             {

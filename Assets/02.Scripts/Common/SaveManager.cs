@@ -69,9 +69,8 @@ public class SaveManager : MonoBehaviour
             return defaultSave;
         }
         string jsonFile = File.ReadAllText(path);
-        SaveDataObj newData = new SaveDataObj();
-        newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
-        return newData;
+        SaveDataObj newData = JsonUtility.FromJson<SaveDataObj>(jsonFile);
+        return NormalizeSaveData(newData);
     }
     public void ResetCurData()
     {
@@ -93,6 +92,80 @@ public class SaveManager : MonoBehaviour
         dataObj.isFirstEnterAtEP3_1 = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
+    }
+
+    public static SaveDataObj NormalizeSaveData(SaveDataObj dataObj)
+    {
+        if (dataObj == null)
+        {
+            dataObj = new SaveDataObj();
+        }
+
+        if (dataObj.memory_reconstruction_rate == null || dataObj.memory_reconstruction_rate.Length != 13)
+        {
+            int[] normalizedRate = new int[13];
+            if (dataObj.memory_reconstruction_rate != null)
+            {
+                Array.Copy(dataObj.memory_reconstruction_rate, normalizedRate, Mathf.Min(dataObj.memory_reconstruction_rate.Length, normalizedRate.Length));
+            }
+
+            if (normalizedRate[0] <= 0)
+            {
+                normalizedRate[0] = 5;
+            }
+
+            dataObj.memory_reconstruction_rate = normalizedRate;
+        }
+
+        if (dataObj.CoreTag == null || dataObj.CoreTag.Count == 0)
+        {
+            dataObj.CoreTag = CreateDefaultMemoryTags();
+        }
+        else
+        {
+            foreach (string defaultTagName in DefaultMemoryTagNames)
+            {
+                bool exists = dataObj.CoreTag.Exists(tag => tag != null && tag.TagName == defaultTagName);
+                if (!exists)
+                {
+                    dataObj.CoreTag.Add(new IsTagGet
+                    {
+                        TagName = defaultTagName,
+                        tagGet = false
+                    });
+                }
+            }
+        }
+
+        List<NPCInfo> defaultNpcInfo = LoadDefaultNPCInfo();
+        if (dataObj.npcInformations == null)
+        {
+            dataObj.npcInformations = new List<NPCInfo>();
+        }
+
+        dataObj.npcInformations.RemoveAll(npc => npc == null || string.IsNullOrWhiteSpace(npc.npcId));
+
+        foreach (NPCInfo defaultNpc in defaultNpcInfo)
+        {
+            if (defaultNpc == null || string.IsNullOrWhiteSpace(defaultNpc.npcId))
+            {
+                continue;
+            }
+
+            NPCInfo existingNpc = dataObj.npcInformations.Find(npc => npc.npcId == defaultNpc.npcId);
+            if (existingNpc == null)
+            {
+                dataObj.npcInformations.Add(CloneNpcInfo(defaultNpc));
+                continue;
+            }
+
+            if (existingNpc.words == null || existingNpc.words.Count == 0)
+            {
+                existingNpc.words = CloneMemoryKeywords(defaultNpc.words);
+            }
+        }
+
+        return dataObj;
     }
     private static List<IsTagGet> CreateDefaultMemoryTags()
     {
@@ -127,6 +200,48 @@ public class SaveManager : MonoBehaviour
             }
         }
         return new List<NPCInfo>(npcArray);
+    }
+
+    private static NPCInfo CloneNpcInfo(NPCInfo source)
+    {
+        if (source == null)
+        {
+            return null;
+        }
+
+        return new NPCInfo
+        {
+            npcId = source.npcId,
+            Affinity = source.Affinity,
+            talkCount = source.talkCount,
+            words = CloneMemoryKeywords(source.words)
+        };
+    }
+
+    private static List<MemoryKeyword> CloneMemoryKeywords(List<MemoryKeyword> source)
+    {
+        List<MemoryKeyword> clone = new List<MemoryKeyword>();
+        if (source == null)
+        {
+            return clone;
+        }
+
+        foreach (MemoryKeyword keyword in source)
+        {
+            if (keyword == null)
+            {
+                continue;
+            }
+
+            clone.Add(new MemoryKeyword
+            {
+                word = keyword.word,
+                memoryRate = keyword.memoryRate,
+                isUsed = keyword.isUsed
+            });
+        }
+
+        return clone;
     }
     public static void WriteCurJSON(SaveDataObj sourceData)
     {

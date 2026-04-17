@@ -1,11 +1,11 @@
-{
+﻿{
 "EndingRule":[
  {
   "ruleId": "END_TRUE_01",
   "isTrueEnding": true,
   "minReconstructionRate": 80,
-  "requiredTags": "shared_childhood;shared_dream;unfinished_confession;self_voice",
-  "requiredFlags": "final_puzzle_cleared",
+  "requiredTags": [ "shared_childhood","shared_dream","unfinished_confession","self_voice" ],
+  "requiredFlags": [ "final_puzzle_cleared" ],
   "failDowngradeTo": "Normal",
   "outputEndingStateId": "ESP_TRUE_DEFAULT",
   "notes": "진엔딩 기본 규칙"

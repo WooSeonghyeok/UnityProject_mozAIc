@@ -5,69 +5,54 @@ using System.Collections;
 public class EP2CutsceneTriggerManager : MonoBehaviour
 {
     private string scene;
-
+    public SaveDataObj CurData;
     private bool paintSequencePlaying = false;
-
     void Start()
     {
         scene = SceneManager.GetActiveScene().name;
-
+        CurData = SaveManager.instance.curData;
         if (EP2CutsceneManager.Instance == null)
         {
             Debug.LogWarning("EP2CutsceneManager 없음!");
             return;
         }
-
         // 🎬 Episode2 Intro
-        if (scene == "Episode2_Scene" &&
-            PlayerPrefs.GetInt("Played_Episode2_Intro", 0) == 0)
+        if (scene == "Episode2_Scene" && !CurData.Played_Episode2_Intro)
         {
-            PlayerPrefs.SetInt("Played_Episode2_Intro", 1);
-            PlayerPrefs.Save();
-
+            CurData.Played_Episode2_Intro = true;
+            SaveManager.WriteCurJSON(CurData);
             EP2CutsceneManager.Instance.Play("Episode2_Intro");
             return;
         }
-
         // 🎬 Space Intro
-        if (scene == "Space_Puzzle" &&
-            PlayerPrefs.GetInt("Played_Space_Intro", 0) == 0)
+        if (scene == "Space_Puzzle" && !CurData.Played_Space_Intro)  // Space 퍼즐 처음
         {
-            PlayerPrefs.SetInt("Played_Space_Intro", 1);
-            PlayerPrefs.Save();
-
+            CurData.Played_Space_Intro = true;
+            SaveManager.WriteCurJSON(CurData);
             EP2CutsceneManager.Instance.Play("Space_Intro");
         }
-
         // 🎬 Paint Intro
-        if (scene == "Paint_Puzzle" &&
-            PlayerPrefs.GetInt("Played_Paint_Intro", 0) == 0)
+        if (scene == "Paint_Puzzle" && !CurData.Played_Paint_Intro)  // Paint 퍼즐 처음
         {
-            PlayerPrefs.SetInt("Played_Paint_Intro", 1);
-            PlayerPrefs.Save();
-
+            CurData.Played_Paint_Intro = true;
+            SaveManager.WriteCurJSON(CurData);
             EP2CutsceneManager.Instance.Play("Paint_Intro");
         }
 
         // 🎬 Episode2 복귀 컷씬
         if (scene == "Episode2_Scene")
         {
-            if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Space_Clear", 0) == 0)
+            if (CurData.ep2_spaceClear && !CurData.Played_Space_Clear)
             {
-                PlayerPrefs.SetInt("Played_Space_Clear", 1);
-                PlayerPrefs.Save();
-
+                CurData.Played_Space_Clear = true;
+                SaveManager.WriteCurJSON(CurData);
                 EP2CutsceneManager.Instance.Play("Space_Clear");
                 return;
             }
-
-            if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Paint_Clear", 0) == 0)
+            if (CurData.ep2_paintClear && !CurData.Played_Paint_Clear)
             {
-                PlayerPrefs.SetInt("Played_Paint_Clear", 1);
-                PlayerPrefs.Save();
-
+                CurData.Played_Paint_Clear = true;
+                SaveManager.WriteCurJSON(CurData);
                 EP2CutsceneManager.Instance.Play("Paint_Clear");
                 return;
             }
@@ -77,39 +62,60 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
     void Update()
     {
         if (EP2CutsceneManager.Instance == null) return;
-
         // ⭐ F5 = 완전 초기화
         if (Input.GetKeyDown(KeyCode.F5))
         {
             ResetAll();
         }
+        // ⭐ 엔딩 조건 (추가🔥)
+        if (scene == "Episode2_Scene")
+        {
+            if (CurData.ep2_spaceClear &&
+                CurData.ep2_paintClear &&
+                !CurData.Played_EP2_Ending)
+            {
+                CurData.Played_EP2_Ending = true;
+                SaveManager.WriteCurJSON(CurData);
 
+                var ctrl = FindObjectOfType<TextboxCtrl_Ep2>();
+                if (ctrl != null)
+                {
+                    ctrl.Episode2Ending();
+                }
+            }
+        }
         // ⭐ Space Clear
         if (scene == "Space_Puzzle")
         {
-            if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Space_Clear_Immediate", 0) == 0 &&
-                PlayerPrefs.GetInt("Played_Space_Intro", 0) == 1)
+            if (CurData.ep2_spaceClear &&
+                !CurData.Played_Space_Clear_Immediate &&
+                CurData.Played_Space_Intro)
             {
-                PlayerPrefs.SetInt("Played_Space_Clear_Immediate", 1);
-                PlayerPrefs.Save();
-
+                CurData.Played_Space_Clear_Immediate = true;
+                SaveManager.WriteCurJSON(CurData);
                 EP2CutsceneManager.Instance.Play("Space_Clear_Immediate");
             }
         }
-
         // 🔥 Paint 전체 연출 (핵심🔥🔥🔥)
         if (scene == "Paint_Puzzle")
         {
-            if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Paint_Sequence", 0) == 0 &&
-                PlayerPrefs.GetInt("Played_Paint_Intro", 0) == 1 &&
+            if (CurData.ep2_paintClear &&
+                !CurData.Played_Paint_Sequences &&
+                CurData.Played_Paint_Intro &&
                 !paintSequencePlaying)
             {
-                PlayerPrefs.SetInt("Played_Paint_Sequence", 1);
-                PlayerPrefs.Save();
-
+                CurData.Played_Paint_Sequences = true;
+                SaveManager.WriteCurJSON(CurData);
                 StartCoroutine(PaintSequence());
+            }
+        }
+        if (scene == "Space_Puzzle")
+        {
+            if (CurData.Played_Space_Intro && !CurData.Played_Space_Text)
+            {
+                CurData.Played_Space_Text = true;
+                SaveManager.WriteCurJSON(CurData);
+                StartCoroutine(SpaceIntroSequence());
             }
         }
     }
@@ -139,6 +145,18 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         paintSequencePlaying = false;
     }
 
+    IEnumerator SpaceIntroSequence()
+    {
+        var ctrl = FindObjectOfType<TextboxCtrl_Ep2>();
+        if (ctrl == null) yield break;
+
+        // ⭐ 이미지 끝날 때까지 기다림
+        yield return StartCoroutine(PlayCutsceneAndWait("Space_Intro"));
+
+        // ⭐ 텍스트 실행
+        yield return StartCoroutine(ctrl.SpacePuzzleStart());
+    }
+
     IEnumerator PlayCutsceneAndWait(string name)
     {
         bool done = false;
@@ -158,24 +176,16 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
     // ===============================
     void ResetAll()
     {
-        PlayerPrefs.DeleteKey("Played_Episode2_Intro");
-        PlayerPrefs.DeleteKey("Played_Space_Intro");
-        PlayerPrefs.DeleteKey("Played_Paint_Intro");
+        var data = SaveManager.instance.curData;
+        data.Played_Episode2_Intro = false;
+        data.Played_Space_Intro = false;
+        data.Played_Paint_Intro = false;
+        data.Played_Space_Clear = false;
+        data.Played_Paint_Clear = false;
+        data.Played_Space_Clear_Immediate = false;
+        data.Played_Paint_Sequences = false;
         PlayerPrefs.DeleteKey("Played_EP2_Text_Intro");
-
-        PlayerPrefs.DeleteKey("Played_Space_Clear");
-        PlayerPrefs.DeleteKey("Played_Paint_Clear");
-
-        PlayerPrefs.DeleteKey("Played_Space_Clear_Immediate");
-
-        // ⭐ 핵심
-        PlayerPrefs.DeleteKey("Played_Paint_Sequence");
-
-        PlayerPrefs.DeleteKey("Space_Cleared");
-        PlayerPrefs.DeleteKey("Paint_Cleared");
-
-        PlayerPrefs.Save();
-
+        SaveManager.WriteCurJSON(CurData);
         Debug.Log("🔥 완전 초기화 완료 (F5)");
     }
 }

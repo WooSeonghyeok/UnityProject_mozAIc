@@ -3,51 +3,43 @@
 public class CutsceneTriggerManager : MonoBehaviour
 {
     public CutsceneManager cutsceneManager;
-
+    public SaveDataObj CurData;
     private string scene;
 
     void Start()
     {
         scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-
-        // Episode2 처음 진입
-        if (scene == "Episode2_Scene" && PlayerPrefs.GetInt("Episode2_Visited", 0) == 0)
+        CurData = SaveManager.instance.curData;
+        if (scene == "Episode2_Scene" && !CurData.Played_Episode2_Intro)  // Episode2 처음 진입
         {
-            PlayerPrefs.SetInt("Episode2_Visited", 1);
+            CurData.Played_Episode2_Intro = true;
             cutsceneManager.Play("Episode2_Intro");
         }
-
-        // Space 퍼즐 처음
-        if (scene == "Space_Puzzle" && PlayerPrefs.GetInt("Space_Visited", 0) == 0)
+        if (scene == "Space_Puzzle" && !CurData.Played_Space_Intro)  // Space 퍼즐 처음
         {
-            PlayerPrefs.SetInt("Space_Visited", 1);
+            CurData.Played_Space_Intro = true;
             cutsceneManager.Play("Space_Intro");
-        }
-
-        // Paint 퍼즐 처음
-        if (scene == "Paint_Puzzle" && PlayerPrefs.GetInt("Paint_Visited", 0) == 0)
+        }  
+        if (scene == "Paint_Puzzle" && !CurData.Played_Paint_Intro)  // Paint 퍼즐 처음
         {
-            PlayerPrefs.SetInt("Paint_Visited", 1);
+            CurData.Played_Paint_Intro = true;
             cutsceneManager.Play("Paint_Intro");
         }
-
-        // Episode2 복귀 컷씬
-        if (scene == "Episode2_Scene")
+        if (scene == "Episode2_Scene")  // Episode2 복귀 컷씬
         {
-            if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Space_Clear", 0) == 0)
+            if (CurData.ep2_spaceClear && !CurData.Played_Space_Clear)
             {
-                PlayerPrefs.SetInt("Played_Space_Clear", 1);
+                CurData.Played_Space_Clear = true;
                 cutsceneManager.Play("Space_Clear");
             }
 
-            if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Paint_Clear", 0) == 0)
+            if (CurData.ep2_paintClear && !CurData.Played_Paint_Clear)
             {
-                PlayerPrefs.SetInt("Played_Paint_Clear", 1);
+                CurData.Played_Paint_Clear = true;
                 cutsceneManager.Play("Paint_Clear");
             }
         }
+        SaveManager.WriteCurJSON(CurData);
     }
 
     void Update()
@@ -55,10 +47,10 @@ public class CutsceneTriggerManager : MonoBehaviour
         // ⭐ Space 퍼즐 클리어 즉시 컷씬
         if (scene == "Space_Puzzle")
         {
-            if (PlayerPrefs.GetInt("Space_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Space_Clear_Immediate", 0) == 0)
+            if (CurData.ep2_spaceClear && !CurData.Played_Space_Clear_Immediate)
             {
-                PlayerPrefs.SetInt("Played_Space_Clear_Immediate", 1);
+                CurData.Played_Space_Clear_Immediate = true;
+                SaveManager.WriteCurJSON(CurData);
                 cutsceneManager.Play("Space_Clear_Immediate");
             }
         }
@@ -66,10 +58,10 @@ public class CutsceneTriggerManager : MonoBehaviour
         // ⭐ Paint 퍼즐 클리어 즉시 컷씬
         if (scene == "Paint_Puzzle")
         {
-            if (PlayerPrefs.GetInt("Paint_Cleared", 0) == 1 &&
-                PlayerPrefs.GetInt("Played_Paint_Clear_Immediate", 0) == 0)
+            if (CurData.ep2_paintClear && !CurData.Played_Paint_Sequences)
             {
-                PlayerPrefs.SetInt("Played_Paint_Clear_Immediate", 1);
+                CurData.Played_Paint_Sequences = true;
+                SaveManager.WriteCurJSON(CurData);
                 cutsceneManager.Play("Paint_Clear_Immediate");
             }
         }
