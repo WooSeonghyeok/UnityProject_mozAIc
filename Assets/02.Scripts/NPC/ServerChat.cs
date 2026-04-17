@@ -4,7 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using OpenAI;
+#if UNITY_EDITOR
 using UnityEditor.MPE;
+#endif
 using Unity.VisualScripting;
 using UnityEngine.Rendering;
 using System;
