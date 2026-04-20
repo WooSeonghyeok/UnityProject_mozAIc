@@ -75,6 +75,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
         yield return oneSec;
         openingMidGate.SetActive(true);
         yield return _manager.TalkSay(TalkType.voice, "길을 따라가.", 2f, Talker.core, true);
+        GameManager.Instance.lookLock = false;
         user.isLookLock = false;
         yield return oneSec;
         yield return _manager.TalkSay(TalkType.voice, "꼭 찾아야 해.", 2f, Talker.core, true);

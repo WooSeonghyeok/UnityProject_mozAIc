@@ -26,14 +26,23 @@ public class EP0_LobbyManager : MonoBehaviour
         userAct.AbilitySelectOpen += OnAbilitySelectOpen;
         userAct.StageSelectOpen += OnStageSelectOpen;
     }
+    private void OnDisable()
+    {
+        userAct.AbilitySelectOpen -= OnAbilitySelectOpen;
+        userAct.StageSelectOpen -= OnStageSelectOpen;
+    }
     private void OnAbilitySelectOpen(bool b)
     {
         aSelectOpen = b;
+        GameManager.Instance.lookLock = b;
+        GameManager.Instance.CursorState();
         AbilitySelectPanel.SetActive(aSelectOpen);
     }
     private void OnStageSelectOpen(bool b)
     {
         sSelectOpen = b;
+        GameManager.Instance.lookLock = b;
+        GameManager.Instance.CursorState();
         StageSelectPanel.SetActive(sSelectOpen);
     }
 }
