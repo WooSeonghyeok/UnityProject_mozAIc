@@ -20103,6 +20103,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6004842342130079400}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: tagNumber
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: isTagUsing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: memoryRateUp
       value: 1
       objectReference: {fileID: 0}
@@ -38641,6 +38649,14 @@ PrefabInstance:
       propertyPath: cutscene
       value: 
       objectReference: {fileID: 6004842342130079400}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: tagNumber
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: isTagUsing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -53489,6 +53505,14 @@ PrefabInstance:
       propertyPath: tagBubble
       value: 
       objectReference: {fileID: 8480533464129280361}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: tagNumber
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: isTagUsing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
