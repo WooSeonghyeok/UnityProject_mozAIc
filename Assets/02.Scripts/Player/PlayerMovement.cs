@@ -235,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
 
     void RotateCamera()
     {
-        if (GameManager.Instance.lookLock) return;  //시선 고정 상태에서는 동작 없음
+        if (GameManager.Instance != null && GameManager.Instance.lookLock) return;  //시선 고정 상태에서는 동작 없음
 
         Vector2 look = input.lookInput;  // 마우스 입력
 
