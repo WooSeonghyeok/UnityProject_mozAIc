@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume", 1f);
         CursorState();
         mouseImage.gameObject.SetActive(!(scene.name == openingScene || scene.name == endingScene));  //오프닝, 엔딩 신에서만 마우스 커서 이미지를 비활성화
     }

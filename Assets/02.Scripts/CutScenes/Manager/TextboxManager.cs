@@ -69,9 +69,9 @@ public class TextboxManager : MonoBehaviour
         {
             case TalkType.system: text_system.text = say; box_system.SetActive(true); break;
             case TalkType.player: text_player.text = say; box_player.SetActive(true); break;
-            case TalkType.voice: text_voice.text = say; box_voice.SetActive(true); break;
+            case TalkType.voice:  text_voice.text = say;  box_voice.SetActive(true);  break;
         }
-        bool noAuto = time <= 0f;
+        bool noAuto = (time <= 0f);  //수동 넘기기만 사용할 대사에는 time 값을 0 또는 음수(-)로 입력
         if (noAuto)
         {
             if (nextBtn != null) nextBtn.SetActive(true);
