@@ -110,7 +110,7 @@ public class StageSelect : MonoBehaviour
         }
         if (cpCount == 1)
         {
-            if (cpButtons.Length > 0 && !cpButtons[0].isLock)
+            if (stageSelect != -1 && cpButtons.Length > 0 && !cpButtons[0].isLock)
             {
                 SelectCP(selectNum, 0);
             }

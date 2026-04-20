@@ -23,7 +23,7 @@ public class TextboxManager : MonoBehaviour
     public GameObject skipBtn;
     private bool nextPressed = false;
     public WaitForSecondsRealtime oneSec = new(1f);
-    int curTalkID = 0;  //현재 대사 ID (대사 스킵 시 다음 대사로 넘어가기 위해)
+    int curTalkID = 0;  //대사 스킵 시 현재 대사만 스킵하고 다음 대사로 넘어가기 위해 각 대사에 현재 대사 ID를 부여
     void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag(playerTag);
@@ -71,13 +71,18 @@ public class TextboxManager : MonoBehaviour
             case TalkType.player: text_player.text = say; box_player.SetActive(true); break;
             case TalkType.voice: text_voice.text = say; box_voice.SetActive(true); break;
         }
-        if (time > 0f)
+        bool noAuto = time <= 0f;
+        if (noAuto)
+        {
+            if (nextBtn != null) nextBtn.SetActive(true);
+            while (!(nextPressed && talkID == curTalkID)) yield return null;
+        }
+        else
         {
             float timer = 0f;
-            while (true)
+            while (timer < time)  //time 시간 이내에 반복
             {
-                if (timer >= time && time > 0f) break;  // 시간 초과 시 종료
-                if (canSkip && nextPressed && talkID == curTalkID)     break;  // 스킵 가능 & 버튼 눌렀을 시 종료
+                if (canSkip && nextPressed && talkID == curTalkID) break;  // 스킵 가능 & 버튼 눌렀을 시 현재 컷신 텍스트를 종료
                 timer += Time.unscaledDeltaTime;
                 yield return null;
             }
