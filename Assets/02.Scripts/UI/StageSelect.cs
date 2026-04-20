@@ -108,8 +108,23 @@ public class StageSelect : MonoBehaviour
             cpButtons[i].gameObject.SetActive(true);
             cpButtons[i].Refresh();
         }
-        if (cpSelect >= 0 && cpSelect < cpButtons.Length) TouchCPButtonEvent?.Invoke(cpSelect);
-        else TouchCPButtonEvent?.Invoke(-1);
+        if (cpCount == 1)
+        {
+            if (cpButtons.Length > 0 && !cpButtons[0].isLock)
+            {
+                SelectCP(selectNum, 0);
+            }
+            else
+            {
+                cpSelect = -1;
+                TouchCPButtonEvent?.Invoke(-1);
+            }
+        }
+        else
+        {
+            if (cpSelect >= 0 && cpSelect < cpButtons.Length) TouchCPButtonEvent?.Invoke(cpSelect);
+            else TouchCPButtonEvent?.Invoke(-1);
+        }
         EnterCheck();
     }
     public void SelectCP(int selectNum, int index)
