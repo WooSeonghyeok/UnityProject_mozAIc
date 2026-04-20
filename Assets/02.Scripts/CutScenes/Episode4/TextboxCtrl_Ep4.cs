@@ -53,7 +53,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 2f);
         yield return oneSec;
         _manager.UserCtrl(false);
-        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 기억만 보이는 게 아니다.", 2f);
+        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 <color=#80ffff>기억</color>만 보이는 게 아니다.", 2f);
         gazeCam.Priority = 12;
         yield return oneSec;
         yield return _manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", 2f, Talker.core);
@@ -134,6 +134,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         _manager.UserCtrl(false);
         endNPCZoneArrived = true;
         otherCanvas.enabled = false;
+        GameManager.Instance.mouseImage.gameObject.SetActive(false);
         Ep4_ClimaxCutscene.PlayCutscene();
         yield return _manager.TalkSay(TalkType.voice, "넌 잊은 게 아니야.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core);
@@ -145,7 +146,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.voice, "그래서 나를 남겨 둔 거야.", 1.5f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 1f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.player, "그럼 이 사람은...", 1f, Talker.self, true);
-        yield return _manager.TalkSay(TalkType.voice, "그래. 나는 네가 놓아둔 마지막 조각이야.", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, $"그래. 나는 네가 놓아둔 <color=#80ffff>마지막 조각</color>이야.", 2f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 1f, Talker.core, true);
         climaxCam.Priority = 1;
         endSound.Play();

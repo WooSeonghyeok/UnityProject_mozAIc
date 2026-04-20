@@ -20110,7 +20110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: tagHint
-      value: "\uC774\uAC83\uC774... \uC0B6\uC758 \uC870\uAC01?"
+      value: "\uC774\uAC83\uC774... <color=#80ffff>\uC0B6</color>\uC758 \uC870\uAC01?"
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: cutscene
@@ -20123,6 +20123,10 @@ PrefabInstance:
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: isTagUsing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: memoryNumber
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: memoryRateUp
@@ -38660,7 +38664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: tagHint
-      value: "\uB2FF\uC9C0 \uBABB\uD588\uB358 \uB9C8\uC74C\uACFC \uD558\uBAA8\uB2C8\uB97C
+      value: "\uB2FF\uC9C0 \uBABB\uD588\uB358 \uB9C8\uC74C\uACFC <color=#80ffff>\uD558\uBAA8\uB2C8</color>\uB97C
         \uC774\uB8E8\uB294 \uAC83 \uAC19\uC544."
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
@@ -38674,6 +38678,10 @@ PrefabInstance:
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: isTagUsing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: memoryNumber
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53413,6 +53421,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 580113050962332024, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
+      propertyPath: m_Text
+      value: "\uC0AC\uB77C\uC9C0\uAE30 \uC804\uC5D0"
+      objectReference: {fileID: 0}
     - target: {fileID: 2359086804665782349, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
       propertyPath: user
       value: 
@@ -53516,8 +53528,8 @@ PrefabInstance:
       objectReference: {fileID: 8480533464129280361}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: tagHint
-      value: "\uB3D9\uB8CC\uB780 '\uAC19\uC740 \uBC29\uD5A5\uC744 \uBC14\uB77C\uBCF4\uB294
-        \uC0AC\uB78C'\uC774\uB798."
+      value: "<color=#80ffff>\uB3D9\uB8CC</color>\uB780 '\uAC19\uC740 \uBC29\uD5A5\uC744
+        \uBC14\uB77C\uBCF4\uB294 \uC0AC\uB78C'\uC774\uB798."
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: cutscene
@@ -53534,6 +53546,10 @@ PrefabInstance:
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: isTagUsing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: memoryNumber
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
