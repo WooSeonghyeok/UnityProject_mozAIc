@@ -35,14 +35,14 @@ public class EP0_LobbyManager : MonoBehaviour
     {
         aSelectOpen = b;
         GameManager.Instance.lookLock = b;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
         AbilitySelectPanel.SetActive(aSelectOpen);
     }
     private void OnStageSelectOpen(bool b)
     {
         sSelectOpen = b;
         GameManager.Instance.lookLock = b;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
         StageSelectPanel.SetActive(sSelectOpen);
     }
 }

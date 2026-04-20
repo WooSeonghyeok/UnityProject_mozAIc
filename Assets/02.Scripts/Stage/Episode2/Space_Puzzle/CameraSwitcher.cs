@@ -8,7 +8,7 @@ public class CameraSwitcher : MonoBehaviour
 
     public Transform playerCameraRoot; // 플레이어 카메라 기준 축
 
-    private bool isFirstPerson = false; // 현재 카메라 상태
+    public bool isFirstPerson = false; // 현재 카메라 상태
 
 
     public void ToggleCamera() // 🔥 public으로 변경

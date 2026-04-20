@@ -7,13 +7,13 @@ public class QuitManager : MonoBehaviour
     {
         QuitPopup.SetActive(true);
         GameManager.Instance.lookLock = true;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
     }
     public void OnNoButton()
     {
         QuitPopup.SetActive(false);
         GameManager.Instance.lookLock = false;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
     }
     public void OnYesButton()
     {

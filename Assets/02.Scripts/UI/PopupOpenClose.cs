@@ -6,12 +6,12 @@ public class PopupOpenClose : MonoBehaviour
     {
         Popup.SetActive(true);
         GameManager.Instance.lookLock = true;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
     }
     public void ClosePopup()
     {
         Popup.SetActive(false);
         GameManager.Instance.lookLock = false;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
     }
 }

@@ -25,13 +25,13 @@ public class SaveUIManager : MonoBehaviour
     {
         SavePopup.SetActive(true);
         GameManager.Instance.lookLock = true;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
     }
     public void CloseSavePopup()
     {
         SavePopup.SetActive(false);
         GameManager.Instance.lookLock = false;
-        GameManager.Instance.CursorState();
+        GameManager.Instance.MouseState();
     }
     public IEnumerator SaveAlarm(int slotNumber)
     {

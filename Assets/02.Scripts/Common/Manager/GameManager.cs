@@ -6,9 +6,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public bool lookLock = false;
-    public Image mouseImage;
+    public Image lookLockImg;
+    public Image zoomCtrlImg;
+    public Sprite zoomInImg;
+    public Sprite zoomOutImg;
     public string openingScene;
     public string endingScene;
+    private PlayerInput user;
+    private readonly string playerTag = "Player";
     void Awake()
     {
         if (Instance == null)
@@ -29,9 +34,16 @@ public class GameManager : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        user = FindUser();
         GetOptionValue();
-        CursorState();
-        mouseImage.gameObject.SetActive(!(scene.name == openingScene || scene.name == endingScene));  //오프닝, 엔딩 신에서만 마우스 커서 이미지를 비활성화
+        MouseState();
+        lookLockImg.gameObject.SetActive(!(scene.name == openingScene || scene.name == endingScene));  //오프닝, 엔딩 신에서만 마우스 커서 이미지를 비활성화
+    }
+    private PlayerInput FindUser()
+    {
+        var userObj = GameObject.FindGameObjectWithTag(playerTag);
+        if (userObj == null) return null;
+        else return userObj.GetComponent<PlayerInput>();
     }
     private static void GetOptionValue()
     {
@@ -47,15 +59,17 @@ public class GameManager : MonoBehaviour
         if (context.started)
         {
             lookLock = !lookLock;
-            CursorState();
+            MouseState();
         }
     }
-    public void CursorState()
+    public void MouseState()
     {
-        switch (lookLock)
+        lookLockImg.color = lookLock ? Color.red : Color.green;
+        if (user != null && user.cameraSwitcher != null)
         {
-            case true:  mouseImage.color = Color.red;   break;
-            case false: mouseImage.color = Color.green; break;
+            zoomCtrlImg.gameObject.SetActive(true);
+            zoomCtrlImg.sprite = (user.cameraSwitcher.isFirstPerson) ? zoomOutImg : zoomInImg;
         }
+        else zoomCtrlImg.gameObject.SetActive(false);
     }
 }

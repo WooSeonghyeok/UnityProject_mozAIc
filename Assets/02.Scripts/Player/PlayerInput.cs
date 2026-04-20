@@ -80,6 +80,7 @@ public class PlayerInput : MonoBehaviour
             if (cameraSwitcher != null)
             {
                 cameraSwitcher.ToggleCamera();
+                GameManager.Instance.MouseState();
             }
             else
             {

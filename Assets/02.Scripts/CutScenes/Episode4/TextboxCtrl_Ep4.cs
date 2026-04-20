@@ -134,7 +134,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         _manager.UserCtrl(false);
         endNPCZoneArrived = true;
         otherCanvas.enabled = false;
-        GameManager.Instance.mouseImage.gameObject.SetActive(false);
+        GameManager.Instance.lookLockImg.gameObject.SetActive(false);
         Ep4_ClimaxCutscene.PlayCutscene();
         yield return _manager.TalkSay(TalkType.voice, "넌 잊은 게 아니야.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core);
