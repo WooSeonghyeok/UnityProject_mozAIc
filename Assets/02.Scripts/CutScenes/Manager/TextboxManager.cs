@@ -20,6 +20,7 @@ public class TextboxManager : MonoBehaviour
     public Text text_voice;
     public Text voice_Name;
     public GameObject nextBtn;
+    public GameObject skipBtn;
     private bool nextPressed = false;
     public WaitForSecondsRealtime oneSec = new(1f);
     int curTalkID = 0;  //현재 대사 ID (대사 스킵 시 다음 대사로 넘어가기 위해)

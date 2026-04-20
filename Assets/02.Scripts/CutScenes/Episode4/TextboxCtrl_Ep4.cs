@@ -17,6 +17,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     public CutsceneImagePlayer Ep4_StartCutscene;
     public CutsceneImagePlayer Ep4_ClimaxCutscene;
     public CutsceneImagePlayer Ep4_EndCutscene;
+    private WaitForSecondsRealtime oneSec = new(1f);
     public SoundTrigger startSound;
     public SoundTrigger endSound;
     public Canvas otherCanvas;
@@ -49,23 +50,25 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     {
         if (SaveManager.instance.curData.isFirstEnterAtS3CP0) yield break;
         Ep4_StartCutscene.PlayCutscene();
-        yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 1.5f);
+        yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 2f);
+        yield return oneSec;
         _manager.UserCtrl(false);
-        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 기억만 보이는 게 아니다.", 1.5f);
+        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 기억만 보이는 게 아니다.", 2f);
         gazeCam.Priority = 12;
+        yield return oneSec;
         yield return _manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "남은 건 하나뿐이야.", 2f, Talker.core);
-        yield return _manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", 1f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", 1.5f, Talker.core, true);
         SaveManager.instance.curData.isFirstEnterAtS3CP0 = true;
-        yield return _manager.TalkSay(TalkType.player, "이어 붙인다고? 무엇을?\n기억은 이미 돌아오고 있는 것 같은데...", 1f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.player, "이어 붙인다고? 무엇을?\n기억은 이미 돌아오고 있는 것 같은데...", 1.5f, Talker.self, true);
         yield return _manager.TalkSay(TalkType.voice, "조각은 모였어.\n하지만 아직 하나의 이야기가 되지 못했지.", 1.5f, Talker.core, true);
         gazeCam.Priority = 1;
         yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", 1.5f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", 1f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", 1.5f, Talker.core, true);
         _manager.UserCtrl(true);
-        yield return _manager.TalkSay(TalkType.player, "내 삶.\n정말... 전부 내 이야기였던 걸까.");
+        yield return _manager.TalkSay(TalkType.player, "내 삶.\n정말... 전부 내 이야기였던 걸까.",1.5f);
         endSound.Play();
-        yield return _manager.TalkSay(TalkType.voice, "그래. 처음부터 전부 네 이야기였어.", 1f, Talker.core);
+        yield return _manager.TalkSay(TalkType.voice, "그래. 처음부터 전부 네 이야기였어.", 1.5f, Talker.core);
     }
     public IEnumerator Puzzle1Start()
     {
@@ -160,16 +163,17 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     {
         otherCanvas.gameObject.SetActive(false);
         Ep4_EndCutscene.PlayCutscene();
-        yield return _manager.TalkSay(TalkType.player, "같이 웃었던 시간도.");
-        yield return _manager.TalkSay(TalkType.player, "같은 곳을 바라보던 꿈도.");
-        yield return _manager.TalkSay(TalkType.player, "끝내 다 하지 못한 사랑도.");
-        yield return _manager.TalkSay(TalkType.player, "전부... 내 삶이었다.", 1.5f);
-        yield return _manager.TalkSay(TalkType.voice, "이제는 알겠지.", 1.5f, Talker.self);
-        yield return _manager.TalkSay(TalkType.voice, "그 기억들은 널 무너뜨리기 위해 남아 있던 게 아니야.", 1.5f, Talker.self);
-        yield return _manager.TalkSay(TalkType.voice, "널 다시 네 자리로 돌려보내기 위해 남아 있던 거야.", 1.5f, Talker.self);
+        yield return _manager.TalkSay(TalkType.player, "같이 웃었던 시간도.",2f);
+        yield return _manager.TalkSay(TalkType.player, "같은 곳을 바라보던 꿈도.", 2f);
+        yield return _manager.TalkSay(TalkType.player, "끝내 다 하지 못한 사랑도.", 2f);
+        yield return _manager.TalkSay(TalkType.player, "전부... 내 삶이었다.", 2f);
+        yield return oneSec;
+        yield return _manager.TalkSay(TalkType.voice, "이제는 알겠지.", 2f, Talker.self);
+        yield return _manager.TalkSay(TalkType.voice, "그 기억들은 널 무너뜨리기 위해 남아 있던 게 아니야.", 2f, Talker.self);
+        yield return _manager.TalkSay(TalkType.voice, "널 다시 네 자리로 돌려보내기 위해 남아 있던 거야.", 2f, Talker.self);
         yield return _manager.TalkSay(TalkType.voice, "돌아가자.\n이번엔 끝까지.", 2f, Talker.self);
-        yield return _manager.TalkSay(TalkType.player, "이 손을 잡으면 전부 돌아온다.",1.5f);
-        yield return _manager.TalkSay(TalkType.player, "좋았던 것도.\n아팠던 것도.", 1.5f);
+        yield return _manager.TalkSay(TalkType.player, "이 손을 잡으면 전부 돌아온다.",2f);
+        yield return _manager.TalkSay(TalkType.player, "좋았던 것도.\n아팠던 것도.", 2f);
         yield return _manager.TalkSay(TalkType.player, "끝내 미완성으로 남았던 것까지.", 2f);
         SceneManager.LoadScene("EndingScene");
     }

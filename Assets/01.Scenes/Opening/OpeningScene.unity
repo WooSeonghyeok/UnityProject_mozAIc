@@ -1702,17 +1702,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 1437840492}
     m_Modifications:
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 1692446911}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: skipButton
+      value: 
+      objectReference: {fileID: 1692446909}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: fadeDuration
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: imageShowTime
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: nextButtonRoot
+      value: 
+      objectReference: {fileID: 1692446910}
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 769935707}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: skipButtonRoot
+      value: 
+      objectReference: {fileID: 1692446908}
+    - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
+      propertyPath: useRuntimeHintOverlay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: c1e77ddef804e90418cc1af2db5f699f, type: 3}
       propertyPath: cutsceneSprites.Array.data[0]
       value: 
@@ -4567,6 +4587,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 11182293450588913, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
   m_PrefabInstance: {fileID: 1692446905}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1692446908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7117154052385252511, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
+  m_PrefabInstance: {fileID: 1692446905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1692446909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3614555835753063871, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
+  m_PrefabInstance: {fileID: 1692446905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692446908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1692446910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3642014184135781414, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
+  m_PrefabInstance: {fileID: 1692446905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1692446911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5995105758057855920, guid: 1968c9c0dfe22d742b6e92434dc99f59, type: 3}
+  m_PrefabInstance: {fileID: 1692446905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692446910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1712481417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6653,6 +6705,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1437840492}
     m_Modifications:
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
+      propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 1692446911}
+    - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
+      propertyPath: skipButton
+      value: 
+      objectReference: {fileID: 1692446909}
+    - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: fadeDuration
       value: 0.1
       objectReference: {fileID: 0}
@@ -6665,9 +6725,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
+      propertyPath: nextButtonRoot
+      value: 
+      objectReference: {fileID: 1692446910}
+    - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 769935707}
+    - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
+      propertyPath: skipButtonRoot
+      value: 
+      objectReference: {fileID: 1692446908}
     - target: {fileID: 5694942922352623018, guid: 55222470ce9b58b48bea492f798c820a, type: 3}
       propertyPath: cutsceneSprites.Array.size
       value: 4

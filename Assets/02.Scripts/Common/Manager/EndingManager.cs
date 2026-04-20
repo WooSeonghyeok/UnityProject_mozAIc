@@ -14,8 +14,8 @@ public class EndingManager : MonoBehaviour
     public Sprite normalSprite;
     public Sprite thankstoSprite;
     public GameObject endSkipButton;
-    public WaitForSecondsRealtime canSkipWFS;
-    public WaitForSecondsRealtime EndingDuration;
+    public WaitForSecondsRealtime canSkipWFS = new(5f);  //엔딩 스킵 가능 시간
+    public WaitForSecondsRealtime EndingDuration = new(20f);  //엔딩 최대 재생 시간
     public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
@@ -31,7 +31,6 @@ public class EndingManager : MonoBehaviour
         AppEndButton.SetActive(false);
         CtrlReset();
         cutscene = gameObject.GetComponent<TextboxCtrl_Ending>();
-        canSkipWFS = new WaitForSecondsRealtime(5f);  //엔딩 시작 5초 후 스킵 가능
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
@@ -89,7 +88,6 @@ public class EndingManager : MonoBehaviour
         soundCtrl_true.gameObject.SetActive(true);
         Debug.Log("TRUE ENDING!");
         if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.TrueEndCutscene());
-        EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
     }
     void NormalEnding()
     {
@@ -98,7 +96,6 @@ public class EndingManager : MonoBehaviour
         soundCtrl_normal.gameObject.SetActive(true);
         Debug.Log("normal ending...");
         if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.NormalEndCutscene());
-        EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
     {
@@ -111,7 +108,7 @@ public class EndingManager : MonoBehaviour
         if (cutscene != null && cutscene._manager != null) cutscene._manager.CloseBox();
         EndingClear();
     }
-    private void EndingClear()
+    public void EndingClear()
     {
         EndingStop();
         CtrlReset();
