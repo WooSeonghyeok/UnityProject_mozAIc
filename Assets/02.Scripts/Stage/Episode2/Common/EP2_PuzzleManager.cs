@@ -70,7 +70,7 @@ public class EP2_PuzzleManager : MonoBehaviour
         Debug.Log("Space 퍼즐 완료");
 
         // ⭐ 클리어 점수 +5
-        Episode2ScoreManager.Instance?.AddClearScore(5);
+        //Episode2ScoreManager.Instance?.AddClearScore(5);
 
         ApplyPortalMaterials();
     }

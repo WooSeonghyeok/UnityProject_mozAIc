@@ -5,9 +5,6 @@ public class Episode2ScoreManager : MonoBehaviour
 {
     public static Episode2ScoreManager Instance;
 
-    [Header("Clear Score (고정 점수)")]
-    public int clearScore = 0;
-
     [Header("Puzzle Score (감점용)")]
     public int spaceScore = 5;
     public int paintScore = 5;
@@ -15,11 +12,20 @@ public class Episode2ScoreManager : MonoBehaviour
     [Header("NPC Score")]
     public int npcScore = 0;
 
+    [Header("Interaction Score ⭐ 추가")]
+    public int interactionScore = 0;
+
     private HashSet<string> usedKeywords = new HashSet<string>();
+
     public SaveDataObj CurData;
+
+    [Header("✨ Keyword Effect")]
+    public GameObject keywordEffectPrefab;
+    public Transform playerTransform;
+
     void Awake()
     {
-        // ⭐ 싱글톤 + DontDestroyOnLoad (핵심)
+        // ⭐ 싱글톤
         if (Instance == null)
         {
             Instance = this;
@@ -29,14 +35,8 @@ public class Episode2ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        CurData = SaveManager.instance.curData;
-    }
 
-    // 🔥 클리어 점수 추가
-    public void AddClearScore(int value)
-    {
-        clearScore += value;
-        CurData.memory_reconstruction_rate[4] = clearScore;  //클리어 점수를 Episode2의 관계 점수로 사용
+        CurData = SaveManager.instance.curData;
     }
 
     // 🔵 Space 감점
@@ -53,7 +53,7 @@ public class Episode2ScoreManager : MonoBehaviour
         paintScore = Mathf.Max(0, paintScore - 1);
     }
 
-    // 🧠 NPC 점수 (중복 방지)
+    // 🧠 NPC 점수 (중복 방지 + 이펙트🔥)
     public void AddKeywordScore(MemoryKeyword keyword)
     {
         if (string.IsNullOrEmpty(keyword.word)) return;
@@ -61,11 +61,46 @@ public class Episode2ScoreManager : MonoBehaviour
         if (!usedKeywords.Contains(keyword.word))
         {
             usedKeywords.Add(keyword.word);
-            npcScore += keyword.memoryRate;  //ServerChat에서 이미 점수를 계산했으므로, 여기서는 GetTotalScore에 출력하는 값으로만 사용
+            npcScore += keyword.memoryRate;
+
+            // ⭐ 이펙트 실행
+            PlayKeywordEffect();
         }
     }
 
-    public void Ep2_PuzzleScore()  //Space와 Paint 점수의 합을 Episode2의 퍼즐 점수로 사용
+    // ⭐ 이펙트 함수
+    void PlayKeywordEffect()
+    {
+        if (keywordEffectPrefab == null || playerTransform == null) return;
+
+        for (int i = 0; i < 5; i++) // 여러 개 터지게
+        {
+            Vector3 offset = Random.insideUnitSphere * 0.5f;
+            offset.y = Mathf.Abs(offset.y);
+
+            GameObject effect = Instantiate(
+                keywordEffectPrefab,
+                playerTransform.position + offset + Vector3.up * 1.2f,
+                Quaternion.identity
+            );
+
+            Destroy(effect, 2f);
+        }
+    }
+
+    // ⭐ 상호작용 점수 추가
+    public void AddInteractionScore(int value = 1)
+    {
+        interactionScore = Mathf.Min(5, interactionScore + value);
+
+        if (CurData != null)
+        {
+            // 필요 시 저장 처리
+        }
+    }
+
+    // ⭐ 퍼즐 점수 저장
+    public void Ep2_PuzzleScore()
     {
         SaveManager.instance.curData.memory_reconstruction_rate[5] = spaceScore + paintScore;
     }
@@ -73,6 +108,6 @@ public class Episode2ScoreManager : MonoBehaviour
     // ⭐ 총 점수
     public int GetTotalScore()
     {
-        return clearScore + spaceScore + paintScore + npcScore;
+        return spaceScore + paintScore + npcScore + interactionScore;
     }
 }
