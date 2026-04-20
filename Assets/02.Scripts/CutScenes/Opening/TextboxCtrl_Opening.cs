@@ -41,6 +41,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
     }
     IEnumerator DarkEnter()
     {
+        GameManager.Instance.ShowMouseState(false);
         yield return oneSec;
         blackboard.enabled = false;
         yield return _manager.TalkSay(TalkType.system, "아무것도 완전히 존재하지 않는 공간.\n어두운 허공 사이로, 겨우 한 줄기의 길만이 이어져 있다.", 2f);

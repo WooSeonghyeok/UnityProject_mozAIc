@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public bool lookLock = false;
+    public bool isCutsceneMode = false;
     public Image lookLockImg;
     public Image zoomCtrlImg;
     public Sprite zoomInImg;
@@ -59,17 +60,24 @@ public class GameManager : MonoBehaviour
         if (context.started)
         {
             lookLock = !lookLock;
-            MouseState();
+            if (!isCutsceneMode) MouseState();
         }
     }
-    public void MouseState()
+    public void ShowMouseState(bool x)
     {
         lookLockImg.color = lookLock ? Color.red : Color.green;
+        lookLockImg.gameObject.SetActive(x);
         if (user != null && user.cameraSwitcher != null)
         {
-            zoomCtrlImg.gameObject.SetActive(true);
             zoomCtrlImg.sprite = (user.cameraSwitcher.isFirstPerson) ? zoomOutImg : zoomInImg;
+            zoomCtrlImg.gameObject.SetActive(x);
         }
         else zoomCtrlImg.gameObject.SetActive(false);
+    }
+    public void MouseState() => ShowMouseState(true);
+    public void CutsceneMode(bool b)
+    {
+        isCutsceneMode = b;
+        ShowMouseState(!b);
     }
 }

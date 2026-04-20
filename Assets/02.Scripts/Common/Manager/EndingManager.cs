@@ -77,6 +77,7 @@ public class EndingManager : MonoBehaviour
         if (isCompleteEnding) CompleteEnding();
         else NormalEnding();
         endingImage.enabled = true;
+        GameManager.Instance.CutsceneMode(true);
         endingPlayCoroutine = StartCoroutine(EndingPlay());  // EndingPlay 코루틴 시작 및 저장 (스킵 시 중단할 수 있도록)
         yield return canSkipWFS;
         endSkipButton.SetActive(true);

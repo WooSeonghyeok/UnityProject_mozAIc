@@ -49,6 +49,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     public IEnumerator Stage4Start()
     {
         if (SaveManager.instance.curData.isFirstEnterAtS3CP0) yield break;
+        GameManager.Instance.CutsceneMode(true);
         Ep4_StartCutscene.PlayCutscene();
         _manager.UserCtrl(false);
         yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 1.5f);
@@ -70,6 +71,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.player, "내 삶.\n정말... 전부 내 이야기였던 걸까.",1.5f);
         endSound.Play();
         yield return _manager.TalkSay(TalkType.voice, "그래. 처음부터 전부 네 이야기였어.", 1.5f, Talker.core);
+        GameManager.Instance.CutsceneMode(false);
     }
     public IEnumerator Puzzle1Start()
     {
@@ -119,6 +121,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     public IEnumerator Puzzle4Start()
     {
         _manager.UserCtrl(false);
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.player, "이 길은... 아직 나를 받아들이지 못하고 있다.", 1f, Talker.self, true);
         yield return _manager.TalkSay(TalkType.voice, "마지막은 네가 정해야 해.", 1f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "되찾은 것들을 그냥 바라보는 것과,\n네 것으로 받아들이는 건 다르니까.", 1f, Talker.core, true);
@@ -127,13 +130,13 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return _manager.TalkSay(TalkType.voice, "그래. 좋았던 것만 네가 아니야.", 1f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "놓친 것도, 아팠던 것도, 끝내 다하지 못한 것도 전부 너야.", 1f, Talker.core, true);
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
     public void Stage4End() => StartCoroutine(Stage4Climax());
     public IEnumerator Stage4Climax()
     {
         if (endNPCZoneArrived == true) yield break;
-        GameManager.Instance.lookLockImg.gameObject.SetActive(false);
-        GameManager.Instance.zoomCtrlImg.gameObject.SetActive(false);
+        GameManager.Instance.CutsceneMode(true);
         _manager.UserCtrl(false);
         endNPCZoneArrived = true;
         otherCanvas.enabled = false;
