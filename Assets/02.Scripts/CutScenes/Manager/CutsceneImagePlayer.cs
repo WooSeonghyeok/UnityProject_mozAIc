@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -36,6 +36,7 @@ public class CutsceneImagePlayer : MonoBehaviour
     [Header("이벤트")]
     [SerializeField] private UnityEvent onCutsceneFinished;
     [Header("Cutscene Controls")]
+    [SerializeField] private bool disableInput = false;
     [SerializeField] private bool useRuntimeHintOverlay = false;
     [SerializeField] private Button nextButton;
     [SerializeField] private GameObject nextButtonRoot;
@@ -224,10 +225,11 @@ public class CutsceneImagePlayer : MonoBehaviour
         if (playerMovement != null)
             playerMovement.SetMoveLock(true);
 
-        SetCutsceneButtonsVisible(true);
+        SetCutsceneButtonsVisible(!disableInput);
         if (useRuntimeHintOverlay)
         {
-            hintOverlay?.Show(fontAsset: subtitleFont);
+            if (disableInput) hintOverlay?.Hide();
+            else hintOverlay?.Show(fontAsset: subtitleFont);
         }
 
         for (int i = 0; i < stepCount; i++)
@@ -476,6 +478,7 @@ public class CutsceneImagePlayer : MonoBehaviour
 
     private void PollCutsceneInput()
     {
+        if (disableInput) return;
         if (!skipRequested && CutsceneInputHelper.IsSkipPressedThisFrame())
         {
             skipRequested = true;

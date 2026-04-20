@@ -50,21 +50,22 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     {
         if (SaveManager.instance.curData.isFirstEnterAtS3CP0) yield break;
         Ep4_StartCutscene.PlayCutscene();
-        yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 2f);
-        yield return oneSec;
         _manager.UserCtrl(false);
-        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 <color=#80ffff>기억</color>만 보이는 게 아니다.", 2f);
-        gazeCam.Priority = 12;
+        yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 1.5f);
         yield return oneSec;
-        yield return _manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", 2f, Talker.core);
+        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 <color=#80ffff>기억</color>만 보이는 게 아니다.", 1.5f);
+        yield return oneSec;
+        yield return _manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", 1.5f, Talker.core);
+        gazeCam.Priority = 25;
         yield return _manager.TalkSay(TalkType.voice, "남은 건 하나뿐이야.", 2f, Talker.core);
+        yield return oneSec;
         yield return _manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", 1.5f, Talker.core, true);
         SaveManager.instance.curData.isFirstEnterAtS3CP0 = true;
         yield return _manager.TalkSay(TalkType.player, "이어 붙인다고? 무엇을?\n기억은 이미 돌아오고 있는 것 같은데...", 1.5f, Talker.self, true);
         yield return _manager.TalkSay(TalkType.voice, "조각은 모였어.\n하지만 아직 하나의 이야기가 되지 못했지.", 1.5f, Talker.core, true);
         gazeCam.Priority = 1;
-        yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", 1.5f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", 2f, Talker.core);
+        yield return _manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", 2f, Talker.core, true);
         _manager.UserCtrl(true);
         yield return _manager.TalkSay(TalkType.player, "내 삶.\n정말... 전부 내 이야기였던 걸까.",1.5f);
         endSound.Play();
@@ -131,11 +132,11 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     public IEnumerator Stage4Climax()
     {
         if (endNPCZoneArrived == true) yield break;
+        GameManager.Instance.lookLockImg.gameObject.SetActive(false);
+        GameManager.Instance.zoomCtrlImg.gameObject.SetActive(false);
         _manager.UserCtrl(false);
         endNPCZoneArrived = true;
         otherCanvas.enabled = false;
-        GameManager.Instance.lookLockImg.gameObject.SetActive(false);
-        GameManager.Instance.zoomCtrlImg.gameObject.SetActive(false);
         Ep4_ClimaxCutscene.PlayCutscene();
         yield return _manager.TalkSay(TalkType.voice, "넌 잊은 게 아니야.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core);
@@ -143,16 +144,15 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         climaxCam.Priority = 30;
         yield return null;
-        yield return _manager.TalkSay(TalkType.voice, "하지만 그때의 너는 너무 무너져 있었지.", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "하지만 그때의 너는 너무 무너져 있었지.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "그래서 나를 남겨 둔 거야.", 1.5f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 1f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.player, "그럼 이 사람은...", 1f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.player, "그럼 이 사람은...", 1.5f, Talker.self, true);
         yield return _manager.TalkSay(TalkType.voice, $"그래. 나는 네가 놓아둔 <color=#80ffff>마지막 조각</color>이야.", 2f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 1f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 1.5f, Talker.core, true);
         climaxCam.Priority = 1;
         endSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나.", 1.5f);
-        yield return new WaitForSecondsRealtime(0.5f);  // 시네머신 변환 완료 대기
+        yield return _manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나.", 2f);
         _manager.UserCtrl(true);
         otherCanvas.enabled = true;
     }

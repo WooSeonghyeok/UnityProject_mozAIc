@@ -24400,8 +24400,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.999998, y: 3.1551373, z: 0.94349265}
-  m_Center: {x: -2.000001, y: 1.5775687, z: -0.015716717}
+  m_Size: {x: 4, y: 5, z: 0.94349265}
+  m_Center: {x: -2, y: 2.5, z: -0.015716717}
 --- !u!1001 &1033481063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26913,6 +26913,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 470098376}
     m_Modifications:
+    - target: {fileID: 5694942922352623018, guid: b99da07c24cea7c408f6d592dbbc8fe1, type: 3}
+      propertyPath: disableInput
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5694942922352623018, guid: b99da07c24cea7c408f6d592dbbc8fe1, type: 3}
       propertyPath: imageShowTime
       value: 4
@@ -51147,8 +51151,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.999998, y: 3.1551373, z: 0.94349265}
-  m_Center: {x: -2.000001, y: 1.5775687, z: -0.015716717}
+  m_Size: {x: 4, y: 5, z: 0.94349265}
+  m_Center: {x: -2, y: 2.5, z: -0.015716717}
 --- !u!1 &2086457194
 GameObject:
   m_ObjectHideFlags: 0
@@ -53014,6 +53018,10 @@ PrefabInstance:
     - target: {fileID: 3968323863301723245, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
       propertyPath: m_Name
       value: CutscenePlayer_EP4Ending
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
+      propertyPath: disableInput
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8745166904740588994, guid: bf1f16faceaf7244ba4d6a77b5435405, type: 3}
       propertyPath: fadeDuration
