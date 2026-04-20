@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            AudioListener.volume = PlayerPrefs.GetFloat("Volume", 1f);
+            GetOptionValue();
         }
         else Destroy(gameObject);
     }
@@ -29,9 +29,18 @@ public class GameManager : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AudioListener.volume = PlayerPrefs.GetFloat("Volume", 1f);
+        GetOptionValue();
         CursorState();
         mouseImage.gameObject.SetActive(!(scene.name == openingScene || scene.name == endingScene));  //오프닝, 엔딩 신에서만 마우스 커서 이미지를 비활성화
+    }
+    private static void GetOptionValue()
+    {
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume", 1f);
+        AudioListener.volume = PlayerPrefs.GetFloat("BGM_Volume", 1f);
+        AudioListener.volume = PlayerPrefs.GetFloat("Ambient_Volume", 1f);
+        AudioListener.volume = PlayerPrefs.GetFloat("UI_Volume", 1f);
+        AudioListener.volume = PlayerPrefs.GetFloat("SFX_Volume", 1f);
+        AudioListener.volume = PlayerPrefs.GetFloat("Sensitivity", 0.5f);
     }
     public void OnCursorLock(InputAction.CallbackContext context)  //시선 고정 on/off
     {
@@ -41,7 +50,6 @@ public class GameManager : MonoBehaviour
             CursorState();
         }
     }
-
     public void CursorState()
     {
         switch (lookLock)
