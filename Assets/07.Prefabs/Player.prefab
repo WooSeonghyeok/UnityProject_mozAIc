@@ -205,7 +205,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -234,7 +234,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -561,9 +561,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rotateToMoveDirection: 1
-  audioSource: {fileID: 4170108108914916977}
-  slideClip: {fileID: 8300000, guid: a2b972705376a3847986aec611b9cb5c, type: 3}
-  stopClip: {fileID: 8300000, guid: ea08e11d2b98d72488c61d114373b047, type: 3}
 --- !u!114 &4124546092340407748
 MonoBehaviour:
   m_ObjectHideFlags: 0
