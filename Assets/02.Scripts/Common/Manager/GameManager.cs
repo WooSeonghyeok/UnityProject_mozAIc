@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour
     }
     private static void GetOptionValue()
     {
-        AudioListener.volume = PlayerPrefs.GetFloat("Volume", 1f);
-        AudioListener.volume = PlayerPrefs.GetFloat("BGM_Volume", 1f);
-        AudioListener.volume = PlayerPrefs.GetFloat("Ambient_Volume", 1f);
-        AudioListener.volume = PlayerPrefs.GetFloat("UI_Volume", 1f);
-        AudioListener.volume = PlayerPrefs.GetFloat("SFX_Volume", 1f);
+        SoundManager.Instance.SetMasterVolume(PlayerPrefs.GetFloat("Volume", 1f));
+        SoundManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGM_Volume", 1f));
+        SoundManager.Instance.SetAmbientVolume(PlayerPrefs.GetFloat("Ambient_Volume", 1f));
+        SoundManager.Instance.SetUIVolume(PlayerPrefs.GetFloat("UI_Volume", 1f));
+        SoundManager.Instance.SetSFXVolume(PlayerPrefs.GetFloat("SFX_Volume", 1f));
         AudioListener.volume = PlayerPrefs.GetFloat("Sensitivity", 0.5f);
     }
     public void OnLookLock(InputAction.CallbackContext context)  //시선 고정 on/off 키 입력
