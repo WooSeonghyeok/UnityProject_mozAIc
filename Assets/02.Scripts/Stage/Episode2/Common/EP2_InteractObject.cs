@@ -1,11 +1,74 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EP2_InteractObject : MonoBehaviour
 {
     private bool isUsed = false;
 
+    [Header("Interaction Setting")]
+    public float interactDistance = 3f;
+
     [Header("Interaction Effect")]
     public GameObject interactionEffectPrefab;
+
+    [Header("Glow Effect")]
+    public GameObject glowEffect;
+
+    [Header("Cutscene")]
+    public string cutsceneName;
+
+    private Transform playerTr;
+    private PlayerInput playerInput;
+
+    private void OnEnable()
+    {
+        TryFindPlayer();
+        Subscribe();
+    }
+
+    private void OnDisable()
+    {
+        Unsubscribe();
+    }
+
+    private void TryFindPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            playerTr = player.transform;
+            playerInput = player.GetComponent<PlayerInput>();
+        }
+    }
+
+    private void Subscribe()
+    {
+        if (playerInput != null)
+        {
+            playerInput.Interact += TryInteract;
+        }
+    }
+
+    private void Unsubscribe()
+    {
+        if (playerInput != null)
+        {
+            playerInput.Interact -= TryInteract;
+        }
+    }
+
+    private void TryInteract()
+    {
+        if (isUsed) return;
+        if (playerTr == null) return;
+
+        float distance = Vector3.Distance(playerTr.position, transform.position);
+
+        if (distance > interactDistance) return;
+
+        Interact();
+    }
 
     public void Interact()
     {
@@ -15,25 +78,52 @@ public class EP2_InteractObject : MonoBehaviour
 
         Episode2ScoreManager.Instance?.AddInteractionScore(1);
 
-        // ⭐ 플레이어 위치에서 이펙트 실행
-        if (interactionEffectPrefab != null && Episode2ScoreManager.Instance != null)
+        if (!string.IsNullOrEmpty(cutsceneName))
         {
-            Transform player = Episode2ScoreManager.Instance.playerTransform;
-
-            if (player != null)
-            {
-                GameObject effect = Instantiate(
-                    interactionEffectPrefab,
-                    player.position + Vector3.up * 1.2f,
-                    Quaternion.identity
-                );
-
-                Destroy(effect, 2f);
-            }
+            StartCoroutine(PlayAfterCutscene()); // ⭐ 핵심
+        }
+        else
+        {
+            PlayEffect();
         }
 
-        Debug.Log($"{gameObject.name} 상호작용 +1");
+        if (glowEffect != null)
+        {
+            glowEffect.SetActive(false);
+        }
 
         GetComponent<Collider>().enabled = false;
+    }
+
+    // ⭐ 컷씬 끝까지 기다렸다가 이펙트 실행
+    IEnumerator PlayAfterCutscene()
+    {
+        yield return StartCoroutine(
+            EP2CutsceneManager.Instance.PlayCutsceneAndWait(cutsceneName)
+        );
+
+        PlayEffect();
+    }
+
+    // ⭐ 이펙트 실행
+    private void PlayEffect()
+    {
+        if (interactionEffectPrefab != null && playerTr != null)
+        {
+            GameObject effect = Instantiate(
+                interactionEffectPrefab,
+                playerTr.position + Vector3.up * 1.2f,
+                Quaternion.identity
+            );
+
+            // ⭐ 여기 추가
+            ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+            }
+
+            Destroy(effect, 2f);
+        }
     }
 }
