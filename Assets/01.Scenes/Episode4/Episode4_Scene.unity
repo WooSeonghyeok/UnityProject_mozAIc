@@ -2783,6 +2783,21 @@ MonoBehaviour:
   - {fileID: 7898086301095971169, guid: 3bc345555146068469c693233f425c64, type: 3}
   - {fileID: 6271299908964648108, guid: cd47f45e1d431514a8f68450c928aaa8, type: 3}
   spawnRotationX: 90
+  useProximityHintAudio: 0
+  proximityHintClip: {fileID: 0}
+  hintMinDistance: 2
+  hintMaxDistance: 18
+  hintMinVolume: 0
+  hintMaxVolume: 0.85
+  hintVolumeChangeSpeed: 1.5
+  hintStopWhenFar: 0
+  hintLoop: 1
+  hintPlayOnStart: 1
+  hintRandomStartTime: 1
+  hintSpatialBlend: 1
+  hintSpread: 0
+  hintRolloffMode: 0
+  hintDopplerLevel: 0
 --- !u!1 &167789290
 GameObject:
   m_ObjectHideFlags: 0
