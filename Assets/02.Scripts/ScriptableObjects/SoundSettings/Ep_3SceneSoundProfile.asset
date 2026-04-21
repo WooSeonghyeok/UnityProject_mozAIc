@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b148dc5bd7d8c4f9829dafd66fb8a1, type: 3}
   m_Name: Ep_3SceneSoundProfile
   m_EditorClassIdentifier: 
-  bgm: 9
-  bgmLoop: 1
+  bgm: 0
+  bgmLoop: 0
   ambient: 8
   ambientLoop: 1
   playBGMOnEnter: 1
