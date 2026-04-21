@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74896200eed5b5f4bb0b000a197fd86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curData:
+  CurData:
     ID: 0
     savedTime: 
     ep1_open: 0
@@ -690,12 +690,21 @@ MonoBehaviour:
     ep4_puzzle1Clear: 0
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
-    isFirstEnterAtS3CP0: 0
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   stageList: {fileID: 2058731394}
   stageButtons: []
   stageSelect: 0
@@ -841,7 +850,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1165,7 +1174,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4184,7 +4193,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4434,6 +4443,14 @@ PrefabInstance:
     - target: {fileID: 131537319511755451, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 256006084704735029, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 626735865333953297, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 763501777856548865, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
       propertyPath: m_LocalScale.x
@@ -5424,7 +5441,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
