@@ -5,9 +5,7 @@ public class EP2_InteractObject : MonoBehaviour
 {
     private bool isUsed = false;
     readonly string playerTag = "Player";
-    private PlayerInput user;
     public SaveDataObj CurData;
-    bool isContact = false;
 
     [Header("Interaction Setting")]
     public float interactDistance = 3f;
@@ -16,30 +14,7 @@ public class EP2_InteractObject : MonoBehaviour
     public GameObject interactionEffectPrefab;
     private void Awake()
     {
-        user = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerInput>();
         CurData = SaveManager.instance.curData;
-    }
-    private void OnEnable()
-    {
-        if (user != null) user.Interact += Interact;
-    }
-    private void OnDisable()
-    {
-        if (user != null) user.Interact -= Interact;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag(playerTag))
-        {
-            isContact = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag(playerTag))
-        {
-            isContact = false;
-        }
     }
 
     [Header("Glow Effect")]
@@ -75,18 +50,12 @@ public class EP2_InteractObject : MonoBehaviour
 
     private void Subscribe()
     {
-        if (playerInput != null)
-        {
-            playerInput.Interact += TryInteract;
-        }
+        if (playerInput != null)  playerInput.Interact += TryInteract;
     }
 
     private void Unsubscribe()
     {
-        if (playerInput != null)
-        {
-            playerInput.Interact -= TryInteract;
-        }
+        if (playerInput != null)  playerInput.Interact -= TryInteract;
     }
 
     private void TryInteract()
@@ -103,7 +72,7 @@ public class EP2_InteractObject : MonoBehaviour
 
     public void Interact()
     {
-        if (isUsed || !isContact) return;
+        if (isUsed) return;
         isUsed = true;
         Episode2ScoreManager.Instance?.AddInteractionScore(1);
 
