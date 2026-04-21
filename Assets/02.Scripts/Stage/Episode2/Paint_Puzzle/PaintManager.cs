@@ -4,7 +4,9 @@ using System.Collections;
 public class PaintManager : MonoBehaviour
 {
     public PuzzleTile[] tiles;
-    public GameObject activateObject;
+
+    // ⭐ 여러 개 할당 가능하도록 변경
+    public GameObject[] activateObjects;
 
     private bool isActivated = false;
     private int clearedCount = 0;
@@ -52,28 +54,28 @@ public class PaintManager : MonoBehaviour
             step5Played = true;
             StartCoroutine(ctrl.PaintStep2());
         }
-        if (count >= 9 && !step5Played)
-        {
-            step5Played = true;
-            StartCoroutine(ctrl.PaintStep2());
-        }
     }
 
     void Activate()
     {
         isActivated = true;
 
-        // ⭐ 클리어 상태만 저장
+        // ⭐ 클리어 상태 저장
         PlayerPrefs.SetInt("Paint_Cleared", 1);
         PlayerPrefs.Save();
 
-        Episode2ScoreManager.Instance?.AddClearScore(5);
+        //Episode2ScoreManager.Instance?.AddClearScore(5);
 
         EP2_PuzzleManager.Instance?.SolvePaintPuzzle();
 
-        if (activateObject != null)
+        // ⭐ 여러 오브젝트 활성화
+        if (activateObjects != null)
         {
-            activateObject.SetActive(true);
+            foreach (GameObject obj in activateObjects)
+            {
+                if (obj != null)
+                    obj.SetActive(true);
+            }
         }
 
         Debug.Log("Paint 퍼즐 클리어!");

@@ -69,7 +69,7 @@ public class NPCFollower : MonoBehaviour
         }
 
         // 컷씬/대화 등으로 플레이어 조작이 잠겨 있는 동안에는 NPC도 멈춘다.
-        if (playerMovement != null && playerMovement.IsMoveLocked)
+        if (playerMovement != null && playerMovement.isMoveLocked)
         {
             ResetAgentPathIfPossible();
             ClearRequestedDestination();
