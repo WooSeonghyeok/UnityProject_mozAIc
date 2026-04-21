@@ -39,7 +39,7 @@ public class EP2_InteractObject : MonoBehaviour
 
     private void TryFindPlayer()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
 
         if (player != null)
         {
