@@ -4160,6 +4160,7 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+  interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
 --- !u!136 &403849729
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4204,7 +4205,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
-  interactionEffectPrefab: {fileID: 1707867139}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -5691,6 +5691,7 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+  interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
 --- !u!65 &579481764
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5712,7 +5713,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 4, z: 1}
   m_Center: {x: 0, y: 1.75, z: 0.2682151}
-  interactionEffectPrefab: {fileID: 1707867139}
 --- !u!1001 &594104716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6919,6 +6919,7 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+  interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
 --- !u!65 &741712990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6940,7 +6941,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 1.2, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
-  interactionEffectPrefab: {fileID: 1707867139}
 --- !u!1 &755972822
 GameObject:
   m_ObjectHideFlags: 0
@@ -19674,6 +19674,7 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+  interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
 --- !u!65 &1111470287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19695,7 +19696,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 4, z: 2}
   m_Center: {x: 0, y: 1.5, z: 0}
-  interactionEffectPrefab: {fileID: 1707867139}
 --- !u!114 &1111470288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31396,6 +31396,7 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+  interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
 --- !u!65 &2014584277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31417,7 +31418,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 2, z: 4}
   m_Center: {x: 0, y: 0.5, z: 0}
-  interactionEffectPrefab: {fileID: 1707867139}
 --- !u!1 &2022304182
 GameObject:
   m_ObjectHideFlags: 0

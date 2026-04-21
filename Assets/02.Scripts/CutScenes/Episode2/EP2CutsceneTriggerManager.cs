@@ -178,13 +178,13 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
     {
         var data = SaveManager.instance.curData;
         data.Played_Episode2_Intro = false;
+        data.Played_EP2_Text_Intro = false;
         data.Played_Space_Intro = false;
         data.Played_Paint_Intro = false;
         data.Played_Space_Clear = false;
         data.Played_Paint_Clear = false;
         data.Played_Space_Clear_Immediate = false;
         data.Played_Paint_Sequences = false;
-        PlayerPrefs.DeleteKey("Played_EP2_Text_Intro");
         SaveManager.WriteCurJSON(CurData);
         Debug.Log("🔥 완전 초기화 완료 (F5)");
     }
