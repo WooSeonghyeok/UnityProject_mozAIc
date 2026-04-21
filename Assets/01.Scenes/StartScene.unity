@@ -867,6 +867,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -1685,6 +1686,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -2293,7 +2295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112e22d220132484cb0bcb9ea8a334a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookLock: 0
+  lookLock: 1
+  isCutsceneMode: 0
   lookLockImg: {fileID: 1408095685}
   zoomCtrlImg: {fileID: 1643492440}
   zoomInImg: {fileID: 21300000, guid: 45205b0fb294d4246a95c5f6baaa0b8e, type: 3}
@@ -2389,7 +2392,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1629727425}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: OnCursorLock
+        m_MethodName: OnLookLock
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
