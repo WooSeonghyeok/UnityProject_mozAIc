@@ -54,12 +54,6 @@ public class PaintManager : MonoBehaviour
             step5Played = true;
             StartCoroutine(ctrl.PaintStep2());
         }
-
-        // ⚠️ 이 부분 기존 버그 수정 (step5Played 중복 사용 문제)
-        if (count >= 9)
-        {
-            StartCoroutine(ctrl.PaintStep2());
-        }
     }
 
     void Activate()
