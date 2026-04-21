@@ -90,7 +90,6 @@ public class EP2_InteractObject : MonoBehaviour
             glowEffect.SetActive(false);
         }
         Debug.Log($"{gameObject.name} 상호작용 +1");
-        GetComponent<Collider>().enabled = false;
         // 또는
         // gameObject.SetActive(false);
     }
