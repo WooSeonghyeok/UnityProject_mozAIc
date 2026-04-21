@@ -95,14 +95,17 @@ public class Episode2ScoreManager : MonoBehaviour
 
         if (CurData != null)
         {
-            // 필요 시 저장 처리
+            CurData.memory_reconstruction_rate[6] = interactionScore; // 에피소드 2_감정 점수 구획에 저장 처리
         }
     }
 
     // ⭐ 퍼즐 점수 저장
     public void Ep2_PuzzleScore()
     {
-        SaveManager.instance.curData.memory_reconstruction_rate[5] = spaceScore + paintScore;
+        if (CurData != null)
+        {
+            CurData.memory_reconstruction_rate[5] = spaceScore + paintScore;
+        }
     }
 
     // ⭐ 총 점수
