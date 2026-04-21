@@ -14,8 +14,9 @@ public class PieceSpawner : MonoBehaviour
     [Header("스폰할 수량")]
     private int spawnCount = 10;
     [Header("옵션")]
-    private bool randomSpawn = true;
-    private bool useSpawnPoint = true;
+    [SerializeField] private bool randomSpawnPoints = true;
+    [SerializeField] private bool useSpawnPoint = true;
+    [SerializeField] private bool logSpawnResults = true;
     [Header("스폰 회전")]
     [Tooltip("생성 시 X축으로 추가 회전(도 단위). 기본값 90")]
     public float spawnRotationX = 90f;
@@ -69,27 +70,29 @@ public class PieceSpawner : MonoBehaviour
             Debug.LogWarning("악보 조각 프리팹이 없습니다.");
             return;
         }
+        ValidatePiecePrefabs();
         // 실제 생성 개수는 "스폰포인트 개수", "프리팹 개수", "spawnCount" 중 가장 작은 값
         int finalCount = Mathf.Min(spawnCount, spawnPoints.Count, piecePrefabs.Length);
         // 스폰 포인트 섞기
-        Shuffle(spawnPoints);
-        // 프리팹 배열을 리스트로 복사해서 필요하면 섞기
-        List<GameObject> pieceList = new List<GameObject>(piecePrefabs  );
-        if (randomSpawn)
+        if (randomSpawnPoints)
         {
-            Shuffle(pieceList);
+            Shuffle(spawnPoints);
         }
         // 앞에서 finalCount개만 사용
         for (int i = 0; i < finalCount; i++)
         {
             Transform point = spawnPoints[i];
-            GameObject prefab = pieceList[i];
+            GameObject prefab = piecePrefabs[i];
             // 인스펙터에 연결된 포인트 회전 값에 X축 90도(또는 spawnRotationX) 추가 적용
             Quaternion additional = Quaternion.Euler(spawnRotationX, 0f, 0f);
             Quaternion rot = useSpawnPoint ? point.rotation * additional : additional;
             // 생성한 오브젝트를 해당 스폰 포인트의 자식으로 넣기 위해 parent 파라미터 사용
             GameObject instance = Instantiate(prefab, point.position, rot, point);
             ConfigureProximityHintAudio(instance);
+            if (logSpawnResults)
+            {
+                Debug.Log($"[PieceSpawner] '{prefab.name}' -> '{point.name}' 위치에 스폰");
+            }
             // 필요하면 로컬 포지션/로컬 회전 초기화 (부모에 맞추고 싶을 때)
             // instance.transform.localPosition = Vector3.zero;
             // instance.transform.localRotation = Quaternion.identity;
@@ -126,6 +129,26 @@ public class PieceSpawner : MonoBehaviour
             hintRolloffMode,
             hintDopplerLevel
         );
+    }
+
+    private void ValidatePiecePrefabs()
+    {
+        HashSet<GameObject> uniquePrefabs = new HashSet<GameObject>();
+
+        for (int i = 0; i < piecePrefabs.Length; i++)
+        {
+            GameObject prefab = piecePrefabs[i];
+            if (prefab == null)
+            {
+                Debug.LogWarning($"[PieceSpawner] piecePrefabs[{i}] 가 비어 있습니다.");
+                continue;
+            }
+
+            if (!uniquePrefabs.Add(prefab))
+            {
+                Debug.LogWarning($"[PieceSpawner] '{prefab.name}' 프리팹이 중복으로 등록되어 있습니다.");
+            }
+        }
     }
 
     // 리스트 섞기용 함수 (Fisher-Yates Shuffle)
