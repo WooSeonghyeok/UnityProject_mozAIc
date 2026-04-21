@@ -13,6 +13,7 @@ public class PaintManager : MonoBehaviour
 
     private bool step1Played = false;
     private bool step5Played = false;
+    private bool step9Played = false;
 
     void Update()
     {
