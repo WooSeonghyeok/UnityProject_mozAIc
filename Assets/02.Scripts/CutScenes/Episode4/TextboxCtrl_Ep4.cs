@@ -156,6 +156,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         climaxCam.Priority = 1;
         endSound.Play();
         yield return _manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나.", 2f);
+        GameManager.Instance.isCutsceneMode = false;
         _manager.UserCtrl(true);
         otherCanvas.enabled = true;
     }
@@ -167,6 +168,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     public IEnumerator SyncEnding()
     {
         otherCanvas.gameObject.SetActive(false);
+        GameManager.Instance.CutsceneMode(true);
         Ep4_EndCutscene.PlayCutscene();
         yield return _manager.TalkSay(TalkType.player, "같이 웃었던 시간도.",2f);
         yield return _manager.TalkSay(TalkType.player, "같은 곳을 바라보던 꿈도.", 2f);

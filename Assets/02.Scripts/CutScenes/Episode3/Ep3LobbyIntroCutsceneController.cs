@@ -209,7 +209,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             FinishController();
             yield break;
         }
-
+        GameManager.Instance.CutsceneMode(true);
         Ep3LobbyIntroSequenceData sequence = LoadSequenceData();
         if (sequence == null || sequence.shots == null || sequence.shots.Count == 0)
         {
@@ -763,6 +763,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private void FinishController()
     {
+        GameManager.Instance.CutsceneMode(false);
         if (destroyWhenFinished)
         {
             Destroy(gameObject);

@@ -13,6 +13,7 @@ public class CameraSwitcher : MonoBehaviour
 
     public void ToggleCamera() // 🔥 public으로 변경
     {
+        if (GameManager.Instance.isCutsceneMode) return;
         isFirstPerson = !isFirstPerson;
 
         if (isFirstPerson)

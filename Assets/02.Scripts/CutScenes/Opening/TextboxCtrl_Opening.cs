@@ -41,7 +41,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
     }
     IEnumerator DarkEnter()
     {
-        GameManager.Instance.ShowMouseState(false);
+        GameManager.Instance.CutsceneMode(true);
         yield return oneSec;
         blackboard.enabled = false;
         yield return _manager.TalkSay(TalkType.system, "아무것도 완전히 존재하지 않는 공간.\n어두운 허공 사이로, 겨우 한 줄기의 길만이 이어져 있다.", 2f);
@@ -97,6 +97,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
         yield return _manager.TalkSay(TalkType.system, "잠시 머뭇거리지만, 결국 걸음을 옮긴다.", 2f);
         user.isJumpLock = false;
         if (SaveManager.instance != null) SaveManager.instance.curData.ep1_open = true;  //Start 신을 거치지 않은 경우 SaveManager가 null이므로 유효성 체크
+        GameManager.Instance.isCutsceneMode = false;
         SceneManager.LoadScene("Episode1_Scene");
     }
 }

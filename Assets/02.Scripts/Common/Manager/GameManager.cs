@@ -55,10 +55,11 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = PlayerPrefs.GetFloat("SFX_Volume", 1f);
         AudioListener.volume = PlayerPrefs.GetFloat("Sensitivity", 0.5f);
     }
-    public void OnCursorLock(InputAction.CallbackContext context)  //시선 고정 on/off
+    public void OnCursorLock(InputAction.CallbackContext context)  //시선 고정 on/off 키 입력
     {
         if (context.started)
         {
+            if (isCutsceneMode) return;  //컷신 재생 중에는 입력 무시
             lookLock = !lookLock;
             if (!isCutsceneMode) MouseState();
         }
