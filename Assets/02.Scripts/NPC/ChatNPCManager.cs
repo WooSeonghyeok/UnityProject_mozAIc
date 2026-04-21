@@ -23,6 +23,7 @@ public class ChatNPCManager : MonoBehaviour
     public bool isTalking = false;
 
     private Coroutine bubbleCoroutine;
+    private PlayerInput subscribedUser;
 
     private void Awake()
     {
@@ -33,18 +34,25 @@ public class ChatNPCManager : MonoBehaviour
         }
         instance = this;
 
-        user = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+        TryResolveRuntimeReferences();
     }
     private void OnEnable()
     {
-        user.Cancel += EndNPCChat;
+        TryResolveRuntimeReferences();
+        RefreshCancelSubscription();
     }
     private void OnDisable()
     {
-        user.Cancel -= EndNPCChat;
+        RefreshCancelSubscription(clearSubscription: true);
     }
     public void NpcPersonTalk(Transform pos, NPCData npcData)
     {
+        if (playerMovement != null && playerMovement.isMoveLocked)
+        {
+            Debug.Log("[ChatNPCManager] Player is locked, so NPC chat will not start.");
+            return;
+        }
+
         if (npcData == null)
         {
             Debug.LogError("[ChatNPCManager] NPCData가 null임");
@@ -56,6 +64,15 @@ public class ChatNPCManager : MonoBehaviour
         if (db == null)
         {
             Debug.LogError("[ChatNPCManager] GameDialogueDatabase가 없음");
+            return;
+        }
+
+        TryResolveRuntimeReferences();
+        RefreshCancelSubscription();
+
+        if (chatPanel == null || serverChat == null)
+        {
+            Debug.LogError("[ChatNPCManager] chatPanel 또는 serverChat 참조가 비어 있습니다.");
             return;
         }
 
@@ -88,18 +105,8 @@ public class ChatNPCManager : MonoBehaviour
         // 시스템 프롬프트 적용
         serverChat.NpcTypeChange(prompt);
 
-        // 동굴 진입 이후에는 전용 대사 사용
-        string dialogueType = "intro";
-
-        // Full 단계가 되었으면 동굴 진입 여부보다 우선해서 clear 대사 사용
-        if (npcData.revealStage == MemoryRevealStage.Full)
-        {
-            dialogueType = "clear";
-        }
-        else if (GameManager_Ep1.Instance != null && GameManager_Ep1.Instance.hasEnteredCave)
-        {
-            dialogueType = "cave_after_talk";
-        }
+        // 현재 상태에 맞는 dialogueType 결정
+        string dialogueType = ResolveDialogueType(npcData);
 
         // intro 대사를 JSON에서 가져옴
         var introDialogue = db.GetRandomDialogue(npcData.npcId, npcData.sceneId, dialogueType);
@@ -126,17 +133,33 @@ public class ChatNPCManager : MonoBehaviour
         }
 
         // 카메라 전환
-        followCam.isCamModePos = pos;
-        followCam.isChatCamMode = true;
+        if (followCam != null)
+        {
+            followCam.isCamModePos = pos;
+            followCam.isChatCamMode = true;
+        }
+        else
+        {
+            Debug.LogWarning("[ChatNPCManager] FollowCamera 참조가 없어 대화 카메라 전환을 건너뜁니다.");
+        }
     }
 
     public void EndNPCChat()
     {
         if (isTalking == false) return;
         isTalking = false;
-        followCam.isChatCamMode = false;
-        chatPanel.SetActive(false);
-        serverChat.ChatReset();
+        if (followCam != null)
+        {
+            followCam.isChatCamMode = false;
+        }
+        if (chatPanel != null)
+        {
+            chatPanel.SetActive(false);
+        }
+        if (serverChat != null)
+        {
+            serverChat.ChatReset();
+        }
 
         // 대화 종료 시 플레이어 이동 해제
         if (playerMovement != null)
@@ -144,7 +167,7 @@ public class ChatNPCManager : MonoBehaviour
             playerMovement.SetMoveLock(false);
         }
         // 대화 종료 후 다시 따라오기 허용
-        if (serverChat.currentNpcData != null)
+        if (serverChat != null && serverChat.currentNpcData != null)
         {
             NPCFollower follower = serverChat.currentNpcData.GetComponent<NPCFollower>();
             if (follower != null)
@@ -159,6 +182,115 @@ public class ChatNPCManager : MonoBehaviour
 
                 follower.SetFollow(shouldResumeFollow);
             }
+        }
+    }
+    private void TryResolveRuntimeReferences()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            if (user == null)
+            {
+                user = player.GetComponent<PlayerInput>();
+            }
+
+            if (playerMovement == null)
+            {
+                playerMovement = player.GetComponent<PlayerMovement>();
+            }
+        }
+
+        if (followCam == null)
+        {
+            followCam = FindObjectOfType<FollowCamera>();
+        }
+    }
+    // NPC/에피소드별로 dialogueType을 결정하는 중앙 함수
+    private string ResolveDialogueType(NPCData npcData)
+    {
+        if (npcData == null)
+            return "intro";
+
+        // EP1 루나
+        if (npcData.npcId == "npc_ep1_luna")
+        {
+            return ResolveEp1DialogueType(npcData);
+        }
+
+        // EP2 화가
+        if (npcData.npcId == "npc_ep2_painter")
+        {
+            return ResolveEp2DialogueType();
+        }
+
+        return "intro";
+    }
+
+    // EP1 전용 분기
+    private string ResolveEp1DialogueType(NPCData npcData)
+    {
+        // 중요 로직:
+        // 기억 완전 복원 상태 → 클리어 대사
+        if (npcData.revealStage == MemoryRevealStage.Full)
+        {
+            return "clear";
+        }
+
+        // 동굴 진입 이후 → 동굴 대사
+        if (GameManager_Ep1.Instance != null && GameManager_Ep1.Instance.isCaveUnlocked)
+        {
+            return "cave_after_talk";
+        }
+
+        // 기본
+        return "intro";
+    }
+
+    // EP2 전용 분기
+    private string ResolveEp2DialogueType()
+    {
+        // 퍼즐 매니저 없으면 기본
+        if (EP2_PuzzleManager.Instance == null)
+        {
+            return "intro";
+        }
+
+        bool spaceClear = EP2_PuzzleManager.Instance.spaceClear;
+        bool paintClear = EP2_PuzzleManager.Instance.paintClear;
+
+        // 둘 다 클리어
+        if (spaceClear && paintClear)
+        {
+            return "clear";
+        }
+
+        // 하나만 클리어
+        if (spaceClear || paintClear)
+        {
+            return "one_clear_hint";
+        }
+
+        // 아무것도 안 한 상태
+        return "intro";
+    }
+    private void RefreshCancelSubscription(bool clearSubscription = false)
+    {
+        PlayerInput nextUser = clearSubscription ? null : user;
+        if (subscribedUser == nextUser)
+        {
+            return;
+        }
+
+        if (subscribedUser != null)
+        {
+            subscribedUser.Cancel -= EndNPCChat;
+        }
+
+        subscribedUser = nextUser;
+
+        if (subscribedUser != null && isActiveAndEnabled)
+        {
+            subscribedUser.Cancel += EndNPCChat;
         }
     }
     #region 말풍선 관련 메서드
