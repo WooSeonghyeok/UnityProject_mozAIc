@@ -801,5 +801,30 @@ MonoBehaviour:
   - type: 36
     clips:
     - {fileID: 8300000, guid: 53c802b86fac780458b92d4af5052374, type: 3}
+  sceneSoundEntries:
+  - sceneName: OpeningScene
+    profile: {fileID: 11400000, guid: 79632973bad0df54d810cd30fd7ae34b, type: 2}
+  - sceneName: StartScene
+    profile: {fileID: 11400000, guid: 06e3ba49e6c12c241ad6a14072104afe, type: 2}
+  - sceneName: LobbyScene
+    profile: {fileID: 11400000, guid: 2d7f5de78a98e1d4699c4f4163f0702b, type: 2}
+  - sceneName: Episode1_Scene
+    profile: {fileID: 11400000, guid: 10f9e743971229f4895aa567a6be583a, type: 2}
+  - sceneName: Episode2_Scene
+    profile: {fileID: 11400000, guid: c62d258b1386bf848bdaa6877807d802, type: 2}
+  - sceneName: Paint_Puzzle
+    profile: {fileID: 11400000, guid: 6ccaf13a76e34fb42abccc4eda32f540, type: 2}
+  - sceneName: Space_Puzzle
+    profile: {fileID: 11400000, guid: b5954dbe4550d774db810fedcaea96ea, type: 2}
+  - sceneName: Episode3_Scene
+    profile: {fileID: 11400000, guid: 19b61e2dde2e669418b7c1832a00791d, type: 2}
+  - sceneName: Ep3_1_Scene
+    profile: {fileID: 11400000, guid: e53fdc9c39abbdc42a0ec5e6f80309a9, type: 2}
+  - sceneName: Ep3_2_Scene
+    profile: {fileID: 11400000, guid: 19a3967c508026f49b12de9f619abd41, type: 2}
+  - sceneName: Ep3_3_ReturnedLobby
+    profile: {fileID: 11400000, guid: e81f99afbb453c248947df817e43fa31, type: 2}
+  - sceneName: Episode4_Scene
+    profile: {fileID: 11400000, guid: bdb39fa26c419224bae9a215d144d972, type: 2}
   useAutoSceneBGM: 1
   useAutoSceneAmbient: 1

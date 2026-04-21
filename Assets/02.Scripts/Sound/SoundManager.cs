@@ -137,6 +137,13 @@ public class SoundManager : MonoBehaviour
         public SFXType type;
         public AudioClip[] clips;
     }
+
+    [System.Serializable]
+    public class SceneSoundEntry
+    {
+        public string sceneName;
+        public SoundProfile profile;
+    }
     #endregion
     #region Inspector Fields
 
@@ -165,6 +172,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<UIEntry> uiEntries = new List<UIEntry>();
     [Header("SFX 목록")]
     [SerializeField] private List<SFXEntry> sfxEntries = new List<SFXEntry>();
+    [Header("씬별 사운드 프로필 목록")]
+    [SerializeField] private List<SceneSoundEntry> sceneSoundEntries = new List<SceneSoundEntry>();
     [Header("씬 로드 시 자동 BGM 설정 여부")]
     [SerializeField] private bool useAutoSceneBGM = true;
     [Header("씬 로드 시 자동 Ambient 설정 여부")]
@@ -175,6 +184,7 @@ public class SoundManager : MonoBehaviour
     private Dictionary<AmbientType, AudioClip> ambientDict = new Dictionary<AmbientType, AudioClip>();
     private Dictionary<UIType, AudioClip[]> uiDict = new Dictionary<UIType, AudioClip[]>();
     private Dictionary<SFXType, AudioClip[]> sfxDict = new Dictionary<SFXType, AudioClip[]>();
+    private Dictionary<string, SoundProfile> sceneSoundDict = new Dictionary<string, SoundProfile>();
     #endregion
     #region Unity Life Cycle
     private void Awake()
@@ -191,6 +201,7 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         BuildDictionaries();
+        BuildSceneSoundDictionary();
         masterVolume = PlayerPrefs.GetFloat("Volume");
         bgmVolume = PlayerPrefs.GetFloat("BGM_Volume");
         ambientVolume = PlayerPrefs.GetFloat("Ambient_Volume");
@@ -248,6 +259,21 @@ public class SoundManager : MonoBehaviour
             sfxDict.Add(entry.type, entry.clips);
         }
     }
+
+    private void BuildSceneSoundDictionary()
+    {
+        sceneSoundDict.Clear();
+
+        foreach (var entry in sceneSoundEntries)
+        {
+            if (entry == null) continue;
+            if (string.IsNullOrWhiteSpace(entry.sceneName)) continue;
+            if (entry.profile == null) continue;
+            if (sceneSoundDict.ContainsKey(entry.sceneName)) continue;
+
+            sceneSoundDict.Add(entry.sceneName, entry.profile);
+        }
+    }
     /// <summary>
     /// 각 소스에 볼륨 적용
     /// Master Volume도 함께 곱해서 최종 볼륨을 만든다.
@@ -263,46 +289,64 @@ public class SoundManager : MonoBehaviour
     #region Scene Loaded
     /// <summary>
     /// 씬이 로드될 때 자동으로 BGM / Ambient를 바꾸고 싶을 때 사용
-    /// 씬 이름에 맞춰서 기본 배경음을 넣어둔다.
+    /// 씬 이름으로 연결된 SoundProfile을 찾아서 적용한다.
     /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (sceneSoundDict.TryGetValue(scene.name, out SoundProfile profile))
+        {
+            ApplySoundProfile(profile);
+            return;
+        }
+
         if (useAutoSceneBGM)
         {
-            switch (scene.name)
-            {
-                case "Title": PlayBGM(BGMType.Title); break;
-                case "Episode0": PlayBGM(BGMType.Episode0); break;
-                case "Episode1_Village": PlayBGM(BGMType.Episode1_Village); break;
-                case "Episode1_1": PlayBGM(BGMType.Episode1_1); break;
-                case "Episode1_2": PlayBGM(BGMType.Episode1_2); break;
-                case "Episode2_Studio": PlayBGM(BGMType.Episode2_Studio); break;
-                case "Episode2_1": PlayBGM(BGMType.Episode2_1); break;
-                case "Episode2_2": PlayBGM(BGMType.Episode2_2); break;
-                case "Episode3_Lobby": PlayBGM(BGMType.Episode3_Lobby); break;
-                case "Episode3_1": PlayBGM(BGMType.Episode3_1); break;
-                case "Episode3_2": PlayBGM(BGMType.Episode3_2); break;
-                case "Episode4": PlayBGM(BGMType.Episode4); break;
-                case "Episode4_Finale": PlayBGM(BGMType.Episode4_Finale); break;
-            }
+            StopBGM();
         }
+
         if (useAutoSceneAmbient)
         {
-            switch (scene.name)
+            StopAmbient();
+        }
+    }
+
+    public void ApplySoundProfile(SoundProfile profile, bool applyPlayerSound = true)
+    {
+        if (profile == null)
+        {
+            return;
+        }
+
+        if (useAutoSceneBGM)
+        {
+            if (profile.playBGMOnEnter)
             {
-                case "Title": StopAmbient(); break;
-                case "Episode0": PlayAmbient(AmbientType.Ep0_Loop); break;
-                case "Episode1_Village": PlayAmbient(AmbientType.Ep1_Village_Loop); break;
-                case "Episode1_1": PlayAmbient(AmbientType.Ep1_1_Loop); break;
-                case "Episode1_2": PlayAmbient(AmbientType.Ep1_2_Loop); break;
-                case "Episode2_Studio": PlayAmbient(AmbientType.Ep2_Studio_Loop); break;
-                case "Episode2_1": PlayAmbient(AmbientType.Ep2_1_Loop); break;
-                case "Episode2_2": PlayAmbient(AmbientType.Ep2_2_Loop); break;
-                case "Episode3_Lobby": PlayAmbient(AmbientType.Ep3_Lobby_Loop); break;
-                case "Episode3_1": PlayAmbient(AmbientType.Ep3_1_Loop); break;
-                case "Episode3_2": PlayAmbient(AmbientType.Ep3_2_Loop); break;
-                case "Episode4": PlayAmbient(AmbientType.Ep4_Loop); break;
-                default: StopAmbient(); break;
+                PlayBGM(profile.bgm, profile.bgmLoop);
+            }
+            else
+            {
+                StopBGM();
+            }
+        }
+
+        if (useAutoSceneAmbient)
+        {
+            if (profile.playAmbientOnEnter)
+            {
+                PlayAmbient(profile.ambient, profile.ambientLoop);
+            }
+            else
+            {
+                StopAmbient();
+            }
+        }
+
+        if (applyPlayerSound)
+        {
+            PlayerSound playerSound = FindFirstObjectByType<PlayerSound>();
+            if (playerSound != null)
+            {
+                playerSound.ApplySceneSoundProfile(profile);
             }
         }
     }
