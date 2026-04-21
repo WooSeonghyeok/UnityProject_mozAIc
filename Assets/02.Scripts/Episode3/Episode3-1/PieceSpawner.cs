@@ -20,6 +20,23 @@ public class PieceSpawner : MonoBehaviour
     [Tooltip("생성 시 X축으로 추가 회전(도 단위). 기본값 90")]
     public float spawnRotationX = 90f;
 
+    [Header("악보 조각 근접 힌트 사운드")]
+    [SerializeField] private bool useProximityHintAudio = false;
+    [SerializeField] private AudioClip proximityHintClip;
+    [SerializeField] private float hintMinDistance = 2f;
+    [SerializeField] private float hintMaxDistance = 18f;
+    [SerializeField] private float hintMinVolume = 0f;
+    [SerializeField] private float hintMaxVolume = 0.85f;
+    [SerializeField] private float hintVolumeChangeSpeed = 1.5f;
+    [SerializeField] private bool hintStopWhenFar = false;
+    [SerializeField] private bool hintLoop = true;
+    [SerializeField] private bool hintPlayOnStart = true;
+    [SerializeField] private bool hintRandomStartTime = true;
+    [SerializeField, Range(0f, 1f)] private float hintSpatialBlend = 1f;
+    [SerializeField, Range(0f, 360f)] private float hintSpread = 0f;
+    [SerializeField] private AudioRolloffMode hintRolloffMode = AudioRolloffMode.Linear;
+    [SerializeField] private float hintDopplerLevel = 0f;
+
     private List<Transform> spawnPoints = new List<Transform>();  //스폰 포인트 리스트
     private void Start()
     {
@@ -72,11 +89,45 @@ public class PieceSpawner : MonoBehaviour
             Quaternion rot = useSpawnPoint ? point.rotation * additional : additional;
             // 생성한 오브젝트를 해당 스폰 포인트의 자식으로 넣기 위해 parent 파라미터 사용
             GameObject instance = Instantiate(prefab, point.position, rot, point);
+            ConfigureProximityHintAudio(instance);
             // 필요하면 로컬 포지션/로컬 회전 초기화 (부모에 맞추고 싶을 때)
             // instance.transform.localPosition = Vector3.zero;
             // instance.transform.localRotation = Quaternion.identity;
         }
     }
+
+    private void ConfigureProximityHintAudio(GameObject instance)
+    {
+        if (!useProximityHintAudio || proximityHintClip == null || instance == null)
+        {
+            return;
+        }
+
+        AudioHint audioHint = instance.GetComponent<AudioHint>();
+        if (audioHint == null)
+        {
+            audioHint = instance.AddComponent<AudioHint>();
+        }
+
+        audioHint.Configure(
+            proximityHintClip,
+            null,
+            hintMinDistance,
+            hintMaxDistance,
+            hintMinVolume,
+            hintMaxVolume,
+            hintVolumeChangeSpeed,
+            hintStopWhenFar,
+            hintLoop,
+            hintPlayOnStart,
+            hintRandomStartTime,
+            hintSpatialBlend,
+            hintSpread,
+            hintRolloffMode,
+            hintDopplerLevel
+        );
+    }
+
     // 리스트 섞기용 함수 (Fisher-Yates Shuffle)
     private void Shuffle<T>(List<T> list)
     {
