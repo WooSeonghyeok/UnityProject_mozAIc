@@ -67,7 +67,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
         _manager.UserCtrl(false);
         pp_Volume.profile = pp_Volume_flash;
         yield return new WaitForSecondsRealtime(0.1f);
-        OpeningMidCutscene.PlayCutscene();
+        OpeningMidCutscene.PlayCutscene(false);
         yield return oneSec;
         yield return _manager.TalkSay(TalkType.voice, "흩어진 거야.", 2f, Talker.core);
         pp_Volume.profile = pp_Volume_black;
@@ -90,7 +90,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
     public IEnumerator EnterLobby()
     {
         _manager.UserCtrl(false);
-        OpeningEndCutscene.PlayCutscene();
+        OpeningEndCutscene.PlayCutscene(false);
         yield return oneSec;
         yield return _manager.TalkSay(TalkType.system, "첫 번째 기억으로 향하는 길이 열린다.", 2f);
         yield return oneSec;

@@ -92,14 +92,14 @@ public class CutsceneImagePlayer : MonoBehaviour
         }
     }
 
-    public void PlayCutscene()
+    public void PlayCutscene(bool isCutsceneOnly = true)
     {
-        PlayCutsceneSegment(0, 0);
+        PlayCutsceneSegment(0, 0, isCutsceneOnly);
     }
 
-    public void PlayCutsceneStep(int stepIndex)
+    public void PlayCutsceneStep(int stepIndex, bool isCutsceneOnly)
     {
-        PlayCutsceneSegment(stepIndex, 1);
+        PlayCutsceneSegment(stepIndex, 1, isCutsceneOnly);
     }
 
     public void ApplyExternalUiRefs(
@@ -185,7 +185,7 @@ public class CutsceneImagePlayer : MonoBehaviour
         RequestSkip();
     }
 
-    public void PlayCutsceneSegment(int startIndex, int stepCount)
+    public void PlayCutsceneSegment(int startIndex, int stepCount, bool isCutsceneOnly = true)
     {
         TryResolvePlayerMovement();
 
@@ -205,7 +205,7 @@ public class CutsceneImagePlayer : MonoBehaviour
             ? remainingStepCount
             : Mathf.Clamp(stepCount, 1, remainingStepCount);
 
-        StartCoroutine(PlayCutsceneRoutine(clampedStartIndex, resolvedStepCount));
+        StartCoroutine(PlayCutsceneRoutine(clampedStartIndex, resolvedStepCount, isCutsceneOnly));
     }
 
     public bool HasStepContent(int stepIndex)
@@ -213,12 +213,12 @@ public class CutsceneImagePlayer : MonoBehaviour
         return stepIndex >= 0 && stepIndex < GetTotalStepCount();
     }
 
-    private IEnumerator PlayCutsceneRoutine(int startIndex, int stepCount)
+    private IEnumerator PlayCutsceneRoutine(int startIndex, int stepCount, bool isCutsceneOnly)
     {
         isPlaying = true;
         advanceRequested = false;
         skipRequested = false;
-
+        GameManager.Instance.CutsceneMode(true);
         if (cutscenePanel != null)
             cutscenePanel.SetActive(true);
 
@@ -300,6 +300,7 @@ public class CutsceneImagePlayer : MonoBehaviour
         isPlaying = false;
         advanceRequested = false;
         skipRequested = false;
+        GameManager.Instance.CutsceneMode(!isCutsceneOnly);
         onCutsceneFinished?.Invoke();
     }
 

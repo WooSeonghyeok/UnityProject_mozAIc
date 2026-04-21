@@ -50,8 +50,9 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
     {
         if (SaveManager.instance.curData.isFirstEnterAtS3CP0) yield break;
         GameManager.Instance.CutsceneMode(true);
-        Ep4_StartCutscene.PlayCutscene();
+        Ep4_StartCutscene.PlayCutscene(false);
         _manager.UserCtrl(false);
+        yield return null;
         yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 1.5f);
         yield return oneSec;
         yield return _manager.TalkSay(TalkType.system, "이제는 하나의 <color=#80ffff>기억</color>만 보이는 게 아니다.", 1.5f);
@@ -70,6 +71,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         _manager.UserCtrl(true);
         yield return _manager.TalkSay(TalkType.player, "내 삶.\n정말... 전부 내 이야기였던 걸까.",1.5f);
         endSound.Play();
+        GameManager.Instance.lookLock = false;
         yield return _manager.TalkSay(TalkType.voice, "그래. 처음부터 전부 네 이야기였어.", 1.5f, Talker.core);
         GameManager.Instance.CutsceneMode(false);
     }
@@ -140,7 +142,7 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         _manager.UserCtrl(false);
         endNPCZoneArrived = true;
         otherCanvas.enabled = false;
-        Ep4_ClimaxCutscene.PlayCutscene();
+        Ep4_ClimaxCutscene.PlayCutscene(false);
         yield return _manager.TalkSay(TalkType.voice, "넌 잊은 게 아니야.", 2f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core);
         yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도… 전부 네가 감당해야 했던 삶이었어.", 1.5f, Talker.core);
