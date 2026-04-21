@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class EndingManager : MonoBehaviour
 {
     private bool isCompleteEnding;
-    public SoundController soundCtrl_true;
-    public SoundController soundCtrl_normal;
+    [SerializeField] private SoundProfile trueEndingProfile;
+    [SerializeField] private SoundProfile normalEndingProfile;
     public Image endingImage;
     public Sprite trueSprite;
     public Sprite normalSprite;
@@ -24,8 +24,6 @@ public class EndingManager : MonoBehaviour
     void Awake()
     {
         endingImage.enabled = true;
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(false);
         endSkipButton.SetActive(false);
         RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
@@ -89,8 +87,7 @@ public class EndingManager : MonoBehaviour
     void CompleteEnding()
     {
         endingImage.sprite = trueSprite;
-        soundCtrl_normal.gameObject.SetActive(false);
-        soundCtrl_true.gameObject.SetActive(true);
+        ApplyEndingSoundProfile(trueEndingProfile);
         Debug.Log("TRUE ENDING!");
         if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.TrueEndCutscene());
         EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
@@ -98,8 +95,7 @@ public class EndingManager : MonoBehaviour
     void NormalEnding()
     {
         endingImage.sprite = normalSprite;
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(true);
+        ApplyEndingSoundProfile(normalEndingProfile);
         Debug.Log("normal ending...");
         if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.NormalEndCutscene());
         EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
@@ -126,8 +122,16 @@ public class EndingManager : MonoBehaviour
     }
     void CtrlReset()
     {
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(false);
+    }
+
+    private void ApplyEndingSoundProfile(SoundProfile profile)
+    {
+        if (SoundManager.Instance == null || profile == null)
+        {
+            return;
+        }
+
+        SoundManager.Instance.ApplySoundProfile(profile, false);
     }
     private void EndingStop()
     {
