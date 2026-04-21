@@ -68,7 +68,7 @@ public class SpacePuzzleController : MonoBehaviour
         scoreController?.StopTimer();
 
         // ⭐ 점수
-        Episode2ScoreManager.Instance?.AddClearScore(5);
+        //Episode2ScoreManager.Instance?.AddClearScore(5);
 
         // ⭐ 퍼즐 상태 저장
         EP2_PuzzleManager.Instance?.SolveSpacePuzzle();

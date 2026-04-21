@@ -25,6 +25,7 @@ public class Puzzle4Manager : MonoBehaviour
     public NPCData coreNPC;
     public TextboxCtrl_Ep4 cutscene;
     public bool isFirstContact = false;
+    public bool isClear = false;
     [SerializeField] private int puzzle4BaseMemoryRate = 5;  //퍼즐 클리어 시 기본으로 획득하는 기억 퍼즐 재구성 점수
     public int puzzle4MemoryRate = 0;
     private SoundTrigger clearSound;
@@ -152,10 +153,12 @@ public class Puzzle4Manager : MonoBehaviour
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
+        if (isClear) return;  //클리어 처리는 1번만
         SyncCheck();
         puzzle4MemoryRate = puzzle4BaseMemoryRate - Math.Clamp(retry_count, 0, puzzle4BaseMemoryRate);  //다시하기 횟수만큼 기억 퍼즐 재구성 점수 감점(최대 5점까지)
         CurData.memory_reconstruction_rate[11] = puzzle4MemoryRate;  //퍼즐 4 점수 획득
         SelfVoiceTag(egoSync >= 1f);  //자아 통합도 100% 달성 여부에 따라 "self_voice" 태그를 획득
+        isClear = true;
     }
     private void SelfVoiceTag(bool b)
     {

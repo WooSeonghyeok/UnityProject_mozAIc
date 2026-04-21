@@ -21,8 +21,18 @@ public class SaveUIManager : MonoBehaviour
         savedAlarm.SetActive(false);
     }
     public void InteractUIOpen(bool b) => interactUI.SetActive(b);
-    public void OpenSavePopup() => SavePopup.SetActive(true);
-    public void CloseSavePopup() => SavePopup.SetActive(false);
+    public void OpenSavePopup()
+    {
+        SavePopup.SetActive(true);
+        GameManager.Instance.lookLock = true;
+        GameManager.Instance.MouseState();
+    }
+    public void CloseSavePopup()
+    {
+        SavePopup.SetActive(false);
+        GameManager.Instance.lookLock = false;
+        GameManager.Instance.MouseState();
+    }
     public IEnumerator SaveAlarm(int slotNumber)
     {
         savedText.text = $"Slot {slotNumber} Saved";
