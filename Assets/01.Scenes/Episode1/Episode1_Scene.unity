@@ -3089,10 +3089,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492241
@@ -3107,10 +3139,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492242
@@ -3125,10 +3189,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492243
@@ -3143,10 +3239,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492244
@@ -3161,10 +3289,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!1001 &7665950561763148665
