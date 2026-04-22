@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public Image zoomCtrlImg;
     public Sprite zoomInImg;
     public Sprite zoomOutImg;
-    public string openingScene;
-    public string endingScene;
+    private readonly string openingScene = "OpeningScene";
+    private readonly string endingScene = "EndingScene";
     private PlayerInput user;
     private readonly string playerTag = "Player";
     void Awake()
