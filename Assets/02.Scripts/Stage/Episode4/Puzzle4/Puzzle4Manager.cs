@@ -119,6 +119,7 @@ public class Puzzle4Manager : MonoBehaviour
     }
     public void ShootRetry()  //다시하기 실행 메소드
     {
+        user.GetComponent<PlayerInput>().ResetInputState();
         if (user != null && retryPos != null) user.transform.position = retryPos.position;
         retry_count++;
         RetryEvent?.Invoke();  // 전체 PuzzleCubeCtrl에 다시 초기화 이벤트 전달
