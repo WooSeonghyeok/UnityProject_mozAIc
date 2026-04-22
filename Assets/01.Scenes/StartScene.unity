@@ -1807,6 +1807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Popup: {fileID: 1288746662}
+  sort: 498
 --- !u!114 &1288746667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2301,8 +2302,6 @@ MonoBehaviour:
   zoomCtrlImg: {fileID: 1643492440}
   zoomInImg: {fileID: 21300000, guid: 45205b0fb294d4246a95c5f6baaa0b8e, type: 3}
   zoomOutImg: {fileID: 21300000, guid: 8f533275befa0af48bb787456ee30b71, type: 3}
-  openingScene: OpeningScene
-  endingScene: EndingScene
 --- !u!4 &1629727426
 Transform:
   m_ObjectHideFlags: 0
