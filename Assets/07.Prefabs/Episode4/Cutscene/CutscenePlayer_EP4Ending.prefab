@@ -204,8 +204,8 @@ MonoBehaviour:
   cutsceneTexts: []
   cutsceneSprites:
   - {fileID: 21300000, guid: d95505838b72abc4388582d54ef2b9c0, type: 3}
-  - {fileID: 21300000, guid: 85d83626ad0829849b3d1291af0d4975, type: 3}
-  - {fileID: 21300000, guid: ceac1f88636bf02489c6d8fa5c5c0c9a, type: 3}
+  - {fileID: 21300000, guid: d6b0134112795e7408f01bc51a964e9a, type: 3}
+  - {fileID: 21300000, guid: b6b3ca32ed440344d92eb6aff80331d0, type: 3}
   imageShowTime: 7.5
   fadeDuration: 1
   playerMovement: {fileID: 0}
