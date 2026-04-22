@@ -4129,38 +4129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434798635886d5143a84c670026c8f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode2_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
+  interactDistance: 3
   interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
+  glowEffect: {fileID: 0}
+  cutsceneName: 
 --- !u!136 &403849729
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5660,38 +5632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434798635886d5143a84c670026c8f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode2_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
+  interactDistance: 3
   interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
+  glowEffect: {fileID: 0}
+  cutsceneName: 
 --- !u!65 &579481764
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6888,38 +6832,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434798635886d5143a84c670026c8f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode2_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
+  interactDistance: 3
   interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
+  glowEffect: {fileID: 0}
+  cutsceneName: 
 --- !u!65 &741712990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19643,38 +19559,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434798635886d5143a84c670026c8f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode2_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
+  interactDistance: 3
   interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
+  glowEffect: {fileID: 0}
+  cutsceneName: 
 --- !u!65 &1111470287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19807,6 +19695,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -20897,74 +20786,6 @@ PrefabInstance:
       propertyPath: currentNpcData
       value: 
       objectReference: {fileID: 36564578}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: positiveWords.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[0].word
-      value: " \uC791\uC5C5\uC2E4"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[1].word
-      value: "\uB3D9\uB8CC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[2].word
-      value: "\uC0C9"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[3].word
-      value: "\uADF8\uB9BC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[4].word
-      value: "\uBB3C\uAC10"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: positiveWords.Array.data[0]
-      value: "\uB3D9\uB8CC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: positiveWords.Array.data[1]
-      value: "\uC791\uC5C5\uC2E4"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: positiveWords.Array.data[2]
-      value: "\uC0C9"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: positiveWords.Array.data[3]
-      value: "\uADF8\uB9BC"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: positiveWords.Array.data[4]
-      value: "\uBB3C\uAC10"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[0].memoryRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[1].memoryRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[2].memoryRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[3].memoryRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388144808068555681, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
-      propertyPath: words.Array.data[4].memoryRate
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: chatPanel
       value: 
@@ -21550,30 +21371,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 662850210998523187, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -610.4938
-      objectReference: {fileID: 0}
-    - target: {fileID: 662850210998523187, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -17
-      objectReference: {fileID: 0}
     - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -21654,49 +21451,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3879477578597937994, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879477578597937994, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 4412636652757406680, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4412636652757406680, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5182532874221072981, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5182532874221072981, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5439997075818909893, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5439997075818909893, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5863932155801726778, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_Name
       value: Canvas_NPC_Chat
-      objectReference: {fileID: 0}
-    - target: {fileID: 5927138064146064554, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7692525545102074786, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23052,6 +22809,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -31365,38 +31123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434798635886d5143a84c670026c8f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode2_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
+  interactDistance: 3
   interactionEffectPrefab: {fileID: 1857667411100538907, guid: cde9e2ba1b81e3b42bd26f64bed10e8d, type: 3}
+  glowEffect: {fileID: 0}
+  cutsceneName: 
 --- !u!65 &2014584277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32562,6 +32292,67 @@ MonoBehaviour:
   portalType: 1
   incompleteMat: {fileID: 2100000, guid: 253a56def7842dd4bb7c0baecfa19a4b, type: 2}
   completeMat: {fileID: 2100000, guid: 85bd571efb375f04a9f8be0cbf5d9a6f, type: 2}
+--- !u!1001 &964701652966655939
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 221.77658
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -107.347015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.620945
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: targetNpcData
+      value: 
+      objectReference: {fileID: 36564578}
+    - target: {fileID: 8937533805628494818, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_Name
+      value: NpcMemoryProgressManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 453a89277408a1548bb9342f6876c975, type: 3}
 --- !u!1001 &3949231810175088059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32947,3 +32738,4 @@ SceneRoots:
   - {fileID: 647263808}
   - {fileID: 1962835398}
   - {fileID: 560881037}
+  - {fileID: 964701652966655939}
