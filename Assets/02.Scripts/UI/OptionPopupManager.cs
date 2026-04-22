@@ -334,12 +334,8 @@ public class OptionPopupManager : MonoBehaviour
 
         if (SoundManager.Instance != null)
         {
-            ApplyAudioValuesToSliders(
-                SoundManager.Instance.ResetMasterVolume,
-                SoundManager.Instance.ResetBGMVolume,
-                SoundManager.Instance.ResetAmbientVolume,
-                SoundManager.Instance.ResetUIVolume,
-                SoundManager.Instance.ResetSFXVolume);
+            SoundManager.Instance.ResetAudioSettingsToDefaults();
+            RefreshAudioUI();
         }
         else
         {

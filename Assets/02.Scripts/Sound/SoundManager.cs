@@ -24,6 +24,7 @@ public class SoundManager : MonoBehaviour
     public const string AmbientVolumeKey = "Ambient_Volume";
     public const string UIVolumeKey = "UI_Volume";
     public const string SFXVolumeKey = "SFX_Volume";
+    private const string AudioCustomizationKey = "AudioSettingsCustomized";
 
     #region Enum
     public enum BGMType
@@ -201,6 +202,7 @@ public class SoundManager : MonoBehaviour
     private float resetAmbientVolume;
     private float resetUIVolume;
     private float resetSFXVolume;
+    private bool audioCustomizedByUser;
     #endregion
     #region Unity Life Cycle
     private void Awake()
@@ -326,6 +328,7 @@ public class SoundManager : MonoBehaviour
         ambientVolume = PlayerPrefs.GetFloat(AmbientVolumeKey, defaultAmbientVolume);
         uiVolume = PlayerPrefs.GetFloat(UIVolumeKey, defaultUIVolume);
         sfxVolume = PlayerPrefs.GetFloat(SFXVolumeKey, defaultSFXVolume);
+        audioCustomizedByUser = PlayerPrefs.GetInt(AudioCustomizationKey, 0) == 1;
         ApplyVolumes();
     }
 
@@ -336,10 +339,11 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat(AmbientVolumeKey, ambientVolume);
         PlayerPrefs.SetFloat(UIVolumeKey, uiVolume);
         PlayerPrefs.SetFloat(SFXVolumeKey, sfxVolume);
+        PlayerPrefs.SetInt(AudioCustomizationKey, audioCustomizedByUser ? 1 : 0);
         PlayerPrefs.Save();
     }
 
-    public void ResetAudioSettingsToDefaults(bool saveImmediately = true)
+    public void ResetAudioSettingsToDefaults(bool saveImmediately = true, bool clearCustomization = true)
     {
         masterVolume = resetMasterVolume;
         bgmVolume = resetBGMVolume;
@@ -347,6 +351,11 @@ public class SoundManager : MonoBehaviour
         uiVolume = resetUIVolume;
         sfxVolume = resetSFXVolume;
         ApplyVolumes();
+
+        if (clearCustomization)
+        {
+            audioCustomizedByUser = false;
+        }
 
         if (saveImmediately)
         {
@@ -398,7 +407,7 @@ public class SoundManager : MonoBehaviour
 
         SetResetTargets(profile);
 
-        if (profile.applyVolumeDefaultsOnEnter)
+        if (profile.applyVolumeDefaultsOnEnter && !audioCustomizedByUser)
         {
             ApplySceneVolumeDefaults(profile);
         }
@@ -464,7 +473,7 @@ public class SoundManager : MonoBehaviour
     public void ApplySceneVolumeDefaults(SoundProfile profile, bool saveImmediately = true)
     {
         SetResetTargets(profile);
-        ResetAudioSettingsToDefaults(saveImmediately);
+        ResetAudioSettingsToDefaults(saveImmediately, clearCustomization: true);
     }
     #endregion
     #region BGM
@@ -677,6 +686,7 @@ public class SoundManager : MonoBehaviour
     public void SetMasterVolume(float value, bool save = true)
     {
         masterVolume = Mathf.Clamp01(value);
+        audioCustomizedByUser = true;
         ApplyVolumes();
 
         if (save)
@@ -687,6 +697,7 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(float value, bool save = true)
     {
         bgmVolume = Mathf.Clamp01(value);
+        audioCustomizedByUser = true;
         ApplyVolumes();
 
         if (save)
@@ -697,6 +708,7 @@ public class SoundManager : MonoBehaviour
     public void SetAmbientVolume(float value, bool save = true)
     {
         ambientVolume = Mathf.Clamp01(value);
+        audioCustomizedByUser = true;
         ApplyVolumes();
 
         if (save)
@@ -707,6 +719,7 @@ public class SoundManager : MonoBehaviour
     public void SetUIVolume(float value, bool save = true)
     {
         uiVolume = Mathf.Clamp01(value);
+        audioCustomizedByUser = true;
         ApplyVolumes();
 
         if (save)
@@ -717,6 +730,7 @@ public class SoundManager : MonoBehaviour
     public void SetSFXVolume(float value, bool save = true)
     {
         sfxVolume = Mathf.Clamp01(value);
+        audioCustomizedByUser = true;
         ApplyVolumes();
 
         if (save)
