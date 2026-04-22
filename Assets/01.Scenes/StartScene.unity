@@ -869,12 +869,21 @@ MonoBehaviour:
     ep4_puzzle1Clear: 0
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
+    memory_reconstruction_rate: 
     CoreTag: []
     npcInformations: []
-    isFirstEnterAtS3CP0: 0
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   LoadPopup: {fileID: 1385672306}
   OptionPopup: {fileID: 1917414014}
   CreditPopup: {fileID: 1288746662}
@@ -1614,12 +1623,21 @@ MonoBehaviour:
     ep4_puzzle1Clear: 0
     ep4_puzzle2Clear: 0
     ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 0
+    memory_reconstruction_rate: 
     CoreTag: []
     npcInformations: []
-    isFirstEnterAtS3CP0: 0
+    Played_Episode2_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
 --- !u!4 &1279683756
 Transform:
   m_ObjectHideFlags: 0
@@ -2882,16 +2900,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 570667464}
     m_Modifications:
-    - target: {fileID: 2056950213368598817, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 862558368886203826, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1487421264162210017, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953409786080491672, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2056950213368598817, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2056950213368598817, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
-      propertyPath: m_AnchorMin.x
+    - target: {fileID: 2237896212987613505, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2690322922169336647, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
@@ -2990,20 +3016,28 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5914128408214772901, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419073917054529985, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3780977057060891496}
+    - target: {fileID: 7761824413807411666, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7779179856378969893, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4003525497459086284}
-    - target: {fileID: 7779179856378969893, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenPopup
-      objectReference: {fileID: 0}
-    - target: {fileID: 9163239766133001917, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 8505852422597672447, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9163239766133001917, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
