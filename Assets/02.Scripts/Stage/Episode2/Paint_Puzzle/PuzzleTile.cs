@@ -38,8 +38,17 @@ public class PuzzleTile : MonoBehaviour
                     MeshRenderer mesh = GetComponent<MeshRenderer>();
                     if (mesh != null)
                         mesh.enabled = false;
+
                     isCleared = true;
                 }
+
+                // ⭐ 낙하 종료 추가 (핵심🔥)
+                FallFOVEffect fov = FindObjectOfType<FallFOVEffect>();
+                if (fov != null)
+                {
+                    fov.StopFall();
+                }
+
                 // 공통 처리
                 player.ResetColor();
                 Teleport();
