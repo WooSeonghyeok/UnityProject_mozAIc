@@ -62,7 +62,7 @@ public class Puzzle4Manager : MonoBehaviour
             if (ib != null) ib.puzzle4Goal += Puzzle4Complete;
         }
         SyncCheck();
-        InteractManager.Instance.puzzle4Hint += HintMessage;
+        InteractManager.Instance.puzzle4Hint += RetryHint;
     }
     private void OnDisable()  //이벤트 구독 해제
     {
@@ -78,7 +78,7 @@ public class Puzzle4Manager : MonoBehaviour
             var ib = user.GetComponent<InteractManager>();
             if (ib != null) ib.puzzle4Goal -= Puzzle4Complete;
         }
-        InteractManager.Instance.puzzle4Hint -= HintMessage;
+        InteractManager.Instance.puzzle4Hint -= RetryHint;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -101,15 +101,19 @@ public class Puzzle4Manager : MonoBehaviour
     public void Switch_Click()
     {
         SyncCheck();
-        if (egoSync >= 0.5f && !isMidCutsceneOn)
+        if (egoSync >= 0.5f && !isMidCutsceneOn)  //절반 이상 같은 색으로 통일되면 중간 메시지 출력
         {
             StartCoroutine(cutscene._manager.TalkSay(TalkType.player, "좋았던 것도, 아팠던 것도,\n끝내 미완성으로 남은 것도."));
             isMidCutsceneOn = true;
         }
-        if (egoSync >= 1f && !isCompleteCutsceneOn)
+        else if (egoSync >= 1f && !isCompleteCutsceneOn)  //모든 칸을 같은 색으로 통일 시 완성 메시지 출력
         {
             StartCoroutine(cutscene._manager.TalkSay(TalkType.player, "전부 나로 받아들이겠다."));
             isCompleteCutsceneOn = true;
+        }
+        else  //그 외의 경우 힌트 메시지 출력
+        {
+            HintText();
         }
     }
     public void OpenRetryPopup()  //다시하기 버튼 동작
@@ -128,29 +132,35 @@ public class Puzzle4Manager : MonoBehaviour
         RetryTxt();
     }
     public void CloseRetryPopup()  => retryPopup.SetActive(false);  //다시하기 팝업 닫기 동작
-    void HintMessage()  //다시하기 지점 도착 시마다 힌트 메시지를 출력
+    void RetryHint()  //다시하기 지점 도착 시마다 메시지 출력
     {
-        if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사를 대신 출력
+        if (!isFirstContact)  //처음 다시하기 지점 도착 시에는 컷신 대사 출력
         {
             StartCoroutine(cutscene._manager.TalkSay(TalkType.player, "도망치지 않겠다.")); 
             isFirstContact = true;
         }
         else
         {
-            float x = UnityEngine.Random.Range(0, 9);
-            string msg = x switch
-            {
-                1 => "기억 조각의 색을 바꿀 수 있는 스위치가 있는데?\n사용해보자.",
-                2 => "스위치로 기억 조각의 색을 바꾸면\n연결된 다른 조각들도 함께 바뀌는 모양이네...",
-                3 => "이 조각에 어느 조각이 연결되어 있는지는\n조각에 그려진 무늬를 보고 알 수 있겠지.",
-                4 => "색을 바꾸는 스위치는 정해진 색을 켜거나 끄는 원리인가 봐.",
-                5 => "화살표 무늬는 방향, 별 무늬는 색,\n 그렇다면 십자 무늬는 뭘 상징하지?",
-                6 => "떠올랐어. 빛의 색은 빨강, 초록, 파랑을 섞어서 표현하는구나.",
-                7 => "다른 색을 띠는 기억으로는 넘어갈 수 없는 것 같아.",
-                _ => "여기서부터 기억의 색을 맞추어 길을 이어가야 해.",
-            };
-            StartCoroutine(cutscene._manager.TalkSay(TalkType.player, msg));
+            HintText();  //이후 다시하기 지점 도착 시마다 힌트 대사 출력
         }
+    }
+    private void HintText()  //실제로 힌트 메시지를 출력하는 메소드
+    {
+        int x = UnityEngine.Random.Range(0, 10);
+        string msg = x switch
+        {
+            1 => "이웃한 기억 조각끼리 색이 같아야 저편으로 넘어갈 수 있구나.",
+            2 => "조각에 그려져 있는 그림이 색을 바꾸는 힌트인가 본데...",
+            3 => "기억 조각의 색을 바꾸면, 다른 조각들의 색도 한꺼번에 바뀌네.",
+            4 => "그림의 바탕 색은 기억 조각의 색이 어떻게 바뀌는지 알려주는 것 같아.",
+            5 => "기억 조각의 색을 바꾸는 원리는 정해진 색을 켜고 끄는 식인 것 같아.",
+            6 => "빛의 색은 빨강, 초록, 파랑을 겹쳐서 표현하지. 그래서 색이 여덟 종류인 거야.",
+            7 => "화살표 그림은 화살표 방향을 따라 늘어선 조각들을 바꾼다는 뜻이었어.",
+            8 => "별 그림은 지금 보이는 색이 같은 조각들을 한꺼번에 바꾼다는 뜻이네.",
+            9 => "십자 그림은 바로 옆의 조각들만 색을 바꿔준다는 거구나.",
+            _ => "기억 조각들의 색을 맞추어 도착 지점까지 길을 이어가야 해.",
+        };
+        StartCoroutine(cutscene._manager.TalkSay(TalkType.player, msg));
     }
     public void Puzzle4Complete()  //퍼즐 완료 시 처리
     {
