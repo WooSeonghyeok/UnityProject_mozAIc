@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMoveLocked = false;       // 대화 중 이동 잠금 여부
     public bool IsMoveLocked => isMoveLocked;
-
+    private bool isInputLocked = false;      // 입력 잠금 여부
     float yaw;  // 좌우 회전값
     float pitch;  // 상하 회전값
     private Rigidbody rb;
@@ -78,7 +78,16 @@ public class PlayerMovement : MonoBehaviour
         CheckGround();
         wasGrounded = isGrounded;
     }
+    public void SetInputLock(bool value)
+    {
+        isInputLocked = value;
 
+        // Rigidbody 멈추고 싶으면 같이 처리
+        if (value)
+        {
+            rb.velocity = Vector3.zero;
+        }
+    }
     // 외부(ChatNPCManager)에서 호출해서 이동 잠금/해제를 제어
     public void SetMoveLock(bool isLocked)
     {
@@ -114,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
               // 대화 중에는 카메라 회전/애니메이션 갱신을 막음
-        if (isMoveLocked)
+        if (isMoveLocked || isInputLocked)
         {
             return;
         }
@@ -235,6 +244,8 @@ public class PlayerMovement : MonoBehaviour
 
     void RotateCamera()
     {
+        if (GameManager.Instance != null && GameManager.Instance.lookLock) return;  //시선 고정 상태에서는 동작 없음
+
         Vector2 look = input.lookInput;  // 마우스 입력
 
         // 좌우 회전 (Player 기준)

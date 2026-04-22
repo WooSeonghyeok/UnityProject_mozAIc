@@ -142,6 +142,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cbd4c4e89599243a839f5bbbbbf694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   isCaveUnlocked: 0
   isPuzzleCleared: 0
   lunaNpcData: {fileID: 0}
@@ -151,6 +183,16 @@ MonoBehaviour:
   fullMemoryStage: 4
   hasPlayedFirstStarHint: 0
   hasEnteredCave: 0
+  episodeEndPortal: {fileID: 0}
+  caveEnterCutscenePlayer: {fileID: 0}
+  puzzleClearCutscenePlayer: {fileID: 0}
+  baseScore: 10
+  freeSlideCount: 13
+  slideCount: 0
+  uiFailCount: 0
+  slidePenalty: 0
+  uiFailPenalty: 0
+  currentScore: 10
 --- !u!114 &2449153973989186588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +211,11 @@ MonoBehaviour:
   npcData: {fileID: 0}
   npcPortalMovePoint: {fileID: 0}
   npcDestinationSpawnPoint: {fileID: 0}
+  npcTransform: {fileID: 0}
+  playerTransform: {fileID: 0}
+  playerMovement: {fileID: 0}
   portalTeleport: {fileID: 0}
   npcObject: {fileID: 0}
-  moveStartDelay: 1.5
+  moveStartDelay: 0
+  cameraDirector: {fileID: 0}
+  npcFocusDuration: 5

@@ -9,15 +9,22 @@ public class PortalSequenceController : MonoBehaviour
     [SerializeField] private int targetStarCount = 5; 
     [Header("NPC")]
     [SerializeField] private NPCFollower npcFollower;
-    [SerializeField] private NPCData npcData; // 말풍선을 띄울 NPC 데이터
+    [SerializeField] private NPCData npcData;                    // 말풍선을 띄울 NPC 데이터
     [SerializeField] private Transform npcPortalMovePoint;       // NPC가 먼저 걸어갈 위치
     [SerializeField] private Transform npcDestinationSpawnPoint; // 다음 위치에서 NPC가 나타날 위치
+    [SerializeField] private Transform npcTransform;             // 루나 Transform
+    [Header("플레이어")]
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private PlayerMovement playerMovement;
     [Header("플레이어 포탈")]
     [SerializeField] private PortalTeleport portalTeleport;
     private Collider portalCollider;
     [Header("연출")]
     [SerializeField] private GameObject npcObject;
     [SerializeField] private float moveStartDelay = 1.2f; // 말풍선 후 약간 텀 두고 이동 시작
+    [Header("카메라 연출")]
+    [SerializeField] private NpcVirtualCameraDirector cameraDirector;
+    [SerializeField] private float npcFocusDuration = 3f;
     private bool sequenceStarted = false;
     private void OnEnable()
     {
@@ -63,6 +70,7 @@ public class PortalSequenceController : MonoBehaviour
     {
         yield return new WaitForSeconds(moveStartDelay);
         StartPortalSequence();
+
     }
     // 별 5개 획득 완료 시 호출
     public void StartPortalSequence()
@@ -72,6 +80,16 @@ public class PortalSequenceController : MonoBehaviour
             Debug.LogWarning("[PortalSequenceController] NPCFollower 또는 npcPortalMovePoint가 비어 있음");
             return;
         }
+        if (playerMovement != null)
+        {
+            playerMovement.SetInputLock(true);
+        }
+        // 루나 쪽으로 카메라 전환
+        if (cameraDirector != null)
+        {
+            cameraDirector.FocusOnNpc(npcFocusDuration);
+        }
+
         // NPC가 플레이어 추적을 멈추고 포탈 앞으로 이동
         npcFollower.MoveToPoint(npcPortalMovePoint, OnNpcArrivedAtPortal);
     }
@@ -92,8 +110,17 @@ public class PortalSequenceController : MonoBehaviour
             return;
         // NPC를 다음 위치로 워프
         npcFollower.WarpTo(npcDestinationSpawnPoint.position, npcDestinationSpawnPoint.rotation);
+        if (playerMovement != null)
+        {
+            playerMovement.SetInputLock(false);
+        }
         // 퍼즐 구역에서는 다시 추적하지 않도록 유지
         npcFollower.SetFollow(false);
+        // NPC 도착 후 플레이어 카메라로 즉시 복귀
+        if (cameraDirector != null)
+        {
+            cameraDirector.ReturnToPlayerCamera();
+        }
         // 필요하면 여기서 대사 출력, 이펙트, 포탈 활성화 등을 처리
         Debug.Log("NPC가 먼저 이동했다.");
         // 동굴 진입 상태 기록

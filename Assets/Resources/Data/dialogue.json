@@ -143,9 +143,20 @@
         "eventGroupId": "talk_start"
     },
     {
+        "dialogueId": "ep2_guide_one_01",
+        "episodeId": "ep_02",
+        "sceneId": "ep_02_one_puzzle_cleared",
+        "speakerId": "npc_ep2_painter",
+        "dialogueType": "one_clear_hint",
+        "text": "고마워, 덕분에 도구들이 많아졌어. 나머지 하나도 부탁해.",
+        "emotionTag": "grateful",
+        "conditionGroupId": "one_clear",
+        "eventGroupId": "player_ask_goal"
+    },
+    {
         "dialogueId": "ep2_clear_01",
         "episodeId": "ep_02",
-        "sceneId": "ep_02_studio",
+        "sceneId": "ep_02_all_puzzle_cleared",
         "speakerId": "npc_ep2_painter",
         "dialogueType": "clear",
         "text": "너는 내 동료였어. 같이 그리고, 같이 고민하고… 같이 끝까지 가려고 했던 사람.",

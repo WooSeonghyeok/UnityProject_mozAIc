@@ -3,8 +3,18 @@ using UnityEngine;
 public class QuitManager : MonoBehaviour
 {
     public GameObject QuitPopup;
-    public void OpenQuitPopup() => QuitPopup.SetActive(true);
-    public void OnNoButton() => QuitPopup.SetActive(false);
+    public void OpenQuitPopup()
+    {
+        QuitPopup.SetActive(true);
+        GameManager.Instance.lookLock = true;
+        GameManager.Instance.MouseState();
+    }
+    public void OnNoButton()
+    {
+        QuitPopup.SetActive(false);
+        GameManager.Instance.lookLock = false;
+        GameManager.Instance.MouseState();
+    }
     public void OnYesButton()
     {
 #if UNITY_EDITOR

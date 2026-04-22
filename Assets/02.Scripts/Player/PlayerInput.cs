@@ -80,6 +80,7 @@ public class PlayerInput : MonoBehaviour
             if (cameraSwitcher != null)
             {
                 cameraSwitcher.ToggleCamera();
+                if(!GameManager.Instance.isCutsceneMode) GameManager.Instance.MouseState();
             }
             else
             {

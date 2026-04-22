@@ -29,6 +29,7 @@ public class SaveDataObj
 
     /* 연출 사용 여부 확인 데이터 */
     public bool Played_Episode2_Intro;          //에피소드 2 첫 진입
+    public bool Played_EP2_Text_Intro;          //에피소드 2 인트로
     public bool Played_Space_Intro;             //에피소드 2 Space 퍼즐 첫 진입
     public bool Played_Paint_Intro;             //에피소드 2 Paint 퍼즐 첫 진입
     public bool Played_Space_Text;              //에피소드 2 Space 퍼즐 중간 텍스트

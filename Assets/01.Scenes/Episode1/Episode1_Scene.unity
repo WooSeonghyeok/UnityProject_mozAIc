@@ -642,14 +642,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 256006084704735029, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 626735865333953297, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 763501777856548865, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30
@@ -742,6 +734,7 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
+  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1016,6 +1009,21 @@ MonoBehaviour:
   isCamModePos: {fileID: 163672963}
   movespeed: 4
   rotationSpeed: 4
+--- !u!114 &963194233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617d28be992c08e429651f0cc6193865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVirtualCamera: {fileID: 1029634917}
+  npcVirtualCamera: {fileID: 1036147667}
+  defaultFocusDuration: 3
 --- !u!1 &1005785665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,6 +1150,78 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1997945053754294340, guid: e9358858e355f494ab973b6221fd76d0, type: 3}
   m_PrefabInstance: {fileID: 8598448481276188290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1036147667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1036147669}
+  - component: {fileID: 1036147668}
+  m_Layer: 0
+  m_Name: Virtual Camera-Npc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1036147668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036147667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_StandbyUpdate: 2
+  m_LookAt: {fileID: 1568184500}
+  m_Follow: {fileID: 1568184500}
+  m_Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    LensShift: {x: 0, y: 0}
+    GateFit: 2
+    FocusDistance: 10
+    m_SensorSize: {x: 1, y: 1}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
+  m_ComponentOwner: {fileID: 1807842156}
+--- !u!4 &1036147669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036147667}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.16245987, y: 0.688191, z: -0.16245987, w: 0.688191}
+  m_LocalPosition: {x: 15.310007, y: 5.432644, z: 2.455261}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1807842156}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1191875613 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3011171123184548089, guid: e9358858e355f494ab973b6221fd76d0, type: 3}
@@ -1563,6 +1643,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0cc7bfd3432e040ad955fbdac2be5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1568184500 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3024021015002921000, guid: e51fcb0efd8f61b4bbdc6fe3aa9e0f3b, type: 3}
+  m_PrefabInstance: {fileID: 1706671241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1627659119
 GameObject:
   m_ObjectHideFlags: 3
@@ -1645,10 +1730,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 908487273796940595, guid: e51fcb0efd8f61b4bbdc6fe3aa9e0f3b, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2035946981320494668, guid: e51fcb0efd8f61b4bbdc6fe3aa9e0f3b, type: 3}
       propertyPath: player
       value: 
@@ -1732,6 +1813,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11dc4ff6f9394d948b0291e13f14a4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1807842155
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807842156}
+  - component: {fileID: 1807842159}
+  - component: {fileID: 1807842160}
+  - component: {fileID: 1807842161}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1807842156
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807842155}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1036147669}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807842159
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807842155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1807842160
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807842155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1807842161
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807842155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: -8, y: 4, z: 0}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!114 &1809807348 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 405150964547089854, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
@@ -1775,6 +1936,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb67a6f2f4b84ae45af07a3edb37a0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1920601580 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9195200213757045419, guid: e51fcb0efd8f61b4bbdc6fe3aa9e0f3b, type: 3}
+  m_PrefabInstance: {fileID: 1706671241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1951760434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2700,9 +2866,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1920601579}
     - target: {fileID: 2449153973989186588, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
+      propertyPath: npcTransform
+      value: 
+      objectReference: {fileID: 1920601580}
+    - target: {fileID: 2449153973989186588, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
+      propertyPath: cameraDirector
+      value: 
+      objectReference: {fileID: 963194233}
+    - target: {fileID: 2449153973989186588, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 909746068}
+    - target: {fileID: 2449153973989186588, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
       propertyPath: portalTeleport
       value: 
       objectReference: {fileID: 269171700}
+    - target: {fileID: 2449153973989186588, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 909746069}
     - target: {fileID: 2449153973989186588, guid: 33e9a1951177c4a488c273332fc84fe9, type: 3}
       propertyPath: npcPortalMovePoint
       value: 
@@ -3089,10 +3271,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492241
@@ -3107,10 +3322,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492242
@@ -3125,10 +3373,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492243
@@ -3143,10 +3424,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!114 &5015323781659492244
@@ -3161,10 +3475,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 
-  tagNumber: 3
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
+  memoryNumber: 3
   memoryRateUp: 1
-  tagBubble: {fileID: 0}
+  TagName: 
+  isTagUsing: 0
+  tagObj: {fileID: 0}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!1001 &7665950561763148665
@@ -3493,6 +3840,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 909746067}
   - {fileID: 1029634919}
+  - {fileID: 1036147669}
   - {fileID: 1706671241}
   - {fileID: 5015323781659492233}
   - {fileID: 7665950561763148665}

@@ -102,7 +102,7 @@
         "sceneName": "색을 잃은 작업실",
         "episodeId": "ep_02",
         "mood": "정적, 몰입, 미완성의 열정",
-        "goal": "시점 퍼즐과 색 조합 퍼즐을 통해 색채와 꿈의 기억을 복원한다",
+        "goal": "양 옆에서 일렁이고 있는 미완성된 그림을 통해 플레이어가 퍼즐존으로 입장하여 퍼즐을 클리어한다",
         "recoveredElement": "color",
         "missingElements": [ "sound" ],
         "visualState": {
@@ -112,7 +112,7 @@
             "environmentSound": "light_studio_noise_only"
         },
         "allowedTopics": [
-            "그림",
+            "미완성된 그림",
             "구도",
             "색",
             "꿈",
@@ -124,8 +124,78 @@
             "최종 엔딩"
         ],
         "specialRules": [
-            "퍼즐 성공 시 부분적으로 채도가 회복된다",
+            "양 옆에 미완성된 그림이 일렁이고 있다",
+            "미완성된 그림을 통해 플레이어가 퍼즐존으로 입장할 수 있다",
+            "엘리오는 플레이어에게 힌트 요청을 받으면 미완성된 그림을 완성시켜달라고 말한다",
             "화가는 감정보다 그림의 언어로 말한다"
+        ]
+    },
+    {
+        "sceneId": "ep_02_one_puzzle_cleared",
+        "sceneName": "색을 잃은 작업실",
+        "episodeId": "ep_02",
+        "mood": "차분함, 몰입, 미완성의 열정",
+        "goal": "플레이어가 나머지 하나의 퍼즐을 클리어하기 위해 일렁이고 있는 미완성된 그림으로 향한다",
+        "recoveredElement": "color",
+        "missingElements": [ "sound" ],
+        "visualState": {
+            "blur": "medium",
+            "saturation": "very_low_to_recovering",
+            "bgm": "present",
+            "environmentSound": "light_studio_noise_only"
+        },
+        "allowedTopics": [
+            "미완성된 그림",
+            "구도",
+            "색",
+            "꿈",
+            "동료",
+            "작업실"
+        ],
+        "bannedTopics": [
+            "ep_02 이후의 내용",
+            "최종 엔딩"
+        ],
+        "specialRules": [
+            "하나의 그림은 완성되었지만 나머지 하나의 그림이 미완성 상태이다",
+            "완성된 그림에 대해 플레이어에게 완성시켜줘서 고맙다고 이야기한다",
+            "플레이어에게 나머지 미완성된 그림도 부탁한다고 말한다",
+            "화가는 감정보다 그림의 언어로 말한다"
+        ]
+    },
+    {
+        "sceneId": "ep_02_all_puzzle_cleared",
+        "sceneName": "색을 잃은 작업실",
+        "episodeId": "ep_02",
+        "mood": "기쁨, 몰입, 완성",
+        "goal": "양 옆의 그림이 완성되었고, 새로 생긴 그림을 통해 플레이어가 다음 장면으로 나아간다",
+        "recoveredElement": "color",
+        "missingElements": [ "sound" ],
+        "visualState": {
+            "blur": "medium",
+            "saturation": "very_low_to_recovering",
+            "bgm": "present",
+            "environmentSound": "light_studio_noise_only"
+        },
+        "allowedTopics": [
+            "완성된 그림",
+            "구도",
+            "색",
+            "꿈",
+            "동료",
+            "작업실"
+        ],
+        "bannedTopics": [
+            "ep_02 이후의 내용",
+            "최종 엔딩"
+        ],
+        "specialRules": [
+            "모든 그림이 완성되었다",
+            "완성된 그림에 대해 플레이어에게 완성시켜줘서 고맙다고 이야기한다",
+            "플레이어에 대한 엘리오의 기억이 모두 돌아왔다",
+            "플레이어가 '동료', '작업실', '색', '그림, '물감'이라는 키워드를 말하도록 유도한다",
+            "플레이어가 키워드를 말하지 않아도 괜찮다",
+            "키워드에 대해 한 번씩 유도한 뒤 새로 생긴 그림을 통해 다음 장면으로 이동하도록 안내한다"
         ]
     },
     {
