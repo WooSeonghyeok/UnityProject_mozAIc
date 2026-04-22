@@ -53,7 +53,7 @@ public class ChatNPC : MonoBehaviour
         RefreshInteractSubscription();
         distance = Vector3.Distance(this.transform.position, playerTr.position);
 
-        if (playerMovement != null && playerMovement.isMoveLocked)
+        if (playerMovement != null && playerMovement.IsMoveLocked)
         {
             if (interChatUI != null && interChatUI.activeSelf)
             {
@@ -88,7 +88,7 @@ public class ChatNPC : MonoBehaviour
 
     private void StartNPCChat()
     {
-        if (playerMovement != null && playerMovement.isMoveLocked)
+        if (playerMovement != null && playerMovement.IsMoveLocked)
         {
             return;
         }

@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            GetOptionValue();
             MouseState();
             DontDestroyOnLoad(gameObject);
         }
@@ -33,6 +32,10 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void Start()
+    {
+        GetOptionValue();
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

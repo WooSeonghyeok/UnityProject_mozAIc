@@ -66,7 +66,19 @@ public class EP2CutsceneManager : MonoBehaviour
         // ⭐ 핵심
         OnCutsceneEnd?.Invoke();
     }
+    public IEnumerator PlayCutsceneAndWait(string name)
+    {
+        bool done = false;
 
+        System.Action callback = () => { done = true; };
+
+        OnCutsceneEnd += callback;
+        Play(name);
+
+        yield return new WaitUntil(() => done);
+
+        OnCutsceneEnd -= callback;
+    }
     IEnumerator Fade(float start, float end)
     {
         float t = 0;

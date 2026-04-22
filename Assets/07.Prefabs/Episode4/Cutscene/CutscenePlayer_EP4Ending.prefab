@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8090636994840446395}
   - component: {fileID: 8745166904740588994}
   m_Layer: 5
-  m_Name: CutscenePlayer_EP4Ending_1
+  m_Name: CutscenePlayer_EP4Ending
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,13 +203,13 @@ MonoBehaviour:
   subtitleFontSize: 34
   cutsceneTexts: []
   cutsceneSprites:
-  - {fileID: 21300000, guid: 3408f4a21aa9d3e4f93c65bb7e90cc03, type: 3}
-  - {fileID: 21300000, guid: 10d17422ec3716442bc0379692d3fc4c, type: 3}
-  - {fileID: 21300000, guid: 8d9260b6a4f86a14db1f9d44013c3c2e, type: 3}
-  imageShowTime: 1
-  fadeDuration: 0.5
+  - {fileID: 21300000, guid: d95505838b72abc4388582d54ef2b9c0, type: 3}
+  - {fileID: 21300000, guid: 85d83626ad0829849b3d1291af0d4975, type: 3}
+  - {fileID: 21300000, guid: ceac1f88636bf02489c6d8fa5c5c0c9a, type: 3}
+  imageShowTime: 7.5
+  fadeDuration: 1
   playerMovement: {fileID: 0}
-  isEndCutscene: 0
+  isEndCutscene: 1
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
