@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [Serializable]
@@ -120,6 +121,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private float initialFieldOfView = 60f;
     private Vector3 initialLookAtPosition;
     private bool hasCapturedCameraState;
+    private bool buttonRequested;
     private bool advanceRequested;
     private bool skipRequested;
     private CutsceneHintOverlay hintOverlay;
@@ -179,6 +181,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         if (isPlaying)
         {
             advanceRequested = true;
+            Debug.Log("cut advanced: 1");
         }
     }
 
@@ -192,11 +195,13 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     public void OnNextButton()
     {
+        buttonRequested = true;
         RequestAdvance();
     }
 
     public void OnSkipButton()
     {
+        buttonRequested = true;
         RequestSkip();
     }
 
@@ -525,6 +530,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             {
                 break;
             }
+            if (advanceRequested)
+            {
+                advanceRequested = false;
+                continue;
+            }
         }
 
         if (markPlayedOnFinish)
@@ -726,9 +736,18 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             introPath = null;
         }
     }
-
+    private int lastInputFrame = -1;
     private void PollCutsceneInput()
     {
+        if (lastInputFrame == Time.frameCount) return;
+        lastInputFrame = Time.frameCount;
+        if (buttonRequested)
+        {
+            buttonRequested = false;
+            return;
+        }
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         if (!skipRequested && CutsceneInputHelper.IsSkipPressedThisFrame())
         {
             skipRequested = true;
@@ -738,6 +757,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         if (!advanceRequested && CutsceneInputHelper.IsAdvancePressedThisFrame())
         {
             advanceRequested = true;
+            Debug.Log("cut advanced: 2");
         }
     }
 
