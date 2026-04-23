@@ -12,10 +12,15 @@ public class PlayerStarCollector : MonoBehaviour
         collectedStars.Add(starData);  // 별 추가
         if (collectedStars.Count == 1)  // 첫 번째 별을 먹은 순간 EP1 이벤트 실행
         {
-            if (GameManager_Ep1.Instance != null)
+            //if (GameManager_Ep1.Instance != null)
+            //{
+            //    GameManager_Ep1.Instance.OnFirstStarCollected();
+            //}
+            if (EP1CutsceneTriggerManager.Instance != null)
             {
-                GameManager_Ep1.Instance.OnFirstStarCollected();
+                EP1CutsceneTriggerManager.Instance.OnStarCollected(); // ⭐ ID 제거
             }
+
         }
         OnStarCountChanged?.Invoke(collectedStars.Count);  // 현재 별 개수를 외부에 알림
     }
@@ -35,4 +40,5 @@ public class PlayerStarCollector : MonoBehaviour
     {
         return new List<StarData>(collectedStars);  // 외부에서 원본 리스트를 직접 수정하지 못하게 복사본 반환
     }
+
 }
