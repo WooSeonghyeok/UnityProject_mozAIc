@@ -144,6 +144,8 @@ public class AltarPuzzleManager : MonoBehaviour
         isPuzzleActive = true;
         isPuzzleCleared = false;
 
+        GameManager.Instance.lookLock = true;
+        GameManager.Instance.MouseState();
         puzzlePanel.SetActive(true);
         SetPlayerControl(false);
 
@@ -154,6 +156,8 @@ public class AltarPuzzleManager : MonoBehaviour
     public void ClosePuzzle()
     {
         puzzlePanel.SetActive(false);
+        GameManager.Instance.lookLock = false;
+        GameManager.Instance.MouseState();
         isPuzzleActive = false;
 
         if (playerMovement != null)

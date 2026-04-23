@@ -1,21 +1,29 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSceneSoundProfile", menuName = "Sound/Scene Sound Profile")]
 public class SoundProfile : ScriptableObject
 {
-    [Header("BGM ¼³Á¤")]
+    [Header("BGM ì„¤ì •")]
     public SoundManager.BGMType bgm = SoundManager.BGMType.None;
     public bool bgmLoop = true;
 
-    [Header("Ambient ¼³Á¤")]
+    [Header("Ambient ì„¤ì •")]
     public SoundManager.AmbientType ambient = SoundManager.AmbientType.None;
     public bool ambientLoop = true;
 
-    [Header("ÀÚµ¿ Àç»ı ¿©ºÎ")]
+    [Header("ìë™ ì¬ìƒ ì—¬ë¶€")]
     public bool playBGMOnEnter = true;
     public bool playAmbientOnEnter = true;
 
-    [Header("ÇÃ·¹ÀÌ¾î »ç¿îµå ¼³Á¤")]
+    [Header("ì”¬ ê¸°ë³¸ ë³¼ë¥¨")]
+    public bool applyVolumeDefaultsOnEnter = true;
+    [Range(0f, 1f)] public float defaultMasterVolume = 1f;
+    [Range(0f, 1f)] public float defaultBGMVolume = 1f;
+    [Range(0f, 1f)] public float defaultAmbientVolume = 1f;
+    [Range(0f, 1f)] public float defaultUIVolume = 1f;
+    [Range(0f, 1f)] public float defaultSFXVolume = 1f;
+
+    [Header("í”Œë ˆì´ì–´ ì‚¬ìš´ë“œ ì„¤ì •")]
     public SoundManager.SFXType playerFootstep = SoundManager.SFXType.None;
     public SoundManager.SFXType playerJump = SoundManager.SFXType.Jump;
     public SoundManager.SFXType playerLand = SoundManager.SFXType.Land;

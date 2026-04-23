@@ -4,12 +4,18 @@ using System.Collections;
 public class EP2_InteractObject : MonoBehaviour
 {
     private bool isUsed = false;
+    readonly string playerTag = "Player";
+    public SaveDataObj CurData;
 
     [Header("Interaction Setting")]
     public float interactDistance = 3f;
 
     [Header("Interaction Effect")]
     public GameObject interactionEffectPrefab;
+    private void Awake()
+    {
+        CurData = SaveManager.instance.curData;
+    }
 
     [Header("Glow Effect")]
     public GameObject glowEffect;
@@ -33,7 +39,7 @@ public class EP2_InteractObject : MonoBehaviour
 
     private void TryFindPlayer()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
 
         if (player != null)
         {
@@ -44,18 +50,24 @@ public class EP2_InteractObject : MonoBehaviour
 
     private void Subscribe()
     {
-        if (playerInput != null)
-        {
-            playerInput.Interact += TryInteract;
-        }
+        if (playerInput != null)  playerInput.Interact += TryInteract;
     }
 
     private void Unsubscribe()
     {
-        if (playerInput != null)
-        {
-            playerInput.Interact -= TryInteract;
-        }
+        if (playerInput != null)  playerInput.Interact -= TryInteract;
+    }
+
+    private void TryInteract()
+    {
+        if (isUsed) return;
+        if (playerTr == null) return;
+
+        float distance = Vector3.Distance(playerTr.position, transform.position);
+
+        if (distance > interactDistance) return;
+
+        Interact();
     }
 
     private void TryInteract()
@@ -73,14 +85,13 @@ public class EP2_InteractObject : MonoBehaviour
     public void Interact()
     {
         if (isUsed) return;
-
         isUsed = true;
 
         Episode2ScoreManager.Instance?.AddInteractionScore(1);
 
         if (!string.IsNullOrEmpty(cutsceneName))
         {
-            //StartCoroutine(PlayAfterCutscene()); // ⭐ 핵심
+            StartCoroutine(PlayAfterCutscene()); // ⭐ 핵심
         }
         else
         {
@@ -91,19 +102,20 @@ public class EP2_InteractObject : MonoBehaviour
         {
             glowEffect.SetActive(false);
         }
-
-        GetComponent<Collider>().enabled = false;
+        Debug.Log($"{gameObject.name} 상호작용 +1");
+        // 또는
+        // gameObject.SetActive(false);
     }
 
     // ⭐ 컷씬 끝까지 기다렸다가 이펙트 실행
-    //IEnumerator PlayAfterCutscene()
-    //{
-    //    yield return StartCoroutine(
-    //        EP2CutsceneManager.Instance.PlayCutsceneAndWait(cutsceneName)
-    //    );
+    IEnumerator PlayAfterCutscene()
+    {
+        yield return StartCoroutine(
+            EP2CutsceneManager.Instance.PlayCutsceneAndWait(cutsceneName)
+        );
 
-    //    PlayEffect();
-    //}
+        PlayEffect();
+    }
 
     // ⭐ 이펙트 실행
     private void PlayEffect()

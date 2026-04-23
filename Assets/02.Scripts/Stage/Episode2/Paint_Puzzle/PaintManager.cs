@@ -13,7 +13,6 @@ public class PaintManager : MonoBehaviour
 
     private bool step1Played = false;
     private bool step5Played = false;
-
     void Update()
     {
         if (isActivated) return;
@@ -52,12 +51,6 @@ public class PaintManager : MonoBehaviour
         if (count >= 5 && !step5Played)
         {
             step5Played = true;
-            StartCoroutine(ctrl.PaintStep2());
-        }
-
-        // ⚠️ 이 부분 기존 버그 수정 (step5Played 중복 사용 문제)
-        if (count >= 9)
-        {
             StartCoroutine(ctrl.PaintStep2());
         }
     }

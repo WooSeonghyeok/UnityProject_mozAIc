@@ -112,7 +112,6 @@ public class ServerChat : MonoBehaviour
             FinishChat();
             return;
         }
-
         // 금지 주제 먼저 검사
         if (IsBannedTopic(msg))
         {

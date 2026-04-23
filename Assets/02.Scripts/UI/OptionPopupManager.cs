@@ -1,7 +1,7 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+
 public class OptionPopupManager : MonoBehaviour
 {
     public GameObject OptionPopup;
@@ -11,77 +11,357 @@ public class OptionPopupManager : MonoBehaviour
     public Slider ambSlider;
     public Slider uiSlider;
     public Slider sfxSlider;
+    public Button resetAudioButton;
     public TMP_Text volumeValue;
     public TMP_Text mouseValue;
-    const string mouseKey = "Sensitivity";
-    const string volumeKey = "Volume";
-    const string bgmVolKey = "BGM_Volume";
-    const string ambVolKey = "Ambient_Volume";
-    const string uiVolKey = "UI_Volume";
-    const string sfxVolKey = "SFX_Volume";
-    void Start()
+
+    private const string MouseKey = "Sensitivity";
+    private const float DefaultMouseSensitivity = 0.5f;
+
+    private void Start()
     {
-        if (!PlayerPrefs.HasKey(volumeKey)) PlayerPrefs.SetFloat(volumeKey, 1f);
-        if (!PlayerPrefs.HasKey(mouseKey)) PlayerPrefs.SetFloat(mouseKey, 0.5f);
-        if (!PlayerPrefs.HasKey(bgmVolKey)) PlayerPrefs.SetFloat(bgmVolKey, 1f);
-        if (!PlayerPrefs.HasKey(ambVolKey)) PlayerPrefs.SetFloat(ambVolKey, 1f);
-        if (!PlayerPrefs.HasKey(uiVolKey)) PlayerPrefs.SetFloat(uiVolKey, 1f);
-        if (!PlayerPrefs.HasKey(sfxVolKey)) PlayerPrefs.SetFloat(sfxVolKey, 1f);
-        float vol = PlayerPrefs.GetFloat(volumeKey);
-        float sens = PlayerPrefs.GetFloat(mouseKey);
-        float bgm = PlayerPrefs.GetFloat(bgmVolKey);
-        float amb = PlayerPrefs.GetFloat(ambVolKey);
-        float ui = PlayerPrefs.GetFloat(uiVolKey);
-        float sfx = PlayerPrefs.GetFloat(sfxVolKey);
-        mouseSlider.value = sens;
-        volumeSlider.value = vol;
-        bgmSlider.value = bgm;
-        ambSlider.value = amb;
-        uiSlider.value = ui;
-        sfxSlider.value = sfx;
-        AudioListener.volume = vol;
-        UpdateMouseText(sens);
-        UpdateVolText(vol);
+        BindResetButton();
+        InitializeOptionSettingsIfNeeded();
+        RefreshUIFromSavedSettings();
     }
+
+    private void BindResetButton()
+    {
+        Button discoveredButton = FindResetButton();
+        if (discoveredButton != null)
+        {
+            resetAudioButton = discoveredButton;
+        }
+
+        if (resetAudioButton == null)
+        {
+            return;
+        }
+
+        resetAudioButton.transform.SetAsLastSibling();
+        EnsureResetButtonVisuals(resetAudioButton);
+
+        if (!HasResetButtonBinding(resetAudioButton))
+        {
+            resetAudioButton.onClick.AddListener(OnResetAudioButtonClicked);
+        }
+
+        Debug.Log($"[OptionPopupManager] Bound reset button: {GetHierarchyPath(resetAudioButton.transform)}");
+    }
+
+    private Button FindResetButton()
+    {
+        if (OptionPopup != null)
+        {
+            Transform exactMatch = OptionPopup.transform.Find("Reset_Button");
+            if (exactMatch != null && exactMatch.TryGetComponent(out Button exactButton))
+            {
+                return exactButton;
+            }
+
+            Button[] popupButtons = OptionPopup.GetComponentsInChildren<Button>(true);
+            foreach (Button button in popupButtons)
+            {
+                if (button.name.Contains("Reset"))
+                {
+                    return button;
+                }
+            }
+        }
+
+        Button[] buttons = GetComponentsInChildren<Button>(true);
+        foreach (Button button in buttons)
+        {
+            if (button.name.Contains("Reset"))
+            {
+                return button;
+            }
+        }
+
+        return null;
+    }
+
+    private bool HasResetButtonBinding(Button button)
+    {
+        int persistentCount = button.onClick.GetPersistentEventCount();
+
+        for (int i = 0; i < persistentCount; i++)
+        {
+            if (button.onClick.GetPersistentTarget(i) == this &&
+                button.onClick.GetPersistentMethodName(i) == nameof(OnResetAudioButtonClicked))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private string GetHierarchyPath(Transform target)
+    {
+        if (target == null)
+        {
+            return string.Empty;
+        }
+
+        string path = target.name;
+        Transform current = target.parent;
+
+        while (current != null)
+        {
+            path = $"{current.name}/{path}";
+            current = current.parent;
+        }
+
+        return path;
+    }
+
+    private void EnsureResetButtonVisuals(Button button)
+    {
+        Canvas buttonCanvas = button.GetComponent<Canvas>();
+        if (buttonCanvas == null)
+        {
+            buttonCanvas = button.gameObject.AddComponent<Canvas>();
+        }
+
+        buttonCanvas.overrideSorting = true;
+        buttonCanvas.sortingOrder = 500;
+
+        GraphicRaycaster raycaster = button.GetComponent<GraphicRaycaster>();
+        if (raycaster == null)
+        {
+            raycaster = button.gameObject.AddComponent<GraphicRaycaster>();
+        }
+
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>(true);
+        if (buttonText != null)
+        {
+            buttonText.text = "Reset";
+            buttonText.raycastTarget = false;
+        }
+
+        Image[] childImages = button.GetComponentsInChildren<Image>(true);
+        foreach (Image image in childImages)
+        {
+            if (image.gameObject == button.gameObject)
+            {
+                image.raycastTarget = true;
+                continue;
+            }
+
+            image.raycastTarget = false;
+        }
+    }
+
+    private void InitializeOptionSettingsIfNeeded()
+    {
+        if (!PlayerPrefs.HasKey(MouseKey))
+        {
+            PlayerPrefs.SetFloat(MouseKey, DefaultMouseSensitivity);
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.InitializeAudioSettingsIfNeeded();
+        }
+        else
+        {
+            InitializeAudioFallbackIfNeeded(SoundManager.MasterVolumeKey, 1f);
+            InitializeAudioFallbackIfNeeded(SoundManager.BGMVolumeKey, 1f);
+            InitializeAudioFallbackIfNeeded(SoundManager.AmbientVolumeKey, 1f);
+            InitializeAudioFallbackIfNeeded(SoundManager.UIVolumeKey, 1f);
+            InitializeAudioFallbackIfNeeded(SoundManager.SFXVolumeKey, 1f);
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private void InitializeAudioFallbackIfNeeded(string key, float defaultValue)
+    {
+        if (!PlayerPrefs.HasKey(key))
+        {
+            PlayerPrefs.SetFloat(key, defaultValue);
+        }
+    }
+
+    private void RefreshUIFromSavedSettings()
+    {
+        float sensitivity = PlayerPrefs.GetFloat(MouseKey, DefaultMouseSensitivity);
+        SetSliderValue(mouseSlider, sensitivity);
+        UpdateMouseText(sensitivity);
+        RefreshAudioUI();
+    }
+
+    private void RefreshAudioUI()
+    {
+        float master;
+        float bgm;
+        float ambient;
+        float ui;
+        float sfx;
+
+        if (SoundManager.Instance != null)
+        {
+            master = SoundManager.Instance.MasterVolume;
+            bgm = SoundManager.Instance.BGMVolume;
+            ambient = SoundManager.Instance.AmbientVolume;
+            ui = SoundManager.Instance.UIVolume;
+            sfx = SoundManager.Instance.SFXVolume;
+        }
+        else
+        {
+            master = PlayerPrefs.GetFloat(SoundManager.MasterVolumeKey, 1f);
+            bgm = PlayerPrefs.GetFloat(SoundManager.BGMVolumeKey, 1f);
+            ambient = PlayerPrefs.GetFloat(SoundManager.AmbientVolumeKey, 1f);
+            ui = PlayerPrefs.GetFloat(SoundManager.UIVolumeKey, 1f);
+            sfx = PlayerPrefs.GetFloat(SoundManager.SFXVolumeKey, 1f);
+            AudioListener.volume = master;
+        }
+
+        SetSliderValue(volumeSlider, master);
+        SetSliderValue(bgmSlider, bgm);
+        SetSliderValue(ambSlider, ambient);
+        SetSliderValue(uiSlider, ui);
+        SetSliderValue(sfxSlider, sfx);
+        UpdateVolText(master);
+    }
+
+    private void SetSliderValue(Slider slider, float value)
+    {
+        if (slider == null)
+        {
+            return;
+        }
+
+        slider.SetValueWithoutNotify(value);
+    }
+
     public void OnSensitivityChanged(float value)
     {
-        PlayerPrefs.SetFloat(mouseKey, value);
+        PlayerPrefs.SetFloat(MouseKey, value);
+        PlayerPrefs.Save();
         UpdateMouseText(value);
     }
-    void UpdateMouseText(float value)
+
+    private void UpdateMouseText(float value)
     {
-        mouseValue.text = $"{Mathf.RoundToInt(value * 10)}";
+        if (mouseValue != null)
+        {
+            mouseValue.text = $"{Mathf.RoundToInt(value * 10)}";
+        }
     }
+
     public void OnVolumeChanged(float volume)
     {
-        PlayerPrefs.SetFloat(volumeKey, volume);
-        AudioListener.volume = volume;
-        if (SoundManager.Instance != null) SoundManager.Instance.SetMasterVolume(volume);
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetMasterVolume(volume);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat(SoundManager.MasterVolumeKey, volume);
+            PlayerPrefs.Save();
+            AudioListener.volume = volume;
+        }
+
         UpdateVolText(volume);
     }
-    void UpdateVolText(float volume)
+
+    private void UpdateVolText(float volume)
     {
-        int txt = Mathf.RoundToInt(volume*100f);
-        volumeValue.text = $"{txt}%";
+        if (volumeValue != null)
+        {
+            int txt = Mathf.RoundToInt(volume * 100f);
+            volumeValue.text = $"{txt}%";
+        }
     }
+
     public void OnBGMSliderChanged(float volume)
     {
-        PlayerPrefs.SetFloat(bgmVolKey, volume);
-        if(SoundManager.Instance != null) SoundManager.Instance.SetBGMVolume(volume);
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetBGMVolume(volume);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat(SoundManager.BGMVolumeKey, volume);
+            PlayerPrefs.Save();
+        }
     }
+
     public void OnAmbientSliderChanged(float volume)
     {
-        PlayerPrefs.SetFloat(ambVolKey, volume);
-        if (SoundManager.Instance != null) SoundManager.Instance.SetAmbientVolume(volume);
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetAmbientVolume(volume);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat(SoundManager.AmbientVolumeKey, volume);
+            PlayerPrefs.Save();
+        }
     }
+
     public void OnUISliderChanged(float volume)
     {
-        PlayerPrefs.SetFloat(uiVolKey, volume);
-        if (SoundManager.Instance != null) SoundManager.Instance.SetUIVolume(volume);
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetUIVolume(volume);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat(SoundManager.UIVolumeKey, volume);
+            PlayerPrefs.Save();
+        }
     }
+
     public void OnSFXliderChanged(float volume)
     {
-        PlayerPrefs.SetFloat(sfxVolKey, volume);
-        if (SoundManager.Instance != null) SoundManager.Instance.SetSFXVolume(volume);
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetSFXVolume(volume);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat(SoundManager.SFXVolumeKey, volume);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public void OnResetAudioButtonClicked()
+    {
+        Debug.Log("[OptionPopupManager] Reset button clicked");
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.ResetAudioSettingsToDefaults();
+            RefreshAudioUI();
+        }
+        else
+        {
+            ApplyAudioValuesToSliders(1f, 1f, 1f, 1f, 1f);
+        }
+    }
+
+    private void ApplyAudioValuesToSliders(float master, float bgm, float ambient, float ui, float sfx)
+    {
+        ApplySliderOrFallback(volumeSlider, master, OnVolumeChanged, SoundManager.MasterVolumeKey);
+        ApplySliderOrFallback(bgmSlider, bgm, OnBGMSliderChanged, SoundManager.BGMVolumeKey);
+        ApplySliderOrFallback(ambSlider, ambient, OnAmbientSliderChanged, SoundManager.AmbientVolumeKey);
+        ApplySliderOrFallback(uiSlider, ui, OnUISliderChanged, SoundManager.UIVolumeKey);
+        ApplySliderOrFallback(sfxSlider, sfx, OnSFXliderChanged, SoundManager.SFXVolumeKey);
+    }
+
+    private void ApplySliderOrFallback(Slider slider, float value, UnityEngine.Events.UnityAction<float> onChanged, string prefsKey)
+    {
+        if (slider != null)
+        {
+            slider.value = value;
+            return;
+        }
+
+        PlayerPrefs.SetFloat(prefsKey, value);
+        PlayerPrefs.Save();
+        onChanged?.Invoke(value);
     }
 }

@@ -1,17 +1,36 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 public class QuitManager : MonoBehaviour
 {
     public GameObject QuitPopup;
+    private Canvas Can;
+    private void Awake()
+    {
+        Can = QuitPopup.GetComponent<Canvas>();
+        if (Can == null)
+        {
+            Can = QuitPopup.AddComponent<Canvas>();
+        }
+        var raycaster = QuitPopup.GetComponent<GraphicRaycaster>();
+        if (raycaster == null)
+        {
+            QuitPopup.AddComponent<GraphicRaycaster>();
+        }
+    }
     public void OpenQuitPopup()
     {
         QuitPopup.SetActive(true);
+        Can.overrideSorting = true;
+        Can.sortingOrder = 700;
         GameManager.Instance.lookLock = true;
         GameManager.Instance.MouseState();
     }
     public void OnNoButton()
     {
         QuitPopup.SetActive(false);
+        Can.overrideSorting = false;
+        Can.sortingOrder = 0;
         GameManager.Instance.lookLock = false;
         GameManager.Instance.MouseState();
     }

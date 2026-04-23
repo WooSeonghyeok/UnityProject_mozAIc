@@ -253,24 +253,29 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
 
     public IEnumerator PaintStep1()
     {
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.player,
             "색을 섞는 방식이… 익숙해", 2f, Talker.self, true);
 
         yield return _manager.TalkSay(TalkType.player,
             "머리보다 손이 먼저 기억하는 것 같아", 2f, Talker.self, true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     public IEnumerator PaintStep2()
     {
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.voice,
             "너는 색을 고를 때 망설이지 않았어.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
             "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", 2f, Talker.core, true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     public IEnumerator PaintStep3()
     {
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.player,
             "…맞다", 2f, Talker.self, true);
 
@@ -288,6 +293,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
 
         yield return _manager.TalkSay(TalkType.voice,
             "이제 거의 다 왔어.", 2f, Talker.core, true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     // ===============================
