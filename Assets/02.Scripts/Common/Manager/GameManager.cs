@@ -86,7 +86,11 @@ public class GameManager : MonoBehaviour
     public void CutsceneMode(bool b)
     {
         isCutsceneMode = b;
-        user.GetComponent<PlayerMovement>().SetMoveLock(b);
+        if (user != null)
+        {
+            var move = user.GetComponent<PlayerMovement>();
+            move.SetMoveLock(b);
+        }
         ShowMouseState(!b);
     }
 }
