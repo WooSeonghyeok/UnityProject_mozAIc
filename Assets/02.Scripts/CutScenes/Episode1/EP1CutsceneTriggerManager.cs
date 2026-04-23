@@ -73,7 +73,9 @@ public class EP1CutsceneTriggerManager : MonoBehaviour
     // =================================================
     public void OnStarCollected()
     {
-        if (sequencePlaying) return;
+        if (sequencePlaying || CurData.Played_StarGet) return;
+        CurData.Played_StarGet = true;
+        SaveManager.WriteCurJSON(CurData);
 
         StartCoroutine(StarSequence());
     }

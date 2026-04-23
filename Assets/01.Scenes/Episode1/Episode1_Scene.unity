@@ -3833,34 +3833,19 @@ PrefabInstance:
       addedObject: {fileID: 1450833496}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 266485457611449951, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 5015323781659492244}
-    - targetCorrespondingSourceObject: {fileID: 266485457611449951, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 7
+      insertIndex: 6
       addedObject: {fileID: 5015323781659492249}
     - targetCorrespondingSourceObject: {fileID: 7012139734559472455, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 5015323781659492243}
-    - targetCorrespondingSourceObject: {fileID: 7012139734559472455, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 7
+      insertIndex: 6
       addedObject: {fileID: 5015323781659492248}
     - targetCorrespondingSourceObject: {fileID: 2141069920403312924, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 5015323781659492242}
-    - targetCorrespondingSourceObject: {fileID: 2141069920403312924, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 7
+      insertIndex: 6
       addedObject: {fileID: 5015323781659492247}
     - targetCorrespondingSourceObject: {fileID: 8244023759535634657, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 5015323781659492241}
-    - targetCorrespondingSourceObject: {fileID: 8244023759535634657, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 7
+      insertIndex: 6
       addedObject: {fileID: 5015323781659492246}
     - targetCorrespondingSourceObject: {fileID: 2049908692665131081, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 5015323781659492240}
-    - targetCorrespondingSourceObject: {fileID: 2049908692665131081, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
-      insertIndex: 7
+      insertIndex: 6
       addedObject: {fileID: 5015323781659492245}
   m_SourcePrefab: {fileID: 100100000, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
 --- !u!114 &5015323781659492234 stripped
@@ -3899,271 +3884,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 266485457611449951, guid: 781aab6a03cb04e49866c9e8041b80e7, type: 3}
   m_PrefabInstance: {fileID: 5015323781659492233}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5015323781659492240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5015323781659492235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode1_Intro: 0
-    Played_StarGet: 0
-    Played_Episode2_Intro: 0
-    Played_EP2_Text_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
-  memoryNumber: 3
-  memoryRateUp: 1
-  TagName: 
-  isTagUsing: 0
-  tagObj: {fileID: 0}
-  cutscene: {fileID: 0}
-  tagHint: 
---- !u!114 &5015323781659492241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5015323781659492236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode1_Intro: 0
-    Played_StarGet: 0
-    Played_Episode2_Intro: 0
-    Played_EP2_Text_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
-  memoryNumber: 3
-  memoryRateUp: 1
-  TagName: 
-  isTagUsing: 0
-  tagObj: {fileID: 0}
-  cutscene: {fileID: 0}
-  tagHint: 
---- !u!114 &5015323781659492242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5015323781659492237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode1_Intro: 0
-    Played_StarGet: 0
-    Played_Episode2_Intro: 0
-    Played_EP2_Text_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
-  memoryNumber: 3
-  memoryRateUp: 1
-  TagName: 
-  isTagUsing: 0
-  tagObj: {fileID: 0}
-  cutscene: {fileID: 0}
-  tagHint: 
---- !u!114 &5015323781659492243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5015323781659492238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode1_Intro: 0
-    Played_StarGet: 0
-    Played_Episode2_Intro: 0
-    Played_EP2_Text_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
-  memoryNumber: 3
-  memoryRateUp: 1
-  TagName: 
-  isTagUsing: 0
-  tagObj: {fileID: 0}
-  cutscene: {fileID: 0}
-  tagHint: 
---- !u!114 &5015323781659492244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5015323781659492239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode1_Intro: 0
-    Played_StarGet: 0
-    Played_Episode2_Intro: 0
-    Played_EP2_Text_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtS3CP0: 0
-  memoryNumber: 3
-  memoryRateUp: 1
-  TagName: 
-  isTagUsing: 0
-  tagObj: {fileID: 0}
-  cutscene: {fileID: 0}
-  tagHint: 
 --- !u!114 &5015323781659492245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4176,8 +3896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cb33990d2a550449142afe633b5234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starData: {fileID: 0}
-  triggered: 0
 --- !u!114 &5015323781659492246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4190,8 +3908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cb33990d2a550449142afe633b5234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starData: {fileID: 0}
-  triggered: 0
 --- !u!114 &5015323781659492247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4204,8 +3920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cb33990d2a550449142afe633b5234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starData: {fileID: 0}
-  triggered: 0
 --- !u!114 &5015323781659492248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4218,8 +3932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cb33990d2a550449142afe633b5234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starData: {fileID: 0}
-  triggered: 0
 --- !u!114 &5015323781659492249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4232,8 +3944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cb33990d2a550449142afe633b5234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starData: {fileID: 0}
-  triggered: 0
 --- !u!1001 &7665950561763148665
 PrefabInstance:
   m_ObjectHideFlags: 0
