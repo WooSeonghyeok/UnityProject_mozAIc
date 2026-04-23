@@ -148,7 +148,8 @@ public class ServerChat : MonoBehaviour
             {
                 if (CurData.memory_reconstruction_rate != null)
                 {
-                    CurData.memory_reconstruction_rate[7] += memoryReward;
+                    int newPoint = CurData.memory_reconstruction_rate[7] + memoryReward;
+                    CurData.memory_reconstruction_rate[7] = Math.Clamp(newPoint, 0, 10);
                 }
             }
 

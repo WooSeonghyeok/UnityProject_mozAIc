@@ -42,6 +42,7 @@ public class SaveDataObj
     public bool Played_EP2_Ending;              //에피소드 2 엔딩
     public bool isFirstEnterAtEP3Lobby;         //에피소드 3 첫 진입
     public bool isFirstEnterAtEP3_1;            //에피소드 3 악보 퍼즐 진입
+    public bool isFirstEnterAtEP3FinalTable;    //에피소드 3 마지막 태그 획득
     public bool isFirstEnterAtS3CP0;            //에피소드 4 첫 진입
     public bool isFirstEnterAtS3Tag1;           //에피소드 4 1번째 태그 획득
     public bool isFirstEnterAtS3Tag2;           //에피소드 4 2번째 태그 획득

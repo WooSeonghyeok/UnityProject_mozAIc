@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-public class MemoryInteractPoint : MonoBehaviour
+﻿using System;
+using UnityEngine;
+public class Ep3_3InteractPoint : MonoBehaviour
 {
     readonly string playerTag = "Player";
     private PlayerInput user;
     public SaveDataObj CurData;
-    bool isThisGet = false;  //1번만 획득하도록 하는 태그
-    public int memoryNumber;  //기억 재구성 점수 번호
     public int memoryRateUp;  //기억 재구성 점수 값
     bool isContact = false;
     private void Awake()
@@ -37,8 +36,9 @@ public class MemoryInteractPoint : MonoBehaviour
     }
     void GetMemoryPoint()
     {
-        if (!isContact || isThisGet) return;
-        CurData.memory_reconstruction_rate[memoryNumber] += memoryRateUp;  //기억 재구성 점수 업
-        isThisGet = true;
+        if (!isContact || CurData.isFirstEnterAtEP3FinalTable) return;
+        int newPoint = CurData.memory_reconstruction_rate[7] + memoryRateUp;
+        CurData.memory_reconstruction_rate[7] = Math.Clamp(newPoint, 0, 10);
+        CurData.isFirstEnterAtEP3FinalTable = true;
     }
 }
