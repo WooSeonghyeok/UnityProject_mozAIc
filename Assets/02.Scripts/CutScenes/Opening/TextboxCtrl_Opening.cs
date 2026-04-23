@@ -57,7 +57,6 @@ public class TextboxCtrl_Opening : MonoBehaviour
     }
     public void OpeningMid()
     {
-        Debug.Log("OpeningMid() CALLED");
         StartCoroutine(MidVoice());
     }
     public IEnumerator MidVoice()

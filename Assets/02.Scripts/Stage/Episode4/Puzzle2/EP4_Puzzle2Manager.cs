@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 public class EP4_Puzzle2Manager : MonoBehaviour
 {
     public GameObject obj1;

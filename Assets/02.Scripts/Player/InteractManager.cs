@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class InteractManager : MonoBehaviour
@@ -56,7 +55,6 @@ public class InteractManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger Enter: " + other.name + " Tag: " + other.tag);
         if (other.gameObject.CompareTag(openingMidTag))
         {
             OpeningMid?.Invoke();
