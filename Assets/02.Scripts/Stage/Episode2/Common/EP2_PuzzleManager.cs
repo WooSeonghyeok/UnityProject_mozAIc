@@ -68,6 +68,13 @@ public class EP2_PuzzleManager : MonoBehaviour
 
         spaceClear = true;
         Debug.Log("Space 퍼즐 완료");
+        EP2ProgressData.spaceClear = true;
+
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.curData.ep2_spaceClear = true;
+        }
+        Debug.Log($"[EP2_PuzzleManager] 저장 상태 - space:{EP2ProgressData.spaceClear}, paint:{EP2ProgressData.paintClear}");
 
         // ⭐ 클리어 점수 +5
         //Episode2ScoreManager.Instance?.AddClearScore(5);
@@ -82,6 +89,13 @@ public class EP2_PuzzleManager : MonoBehaviour
 
         paintClear = true;
         Debug.Log("Paint 퍼즐 완료");
+        EP2ProgressData.paintClear = true;
+
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.curData.ep2_paintClear = true;
+        }
+        Debug.Log($"[EP2_PuzzleManager] 저장 상태 - space:{EP2ProgressData.spaceClear}, paint:{EP2ProgressData.paintClear}");
 
         //// ⭐ 클리어 점수 +5
         //Episode2ScoreManager.Instance?.AddClearScore(5);
