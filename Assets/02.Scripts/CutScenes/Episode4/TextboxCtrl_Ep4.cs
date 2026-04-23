@@ -1,9 +1,7 @@
 ﻿using Cinemachine;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using static TextboxManager;
 
 public class TextboxCtrl_Ep4 : MonoBehaviour
