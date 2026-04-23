@@ -3659,6 +3659,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -3672,6 +3674,9 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
 --- !u!65 &209067398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16517,6 +16522,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -16530,6 +16537,9 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
 --- !u!65 &749753439
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20184,6 +20194,10 @@ PrefabInstance:
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: TagName
       value: ep4_my_life
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: TagText
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: tagHint
@@ -33885,6 +33899,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -33898,6 +33914,9 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
 --- !u!65 &1359825029
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39115,6 +39134,10 @@ PrefabInstance:
       value: ep4_far_heart
       objectReference: {fileID: 0}
     - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
+      propertyPath: TagText
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585320766389494030, guid: 7b783775f36c80244abf1816d7d098f0, type: 3}
       propertyPath: tagHint
       value: "\uB2FF\uC9C0 \uBABB\uD588\uB358 \uB9C8\uC74C\uACFC <color=#80ffff>\uD558\uBAA8\uB2C8</color>\uB97C
         \uC774\uB8E8\uB294 \uAC83 \uAC19\uC544."
@@ -43495,6 +43518,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -43508,6 +43533,9 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   cubes: {fileID: 1743580814}
   lastCube: {fileID: 1124074672}
   retryPos: {fileID: 1806276}
@@ -51935,6 +51963,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -51948,6 +51978,9 @@ MonoBehaviour:
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
 --- !u!65 &2105907964
 BoxCollider:
   m_ObjectHideFlags: 0
