@@ -221,6 +221,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 69424706}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1850495342022224906, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 11935808}
     - targetCorrespondingSourceObject: {fileID: 8805303985400035275, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 11935806}
@@ -257,6 +260,37 @@ MonoBehaviour:
   portalCam: {fileID: 69424707}
   playerCamVCam: {fileID: 842237644}
   playerController: {fileID: 798578885}
+--- !u!1 &11935807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1850495342022224906, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
+  m_PrefabInstance: {fileID: 11935803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &11935808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11935807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2bb2b455b6ada4c90357f4712c7c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: "\uAD6C\uB3C4\uAC00 \uD2C0\uC5B4\uC9C4 \uADF8\uB9BC"
+  includeInHint: 1
+  nearDistance: 2.5
+  hintFlavorText: "\uB0B4\uAC00 \uAD6C\uB3C4\uB97C \uC7A1\uC558\uB354\uB2C8 \uC5B4\uC0C9\uD55C
+    \uADF8\uB9BC"
+  description: "\uC5D8\uB9AC\uC624\uB294 \uADF8\uB9BC\uC758 \uAD6C\uB3C4\uB97C \uC798
+    \uC7A1\uC9C0 \uBABB\uD55C\uB2E4. \uADF8\uB798\uC11C \uD63C\uC790 \uAD6C\uB3C4\uB97C
+    \uC7A1\uC558\uB354\uB2C8 \uC5B4\uC0C9\uD574\uC838\uC11C \uC774 \uADF8\uB9BC\uC740
+    \uBC29\uCE58\uB418\uC5C8\uC5C8\uB2E4. \uD50C\uB808\uC774\uC5B4\uB294 \uAD6C\uB3C4\uB97C
+    \uC798 \uC7A1\uC544\uC11C \uD568\uAED8 \uADF8\uB9BC\uC744 \uADF8\uB9B4 \uB54C
+    \uD50C\uB808\uC774\uC5B4\uAC00 \uC8FC\uB85C \uAD6C\uB3C4\uB97C \uC7A1\uC544\uC8FC\uC5C8\uB2E4.
+    \uC5D8\uB9AC\uC624\uB294 \uD50C\uB808\uC774\uC5B4\uAC00 \uC774 \uADF8\uB9BC\uC758
+    \uAD6C\uB3C4\uB97C \uB2E4\uC2DC \uC7A1\uC544\uC11C \uC644\uC131\uC2DC\uCF1C\uC8FC\uAE38
+    \uBC14\uB780\uB2E4."
 --- !u!114 &11935811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,6 +2008,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2022304183}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1850495342022224906, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 277729007}
     - targetCorrespondingSourceObject: {fileID: 8805303985400035275, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
       insertIndex: 4
       addedObject: {fileID: 160457458}
@@ -3254,6 +3291,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1850495342022224906, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
   m_PrefabInstance: {fileID: 160457455}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &277729007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277729006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2bb2b455b6ada4c90357f4712c7c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: "\uC55E\uC73C\uB85C \uD568\uAED8 \uADF8\uB9B4 \uADF8\uB9BC"
+  includeInHint: 1
+  nearDistance: 2.5
+  hintFlavorText: "\uB2E4\uC74C \uC7A5\uBA74\uC73C\uB85C \uB098\uC544\uAC08 \uC218
+    \uC788\uB294 \uADF8\uB9BC\uC774\uB2E4."
+  description: "Ep2\uB97C \uB9C8\uBB34\uB9AC\uD558\uACE0 \uB85C\uBE44\uB85C \uB3CC\uC544\uAC08
+    \uC218 \uC788\uB294 \uADF8\uB9BC\uC774\uB2E4."
 --- !u!114 &288698943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32472,6 +32528,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 506993981}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1850495342022224906, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 29563006617858284}
     - targetCorrespondingSourceObject: {fileID: 8805303985400035275, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 29563006617858287}
@@ -32508,6 +32567,36 @@ MonoBehaviour:
   portalCam: {fileID: 506993982}
   playerCamVCam: {fileID: 842237644}
   playerController: {fileID: 798578885}
+--- !u!1 &29563006617858283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1850495342022224906, guid: 29394a28da2f0854d8bd8043222a90d6, type: 3}
+  m_PrefabInstance: {fileID: 29563006617858279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &29563006617858284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29563006617858283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2bb2b455b6ada4c90357f4712c7c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: "\uC0C9\uC774 \uBC14\uB79C \uADF8\uB9BC"
+  includeInHint: 1
+  nearDistance: 2.5
+  hintFlavorText: "\uB0B4\uAC00 \uC0C9\uCE60\uD574\uBCF4\uC558\uC9C0\uB9CC \uC774\uC0C1\uD574\uC11C
+    \uB194\uB450\uC5C8\uB2E4\uAC00 \uC0C9\uC774 \uBC14\uB79C \uADF8\uB9BC"
+  description: "\uC5D8\uB9AC\uC624\uB294 \uC0C9\uAC10\uC774 \uC88B\uC9C0 \uC54A\uB2E4.
+    \uADF8\uB798\uC11C \uD63C\uC790 \uC0C9\uCE60\uD55C \uADF8\uB9BC\uC740 \uB9C8\uC74C\uC5D0
+    \uB4E4\uC9C0 \uC54A\uC558\uACE0, \uADF8\uB300\uB85C \uBC29\uCE58\uB418\uC5B4
+    \uC0C9\uC774 \uBC14\uB798\uBC84\uB838\uB2E4. \uD50C\uB808\uC774\uC5B4\uB294 \uC0C9\uAC10\uC774
+    \uC88B\uC544\uC11C \uCC44\uC0C9\uC740 \uC8FC\uB85C \uD50C\uB808\uC774\uC5B4\uAC00
+    \uD588\uC5C8\uB2E4. \uC5D8\uB9AC\uC624\uB294 \uD50C\uB808\uC774\uC5B4\uAC00 \uC774
+    \uADF8\uB9BC\uC5D0 \uC0C9\uC744 \uCE60\uD558\uC5EC \uC644\uC131\uD574\uC8FC\uAE38
+    \uBC14\uB780\uB2E4."
 --- !u!114 &29563006617858287
 MonoBehaviour:
   m_ObjectHideFlags: 0
