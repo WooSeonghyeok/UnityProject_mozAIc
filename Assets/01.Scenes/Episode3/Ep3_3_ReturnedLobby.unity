@@ -1109,6 +1109,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -1797,6 +1798,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -1888,6 +1890,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -2633,6 +2636,7 @@ MonoBehaviour:
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
+  disableInput: 0
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
@@ -2670,6 +2674,7 @@ MonoBehaviour:
     CoreTag: []
     npcInformations: []
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -3723,6 +3728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589466205}
   - component: {fileID: 1589466204}
+  - component: {fileID: 1589466206}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -3785,6 +3791,36 @@ Transform:
   - {fileID: 495453039}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1589466206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589466203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 73
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 0
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1001 &1593522724
 PrefabInstance:
   m_ObjectHideFlags: 0
