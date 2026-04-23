@@ -7,6 +7,10 @@ public class PlayerStarCollector : MonoBehaviour
     [Header("획득한 별 목록")]
     public List<StarData> collectedStars = new List<StarData>();
     public event Action<int> OnStarCountChanged;  // 별 개수가 바뀔 때 호출할 이벤트
+
+    [Header("별 5개 달성 오브젝트")]
+    public GameObject targetObject;  // 활성화할 오브젝트
+    public int requiredStarCount = 5;
     public void AddStar(StarData starData)  // 별 획득 처리
     {
         collectedStars.Add(starData);  // 별 추가
@@ -22,6 +26,19 @@ public class PlayerStarCollector : MonoBehaviour
             }
 
         }
+
+        if (collectedStars.Count == requiredStarCount)
+        {
+            if (targetObject != null)
+            {
+                targetObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("targetObject가 할당되지 않았습니다!");
+            }
+        }
+
         OnStarCountChanged?.Invoke(collectedStars.Count);  // 현재 별 개수를 외부에 알림
     }
     public bool HasStar(string starId)  // 특정 ID의 별을 이미 가지고 있는지 확인

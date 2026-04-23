@@ -1019,6 +1019,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4562294050804687373, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1450833495}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1145,8 +1149,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16245987, y: 0.688191, z: -0.16245987, w: 0.688191}
-  m_LocalPosition: {x: 15.310007, y: 5.432644, z: 2.455261}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 30, y: 2.3, z: 15.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1568,12 +1572,12 @@ GameObject:
   - component: {fileID: 1450833498}
   - component: {fileID: 1450833497}
   m_Layer: 3
-  m_Name: Point Light
+  m_Name: CaveLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1450833496
 Transform:
   m_ObjectHideFlags: 0
@@ -1623,7 +1627,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5896226, g: 1, b: 0.98376584, a: 1}
   m_Intensity: 1.15
   m_Range: 10
   m_SpotAngle: 30
