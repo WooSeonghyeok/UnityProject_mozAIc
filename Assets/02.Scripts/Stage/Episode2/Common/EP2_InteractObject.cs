@@ -70,18 +70,6 @@ public class EP2_InteractObject : MonoBehaviour
         Interact();
     }
 
-    private void TryInteract()
-    {
-        if (isUsed) return;
-        if (playerTr == null) return;
-
-        float distance = Vector3.Distance(playerTr.position, transform.position);
-
-        if (distance > interactDistance) return;
-
-        Interact();
-    }
-
     public void Interact()
     {
         if (isUsed) return;
