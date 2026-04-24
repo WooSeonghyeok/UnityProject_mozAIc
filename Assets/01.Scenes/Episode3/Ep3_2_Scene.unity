@@ -6607,6 +6607,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -6624,7 +6626,11 @@ MonoBehaviour:
     Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 1
   inspectorSequenceId: EP3_STAGE3_1_COMPLETION
@@ -6683,6 +6689,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -6700,7 +6708,11 @@ MonoBehaviour:
     Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_STAGE3_1_INTRO
@@ -6711,8 +6723,8 @@ MonoBehaviour:
   - dialogueId: EP3_001
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uC774\uACF3\uC740 \uC804\uC5D0 \uC9C0\uB098\uC628 \uACF5\uAC04\uB4E4\uACFC\uB294
-      \uBD84\uC704\uAE30\uAC00 \uB2E4\uB974\uB2E4."
+    subtitleText: "\uC5EC\uAE30\uB294 \uC774\uC804 \uACF5\uAC04\uB4E4\uACFC\uB294
+      \uBD84\uC704\uAE30\uAC00 \uC880 \uB2E4\uB978\uB370?"
     showSpeakerName: 0
     cameraPosition: {x: 2.7829013, y: 2.1086717, z: -8.384186}
     lookAtPosition: {x: 0.4364586, y: 1.682951, z: 2.8275914}
@@ -6720,7 +6732,7 @@ MonoBehaviour:
     holdDuration: 1.5
     fieldOfView: 54
   - dialogueId: EP3_002
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
     subtitleText: "\uBC1C\uBC11\uC5D0\uB294 \uD669\uD63C\uBE5B \uAD6C\uB984\uC774
       \uB0AE\uAC8C \uAE54\uB824 \uC788\uACE0, \uC8FC\uBCC0\uC5D0\uB294 \uD769\uC5B4\uC9C4
