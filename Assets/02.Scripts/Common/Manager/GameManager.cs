@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         MouseStateChange();
         cursorHold = scene.name == startScene || scene.name == openingScene || scene.name == endingScene;
         lookLockImg.gameObject.SetActive(!cursorHold);  //스타트, 오프닝, 엔딩 신에서는 마우스 커서 이미지를 비활성화
+        Debug.Log($"{cursorHold} / {lookLock}");
     }
     private PlayerInput FindUser()
     {
@@ -75,6 +76,25 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void OnPopupChanged()
+    {
+        lookLock = cursorHold || (openPopupCnt > 0);
+        MouseStateChange();
+    }
+    public void MouseStateChange()
+    {
+        ShowMouseState(true);
+    }
+    public void CutsceneMode(bool b)
+    {
+        isCutsceneMode = b;
+        if (user != null)
+        {
+            var move = user.GetComponent<PlayerMovement>();
+            move.SetMoveLock(b);
+        }
+        ShowMouseState(!b);
+    }
     public void ShowMouseState(bool x)
     {
         lookLockImg.color = lookLock ? Color.red : Color.green;
@@ -87,20 +107,5 @@ public class GameManager : MonoBehaviour
         else zoomCtrlImg.gameObject.SetActive(false);
         Cursor.visible = lookLock || isCutsceneMode;  //시선 잠금 상태 OR 컷신 재생 중에 커서 노출
         Debug.Log($"popup : {openPopupCnt}");
-    }
-    public void MouseStateChange()
-    {
-        if (cursorHold) lookLock = true;
-        ShowMouseState(true);
-    }
-    public void CutsceneMode(bool b)
-    {
-        isCutsceneMode = b;
-        if (user != null)
-        {
-            var move = user.GetComponent<PlayerMovement>();
-            move.SetMoveLock(b);
-        }
-        ShowMouseState(!b);
     }
 }
