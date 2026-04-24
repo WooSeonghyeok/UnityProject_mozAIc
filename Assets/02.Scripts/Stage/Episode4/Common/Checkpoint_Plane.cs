@@ -5,7 +5,6 @@ public class Checkpoint_Plane : MonoBehaviour
 {
     public int cpNum;
     public Transform spawnPos;
-    public bool isCheck = false;
     private readonly string playerTag = "Player";
     public event Action S3FirstCheck;
     public static Dictionary<int, Dictionary<int, bool>> cpProgress = new Dictionary<int, Dictionary<int, bool>>();
@@ -18,7 +17,6 @@ public class Checkpoint_Plane : MonoBehaviour
     {
         if (other.gameObject.CompareTag(playerTag))
         {
-            isCheck = true;
             SaveCheckpointProgress();
             if(cpNum == 0) S3FirstCheck?.Invoke();
         }
@@ -35,11 +33,11 @@ public class Checkpoint_Plane : MonoBehaviour
             case 3: cpProgress[3][3] = CurData.ep4_puzzle3Clear; break;
         }
     }
-    public static bool IsCheckpointCleared(int cpNum)
+    public static bool IsCheckpointCleared(int stageNum, int cpNum)
     {
-        if (cpProgress.ContainsKey(3) && cpProgress[3].ContainsKey(cpNum))
+        if (cpProgress.ContainsKey(stageNum) && cpProgress[stageNum].ContainsKey(cpNum))
         {
-            return cpProgress[3][cpNum];
+            return cpProgress[stageNum][cpNum];
         }
         return false;
     }
