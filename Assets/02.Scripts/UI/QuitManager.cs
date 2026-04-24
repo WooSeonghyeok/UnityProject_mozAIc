@@ -23,16 +23,18 @@ public class QuitManager : MonoBehaviour
         QuitPopup.SetActive(true);
         Can.overrideSorting = true;
         Can.sortingOrder = 700;
-        GameManager.Instance.lookLock = true;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
     }
     public void OnNoButton()
     {
         QuitPopup.SetActive(false);
         Can.overrideSorting = false;
         Can.sortingOrder = 0;
-        GameManager.Instance.lookLock = false;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt--;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
     }
     public void OnYesButton()
     {

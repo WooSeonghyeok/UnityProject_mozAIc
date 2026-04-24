@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public bool lookLock = true;
+    public int openPopupCnt = 0;
     public bool isCutsceneMode = false;
     public Image lookLockImg;
     public Image zoomCtrlImg;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            MouseState();
+            MouseStateChange();
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
@@ -41,7 +42,8 @@ public class GameManager : MonoBehaviour
     {
         user = FindUser();
         GetOptionValue();
-        MouseState();
+        lookLock = false;
+        MouseStateChange();
         lookLockImg.gameObject.SetActive(!(scene.name == openingScene || scene.name == endingScene));  //오프닝, 엔딩 신에서는 마우스 커서 이미지를 비활성화
     }
     private PlayerInput FindUser()
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour
             if (!isCutsceneMode)  //컷신 재생 중이 아닌 경우에 동작함
             {
                 lookLock = !lookLock;
-                MouseState();
+                MouseStateChange();
             }
         }
     }
@@ -81,8 +83,9 @@ public class GameManager : MonoBehaviour
         }
         else zoomCtrlImg.gameObject.SetActive(false);
         Cursor.visible = lookLock || isCutsceneMode;  //시선 잠금 상태 OR 컷신 재생 중에 커서 노출
+        Debug.Log($"popup : {openPopupCnt}");
     }
-    public void MouseState() => ShowMouseState(true);
+    public void MouseStateChange() => ShowMouseState(true);
     public void CutsceneMode(bool b)
     {
         isCutsceneMode = b;

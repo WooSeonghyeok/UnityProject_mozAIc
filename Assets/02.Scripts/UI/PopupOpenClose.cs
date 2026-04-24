@@ -23,15 +23,17 @@ public class PopupOpenClose : MonoBehaviour
         Popup.SetActive(true);
         Can.overrideSorting = true;
         Can.sortingOrder = sort;
-        GameManager.Instance.lookLock = true;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
     }
     public void ClosePopup()
     {
         Popup.SetActive(false);
         Can.overrideSorting = false;
         Can.sortingOrder = 0;
-        GameManager.Instance.lookLock = false;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt--;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
     }
 }

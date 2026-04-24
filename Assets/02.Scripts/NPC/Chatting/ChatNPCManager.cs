@@ -78,8 +78,9 @@ public class ChatNPCManager : MonoBehaviour
 
         isTalking = true;
         chatPanel.SetActive(true);
-        GameManager.Instance.lookLock = true;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
         serverChat.ChatReset();
 
         // 현재 대화 중인 NPCData를 ServerChat에 전달
@@ -167,8 +168,9 @@ public class ChatNPCManager : MonoBehaviour
         if (chatPanel != null)
         {
             chatPanel.SetActive(false);
-            GameManager.Instance.lookLock = false;
-            GameManager.Instance.MouseState();
+            GameManager.Instance.openPopupCnt--;
+            GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+            GameManager.Instance.MouseStateChange();
         }
         if (serverChat != null)
         {

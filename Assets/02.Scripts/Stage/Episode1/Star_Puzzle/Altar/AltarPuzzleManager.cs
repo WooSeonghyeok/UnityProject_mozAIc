@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Rendering; // Volume 사용
 
 public class AltarPuzzleManager : MonoBehaviour
@@ -144,8 +143,9 @@ public class AltarPuzzleManager : MonoBehaviour
         isPuzzleActive = true;
         isPuzzleCleared = false;
 
-        GameManager.Instance.lookLock = true;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
         puzzlePanel.SetActive(true);
         SetPlayerControl(false);
 
@@ -156,8 +156,9 @@ public class AltarPuzzleManager : MonoBehaviour
     public void ClosePuzzle()
     {
         puzzlePanel.SetActive(false);
-        GameManager.Instance.lookLock = false;
-        GameManager.Instance.MouseState();
+        GameManager.Instance.openPopupCnt--;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
         isPuzzleActive = false;
 
         if (playerMovement != null)
