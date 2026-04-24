@@ -866,6 +866,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -878,7 +880,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   CreditPopup: {fileID: 1288746662}
 --- !u!1 &700701974 stripped
 GameObject:
@@ -1685,6 +1691,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -1697,7 +1705,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
 --- !u!4 &1279683756
 Transform:
   m_ObjectHideFlags: 0
@@ -2284,7 +2296,7 @@ GameObject:
   - component: {fileID: 1629727425}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2302,6 +2314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookLock: 1
+  openPopupCnt: 0
   isCutsceneMode: 0
   lookLockImg: {fileID: 1408095685}
   zoomCtrlImg: {fileID: 1643492440}
@@ -2376,8 +2389,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3780977057060891496}
         m_TargetAssemblyTypeName: QuitManager, Assembly-CSharp
-        m_MethodName: OpenQuitPopup
-        m_Mode: 1
+        m_MethodName: OnQuit
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

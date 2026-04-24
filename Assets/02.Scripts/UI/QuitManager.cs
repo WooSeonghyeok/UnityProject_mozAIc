@@ -1,9 +1,11 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 public class QuitManager : MonoBehaviour
 {
     public GameObject QuitPopup;
+    private bool isQuitOpen = false; 
     private Canvas Can;
     private void Awake()
     {
@@ -18,9 +20,19 @@ public class QuitManager : MonoBehaviour
             QuitPopup.AddComponent<GraphicRaycaster>();
         }
     }
+    public void OnQuit(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (isQuitOpen) return;
+            OpenQuitPopup();
+        }
+    }
     public void OpenQuitPopup()
     {
+        if (isQuitOpen) return;
         QuitPopup.SetActive(true);
+        isQuitOpen = true;
         Can.overrideSorting = true;
         Can.sortingOrder = 700;
         GameManager.Instance.openPopupCnt++;
@@ -30,6 +42,7 @@ public class QuitManager : MonoBehaviour
     public void OnNoButton()
     {
         QuitPopup.SetActive(false);
+        isQuitOpen = false;
         Can.overrideSorting = false;
         Can.sortingOrder = 0;
         GameManager.Instance.openPopupCnt--;

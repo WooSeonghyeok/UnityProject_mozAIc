@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     public Image zoomCtrlImg;
     public Sprite zoomInImg;
     public Sprite zoomOutImg;
+    private readonly string startScene = "StartScene";
     private readonly string openingScene = "OpeningScene";
     private readonly string endingScene = "EndingScene";
+    private bool cursorHold = true;
     private PlayerInput user;
     private readonly string playerTag = "Player";
     void Awake()
@@ -42,9 +44,10 @@ public class GameManager : MonoBehaviour
     {
         user = FindUser();
         GetOptionValue();
-        lookLock = false;
+        lookLock = (scene.name == startScene || scene.name == endingScene);  //스타트, 엔딩 신에서는 true : 나머지 신에서는 false로 시작
         MouseStateChange();
-        lookLockImg.gameObject.SetActive(!(scene.name == openingScene || scene.name == endingScene));  //오프닝, 엔딩 신에서는 마우스 커서 이미지를 비활성화
+        cursorHold = scene.name == startScene || scene.name == openingScene || scene.name == endingScene;
+        lookLockImg.gameObject.SetActive(!cursorHold);  //스타트, 오프닝, 엔딩 신에서는 마우스 커서 이미지를 비활성화
     }
     private PlayerInput FindUser()
     {
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         if (context.started)
         {
-            if (!isCutsceneMode)  //컷신 재생 중이 아닌 경우에 동작함
+            if (!cursorHold && !isCutsceneMode)  //컷신 재생 중이 아닌 경우에 동작함
             {
                 lookLock = !lookLock;
                 MouseStateChange();
@@ -75,7 +78,7 @@ public class GameManager : MonoBehaviour
     public void ShowMouseState(bool x)
     {
         lookLockImg.color = lookLock ? Color.red : Color.green;
-        lookLockImg.gameObject.SetActive(x);
+        lookLockImg.gameObject.SetActive(!cursorHold && x);
         if (user != null && user.cameraSwitcher != null)
         {
             zoomCtrlImg.sprite = (user.cameraSwitcher.isFirstPerson) ? zoomOutImg : zoomInImg;
@@ -85,7 +88,11 @@ public class GameManager : MonoBehaviour
         Cursor.visible = lookLock || isCutsceneMode;  //시선 잠금 상태 OR 컷신 재생 중에 커서 노출
         Debug.Log($"popup : {openPopupCnt}");
     }
-    public void MouseStateChange() => ShowMouseState(true);
+    public void MouseStateChange()
+    {
+        if (cursorHold) lookLock = true;
+        ShowMouseState(true);
+    }
     public void CutsceneMode(bool b)
     {
         isCutsceneMode = b;
