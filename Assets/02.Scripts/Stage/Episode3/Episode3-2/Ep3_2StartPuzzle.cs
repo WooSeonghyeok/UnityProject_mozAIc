@@ -104,7 +104,8 @@ public class Ep3_2StartPuzzle : MonoBehaviour
             eventTriggerToEnable.SetActive(true);
         }
 
-        if (musicSource != null)
+        bool shouldPlayLocalMusic = ep3_2Manager == null || !ep3_2Manager.UsesTopDownRhythmPuzzle;
+        if (musicSource != null && shouldPlayLocalMusic)
         {
             musicSource.Play();
         }
