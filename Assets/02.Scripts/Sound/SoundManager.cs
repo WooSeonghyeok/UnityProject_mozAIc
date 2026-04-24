@@ -24,6 +24,11 @@ public class SoundManager : MonoBehaviour
     public const string AmbientVolumeKey = "Ambient_Volume";
     public const string UIVolumeKey = "UI_Volume";
     public const string SFXVolumeKey = "SFX_Volume";
+    public const string MasterMuteKey = "Volume_Mute";
+    public const string BGMMuteKey = "BGM_Volume_Mute";
+    public const string AmbientMuteKey = "Ambient_Volume_Mute";
+    public const string UIMuteKey = "UI_Volume_Mute";
+    public const string SFXMuteKey = "SFX_Volume_Mute";
     private const string AudioCustomizationKey = "AudioSettingsCustomized";
 
     #region Enum
@@ -202,6 +207,11 @@ public class SoundManager : MonoBehaviour
     private float resetAmbientVolume;
     private float resetUIVolume;
     private float resetSFXVolume;
+    public bool isMasterMute = false;
+    public bool isBGMMute = false;
+    public bool isAmbientMute = false;
+    public bool isUIMute = false;
+    public bool isSFXMute = false;
     private bool audioCustomizedByUser;
     #endregion
     #region Unity Life Cycle
@@ -328,6 +338,11 @@ public class SoundManager : MonoBehaviour
         ambientVolume = PlayerPrefs.GetFloat(AmbientVolumeKey, defaultAmbientVolume);
         uiVolume = PlayerPrefs.GetFloat(UIVolumeKey, defaultUIVolume);
         sfxVolume = PlayerPrefs.GetFloat(SFXVolumeKey, defaultSFXVolume);
+        isMasterMute = PlayerPrefs.GetInt(MasterMuteKey, 0) == 1;
+        isBGMMute = PlayerPrefs.GetInt(BGMMuteKey, 0) == 1;
+        isAmbientMute = PlayerPrefs.GetInt(AmbientMuteKey, 0) == 1;
+        isUIMute = PlayerPrefs.GetInt(UIMuteKey, 0) == 1;
+        isSFXMute = PlayerPrefs.GetInt(SFXMuteKey, 0) == 1;
         audioCustomizedByUser = PlayerPrefs.GetInt(AudioCustomizationKey, 0) == 1;
         ApplyVolumes();
     }
@@ -363,13 +378,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void ApplyVolumes()
+    public void ApplyVolumes()
     {
-        AudioListener.volume = masterVolume;
-        if (bgmSource != null) bgmSource.volume = masterVolume * bgmVolume;
-        if (ambientSource != null) ambientSource.volume = masterVolume * ambientVolume;
-        if (uiSource != null) uiSource.volume = masterVolume * uiVolume;
-        if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume;
+        AudioListener.volume = masterVolume * (isMasterMute ? 0 : 1);
+        if (bgmSource != null) bgmSource.volume = masterVolume * bgmVolume * (isBGMMute ? 0 : 1);
+        if (ambientSource != null) ambientSource.volume = masterVolume * ambientVolume * (isAmbientMute ? 0 : 1);
+        if (uiSource != null) uiSource.volume = masterVolume * uiVolume * (isUIMute ? 0 : 1);
+        if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume * (isSFXMute ? 0 : 1);
     }
     #endregion
     #region Scene Loaded

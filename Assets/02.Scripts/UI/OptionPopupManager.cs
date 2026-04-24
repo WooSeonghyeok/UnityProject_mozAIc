@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +14,11 @@ public class OptionPopupManager : MonoBehaviour
     public Button resetAudioButton;
     public TMP_Text volumeValue;
     public TMP_Text mouseValue;
-
+    public Image masterMuteImg;
+    public Image bgmMuteImg;
+    public Image ambientMuteImg;
+    public Image uiMuteImg;
+    public Image sfxMuteImg;
     private const string MouseKey = "Sensitivity";
     private const float DefaultMouseSensitivity = 0.5f;
 
@@ -224,6 +228,11 @@ public class OptionPopupManager : MonoBehaviour
         SetSliderValue(uiSlider, ui);
         SetSliderValue(sfxSlider, sfx);
         UpdateVolText(master);
+        masterMuteImg.enabled = SoundManager.Instance.isMasterMute;
+        bgmMuteImg.enabled = SoundManager.Instance.isBGMMute;
+        ambientMuteImg.enabled = SoundManager.Instance.isAmbientMute;
+        uiMuteImg.enabled = SoundManager.Instance.isUIMute;
+        sfxMuteImg.enabled = SoundManager.Instance.isSFXMute;
     }
 
     private void SetSliderValue(Slider slider, float value)
@@ -341,6 +350,52 @@ public class OptionPopupManager : MonoBehaviour
         {
             ApplyAudioValuesToSliders(1f, 1f, 1f, 1f, 1f);
         }
+    }
+
+    public void OnMasterMuteButtonClicked()
+    {
+        if (SoundManager.Instance == null) return;
+        SoundManager.Instance.isMasterMute = !SoundManager.Instance.isMasterMute;
+        PlayerPrefs.SetInt(SoundManager.MasterMuteKey, SoundManager.Instance.isMasterMute ? 1 : 0);
+        PlayerPrefs.Save();
+        SoundManager.Instance.ApplyVolumes();
+        masterMuteImg.enabled = SoundManager.Instance.isMasterMute;
+    }
+    public void OnBGMMuteButtonClicked()
+    {
+        if (SoundManager.Instance == null) return;
+        SoundManager.Instance.isBGMMute = !SoundManager.Instance.isBGMMute;
+        PlayerPrefs.SetInt(SoundManager.BGMMuteKey, SoundManager.Instance.isBGMMute ? 1 : 0);
+        PlayerPrefs.Save();
+        SoundManager.Instance.ApplyVolumes();
+        bgmMuteImg.enabled = SoundManager.Instance.isBGMMute;
+    }
+    public void OnAmbientMuteButtonClicked()
+    {
+        if (SoundManager.Instance == null) return;
+        SoundManager.Instance.isAmbientMute = !SoundManager.Instance.isAmbientMute;
+        PlayerPrefs.SetInt(SoundManager.AmbientMuteKey, SoundManager.Instance.isAmbientMute ? 1 : 0);
+        PlayerPrefs.Save();
+        SoundManager.Instance.ApplyVolumes();
+        ambientMuteImg.enabled = SoundManager.Instance.isAmbientMute;
+    }
+    public void OnUIMuteButtonClicked()
+    {
+        if (SoundManager.Instance == null) return;
+        SoundManager.Instance.isUIMute = !SoundManager.Instance.isUIMute;
+        PlayerPrefs.SetInt(SoundManager.UIMuteKey, SoundManager.Instance.isUIMute ? 1 : 0);
+        PlayerPrefs.Save();
+        SoundManager.Instance.ApplyVolumes();
+        uiMuteImg.enabled = SoundManager.Instance.isUIMute;
+    }
+    public void OnSFXMuteButtonClicked()
+    {
+        if (SoundManager.Instance == null) return;
+        SoundManager.Instance.isSFXMute = !SoundManager.Instance.isSFXMute;
+        PlayerPrefs.SetInt(SoundManager.SFXMuteKey, SoundManager.Instance.isSFXMute ? 1 : 0);
+        PlayerPrefs.Save();
+        SoundManager.Instance.ApplyVolumes();
+        sfxMuteImg.enabled = SoundManager.Instance.isSFXMute;
     }
 
     private void ApplyAudioValuesToSliders(float master, float bgm, float ambient, float ui, float sfx)
