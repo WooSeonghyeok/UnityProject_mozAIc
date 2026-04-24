@@ -50,8 +50,11 @@ public class Ep3LobbyIntroShotData
 public enum Ep3IntroCutsceneSaveKey
 {
     None = -1,
-    EP3Lobby = 0,
-    EP3Stage3_1 = 1
+    EP3LobbyIntro = 0,
+    EP3Stage3_1Intro = 1,
+    EP3Stage3_1Completion = 2,
+    EP3Stage3_2Intro = 3,
+    EP3ReturnedLobbyIntro = 4
 }
 
 /// <summary>
@@ -69,11 +72,16 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private const float DefaultLookDistance = 8f;
     private const string Stage3_1IntroSequenceId = "EP3_STAGE3_1_INTRO";
     private const string Stage3_1CompletionSequenceId = "EP3_STAGE3_1_COMPLETION";
+    private const string Stage3_2IntroSequenceId = "EP3_STAGE3_2_INTRO";
+    private const string ReturnedLobbyIntroSequenceId = "EP3_STAGE3_2_COMPLETION";
 
     [SerializeField] private bool playOnStart = true;
     [SerializeField] private bool playOnlyOncePerSession = false;
     [SerializeField] private string inspectorSequenceId = "EP3_LOBBY_INTRO";
-    [SerializeField] private Ep3IntroCutsceneSaveKey playOnceSaveKey = Ep3IntroCutsceneSaveKey.EP3Lobby;
+    [SerializeField] private Ep3IntroCutsceneSaveKey playOnceSaveKey = Ep3IntroCutsceneSaveKey.EP3LobbyIntro;
+    [Header("디버그 재생 상태")]
+    [SerializeField] private bool useInspectorPlayedStateOverride = false;
+    [SerializeField] private bool inspectorPlayedState = false;
     [SerializeField] private List<Ep3LobbyIntroShotData> inspectorShots = new List<Ep3LobbyIntroShotData>();
     [SerializeField] private string cutsceneResourcePath = DefaultResourcePath;
     [SerializeField] private string cutsceneAssetResourcePath = DefaultSequenceAssetPath;
@@ -86,6 +94,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     [SerializeField] private bool syncSceneRigWithSequence = true;
     [SerializeField] private bool enableSubtitles = true;
     [SerializeField] private TMP_FontAsset subtitleFont;
+    [SerializeField] private bool forceStandaloneSubtitleOverlay = true;
     [SerializeField] private bool useRuntimeHintOverlay = false;
     [SerializeField] private Button nextButton;
     [SerializeField] private GameObject nextButtonRoot;
@@ -152,6 +161,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private void Start()
     {
         CurData = ResolveSaveData();
+        RefreshInspectorPlayedStateFromSave();
         InitializeCutsceneButtons();
         SetCutsceneButtonsVisible(false);
 
@@ -214,7 +224,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             FinishController();
             yield break;
         }
-        GameManager.Instance.CutsceneMode(true);
+        SetGameCutsceneMode(true);
         Ep3LobbyIntroSequenceData sequence = LoadSequenceData();
         if (sequence == null || sequence.shots == null || sequence.shots.Count == 0)
         {
@@ -267,8 +277,14 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return true;
         }
 
+        if (useInspectorPlayedStateOverride)
+        {
+            return !inspectorPlayedState;
+        }
+
         SaveDataObj data = ResolveSaveData();
-        return data != null && !HasPlayedCutscene(data);
+        RefreshInspectorPlayedStateFromSave(data);
+        return data != null && !inspectorPlayedState;
     }
 
     private void CachePlayerComponents()
@@ -783,7 +799,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private void FinishController()
     {
-        GameManager.Instance.CutsceneMode(false);
+        SetGameCutsceneMode(false);
         if (destroyWhenFinished)
         {
             Destroy(gameObject);
@@ -793,9 +809,27 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         enabled = false;
     }
 
+    private void SetGameCutsceneMode(bool enabledState)
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning("[Ep3LobbyIntroCutsceneController] GameManager was not found, so CutsceneMode could not be toggled.");
+            return;
+        }
+
+        GameManager.Instance.CutsceneMode(enabledState);
+    }
+
     private void MarkCutscenePlayed()
     {
         if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
+        {
+            return;
+        }
+
+        inspectorPlayedState = true;
+
+        if (useInspectorPlayedStateOverride)
         {
             return;
         }
@@ -838,6 +872,21 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         return CurData;
     }
 
+    private void RefreshInspectorPlayedStateFromSave()
+    {
+        RefreshInspectorPlayedStateFromSave(ResolveSaveData());
+    }
+
+    private void RefreshInspectorPlayedStateFromSave(SaveDataObj data)
+    {
+        if (useInspectorPlayedStateOverride || playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
+        {
+            return;
+        }
+
+        inspectorPlayedState = data != null && HasPlayedCutscene(data);
+    }
+
     private bool HasPlayedCutscene(SaveDataObj data)
     {
         if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
@@ -855,12 +904,23 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             case Ep3IntroCutsceneSaveKey.None:
                 return false;
 
-            case Ep3IntroCutsceneSaveKey.EP3Stage3_1:
-                return data.isFirstEnterAtEP3_1;
+            case Ep3IntroCutsceneSaveKey.EP3LobbyIntro:
+                return data.Played_EP3_LobbyIntro;
 
-            case Ep3IntroCutsceneSaveKey.EP3Lobby:
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1Intro:
+                return data.Played_EP3_Stage3_1Intro;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1Completion:
+                return data.Played_EP3_Stage3_1Completion;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_2Intro:
+                return data.Played_EP3_Stage3_2Intro;
+
+            case Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro:
+                return data.Played_EP3_ReturnedLobbyIntro;
+
             default:
-                return data.isFirstEnterAtEP3Lobby;
+                return false;
         }
     }
 
@@ -876,13 +936,26 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             case Ep3IntroCutsceneSaveKey.None:
                 break;
 
-            case Ep3IntroCutsceneSaveKey.EP3Stage3_1:
+            case Ep3IntroCutsceneSaveKey.EP3LobbyIntro:
+                data.Played_EP3_LobbyIntro = played;
+                data.isFirstEnterAtEP3Lobby = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1Intro:
+                data.Played_EP3_Stage3_1Intro = played;
                 data.isFirstEnterAtEP3_1 = played;
                 break;
 
-            case Ep3IntroCutsceneSaveKey.EP3Lobby:
-            default:
-                data.isFirstEnterAtEP3Lobby = played;
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1Completion:
+                data.Played_EP3_Stage3_1Completion = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_2Intro:
+                data.Played_EP3_Stage3_2Intro = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro:
+                data.Played_EP3_ReturnedLobbyIntro = played;
                 break;
         }
     }
@@ -1243,13 +1316,25 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private bool IsStage3_1IntroSequence()
     {
-        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1 ||
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1Intro ||
                string.Equals(inspectorSequenceId, Stage3_1IntroSequenceId, StringComparison.OrdinalIgnoreCase);
     }
 
     private bool IsStage3_1CompletionSequence()
     {
         return string.Equals(inspectorSequenceId, Stage3_1CompletionSequenceId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsStage3_2IntroSequence()
+    {
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_2Intro ||
+               string.Equals(inspectorSequenceId, Stage3_2IntroSequenceId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsReturnedLobbyIntroSequence()
+    {
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro ||
+               string.Equals(inspectorSequenceId, ReturnedLobbyIntroSequenceId, StringComparison.OrdinalIgnoreCase);
     }
 
     private void ApplyDialogueDefaults(Ep3LobbyIntroSequenceData sequence)
@@ -1388,21 +1473,21 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
+        TextboxManager textboxManager = forceStandaloneSubtitleOverlay ? null : FindTextboxManager();
         Ep3CutsceneSubtitlePresenter[] presenters = FindObjectsOfType<Ep3CutsceneSubtitlePresenter>(true);
         if (presenters != null && presenters.Length > 0)
         {
             subtitlePresenter = presenters[0];
-            subtitlePresenter.Configure(subtitleFont, FindTextboxManager());
+            subtitlePresenter.Configure(subtitleFont, textboxManager, forceStandaloneSubtitleOverlay);
             return;
         }
 
-        TextboxManager textboxManager = FindTextboxManager();
         if (textboxManager != null)
         {
             GameObject subtitleObject = new GameObject("EP3 Lobby Intro Subtitles", typeof(RectTransform));
             subtitleObject.transform.SetParent(textboxManager.transform, false);
             subtitlePresenter = subtitleObject.AddComponent<Ep3CutsceneSubtitlePresenter>();
-            subtitlePresenter.Configure(subtitleFont, textboxManager);
+            subtitlePresenter.Configure(subtitleFont, textboxManager, false);
             ownsSubtitlePresenter = true;
             return;
         }
@@ -1410,13 +1495,13 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         subtitlePresenter = FindObjectOfType<Ep3CutsceneSubtitlePresenter>();
         if (subtitlePresenter != null)
         {
-            subtitlePresenter.Configure(subtitleFont);
+            subtitlePresenter.Configure(subtitleFont, null, true);
             return;
         }
 
         GameObject fallbackSubtitleObject = new GameObject("EP3 Lobby Intro Subtitles");
         subtitlePresenter = fallbackSubtitleObject.AddComponent<Ep3CutsceneSubtitlePresenter>();
-        subtitlePresenter.Configure(subtitleFont);
+        subtitlePresenter.Configure(subtitleFont, null, true);
         ownsSubtitlePresenter = true;
     }
 
@@ -1436,8 +1521,21 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             }
 
             string objectName = manager.gameObject.name;
-            if (objectName.IndexOf("Canvas_Cutscene", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                objectName.IndexOf("Canvas_NPC_Chat", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (objectName.IndexOf("Canvas_Cutscene", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return manager;
+            }
+        }
+
+        foreach (TextboxManager manager in managers)
+        {
+            if (manager == null || manager.gameObject == null)
+            {
+                continue;
+            }
+
+            string objectName = manager.gameObject.name;
+            if (objectName.IndexOf("Canvas_NPC_Chat", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return manager;
             }

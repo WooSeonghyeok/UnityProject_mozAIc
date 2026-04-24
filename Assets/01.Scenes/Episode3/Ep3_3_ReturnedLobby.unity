@@ -1123,8 +1123,8 @@ MonoBehaviour:
     isFirstEnterAtS3CP0: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
-  inspectorSequenceId: EP3_STAGE3_3_Intro
-  playOnceSaveKey: 0
+  inspectorSequenceId: EP3_STAGE3_2_COMPLETION
+  playOnceSaveKey: 4
   inspectorShots:
   - dialogueId: EP3_031_CLEAR_001
     speakerType: Narration
@@ -1813,7 +1813,7 @@ MonoBehaviour:
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
-  playOnceSaveKey: 0
+  playOnceSaveKey: -1
   inspectorShots:
   - dialogueId: EP3_001
     speakerType: Monologue
@@ -2689,7 +2689,7 @@ MonoBehaviour:
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
-  playOnceSaveKey: 0
+  playOnceSaveKey: -1
   inspectorShots:
   - dialogueId: EP3_004
     speakerType: Dialogue
