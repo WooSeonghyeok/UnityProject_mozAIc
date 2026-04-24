@@ -146,6 +146,12 @@ public class Ep3_2Manager : MonoBehaviour
         }
 
         saveData.ep3_jumpClear = true;
+
+        if (NpcMemoryProgressManager.Instance != null)
+        {
+            NpcMemoryProgressManager.Instance.OnPuzzleStateChanged();
+        }
+
         SaveManager.WriteCurJSON(saveData);
 
         if (SaveManager.instance != null)

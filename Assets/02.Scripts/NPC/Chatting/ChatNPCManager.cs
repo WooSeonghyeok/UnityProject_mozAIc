@@ -78,8 +78,15 @@ public class ChatNPCManager : MonoBehaviour
 
         isTalking = true;
         chatPanel.SetActive(true);
-        GameManager.Instance.lookLock = true;
-        GameManager.Instance.MouseState();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.lookLock = true;
+            GameManager.Instance.MouseState();
+        }
+        else
+        {
+            Debug.LogWarning("[ChatNPCManager] GameManager.Instance가 없어 lookLock/MouseState를 건너뜁니다.");
+        }
         serverChat.ChatReset();
 
         // 현재 대화 중인 NPCData를 ServerChat에 전달
@@ -264,10 +271,27 @@ public class ChatNPCManager : MonoBehaviour
     // EP3 전용 분기
     private string ResolveEp3DialogueType(NPCData npcData)
     {
-        // 기억 완전 복원 상태 → 클리어 대사
-        
+        if (npcData == null)
+            return "intro";
 
-        // 기본
+        // 퍼즐 씬 전용 대사
+        if (npcData.sceneId == "ep_03_rhythm_puzzle" || npcData.sceneId == "ep_03_paper_puzzle")
+        {
+            return "puzzle_hint";
+        }
+
+        // 퍼즐 2개 클리어 후 대사
+        if (npcData.revealStage == MemoryRevealStage.Full)
+        {
+            return "clear";
+        }
+
+        // 퍼즐 1개 클리어 후 대사
+        if (npcData.revealStage == MemoryRevealStage.Partial)
+        {
+            return "one_clear_hint";
+        }
+
         return "intro";
     }
     private void TryResolveRuntimeReferences()

@@ -68,6 +68,13 @@ public class Ep3_1Manager : MonoBehaviour
             return;
         }
         data.ep3_paperClear = true;
+
+        // EP3 NPC 기억 단계 갱신
+        if (NpcMemoryProgressManager.Instance != null)
+        {
+            NpcMemoryProgressManager.Instance.OnPuzzleStateChanged();
+        }
+
         scoreController?.TimerSwitch(false);  // 점수 감점 타이머 정지
         if (SaveManager.instance != null)
         {
