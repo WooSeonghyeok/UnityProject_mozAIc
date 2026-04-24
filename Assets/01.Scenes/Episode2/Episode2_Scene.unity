@@ -4160,6 +4160,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -5651,6 +5653,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -6836,6 +6840,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -19451,6 +19457,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -19583,6 +19591,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -23080,6 +23090,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -31489,6 +31501,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0

@@ -2407,7 +2407,7 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     FocusDistance: 10
-    m_SensorSize: {x: 36, y: 24}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2823,6 +2823,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextSceneName: Episode3_Scene
   doorOpen: {fileID: 3286670668279723778}
+  arrivalCutscenePlayer: {fileID: 0}
+  waitForCutsceneBeforeSceneLoad: 1
+  loadSceneAfterArrivalSequence: 1
+  teleportNpcOnArrival: 0
+  npcTransform: {fileID: 0}
+  npcTeleportPoint: {fileID: 0}
+  npcLookTarget: {fileID: 0}
   onlyOnce: 1
 --- !u!65 &402929917
 BoxCollider:
@@ -5034,6 +5041,21 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 1184578991}
+  playArrivalSequenceOnEnter: 0
+  playArrivalSequenceOnlyOnce: 1
+  arrivalCutscenePlayer: {fileID: 0}
+  arrivalCutsceneStartIndex: 0
+  arrivalCutsceneStepCount: 0
+  autoInteractAfterArrivalSequence: 0
+  playInteractionCutsceneBeforeAction: 0
+  interactionCutscenePlayer: {fileID: 0}
+  interactionCutsceneStartIndex: 0
+  interactionCutsceneStepCount: 0
+  playInteractionCutsceneOnlyOnce: 1
+  teleportNpcOnArrival: 0
+  npcTransform: {fileID: 0}
+  npcTeleportPoint: {fileID: 0}
+  npcLookTarget: {fileID: 0}
   onInteract:
     m_PersistentCalls:
       m_Calls:
@@ -5132,6 +5154,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad334f2656d4a2794d6f22bef1df403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_STAGE3_1_INTRO
@@ -5140,8 +5196,7 @@ MonoBehaviour:
   - dialogueId: EP3_001
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uD76C\uBBF8\uD55C \uC120\uC728\uC758 \uD754\uC801\uC774 \uAE34
-      \uD640 \uB108\uBA38\uB85C \uC774\uC5B4\uC9C0\uACE0 \uC788\uC5C8\uB2E4."
+    subtitleText: "\uBB50\uC57C..? \uBD84\uBA85 \uC791\uC5C5\uC2E4\uC774\uC5C8\uB294\uB370?"
     showSpeakerName: 0
     cameraPosition: {x: 4.8597326, y: -2.3806152, z: 20.503187}
     lookAtPosition: {x: 5.4538097, y: -2.7240057, z: 17.524256}
@@ -5149,11 +5204,11 @@ MonoBehaviour:
     holdDuration: 1.5
     fieldOfView: 54
   - dialogueId: EP3_002
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
-    subtitleText: "\uD769\uC5B4\uC9C4 \uC545\uBCF4 \uC870\uAC01\uB4E4\uC774, \uC78A\uD78C
-      \uAE30\uC5B5\uC758 \uD30C\uD3B8\uCC98\uB7FC \uACF3\uACF3\uC5D0 \uB0A8\uC544
-      \uC788\uC5C8\uB2E4."
+    subtitleText: "\uACF5\uC5F0\uC7A5\uC5D4 \uD769\uC5B4\uC9C4 \uC545\uBCF4 \uC870\uAC01\uB4E4\uC774,
+      \uC78A\uD78C \uAE30\uC5B5\uC758 \uD30C\uD3B8\uCC98\uB7FC \uACF3\uACF3\uC5D0
+      \uB0A8\uC544 \uC788\uB2E4."
     showSpeakerName: 0
     cameraPosition: {x: 6.3582244, y: -2.0885935, z: 11.246157}
     lookAtPosition: {x: 6.3213096, y: -2.5804086, z: 8.752287}
@@ -5161,7 +5216,7 @@ MonoBehaviour:
     holdDuration: 1.6
     fieldOfView: 49
   - dialogueId: EP3_003
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
     subtitleText: "\uB2EB\uD78C \uBB38\uACFC \uB04A\uAE34 \uBA5C\uB85C\uB514\uB294,
       \uC544\uC9C1 \uD480\uB9AC\uC9C0 \uC54A\uC740 \uC774\uC57C\uAE30\uAC00 \uB0A8\uC544
@@ -5175,9 +5230,7 @@ MonoBehaviour:
   - dialogueId: EP3_004
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uADF8\uB9AC\uACE0 \uD640\uC758 \uB05D\uC5D0\uC11C, \uB808\uC628\uC740
-      \uB9D0\uC5C6\uC774 \uC774\uACF3\uC758 \uAE30\uC5B5\uC744 \uC9C0\uD0A4\uACE0
-      \uC788\uC5C8\uB2E4."
+    subtitleText: "\uC548\uCABD\uC5D0 \uB204\uAD70\uAC00\uAC00 \uC788\uC5B4"
     showSpeakerName: 0
     cameraPosition: {x: 9.406369, y: 1.0203038, z: 4.3200746}
     lookAtPosition: {x: 7.060455, y: -1.8923355, z: -4.0589986}
@@ -5187,9 +5240,8 @@ MonoBehaviour:
   - dialogueId: EP3_005
     speakerType: Monologue
     speakerName: 
-    subtitleText: "\uC870\uAC01\uC744 \uBAA8\uC544 \uC774 \uD750\uB984\uC744 \uB530\uB77C\uAC00\uBA74,
-      \uC783\uC5B4\uBC84\uB9B0 \uC120\uC728\uC5D0 \uC870\uAE08 \uB354 \uAC00\uAE4C\uC6CC\uC9C8
-      \uC218 \uC788\uC744 \uAC83 \uAC19\uB2E4."
+    subtitleText: "\uC870\uAC01\uC744 \uBAA8\uC544 \uC774 \uD750\uB984\uC744 \uB530\uB77C\uAC00\uBA74,\uAE30\uC5B5\uC5D0
+      \uC870\uAE08 \uB354 \uAC00\uAE4C\uC6CC\uC9C8 \uC218 \uC788\uC744 \uAC83 \uAC19\uB2E4."
     showSpeakerName: 0
     cameraPosition: {x: 6.5975795, y: -1.8673064, z: 12.0882015}
     lookAtPosition: {x: 6.40379, y: -2.6425843, z: 13.714412}
@@ -5207,6 +5259,11 @@ MonoBehaviour:
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  useRuntimeHintOverlay: 0
+  nextButton: {fileID: 0}
+  nextButtonRoot: {fileID: 0}
+  skipButton: {fileID: 0}
+  skipButtonRoot: {fileID: 0}
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls:
@@ -5255,6 +5312,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad334f2656d4a2794d6f22bef1df403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   playOnStart: 0
   playOnlyOncePerSession: 1
   inspectorSequenceId: EP3_STAGE3_1_COMPLETION
@@ -5271,6 +5362,11 @@ MonoBehaviour:
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  useRuntimeHintOverlay: 0
+  nextButton: {fileID: 0}
+  nextButtonRoot: {fileID: 0}
+  skipButton: {fileID: 0}
+  skipButtonRoot: {fileID: 0}
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
@@ -5315,6 +5411,12 @@ MonoBehaviour:
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
+  disableInput: 0
+  useRuntimeHintOverlay: 0
+  nextButton: {fileID: 0}
+  nextButtonRoot: {fileID: 0}
+  skipButton: {fileID: 0}
+  skipButtonRoot: {fileID: 0}
 --- !u!1 &826713476
 GameObject:
   m_ObjectHideFlags: 0
@@ -6074,7 +6176,7 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     FocusDistance: 10
-    m_SensorSize: {x: 36, y: 24}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7533,6 +7635,9 @@ MonoBehaviour:
   - {fileID: 1196846922500593285, guid: 34621d669ac42cf4ea9563dbfd4b18e9, type: 3}
   - {fileID: 3098065032723155528, guid: ada5fca26043fb74abbf611fe904f3f7, type: 3}
   - {fileID: 8781374812398381852, guid: 24a37040364a08d4bbbf84c1b46bc91d, type: 3}
+  randomSpawnPoints: 1
+  useSpawnPoint: 1
+  logSpawnResults: 1
   spawnRotationX: 90
   useProximityHintAudio: 1
   proximityHintClip: {fileID: 8300000, guid: 8070ec059b974ea4997aeb2c60c4f467, type: 3}
@@ -11440,7 +11545,7 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     FocusDistance: 10
-    m_SensorSize: {x: 36, y: 24}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12906,6 +13011,21 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 0}
+  playArrivalSequenceOnEnter: 0
+  playArrivalSequenceOnlyOnce: 1
+  arrivalCutscenePlayer: {fileID: 0}
+  arrivalCutsceneStartIndex: 0
+  arrivalCutsceneStepCount: 0
+  autoInteractAfterArrivalSequence: 0
+  playInteractionCutsceneBeforeAction: 0
+  interactionCutscenePlayer: {fileID: 0}
+  interactionCutsceneStartIndex: 0
+  interactionCutsceneStepCount: 0
+  playInteractionCutsceneOnlyOnce: 1
+  teleportNpcOnArrival: 0
+  npcTransform: {fileID: 0}
+  npcTeleportPoint: {fileID: 0}
+  npcLookTarget: {fileID: 0}
   onInteract:
     m_PersistentCalls:
       m_Calls:

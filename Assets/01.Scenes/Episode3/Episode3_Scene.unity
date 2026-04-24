@@ -265,30 +265,17 @@ MonoBehaviour:
   - dialogueId: EP3_002
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uC545\uAE30\uB791 \uC545\uBCF4\uAC00 \uC815\uB9AC\uB41C \uB290\uB08C\uC740
-      \uC544\uB2CC\uB370 \uD558\uB358 \uAC78 \uBA48\uCDC4\uB098\uBCF4\uB124"
+    subtitleText: "\uC545\uAE30\uB791 \uC545\uBCF4\uB3C4 \uC5B4\uC9C8\uB7EC\uC838\uC788\uACE0.."
     showSpeakerName: 0
     cameraPosition: {x: 3.1713996, y: 3.0095558, z: -9.071946}
     lookAtPosition: {x: 4.2704725, y: 2.5698307, z: -7.342843}
     moveDuration: 2.3
     holdDuration: 1.6
     fieldOfView: 48
-  - dialogueId: EP3_003
-    speakerType: Narration
-    speakerName: 
-    subtitleText: "\uC5EC\uAE30\uC11C \uC791\uC5C5\uD588\uB358 \uAC83 \uAC19\uC740\uB370
-      \uB05D\uAE4C\uC9C0 \uBABB \uB9CC\uB4E0 \uAC8C \uC788\uC5C8\uB358 \uAC83 \uAC19\uB2E4."
-    showSpeakerName: 0
-    cameraPosition: {x: 2.6668584, y: 4.50831, z: -11.261038}
-    lookAtPosition: {x: 1.1393163, y: 3.3147392, z: -11.781575}
-    moveDuration: 2.4
-    holdDuration: 1.7
-    fieldOfView: 56
   - dialogueId: EP3_004
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uC65C\uC778\uC9C0\uB294 \uBAA8\uB974\uACA0\uC9C0\uB9CC, \uC88B\uC558\uB358
-      \uACF3 \uAC19\uC740\uB370"
+    subtitleText: "\uC548\uC5D0 \uB204\uAD70\uAC00\uAC00 \uC788\uB124?"
     showSpeakerName: 0
     cameraPosition: {x: 3.1239371, y: 2.5208173, z: -7.9770637}
     lookAtPosition: {x: 4.9253836, y: 1.3684003, z: -9.43722}
@@ -298,7 +285,7 @@ MonoBehaviour:
   - dialogueId: EP3_005
     speakerType: Monologue
     speakerName: 
-    subtitleText: "\uC870\uAE08 \uB354 \uAC00\uAE4C\uC774 \uAC00\uBD10\uC57C\uACA0\uB2E4"
+    subtitleText: "\uC870\uAE08 \uB354 \uAC00\uAE4C\uC774 \uAC00\uBCF4\uC790"
     showSpeakerName: 0
     cameraPosition: {x: 3.2635355, y: 1.9961091, z: -34.52396}
     lookAtPosition: {x: 3.2324946, y: 1.9927697, z: -34.92055}
@@ -4389,8 +4376,6 @@ MonoBehaviour:
   - position: {x: 3.4314299, y: 3.0075898, z: -16.204988}
     roll: 0
   - position: {x: 3.1713996, y: 3.0095558, z: -9.071946}
-    roll: 0
-  - position: {x: 2.6668584, y: 4.50831, z: -11.261038}
     roll: 0
   - position: {x: 3.1239371, y: 2.5208173, z: -7.9770637}
     roll: 0

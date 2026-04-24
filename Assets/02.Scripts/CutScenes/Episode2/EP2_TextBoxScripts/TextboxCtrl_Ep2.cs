@@ -269,7 +269,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             "너는 색을 고를 때 망설이지 않았어.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
-            "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", 2f, Talker.core, true);
+            "나는 구도를 먼저 잡았고, 너는 색을 먼저 골랐지.", 2f, Talker.core, true);
         GameManager.Instance.CutsceneMode(false);
     }
 
