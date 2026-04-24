@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class EndingManager : MonoBehaviour
 {
     private bool isCompleteEnding;
-    public SoundController soundCtrl_true;
-    public SoundController soundCtrl_normal;
+    [SerializeField] private SoundProfile trueEndingProfile;
+    [SerializeField] private SoundProfile normalEndingProfile;
     public Image endingImage;
     public Sprite trueSprite;
     public Sprite normalSprite;
     public Sprite thankstoSprite;
     public GameObject endSkipButton;
-    public WaitForSecondsRealtime canSkipWFS;
-    public WaitForSecondsRealtime EndingDuration;
+    public WaitForSecondsRealtime canSkipWFS = new(5f);  //엔딩 스킵 가능 시간
+    public WaitForSecondsRealtime EndingDuration = new(20f);  //엔딩 최대 재생 시간
     public GameObject RegameButton;
     public GameObject AppEndButton;
     private Coroutine endingPlayCoroutine;  // 실행 중인 엔딩 코루틴 저장용
@@ -24,14 +24,11 @@ public class EndingManager : MonoBehaviour
     void Awake()
     {
         endingImage.enabled = true;
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(false);
         endSkipButton.SetActive(false);
         RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
         CtrlReset();
         cutscene = gameObject.GetComponent<TextboxCtrl_Ending>();
-        canSkipWFS = new WaitForSecondsRealtime(5f);  //엔딩 시작 5초 후 스킵 가능
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
     {
@@ -78,6 +75,7 @@ public class EndingManager : MonoBehaviour
         if (isCompleteEnding) CompleteEnding();
         else NormalEnding();
         endingImage.enabled = true;
+        GameManager.Instance.CutsceneMode(true);
         endingPlayCoroutine = StartCoroutine(EndingPlay());  // EndingPlay 코루틴 시작 및 저장 (스킵 시 중단할 수 있도록)
         yield return canSkipWFS;
         endSkipButton.SetActive(true);
@@ -85,20 +83,16 @@ public class EndingManager : MonoBehaviour
     void CompleteEnding()
     {
         endingImage.sprite = trueSprite;
-        soundCtrl_normal.gameObject.SetActive(false);
-        soundCtrl_true.gameObject.SetActive(true);
+        ApplyEndingSoundProfile(trueEndingProfile);
         Debug.Log("TRUE ENDING!");
         if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.TrueEndCutscene());
-        EndingDuration = new WaitForSecondsRealtime(20f);  //진 엔딩 시작 20초 후 종료
     }
     void NormalEnding()
     {
         endingImage.sprite = normalSprite;
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(true);
+        ApplyEndingSoundProfile(normalEndingProfile);
         Debug.Log("normal ending...");
         if (cutscene != null) cutsceneCoroutine = StartCoroutine(cutscene.NormalEndCutscene());
-        EndingDuration = new WaitForSecondsRealtime(10f);  //노멀 엔딩 시작 10초 후 종료
     }
     IEnumerator EndingPlay()
     {
@@ -111,19 +105,27 @@ public class EndingManager : MonoBehaviour
         if (cutscene != null && cutscene._manager != null) cutscene._manager.CloseBox();
         EndingClear();
     }
-    private void EndingClear()
+    public void EndingClear()
     {
         EndingStop();
         CtrlReset();
         endingImage.sprite = thankstoSprite;
+        GameManager.Instance.CutsceneMode(false);
         endSkipButton.SetActive(false);
         RegameButton.SetActive(true);
         AppEndButton.SetActive(true);
     }
     void CtrlReset()
     {
-        soundCtrl_true.gameObject.SetActive(false);
-        soundCtrl_normal.gameObject.SetActive(false);
+    }
+    private void ApplyEndingSoundProfile(SoundProfile profile)
+    {
+        if (SoundManager.Instance == null || profile == null)
+        {
+            return;
+        }
+
+        SoundManager.Instance.ApplySoundProfile(profile, false);
     }
     private void EndingStop()
     {

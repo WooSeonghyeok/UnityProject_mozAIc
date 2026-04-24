@@ -1,3 +1,4 @@
+﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -85,7 +86,7 @@ public class FinalPianoInteraction : MonoBehaviour
 
         if (musicA != null && musicB != null)
         {
-            selectedClip = Random.value < 0.5f ? musicA : musicB;
+            selectedClip = UnityEngine.Random.value < 0.5f ? musicA : musicB;
         }
         else if (musicA != null)
         {
@@ -129,7 +130,7 @@ public class FinalPianoInteraction : MonoBehaviour
 
         const int ep3PuzzleBase = 10;
         int ep3PuzzleLoss = Ep_3Manager.Instance.Ep3_1puzzleLoss + Ep_3Manager.Instance.Ep3_2restarted;
-        SaveManager.instance.curData.memory_reconstruction_rate[8] = ep3PuzzleBase - ep3PuzzleLoss;
+        SaveManager.instance.curData.memory_reconstruction_rate[8] = Math.Clamp(ep3PuzzleBase - ep3PuzzleLoss, 0 , ep3PuzzleBase);
     }
 
     public void PlayCutsceneThenMusic()

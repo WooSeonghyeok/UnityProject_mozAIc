@@ -14,6 +14,7 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     private bool isMidCutsceneOn;
     [Header("옵션 이벤트")]
     public UnityEvent onAllCollected;
+    public CutsceneImagePlayer puzzle3Cutscene;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
     private void OnTriggerEnter(Collider other)
     {
@@ -53,6 +54,7 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
             {
                 Debug.LogWarning($"[Ep4_3Manager] onAllCollected 호출 중 예외: {ex.Message}");
             }
+            puzzle3Cutscene.PlayCutscene();
         }
     }
 }

@@ -78,6 +78,9 @@ public class ChatNPCManager : MonoBehaviour
 
         isTalking = true;
         chatPanel.SetActive(true);
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
         serverChat.ChatReset();
 
         // 현재 대화 중인 NPCData를 ServerChat에 전달
@@ -106,7 +109,7 @@ public class ChatNPCManager : MonoBehaviour
         serverChat.NpcTypeChange(prompt);
 
         // 동굴 진입 이후에는 전용 대사 사용
-        string dialogueType = "intro";
+        string dialogueType = ResolveDialogueType(npcData);
 
         // Full 단계가 되었으면 동굴 진입 여부보다 우선해서 clear 대사 사용
         if (npcData.revealStage == MemoryRevealStage.Full)
@@ -165,6 +168,9 @@ public class ChatNPCManager : MonoBehaviour
         if (chatPanel != null)
         {
             chatPanel.SetActive(false);
+            GameManager.Instance.openPopupCnt--;
+            GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+            GameManager.Instance.MouseStateChange();
         }
         if (serverChat != null)
         {
@@ -194,6 +200,78 @@ public class ChatNPCManager : MonoBehaviour
             }
         }
     }
+    // NPC/에피소드별로 dialogueType을 결정하는 중앙 함수
+    private string ResolveDialogueType(NPCData npcData)
+    {
+        if (npcData == null)
+            return "intro";
+
+        // EP1 루나
+        if (npcData.npcId == "npc_ep1_luna")
+        {
+            return ResolveEp1DialogueType(npcData);
+        }
+
+        // EP2 엘리오
+        if (npcData.npcId == "npc_ep2_painter")
+        {
+            return ResolveEp2DialogueType(npcData);
+        }
+
+        //EP3 레온
+        if (npcData.npcId == "npc_ep3_musician")
+        {
+            return ResolveEp3DialogueType(npcData);
+        }
+
+        return "intro";
+    }
+
+    // EP1 전용 분기
+    private string ResolveEp1DialogueType(NPCData npcData)
+    {
+        // 기억 완전 복원 상태 → 클리어 대사
+        if (npcData.revealStage == MemoryRevealStage.Full)
+        {
+            return "clear";
+        }
+
+        // 동굴 진입 이후 → 동굴 대사
+        if (GameManager_Ep1.Instance != null && GameManager_Ep1.Instance.isCaveUnlocked)
+        {
+            return "cave_after_talk";
+        }
+
+        // 기본
+        return "intro";
+    }
+
+    // EP2 전용 분기
+    private string ResolveEp2DialogueType(NPCData npcData)
+    {
+        // 퍼즐 모두 클리어 -> 기억 완전 복원 상태
+        if (EP2ProgressData.spaceClear && EP2ProgressData.paintClear)
+        {
+            return "clear";
+        }
+        // 퍼즐 하나만 클리어 -> 기억 부분적 복원 상태
+        if (EP2ProgressData.spaceClear || EP2ProgressData.paintClear)
+        {
+            return "one_clear_hint";
+        }
+        // 퍼즐 하나도 클리어 못함 -> 기억 초기 상태
+        return "intro";
+    }
+
+    // EP3 전용 분기
+    private string ResolveEp3DialogueType(NPCData npcData)
+    {
+        // 기억 완전 복원 상태 → 클리어 대사
+        
+
+        // 기본
+        return "intro";
+    }
     private void TryResolveRuntimeReferences()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -215,7 +293,6 @@ public class ChatNPCManager : MonoBehaviour
             followCam = FindObjectOfType<FollowCamera>();
         }
     }
-
     private void RefreshCancelSubscription(bool clearSubscription = false)
     {
         PlayerInput nextUser = clearSubscription ? null : user;

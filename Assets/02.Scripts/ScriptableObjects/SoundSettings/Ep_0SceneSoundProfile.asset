@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b148dc5bd7d8c4f9829dafd66fb8a1, type: 3}
   m_Name: Ep_0SceneSoundProfile
   m_EditorClassIdentifier: 
-  bgm: 2
+  bgm: 0
   bgmLoop: 1
   ambient: 1
   ambientLoop: 1
   playBGMOnEnter: 1
   playAmbientOnEnter: 1
+  applyVolumeDefaultsOnEnter: 1
+  defaultMasterVolume: 1
+  defaultBGMVolume: 0.7
+  defaultAmbientVolume: 0.6
+  defaultUIVolume: 0.9
+  defaultSFXVolume: 0.84
   playerFootstep: 3
   playerJump: 1
   playerLand: 2

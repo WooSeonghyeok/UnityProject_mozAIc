@@ -50,7 +50,7 @@ public class EP2CutsceneManager : MonoBehaviour
     IEnumerator PlayRoutine(Sprite[] scenes)
     {
         cutsceneImage.gameObject.SetActive(true);
-
+        GameManager.Instance.CutsceneMode(true);
         foreach (var scene in scenes)
         {
             cutsceneImage.sprite = scene;
@@ -62,11 +62,23 @@ public class EP2CutsceneManager : MonoBehaviour
         }
 
         cutsceneImage.gameObject.SetActive(false);
-
+        GameManager.Instance.CutsceneMode(false);
         // ⭐ 핵심
         OnCutsceneEnd?.Invoke();
     }
+    public IEnumerator PlayCutsceneAndWait(string name)
+    {
+        bool done = false;
 
+        System.Action callback = () => { done = true; };
+
+        OnCutsceneEnd += callback;
+        Play(name);
+
+        yield return new WaitUntil(() => done);
+
+        OnCutsceneEnd -= callback;
+    }
     IEnumerator Fade(float start, float end)
     {
         float t = 0;

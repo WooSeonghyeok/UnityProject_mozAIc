@@ -69,15 +69,12 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
 
     IEnumerator Episode2Intro()
     {
-        if (PlayerPrefs.GetInt("Played_EP2_Text_Intro", 0) == 1)
-            yield break;
-
-        PlayerPrefs.SetInt("Played_EP2_Text_Intro", 1);
-        PlayerPrefs.Save();
-
+        if (SaveManager.instance.curData.Played_EP2_Text_Intro)  yield break;
+        SaveManager.instance.curData.Played_EP2_Text_Intro = true;
+        SaveManager.WriteCurJSON(SaveManager.instance.curData);
         if (introPlayed) yield break;
         introPlayed = true;
-
+        GameManager.Instance.CutsceneMode(true);
         _manager.UserCtrl(false);
 
         yield return _manager.TalkSay(TalkType.system,
@@ -107,6 +104,8 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         BackToPlayerCam();
 
         _manager.UserCtrl(true);
+        GameManager.Instance.lookLock = false;
+        GameManager.Instance.CutsceneMode(false);
     }
 
     // ===============================
@@ -115,6 +114,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     public IEnumerator SpacePuzzleStart()
     {
         _manager.UserCtrl(false);
+        GameManager.Instance.CutsceneMode(true);
 
         yield return _manager.TalkSay(TalkType.player,
             "여기는 어디지..??", 2f, Talker.self, true);
@@ -150,6 +150,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         BackToPlayerCam();
 
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     // ===============================
@@ -158,16 +159,19 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     public IEnumerator SpacePuzzleStep1()
     {
         _manager.UserCtrl(false);
+        GameManager.Instance.CutsceneMode(true);
 
         yield return _manager.TalkSay(TalkType.player,
             "방금… 흩어져 있던 것들이 하나로 보였어", 2f, Talker.self, true);
 
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     public IEnumerator SpacePuzzleStep2()
     {
         _manager.UserCtrl(false);
+        GameManager.Instance.CutsceneMode(true);
 
         yield return _manager.TalkSay(TalkType.voice,
             "같은 장면도 어디에서 보느냐에 따라 완전히 달라지지.", 2f, Talker.core, true);
@@ -176,6 +180,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             "우린 그런 이야기를 자주 했던 것 같아.", 2f, Talker.core, true);
 
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     //public IEnumerator SpacePuzzleStep3()
@@ -193,6 +198,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     public IEnumerator SpacePuzzleComplete()
     {
         _manager.UserCtrl(false);
+        GameManager.Instance.CutsceneMode(true);
 
         yield return _manager.TalkSay(TalkType.player,
             "…기억난다.", 2f, Talker.self, true);
@@ -204,6 +210,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             "그래서 내가 못 보던 모양을 먼저 찾아냈지.", 2f, Talker.core, true);
 
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     // ===============================
@@ -213,7 +220,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     {
 
         _manager.UserCtrl(false);
-
+        GameManager.Instance.CutsceneMode(true);
 
         yield return _manager.TalkSay(TalkType.player,
                    "이 공간... 어딘가 익숙한데", 2f, Talker.self, true);
@@ -241,28 +248,34 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         }
         BackToPlayerCam();
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     public IEnumerator PaintStep1()
     {
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.player,
             "색을 섞는 방식이… 익숙해", 2f, Talker.self, true);
 
         yield return _manager.TalkSay(TalkType.player,
             "머리보다 손이 먼저 기억하는 것 같아", 2f, Talker.self, true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     public IEnumerator PaintStep2()
     {
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.voice,
             "너는 색을 고를 때 망설이지 않았어.", 2f, Talker.core, true);
 
         yield return _manager.TalkSay(TalkType.voice,
             "나는 형태를 먼저 봤고, 너는 분위기를 먼저 봤지.", 2f, Talker.core, true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     public IEnumerator PaintStep3()
     {
+        GameManager.Instance.CutsceneMode(true);
         yield return _manager.TalkSay(TalkType.player,
             "…맞다", 2f, Talker.self, true);
 
@@ -280,6 +293,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
 
         yield return _manager.TalkSay(TalkType.voice,
             "이제 거의 다 왔어.", 2f, Talker.core, true);
+        GameManager.Instance.CutsceneMode(false);
     }
 
     // ===============================
@@ -293,6 +307,7 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
     IEnumerator EndingSequence()
     {
         _manager.UserCtrl(false);
+        GameManager.Instance.CutsceneMode(true);
         for (int i = 1; i < introCams.Length; i++)
         {
             if (introCams[i] == null) continue;
@@ -353,5 +368,6 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
         BackToPlayerCam();
 
         _manager.UserCtrl(true);
+        GameManager.Instance.CutsceneMode(false);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 public class EP4_Puzzle2Manager : MonoBehaviour
 {
     public GameObject obj1;
@@ -7,6 +6,7 @@ public class EP4_Puzzle2Manager : MonoBehaviour
     public GameObject gatePrefab; // 🔥 문
     bool isActivated = false;
     public TextboxCtrl_Ep4 cutscene;
+    public CutsceneImagePlayer puzzle2Cutscene;
     bool isMidCutsceneOn = false;
     private void Awake()
     {
@@ -24,6 +24,7 @@ public class EP4_Puzzle2Manager : MonoBehaviour
         if (obj1.activeSelf && obj2.activeSelf)  // 🔥 둘 다 활성화됐는지 체크
         {
             ActivatePortal();
+            puzzle2Cutscene.PlayCutscene();
             isActivated = true;
         }
     }

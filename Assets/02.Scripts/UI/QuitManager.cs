@@ -1,10 +1,54 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
 public class QuitManager : MonoBehaviour
 {
     public GameObject QuitPopup;
-    public void OpenQuitPopup() => QuitPopup.SetActive(true);
-    public void OnNoButton() => QuitPopup.SetActive(false);
+    private bool isQuitOpen = false; 
+    private Canvas Can;
+    private void Awake()
+    {
+        Can = QuitPopup.GetComponent<Canvas>();
+        if (Can == null)
+        {
+            Can = QuitPopup.AddComponent<Canvas>();
+        }
+        var raycaster = QuitPopup.GetComponent<GraphicRaycaster>();
+        if (raycaster == null)
+        {
+            QuitPopup.AddComponent<GraphicRaycaster>();
+        }
+    }
+    public void OnQuit(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (isQuitOpen) return;
+            OpenQuitPopup();
+        }
+    }
+    public void OpenQuitPopup()
+    {
+        if (isQuitOpen) return;
+        QuitPopup.SetActive(true);
+        isQuitOpen = true;
+        Can.overrideSorting = true;
+        Can.sortingOrder = 700;
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
+    }
+    public void OnNoButton()
+    {
+        QuitPopup.SetActive(false);
+        isQuitOpen = false;
+        Can.overrideSorting = false;
+        Can.sortingOrder = 0;
+        GameManager.Instance.openPopupCnt--;
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.MouseStateChange();
+    }
     public void OnYesButton()
     {
 #if UNITY_EDITOR

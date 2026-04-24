@@ -11,6 +11,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
     public Text pieceCnt;
     public TextboxCtrl_Ep4 cutscene;
     private bool isMidCutsceneOn = false;
+    public CutsceneImagePlayer puzzle1Cutscene;
     private void Awake()
     {
         pieceBox.SetActive(false);
@@ -60,5 +61,6 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
                 tagGet = MemoryComplete
             });
         }
+        puzzle1Cutscene.PlayCutscene();
     }
 }

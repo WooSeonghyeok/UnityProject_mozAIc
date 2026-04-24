@@ -193,6 +193,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutscenePanel: {fileID: 3958165203520380080}
   cutsceneImage: {fileID: 1519703819958131803}
+  cutsceneText: {fileID: 0}
+  subtitleFont: {fileID: 0}
+  autoCreateSubtitleUi: 1
+  subtitlePanelSize: {x: 1280, y: 156}
+  subtitlePanelOffset: {x: 0, y: 42}
+  subtitlePadding: {x: 34, y: 24, z: 34, w: 24}
+  subtitleBackgroundColor: {r: 0.05, g: 0.05, b: 0.08, a: 0.78}
+  subtitleFontSize: 34
+  cutsceneTexts: []
   cutsceneSprites:
   - {fileID: 984437915, guid: 4c448aafc055a764aaf855381af8b3c8, type: 3}
   - {fileID: 1780567227, guid: 4c448aafc055a764aaf855381af8b3c8, type: 3}
@@ -202,6 +211,15 @@ MonoBehaviour:
   fadeDuration: 0.1
   playerMovement: {fileID: 0}
   isEndCutscene: 0
+  onCutsceneFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  disableInput: 1
+  useRuntimeHintOverlay: 0
+  nextButton: {fileID: 0}
+  nextButtonRoot: {fileID: 0}
+  skipButton: {fileID: 0}
+  skipButtonRoot: {fileID: 0}
 --- !u!1 &7731893059616377846
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class Ep3_2Manager : MonoBehaviour
 {
     [Header("리듬 퍼즐 매니저")]
     [SerializeField] private RhythmPuzzleManager rhythmPuzzleManager;
+    [SerializeField] private bool useTopDownRhythmPuzzle = true;
+    [SerializeField] private Ep3_2TopDownRhythmPuzzle topDownRhythmPuzzle;
 
     [Header("NPC 연출")]
     [SerializeField] private NPCFollower stageNpcFollower;
@@ -34,19 +36,36 @@ public class Ep3_2Manager : MonoBehaviour
     [SerializeField] private List<string> collectedTags = new List<string>();
 
     private bool isStageFinished = false;
+    public bool UsesTopDownRhythmPuzzle => useTopDownRhythmPuzzle;
+    public Ep3_2StartPuzzle StartPuzzleController => startPuzzleController;
+    public Transform PuzzleSetupReferenceTransform => startPuzzleController != null ? startPuzzleController.transform : transform;
 
     private void Start()
     {
         PrepareStageNpc();
         ResetStartPuzzleController();
+        ResolvePuzzleRunners();
 
-        if (rhythmPuzzleManager == null)
+        if (useTopDownRhythmPuzzle)
         {
-            Debug.LogWarning("[Ep3_2Manager] RhythmPuzzleManager가 연결되지 않았습니다.");
-            return;
-        }
+            if (topDownRhythmPuzzle == null)
+            {
+                Debug.LogWarning("[Ep3_2Manager] Ep3_2TopDownRhythmPuzzle를 찾지 못했습니다.");
+                return;
+            }
 
-        rhythmPuzzleManager.Initialize(this);
+            topDownRhythmPuzzle.Initialize(this);
+        }
+        else
+        {
+            if (rhythmPuzzleManager == null)
+            {
+                Debug.LogWarning("[Ep3_2Manager] RhythmPuzzleManager가 연결되지 않았습니다.");
+                return;
+            }
+
+            rhythmPuzzleManager.Initialize(this);
+        }
 
         if (exitDoorInteractable != null)
         {
@@ -56,13 +75,28 @@ public class Ep3_2Manager : MonoBehaviour
 
     public void StartRhythmStage()
     {
-        if (rhythmPuzzleManager == null)
-        {
-            Debug.LogWarning("[Ep3_2Manager] RhythmPuzzleManager가 연결되지 않았습니다.");
-            return;
-        }
+        ResolvePuzzleRunners();
 
-        rhythmPuzzleManager.StartPuzzle();
+        if (useTopDownRhythmPuzzle)
+        {
+            if (topDownRhythmPuzzle == null)
+            {
+                Debug.LogWarning("[Ep3_2Manager] Ep3_2TopDownRhythmPuzzle가 연결되지 않았습니다.");
+                return;
+            }
+
+            topDownRhythmPuzzle.StartPuzzle();
+        }
+        else
+        {
+            if (rhythmPuzzleManager == null)
+            {
+                Debug.LogWarning("[Ep3_2Manager] RhythmPuzzleManager가 연결되지 않았습니다.");
+                return;
+            }
+
+            rhythmPuzzleManager.StartPuzzle();
+        }
         Debug.Log("[Ep3_2Manager] 3-2 리듬 퍼즐 시작");
     }
 
@@ -212,5 +246,33 @@ public class Ep3_2Manager : MonoBehaviour
         }
 
         startPuzzleController.ResetStartSequence();
+    }
+
+    private void ResolvePuzzleRunners()
+    {
+        if (topDownRhythmPuzzle == null)
+        {
+            topDownRhythmPuzzle = GetComponent<Ep3_2TopDownRhythmPuzzle>();
+        }
+
+        if (topDownRhythmPuzzle == null)
+        {
+            topDownRhythmPuzzle = GetComponentInChildren<Ep3_2TopDownRhythmPuzzle>(true);
+        }
+
+        if (useTopDownRhythmPuzzle && topDownRhythmPuzzle == null)
+        {
+            topDownRhythmPuzzle = gameObject.AddComponent<Ep3_2TopDownRhythmPuzzle>();
+        }
+
+        if (rhythmPuzzleManager == null)
+        {
+            rhythmPuzzleManager = GetComponent<RhythmPuzzleManager>();
+        }
+
+        if (rhythmPuzzleManager == null)
+        {
+            rhythmPuzzleManager = GetComponentInChildren<RhythmPuzzleManager>(true);
+        }
     }
 }
