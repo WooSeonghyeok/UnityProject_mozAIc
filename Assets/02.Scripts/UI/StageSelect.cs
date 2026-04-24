@@ -165,6 +165,7 @@ public class StageSelect : MonoBehaviour
             return;
         }
         EnterSound.Play();
+        GameManager.Instance.openPopupCnt = 0;
         GameManager.Instance.lookLock = false;
         SceneManager.LoadScene($"Episode{stageSelect + 1}_Scene");
     }

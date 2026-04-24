@@ -219,12 +219,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTr: {fileID: 0}
+  source: {fileID: 0}
   clip: {fileID: 8300000, guid: 10d6a7ac02f07854680c58cbad8eec37, type: 3}
-  maxDistance: 10
+  maxDistance: 15
   minDistance: 1
   maxVolume: 1
   minVolume: 0
   volChangeSpeed: 1.5
+  stopWhenFar: 0
+  loop: 1
+  playOnStart: 1
+  randomStartTime: 1
+  spatialBlend: 1
+  spread: 0
+  rolloffMode: 1
+  dopplerLevel: 0
 --- !u!114 &7466250103387700464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +250,7 @@ MonoBehaviour:
   collectSound: {fileID: 0}
   destroyDelay: 0.1
   useCollectFlyEffect: 1
-  visualRoot: {fileID: 0}
+  visualRoot: {fileID: 6271299908964648108}
   flyDuration: 0.8
 --- !u!114 &5391423626752739841
 MonoBehaviour:

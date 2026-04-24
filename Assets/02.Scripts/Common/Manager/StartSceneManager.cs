@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class AppStartManager : MonoBehaviour
+public class StartSceneManager : MonoBehaviour
 {
     public SaveDataObj curData;
     public GameObject CreditPopup;

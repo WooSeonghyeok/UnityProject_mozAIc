@@ -62,7 +62,7 @@ public class EP2CutsceneManager : MonoBehaviour
         }
 
         cutsceneImage.gameObject.SetActive(false);
-        GameManager.Instance.CutsceneMode(true);
+        GameManager.Instance.CutsceneMode(false);
         // ⭐ 핵심
         OnCutsceneEnd?.Invoke();
     }

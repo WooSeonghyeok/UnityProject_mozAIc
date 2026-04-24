@@ -110,6 +110,7 @@ public class EndingManager : MonoBehaviour
         EndingStop();
         CtrlReset();
         endingImage.sprite = thankstoSprite;
+        GameManager.Instance.CutsceneMode(false);
         endSkipButton.SetActive(false);
         RegameButton.SetActive(true);
         AppEndButton.SetActive(true);
@@ -117,7 +118,6 @@ public class EndingManager : MonoBehaviour
     void CtrlReset()
     {
     }
-
     private void ApplyEndingSoundProfile(SoundProfile profile)
     {
         if (SoundManager.Instance == null || profile == null)
