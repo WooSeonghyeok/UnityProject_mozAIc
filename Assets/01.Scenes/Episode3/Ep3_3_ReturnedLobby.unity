@@ -1122,7 +1122,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_STAGE3_3_Intro
@@ -1812,7 +1816,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
@@ -1906,8 +1914,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
-  memoryNumber: 7
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   memoryRateUp: 5
 --- !u!1001 &964198057
 PrefabInstance:
@@ -2692,7 +2703,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
