@@ -3631,6 +3631,17 @@ MonoBehaviour:
   repathTargetMoveThreshold: 0.5
   animator: {fileID: 1535722165}
   moveThreshold: 0.1
+--- !u!114 &1535722168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7194669207790084412, guid: 1b784c6baddba30469336247b2f53ed3, type: 3}
+  m_PrefabInstance: {fileID: 1535722163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535722164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ca1efe45d933e4b8e0fee3bc0bb38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1575570395
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,6 +4471,87 @@ MonoBehaviour:
   hintIntensity: 0
   aiInteractionCount: 0
   collectedTags: []
+--- !u!1001 &2030845521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 221.77658
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -107.347015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.620945
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: episodeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: targetNpcId
+      value: npc_ep3_musician
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: targetNpcData
+      value: 
+      objectReference: {fileID: 1535722168}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: defaultSceneId
+      value: ep_03_hall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: allClearSceneId
+      value: ep_03_all_puzzle_cleared
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: oneClearSceneId
+      value: ep_03_one_puzzle_cleared
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937533805628494818, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_Name
+      value: NpcMemoryProgressManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 453a89277408a1548bb9342f6876c975, type: 3}
 --- !u!1001 &1139851901872243157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5771,3 +5863,4 @@ SceneRoots:
   - {fileID: 265045669}
   - {fileID: 1000921236}
   - {fileID: 422165293}
+  - {fileID: 2030845521}
