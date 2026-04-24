@@ -5258,7 +5258,7 @@ MonoBehaviour:
   playOnStart: 0
   playOnlyOncePerSession: 1
   inspectorSequenceId: EP3_STAGE3_1_COMPLETION
-  playOnceSaveKey: 1
+  playOnceSaveKey: 2
   inspectorShots: []
   cutsceneResourcePath: Data/ep3_lobby_intro_cutscene
   cutsceneAssetResourcePath: Data/EP3LobbyIntroSequence

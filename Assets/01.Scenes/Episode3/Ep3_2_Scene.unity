@@ -3042,6 +3042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816722143}
   - component: {fileID: 816722142}
+  - component: {fileID: 816722144}
   m_Layer: 0
   m_Name: Ep3-2Manager
   m_TagString: Untagged
@@ -3062,6 +3063,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rhythmPuzzleManager: {fileID: 553173265}
+  useTopDownRhythmPuzzle: 1
+  topDownRhythmPuzzle: {fileID: 816722144}
   stageNpcFollower: {fileID: 0}
   npcPuzzleWaitPoint: {fileID: 0}
   npcClearWarpPoint: {fileID: 0}
@@ -3091,6 +3094,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &816722144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816722141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b46f6bb5fb47a7a6d0f725365d14db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageManager: {fileID: 816722142}
+  audioManager: {fileID: 1705470808}
+  scoreManager: {fileID: 553173266}
+  playerMovement: {fileID: 0}
+  playerInput: {fileID: 0}
+  startPuzzleController: {fileID: 1225873525}
+  puzzleReferenceTransform: {fileID: 1225873523}
+  lockPlayerDuringPuzzle: 1
+  teleportPlayerToHoldPoint: 1
+  playerHoldPoint: {fileID: 0}
+  playerHoldHeightOffset: 0.2
+  fallbackHoldDistanceFromJudge: 3.4
+  fallbackHoldLocalOffset: {x: 0, y: 0, z: 4}
+  judgeCenterAnchor: {fileID: 0}
+  fallbackJudgeCenterOffset: {x: 0, y: 0.5, z: 8}
+  laneSpacing: 3
+  laneForwardSpacing: 2.6
+  noteTravelDistance: 22
+  noteHeightOffset: 0.4
+  useRuntimePuzzleCamera: 1
+  cameraHeight: 22
+  cameraDistance: 2.5
+  cameraFocusOffset: {x: 0, y: 1.4, z: 0}
+  cameraFollowSmooth: 12
+  noteVisualPrefab: {fileID: 100100000, guid: 41bb11ffab50f81439f8c107031a53d5, type: 3}
+  lanePadPrefab: {fileID: 100100000, guid: 7a2e1dba483dfed428bec4c8101a4cd9, type: 3}
+  noteScale: {x: 1, y: 1, z: 1}
+  lanePadScale: {x: 1.15, y: 1, z: 1.15}
+  leftLaneColor: {r: 1, g: 0.56, b: 0.62, a: 1}
+  upLaneColor: {r: 1, g: 0.85, b: 0.45, a: 1}
+  downLaneColor: {r: 0.48, g: 0.88, b: 0.96, a: 1}
+  rightLaneColor: {r: 0.73, g: 0.62, b: 1, a: 1}
+  maxAllowedMistakes: 8
 --- !u!1001 &833984862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4388,7 +4436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1241293337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5804,6 +5852,10 @@ MonoBehaviour:
   randomOffsetX: 0.5
   randomOffsetY: 0.25
   mustStep: 1
+  topDownSubdivision: 4
+  topDownMidBeatChance: 0.95
+  topDownSyncopationChance: 0.72
+  topDownJudgeWindow: 0.16
 --- !u!1001 &1740118116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5915,7 +5967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1798293588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6565,6 +6617,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
@@ -6572,6 +6629,8 @@ MonoBehaviour:
   playOnlyOncePerSession: 1
   inspectorSequenceId: EP3_STAGE3_1_COMPLETION
   playOnceSaveKey: 1
+  useInspectorPlayedStateOverride: 0
+  inspectorPlayedState: 0
   inspectorShots: []
   cutsceneResourcePath: Data/ep3_lobby_intro_cutscene
   cutsceneAssetResourcePath: Data/EP3LobbyIntroSequence
@@ -6584,6 +6643,7 @@ MonoBehaviour:
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  forceStandaloneSubtitleOverlay: 1
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
@@ -6633,6 +6693,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtS3CP0: 0
@@ -6640,6 +6705,8 @@ MonoBehaviour:
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_STAGE3_1_INTRO
   playOnceSaveKey: 1
+  useInspectorPlayedStateOverride: 0
+  inspectorPlayedState: 0
   inspectorShots:
   - dialogueId: EP3_001
     speakerType: Narration
@@ -6698,6 +6765,7 @@ MonoBehaviour:
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  forceStandaloneSubtitleOverlay: 1
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
