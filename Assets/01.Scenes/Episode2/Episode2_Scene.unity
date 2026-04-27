@@ -280,8 +280,7 @@ MonoBehaviour:
   targetName: "\uAD6C\uB3C4\uAC00 \uD2C0\uC5B4\uC9C4 \uADF8\uB9BC"
   includeInHint: 1
   nearDistance: 2.5
-  hintFlavorText: "\uB0B4\uAC00 \uAD6C\uB3C4\uB97C \uC7A1\uC558\uB354\uB2C8 \uC5B4\uC0C9\uD55C
-    \uADF8\uB9BC"
+  hintFlavorText: "\uAD6C\uB3C4\uAC00 \uD2C0\uC5B4\uC9C4 \uADF8\uB9BC"
   description: "\uC5D8\uB9AC\uC624\uB294 \uADF8\uB9BC\uC758 \uAD6C\uB3C4\uB97C \uC798
     \uC7A1\uC9C0 \uBABB\uD55C\uB2E4. \uADF8\uB798\uC11C \uD63C\uC790 \uAD6C\uB3C4\uB97C
     \uC7A1\uC558\uB354\uB2C8 \uC5B4\uC0C9\uD574\uC838\uC11C \uC774 \uADF8\uB9BC\uC740
@@ -290,7 +289,9 @@ MonoBehaviour:
     \uD50C\uB808\uC774\uC5B4\uAC00 \uC8FC\uB85C \uAD6C\uB3C4\uB97C \uC7A1\uC544\uC8FC\uC5C8\uB2E4.
     \uC5D8\uB9AC\uC624\uB294 \uD50C\uB808\uC774\uC5B4\uAC00 \uC774 \uADF8\uB9BC\uC758
     \uAD6C\uB3C4\uB97C \uB2E4\uC2DC \uC7A1\uC544\uC11C \uC644\uC131\uC2DC\uCF1C\uC8FC\uAE38
-    \uBC14\uB780\uB2E4."
+    \uBC14\uB780\uB2E4. \uC774 \uADF8\uB9BC\uC744 \uD1B5\uD574 \uD37C\uC990\uB85C
+    \uB4E4\uC5B4\uAC00\uBA74 '\uB3D9\uB8CC'\uB77C\uB294 \uC78A\uD600\uC9C4 \uB9D0\uC774
+    \uC788\uB2E4."
 --- !u!114 &11935811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3157,7 +3158,8 @@ MonoBehaviour:
   hintFlavorText: "\uB2E4\uC74C \uC7A5\uBA74\uC73C\uB85C \uB098\uC544\uAC08 \uC218
     \uC788\uB294 \uADF8\uB9BC\uC774\uB2E4."
   description: "Ep2\uB97C \uB9C8\uBB34\uB9AC\uD558\uACE0 \uB85C\uBE44\uB85C \uB3CC\uC544\uAC08
-    \uC218 \uC788\uB294 \uADF8\uB9BC\uC774\uB2E4."
+    \uC218 \uC788\uB294 \uADF8\uB9BC\uC774\uB2E4. \uC774 \uADF8\uB9BC\uC5D0\uB294
+    '\uADF8\uB9BC'\uC774\uB77C\uB294 \uC78A\uD600\uC9C4 \uB9D0\uC774 \uC788\uB2E4."
 --- !u!114 &288698943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4576,6 +4578,8 @@ MonoBehaviour:
   - {fileID: 1913461439}
   - {fileID: 403849724}
   finalObject: {fileID: 953595435}
+  spacePicture: {fileID: 11935808}
+  colorPicture: {fileID: 29563006617858284}
   delay: 1.5
 --- !u!4 &498382166
 Transform:
@@ -19398,6 +19402,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+--- !u!114 &1352344331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+  m_PrefabInstance: {fileID: 1352344330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1257b2c4047a2438da9a000a0153a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1353255624
 GameObject:
   m_ObjectHideFlags: 0
@@ -20043,27 +20058,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 662850210998523187, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -610.4938
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 662850210998523187, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 725163318657565950, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_Pivot.x
@@ -20145,46 +20144,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3879477578597937994, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879477578597937994, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
     - target: {fileID: 4412636652757406680, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4412636652757406680, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5182532874221072981, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5182532874221072981, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5439997075818909893, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5439997075818909893, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863932155801726778, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_Name
       value: Canvas_NPC_Chat
       objectReference: {fileID: 0}
-    - target: {fileID: 7692525545102074786, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 6361301818407543944, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1352344331}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29885,8 +29868,7 @@ MonoBehaviour:
   targetName: "\uC0C9\uC774 \uBC14\uB79C \uADF8\uB9BC"
   includeInHint: 1
   nearDistance: 2.5
-  hintFlavorText: "\uB0B4\uAC00 \uC0C9\uCE60\uD574\uBCF4\uC558\uC9C0\uB9CC \uC774\uC0C1\uD574\uC11C
-    \uB194\uB450\uC5C8\uB2E4\uAC00 \uC0C9\uC774 \uBC14\uB79C \uADF8\uB9BC"
+  hintFlavorText: "\uC0C9\uC774 \uBC14\uB79C \uADF8\uB9BC"
   description: "\uC5D8\uB9AC\uC624\uB294 \uC0C9\uAC10\uC774 \uC88B\uC9C0 \uC54A\uB2E4.
     \uADF8\uB798\uC11C \uD63C\uC790 \uC0C9\uCE60\uD55C \uADF8\uB9BC\uC740 \uB9C8\uC74C\uC5D0
     \uB4E4\uC9C0 \uC54A\uC558\uACE0, \uADF8\uB300\uB85C \uBC29\uCE58\uB418\uC5B4
@@ -29894,7 +29876,9 @@ MonoBehaviour:
     \uC88B\uC544\uC11C \uCC44\uC0C9\uC740 \uC8FC\uB85C \uD50C\uB808\uC774\uC5B4\uAC00
     \uD588\uC5C8\uB2E4. \uC5D8\uB9AC\uC624\uB294 \uD50C\uB808\uC774\uC5B4\uAC00 \uC774
     \uADF8\uB9BC\uC5D0 \uC0C9\uC744 \uCE60\uD558\uC5EC \uC644\uC131\uD574\uC8FC\uAE38
-    \uBC14\uB780\uB2E4."
+    \uBC14\uB780\uB2E4. \uC774 \uADF8\uB9BC\uC744 \uD1B5\uD574 \uD37C\uC990\uB85C
+    \uB4E4\uC5B4\uAC00\uBA74 '\uC0C9', '\uBB3C\uAC10'\uC774\uB77C\uB294 \uC78A\uD600\uC9C4
+    \uB9D0\uC774 \uC788\uB2E4."
 --- !u!114 &29563006617858287
 MonoBehaviour:
   m_ObjectHideFlags: 0
