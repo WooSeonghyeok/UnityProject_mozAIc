@@ -83,6 +83,23 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
             return;
         }
 
+        if (panelImage != null)
+        {
+            panelImage.enabled = false;
+        }
+
+        if (messageText != null)
+        {
+            messageText.text = string.Empty;
+            messageText.enabled = false;
+        }
+
+        if (speakerText != null)
+        {
+            speakerText.text = string.Empty;
+            speakerText.enabled = false;
+        }
+
         canvasGroup.alpha = 0f;
 
         if (panelImage != null)
@@ -122,6 +139,11 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
                 {
                     speakerText.font = fontAsset;
                 }
+            }
+
+            if (fontAsset != null && speakerText != null)
+            {
+                speakerText.font = fontAsset;
             }
 
             return;
@@ -198,6 +220,9 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         RectTransform messageRect = messageText.rectTransform;
         RectTransform speakerRect = speakerText.rectTransform;
         CutsceneBoxType boxType = ResolveCutsceneBoxType(shot);
+
+        panelImage.enabled = true;
+        messageText.enabled = true;
 
         panelRect.anchorMin = new Vector2(0.5f, 0f);
         panelRect.anchorMax = new Vector2(0.5f, 0f);

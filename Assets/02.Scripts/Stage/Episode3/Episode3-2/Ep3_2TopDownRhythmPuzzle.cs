@@ -109,6 +109,8 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
     [SerializeField] private Color excellentLaneFlashColor = new Color(1f, 0.97f, 0.68f, 1f);
     [SerializeField] private Color wrongLaneFlashColor = new Color(1f, 0.4f, 0.4f, 1f);
     [SerializeField] private int maxAllowedMistakes = 8;
+    [SerializeField] private bool fadeOutAudioOnComplete = true;
+    [SerializeField] [Min(0f)] private float completeAudioFadeDurationOverride = -1f;
 
     private enum LaneFeedbackKind
     {
@@ -163,6 +165,7 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
     private bool cachedLookLock;
     private bool cachedJumpLock;
     private bool isRunning;
+    private bool isCompleting;
     private int nextBeatIndexToSpawn;
     private int processedBonusLifeThresholdCount;
     private int recoveredLivesFromScore;
@@ -238,6 +241,7 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         nextBeatIndexToSpawn = 0;
         processedBonusLifeThresholdCount = 0;
         recoveredLivesFromScore = 0;
+        isCompleting = false;
         isRunning = true;
 
         CachePlayerState();
@@ -253,18 +257,14 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
 
     public void StopPuzzle()
     {
-        if (!isRunning)
+        if (!isRunning && !isCompleting)
         {
             return;
         }
 
+        isCompleting = false;
         isRunning = false;
-        audioManager?.Stop();
-        ClearActiveNotes();
-        ResetLanePadFeedbackStates();
-        SetRuntimeVisualRootActive(false);
-        DisablePuzzleCamera();
-        UnlockPlayer();
+        TeardownPuzzleRuntime(true);
     }
 
     public void FailPuzzle()
@@ -280,14 +280,47 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
 
     private void CompletePuzzle()
     {
-        if (!isRunning)
+        if (!isRunning || isCompleting)
         {
             return;
         }
 
+        StartCoroutine(CompletePuzzleCoroutine());
+    }
+
+    private System.Collections.IEnumerator CompletePuzzleCoroutine()
+    {
+        isCompleting = true;
+        isRunning = false;
+
         int finalScore = scoreManager != null ? scoreManager.Score : 0;
-        StopPuzzle();
+
+        if (fadeOutAudioOnComplete && audioManager != null)
+        {
+            float fadeDuration = completeAudioFadeDurationOverride >= 0f
+                ? completeAudioFadeDurationOverride
+                : audioManager.CompletionFadeOutDuration;
+
+            yield return audioManager.FadeOutAndStop(fadeDuration);
+        }
+
+        TeardownPuzzleRuntime(!fadeOutAudioOnComplete);
         stageManager?.OnRhythmPuzzleCompleted(finalScore);
+    }
+
+    private void TeardownPuzzleRuntime(bool stopAudioImmediately)
+    {
+        if (stopAudioImmediately)
+        {
+            audioManager?.Stop();
+        }
+
+        ClearActiveNotes();
+        ResetLanePadFeedbackStates();
+        SetRuntimeVisualRootActive(false);
+        DisablePuzzleCamera();
+        UnlockPlayer();
+        isCompleting = false;
     }
 
     private void AutoResolveDependencies()

@@ -1485,13 +1485,12 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         if (presenters != null && presenters.Length > 0)
         {
             subtitlePresenter = presenters[0];
-            subtitlePresenter.Configure(subtitleFont, FindTextboxManager(), forceStandaloneSubtitleOverlay);
+            subtitlePresenter.Configure(subtitleFont, textboxManager, forceStandaloneSubtitleOverlay);
             return;
         }
 
         if (!forceStandaloneSubtitleOverlay)
         {
-            TextboxManager textboxManager = FindTextboxManager();
             if (textboxManager != null)
             {
                 GameObject subtitleObject = new GameObject("EP3 Lobby Intro Subtitles", typeof(RectTransform));

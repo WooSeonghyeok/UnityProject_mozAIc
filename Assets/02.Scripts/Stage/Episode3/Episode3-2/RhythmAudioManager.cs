@@ -21,6 +21,10 @@ public class RhythmAudioManager : MonoBehaviour
     [Tooltip("리듬 생성 기준이 되는 음악 클립입니다.")]
     [SerializeField] private AudioClip audioClip;
 
+    [Tooltip("퍼즐 클리어 시 사운드가 자연스럽게 줄어들며 멈추는 시간입니다.")]
+    [Min(0f)]
+    [SerializeField] private float completionFadeOutDuration = 0.9f;
+
     [Header("리듬 설정")]
     [Tooltip("곡의 BPM입니다.")]
     [SerializeField] private float bpm = 120f;
@@ -122,6 +126,14 @@ public class RhythmAudioManager : MonoBehaviour
     public float ClipLength => audioClip != null ? audioClip.length : 0f;
     public AudioClip AudioClip => audioClip;
     public BeatMapData TopDownBeatMapAsset => topDownBeatMapAsset;
+    public float CompletionFadeOutDuration => completionFadeOutDuration;
+
+    private float defaultAudioVolume = 1f;
+
+    private void Awake()
+    {
+        CacheDefaultAudioVolume();
+    }
 
     /// <summary>
     /// 실제 발판 그룹 생성 간격.
@@ -137,6 +149,7 @@ public class RhythmAudioManager : MonoBehaviour
     private void Reset()
     {
         audioSource = GetComponent<AudioSource>();
+        CacheDefaultAudioVolume();
     }
 
     /// <summary>
@@ -466,9 +479,11 @@ public class RhythmAudioManager : MonoBehaviour
             return;
         }
 
+        CacheDefaultAudioVolume();
         audioSource.clip = audioClip;
         audioSource.playOnAwake = false;
         audioSource.Stop();
+        audioSource.volume = defaultAudioVolume;
         audioSource.time = 0f;
         audioSource.Play();
     }
@@ -484,6 +499,36 @@ public class RhythmAudioManager : MonoBehaviour
         }
 
         audioSource.Stop();
+        audioSource.volume = defaultAudioVolume;
+    }
+
+    public System.Collections.IEnumerator FadeOutAndStop(float duration)
+    {
+        if (audioSource == null)
+        {
+            yield break;
+        }
+
+        CacheDefaultAudioVolume();
+
+        if (!audioSource.isPlaying || duration <= 0f)
+        {
+            Stop();
+            yield break;
+        }
+
+        float startVolume = audioSource.volume;
+        float elapsed = 0f;
+
+        while (elapsed < duration && audioSource != null && audioSource.isPlaying)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, t);
+            yield return null;
+        }
+
+        Stop();
     }
 
     /// <summary>
@@ -696,5 +741,13 @@ public class RhythmAudioManager : MonoBehaviour
         }
 
         return clonedOffsets;
+    }
+
+    private void CacheDefaultAudioVolume()
+    {
+        if (audioSource != null)
+        {
+            defaultAudioVolume = Mathf.Clamp01(audioSource.volume);
+        }
     }
 }
