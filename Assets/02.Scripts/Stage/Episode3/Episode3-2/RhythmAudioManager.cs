@@ -86,12 +86,42 @@ public class RhythmAudioManager : MonoBehaviour
     [Tooltip("탑다운 퍼즐용 판정 허용 시간입니다. 0 이하이면 기본 judgeWindow를 사용합니다.")]
     [SerializeField] private float topDownJudgeWindow = 0.16f;
 
+    [Tooltip("탑다운 노트가 판정선까지 내려오는 데 걸리는 시간입니다. 모든 노트가 같은 속도를 유지합니다.")]
+    [Min(0.25f)]
+    [SerializeField] private float topDownTravelTime = 2.4f;
+
+    [Tooltip("탑다운 노트 타이밍을 랜덤 대신 고정 패턴으로 생성합니다.")]
+    [SerializeField] private bool useDeterministicTopDownPattern = true;
+
+    [Header("탑다운 수동 채보")]
+    [Tooltip("연결된 채보 에셋에 노트가 있으면 자동 생성보다 우선해서 사용합니다.")]
+    [SerializeField] private bool useTopDownBeatMapAssetFirst = true;
+
+    [Tooltip("멜로디에 맞춰 직접 작성한 탑다운 채보 에셋입니다.")]
+    [SerializeField] private BeatMapData topDownBeatMapAsset;
+
+    [Tooltip("수동 채보 전체 판정 시점을 한 번에 앞/뒤로 미세 조정합니다. 양수면 더 늦게 도착합니다.")]
+    [SerializeField] private float topDownChartGlobalJudgeOffset = 0f;
+
+    [Tooltip("초반 몇 마디까지 별도 판정 오프셋을 적용할지 설정합니다. 0이면 사용하지 않습니다.")]
+    [Min(0)]
+    [SerializeField] private int introChartMeasureCount = 0;
+
+    [Tooltip("초반 지정 마디 구간에만 추가로 적용할 판정 오프셋입니다. 양수면 더 늦게 도착합니다.")]
+    [SerializeField] private float introChartJudgeOffset = 0f;
+
+    [Tooltip("한 마디를 몇 박으로 볼지 설정합니다. 기본은 4박자입니다.")]
+    [Min(1)]
+    [SerializeField] private int beatsPerMeasure = 4;
+
     public float Bpm => bpm;
     public float StartOffset => startOffset;
     public float SecondsPerBeat => bpm > 0f ? 60f / bpm : 0f;
     public float SecondsPerStep => subdivision > 0 ? SecondsPerBeat / subdivision : 0f;
     public bool IsPlaying => audioSource != null && audioSource.isPlaying;
     public float ClipLength => audioClip != null ? audioClip.length : 0f;
+    public AudioClip AudioClip => audioClip;
+    public BeatMapData TopDownBeatMapAsset => topDownBeatMapAsset;
 
     /// <summary>
     /// 실제 발판 그룹 생성 간격.
@@ -182,6 +212,11 @@ public class RhythmAudioManager : MonoBehaviour
         }
 
         BeatMapData runtimeBeatMap = ScriptableObject.CreateInstance<BeatMapData>();
+        if (TryFillTopDownBeatMapFromAsset(runtimeBeatMap))
+        {
+            return runtimeBeatMap;
+        }
+
         FillTopDownBeatMap(runtimeBeatMap);
         return runtimeBeatMap;
     }
@@ -293,14 +328,16 @@ public class RhythmAudioManager : MonoBehaviour
         totalStepCount = Mathf.Max(0, totalStepCount);
 
         float effectiveJudgeWindow = GetEffectiveTopDownJudgeWindow(secondsPerStep);
+        float effectiveTravelTime = GetEffectiveTopDownTravelTime();
+        float firstJudgeTime = Mathf.Max(startOffset, effectiveTravelTime);
+        int firstStepIndex = Mathf.Max(0, Mathf.CeilToInt((firstJudgeTime - startOffset) / secondsPerStep));
         int previousPrimaryLaneIndex = -1;
 
-        for (int stepIndex = 0; stepIndex < totalStepCount; stepIndex++)
+        for (int stepIndex = firstStepIndex; stepIndex < totalStepCount; stepIndex++)
         {
             int stepInBeat = stepIndex % stepsPerBeat;
-            int stepInMeasure = stepIndex % (stepsPerBeat * 4);
 
-            if (!ShouldSpawnTopDownNote(stepInBeat, stepsPerBeat))
+            if (!ShouldSpawnTopDownNote(stepIndex, stepInBeat, stepsPerBeat))
             {
                 continue;
             }
@@ -313,7 +350,7 @@ public class RhythmAudioManager : MonoBehaviour
             {
                 BeatEvent beatEvent = new BeatEvent
                 {
-                    previewTime = Mathf.Max(0f, judgeTime - previewLeadTime),
+                    previewTime = judgeTime - effectiveTravelTime,
                     judgeTime = judgeTime,
                     judgeWindow = effectiveJudgeWindow,
                     endTime = judgeTime + effectiveJudgeWindow,
@@ -346,6 +383,76 @@ public class RhythmAudioManager : MonoBehaviour
 
         Debug.Log(
             $"[RhythmAudioManager] 탑다운 비트맵 생성 완료 - noteCount={targetBeatMap.beatEvents.Count}, stepsPerBeat={stepsPerBeat}, judgeWindow={effectiveJudgeWindow:F3}");
+    }
+
+    private bool TryFillTopDownBeatMapFromAsset(BeatMapData targetBeatMap)
+    {
+        if (!useTopDownBeatMapAssetFirst || targetBeatMap == null || topDownBeatMapAsset == null)
+        {
+            return false;
+        }
+
+        if (topDownBeatMapAsset.topDownChartNotes == null || topDownBeatMapAsset.topDownChartNotes.Count == 0)
+        {
+            return false;
+        }
+
+        targetBeatMap.beatEvents.Clear();
+
+        float duration = GetEffectiveDuration();
+        float secondsPerStep = Mathf.Max(0.0001f, SecondsPerBeat / Mathf.Max(1, topDownSubdivision));
+        float effectiveJudgeWindow = GetEffectiveTopDownJudgeWindow(secondsPerStep);
+        float effectiveTravelTime = GetEffectiveTopDownTravelTime();
+
+        List<TopDownChartNote> sortedNotes = new List<TopDownChartNote>(topDownBeatMapAsset.topDownChartNotes);
+        sortedNotes.Sort((left, right) => left.judgeTimeSeconds.CompareTo(right.judgeTimeSeconds));
+
+        for (int i = 0; i < sortedNotes.Count; i++)
+        {
+            TopDownChartNote chartNote = sortedNotes[i];
+            if (chartNote == null)
+            {
+                continue;
+            }
+
+            float judgeTime = chartNote.judgeTimeSeconds + topDownChartGlobalJudgeOffset;
+            if (ShouldApplyIntroChartOffset(chartNote.judgeTimeSeconds))
+            {
+                judgeTime += introChartJudgeOffset;
+            }
+            if (judgeTime < startOffset || judgeTime > duration)
+            {
+                continue;
+            }
+
+            float noteJudgeWindow = chartNote.judgeWindowOverride > 0f
+                ? chartNote.judgeWindowOverride
+                : effectiveJudgeWindow;
+
+            BeatEvent beatEvent = new BeatEvent
+            {
+                previewTime = judgeTime - effectiveTravelTime,
+                judgeTime = judgeTime,
+                judgeWindow = noteJudgeWindow,
+                endTime = judgeTime + Mathf.Max(noteJudgeWindow, chartNote.holdDurationSeconds),
+                minPlatformCount = 1,
+                maxPlatformCount = 1,
+                targetPlatformIndex = 0,
+                mustStep = true,
+                laneType = chartNote.laneType,
+                isHoldNote = chartNote.isHoldNote,
+                holdDuration = Mathf.Max(0f, chartNote.holdDurationSeconds),
+                platformOffsets = ClonePlatformOffsets(),
+                randomOffsetX = randomOffsetX,
+                randomOffsetY = randomOffsetY
+            };
+
+            targetBeatMap.beatEvents.Add(beatEvent);
+        }
+
+        Debug.Log(
+            $"[RhythmAudioManager] 수동 채보 비트맵 로드 완료 - noteCount={targetBeatMap.beatEvents.Count}, asset={topDownBeatMapAsset.name}");
+        return targetBeatMap.beatEvents.Count > 0;
     }
 
     /// <summary>
@@ -406,8 +513,13 @@ public class RhythmAudioManager : MonoBehaviour
         return (Ep3_2LaneType)laneIndex;
     }
 
-    private bool ShouldSpawnTopDownNote(int stepInBeat, int stepsPerBeat)
+    private bool ShouldSpawnTopDownNote(int stepIndex, int stepInBeat, int stepsPerBeat)
     {
+        if (useDeterministicTopDownPattern)
+        {
+            return ShouldSpawnTopDownNoteDeterministically(stepIndex, stepInBeat, stepsPerBeat);
+        }
+
         if (stepInBeat == 0)
         {
             return true;
@@ -429,6 +541,53 @@ public class RhythmAudioManager : MonoBehaviour
         return Random.value <= chance;
     }
 
+    private bool ShouldSpawnTopDownNoteDeterministically(int stepIndex, int stepInBeat, int stepsPerBeat)
+    {
+        if (stepInBeat == 0)
+        {
+            return true;
+        }
+
+        int stepsPerMeasure = Mathf.Max(1, stepsPerBeat * 4);
+        int stepInMeasure = stepIndex % stepsPerMeasure;
+        int measureIndex = stepIndex / stepsPerMeasure;
+
+        if (stepsPerBeat == 1)
+        {
+            return false;
+        }
+
+        if (stepsPerBeat == 2)
+        {
+            return (measureIndex % 4) switch
+            {
+                0 => stepInMeasure == 5,
+                1 => stepInMeasure == 3 || stepInMeasure == 7,
+                2 => stepInMeasure == 1 || stepInMeasure == 5,
+                _ => stepInMeasure == 3
+            };
+        }
+
+        if (stepsPerBeat >= 4)
+        {
+            int halfBeatStep = stepsPerBeat / 2;
+            if (stepInBeat == halfBeatStep)
+            {
+                return true;
+            }
+
+            if (measureIndex % 2 == 1)
+            {
+                int upbeatStep = Mathf.Max(1, halfBeatStep / 2);
+                return stepInBeat == upbeatStep;
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+
     private int GetTopDownNoteCount()
     {
         return 1;
@@ -448,10 +607,11 @@ public class RhythmAudioManager : MonoBehaviour
 
         List<Ep3_2LaneType> candidates = new List<Ep3_2LaneType>
         {
-            Ep3_2LaneType.Left,
-            Ep3_2LaneType.Up,
-            Ep3_2LaneType.Down,
-            Ep3_2LaneType.Right
+            Ep3_2LaneType.D,
+            Ep3_2LaneType.F,
+            Ep3_2LaneType.Space,
+            Ep3_2LaneType.J,
+            Ep3_2LaneType.K
         };
 
         candidates.Remove(primaryLane);
@@ -471,6 +631,29 @@ public class RhythmAudioManager : MonoBehaviour
         float desiredWindow = topDownJudgeWindow > 0f ? topDownJudgeWindow : judgeWindow;
         float maxSafeWindow = secondsPerStep * 0.45f;
         return Mathf.Max(0.05f, Mathf.Min(desiredWindow, maxSafeWindow));
+    }
+
+    private float GetEffectiveTopDownTravelTime()
+    {
+        return Mathf.Max(0.25f, topDownTravelTime);
+    }
+
+    private bool ShouldApplyIntroChartOffset(float rawJudgeTimeSeconds)
+    {
+        if (introChartMeasureCount <= 0 || Mathf.Approximately(introChartJudgeOffset, 0f))
+        {
+            return false;
+        }
+
+        float secondsPerBeat = SecondsPerBeat;
+        if (secondsPerBeat <= 0f)
+        {
+            return false;
+        }
+
+        float introDuration = secondsPerBeat * Mathf.Max(1, beatsPerMeasure) * introChartMeasureCount;
+        float introEndTime = startOffset + introDuration;
+        return rawJudgeTimeSeconds <= introEndTime;
     }
 
     /// <summary>

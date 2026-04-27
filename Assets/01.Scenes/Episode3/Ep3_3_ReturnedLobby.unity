@@ -1129,7 +1129,7 @@ MonoBehaviour:
     isFirstEnterAtS3Tag3: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
-  inspectorSequenceId: EP3_STAGE3_2_COMPLETION
+  inspectorSequenceId: EP3_RETURNED_LOBBY_INTRO
   playOnceSaveKey: 4
   inspectorShots:
   - dialogueId: EP3_031_CLEAR_001

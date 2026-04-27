@@ -4,19 +4,14 @@ using UnityEngine.UI;
 
 public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 {
-    private static readonly Vector2 DialogueBoxSize = new Vector2(1000f, 200f);
-    private static readonly Vector2 SystemBoxSize = new Vector2(1000f, 200f);
-    private static readonly Vector2 SystemTextSize = new Vector2(1180f, 120f);
-    private static readonly Vector2 VoiceNameSize = new Vector2(260f, 44f);
-    private static readonly Vector4 PlayerPadding = new Vector4(56f, 16f, 56f, 32f);
-    private static readonly Vector4 VoicePaddingWithName = new Vector4(52f, 16f, 52f, 76f);
-    private static readonly Vector4 VoicePaddingNoName = new Vector4(52f, 16f, 52f, 22f);
-    private static readonly Vector2 SystemBoxPosition = new Vector2(0f, 200f);
-    private static readonly Vector2 PlayerBoxPosition = new Vector2(0f, 0f);
-    private static readonly Vector2 VoiceBoxPosition = new Vector2(0f, -300f);
-    private static readonly Color PlayerPanelColor = new Color(0.25f, 0.25f, 0.25f, 0.75f);
-    private static readonly Color VoicePanelColor = new Color(0.15f, 0.15f, 0.18f, 0.78f);
-    private static readonly Color DialogueTextColor = new Color(0.75f, 0.88f, 1f, 1f);
+    private static readonly Vector2 DialogueBoxSize = new Vector2(1480f, 184f);
+    private static readonly Vector2 SystemBoxSize = new Vector2(1460f, 112f);
+    private static readonly Vector2 SystemBoxPosition = new Vector2(0f, -110f);
+    private static readonly Vector2 PlayerBoxPosition = new Vector2(0f, 220f);
+    private static readonly Vector2 VoiceBoxPosition = new Vector2(0f, 56f);
+    private static readonly Color PlayerPanelColor = new Color(0.05f, 0.05f, 0.08f, 0.74f);
+    private static readonly Color VoicePanelColor = new Color(0.04f, 0.04f, 0.07f, 0.84f);
+    private static readonly Color DialogueTextColor = Color.white;
 
     private enum CutsceneBoxType
     {
@@ -31,13 +26,14 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
     private GraphicRaycaster graphicRaycaster;
     private CanvasGroup canvasGroup;
     private Image panelImage;
-    private RectTransform panelRect;
+    private TextMeshProUGUI speakerText;
     private TextMeshProUGUI messageText;
-    private RectTransform messageRect;
-    private TextMeshProUGUI speakerNameText;
+    private bool forceStandaloneOverlay;
 
     public void Configure(TMP_FontAsset fontAsset, TextboxManager existingTextboxManager = null, bool forceStandaloneOverlay = false)
     {
+        this.forceStandaloneOverlay = forceStandaloneOverlay;
+
         if (forceStandaloneOverlay)
         {
             textboxManager = null;
@@ -52,11 +48,12 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         }
 
         EnsureUi(fontAsset);
+        Hide();
     }
 
     public void Show(Ep3LobbyIntroShotData shot)
     {
-        if (TryShowOnCutsceneCanvas(shot))
+        if (!forceStandaloneOverlay && TryShowOnCutsceneCanvas(shot))
         {
             return;
         }
@@ -76,7 +73,7 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 
     public void Hide()
     {
-        if (HideCutsceneCanvas())
+        if (!forceStandaloneOverlay && HideCutsceneCanvas())
         {
             return;
         }
@@ -104,11 +101,26 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         }
 
         canvasGroup.alpha = 0f;
+
+        if (panelImage != null)
+        {
+            panelImage.enabled = false;
+        }
+
+        if (speakerText != null)
+        {
+            speakerText.enabled = false;
+        }
+
+        if (messageText != null)
+        {
+            messageText.enabled = false;
+        }
     }
 
     private void EnsureUi(TMP_FontAsset fontAsset)
     {
-        if (HasBoundCutsceneCanvas())
+        if (!forceStandaloneOverlay && HasBoundCutsceneCanvas())
         {
             HideCutsceneCanvas();
             return;
@@ -116,9 +128,17 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 
         if (canvas != null)
         {
-            if (fontAsset != null && messageText != null)
+            if (fontAsset != null)
             {
-                messageText.font = fontAsset;
+                if (messageText != null)
+                {
+                    messageText.font = fontAsset;
+                }
+
+                if (speakerText != null)
+                {
+                    speakerText.font = fontAsset;
+                }
             }
 
             if (fontAsset != null && speakerNameText != null)
@@ -145,130 +165,114 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 
         GameObject panelObject = new GameObject("SubtitlePanel", typeof(RectTransform), typeof(Image));
         panelObject.transform.SetParent(transform, false);
-        panelRect = panelObject.GetComponent<RectTransform>();
-        panelRect.anchorMin = new Vector2(0.5f, 0.5f);
-        panelRect.anchorMax = new Vector2(0.5f, 0.5f);
-        panelRect.pivot = new Vector2(0.5f, 0.5f);
-        panelRect.anchoredPosition = VoiceBoxPosition;
-        panelRect.sizeDelta = DialogueBoxSize;
+
+        RectTransform panelTransform = panelObject.GetComponent<RectTransform>();
+        panelTransform.anchorMin = new Vector2(0.5f, 0f);
+        panelTransform.anchorMax = new Vector2(0.5f, 0f);
+        panelTransform.pivot = new Vector2(0.5f, 0f);
+        panelTransform.anchoredPosition = VoiceBoxPosition;
+        panelTransform.sizeDelta = DialogueBoxSize;
 
         panelImage = panelObject.GetComponent<Image>();
         panelImage.color = VoicePanelColor;
-        panelImage.enabled = false;
+        panelImage.raycastTarget = false;
 
-        GameObject speakerObject = new GameObject("SpeakerName", typeof(RectTransform), typeof(TextMeshProUGUI));
-        speakerObject.transform.SetParent(panelRect, false);
+        GameObject speakerObject = new GameObject("Speaker", typeof(RectTransform), typeof(TextMeshProUGUI));
+        speakerObject.transform.SetParent(panelTransform, false);
+
         RectTransform speakerRect = speakerObject.GetComponent<RectTransform>();
         speakerRect.anchorMin = new Vector2(0f, 1f);
         speakerRect.anchorMax = new Vector2(0f, 1f);
         speakerRect.pivot = new Vector2(0f, 1f);
-        speakerRect.anchoredPosition = new Vector2(30f, -16f);
-        speakerRect.sizeDelta = VoiceNameSize;
+        speakerRect.anchoredPosition = new Vector2(34f, -16f);
+        speakerRect.sizeDelta = new Vector2(420f, 38f);
 
-        speakerNameText = speakerObject.GetComponent<TextMeshProUGUI>();
-        speakerNameText.font = fontAsset != null ? fontAsset : TMP_Settings.defaultFontAsset;
-        speakerNameText.fontSize = 30f;
-        speakerNameText.color = Color.white;
-        speakerNameText.enableWordWrapping = false;
-        speakerNameText.overflowMode = TextOverflowModes.Ellipsis;
-        speakerNameText.alignment = TextAlignmentOptions.MidlineLeft;
-        speakerNameText.enabled = false;
+        speakerText = speakerObject.GetComponent<TextMeshProUGUI>();
+        speakerText.font = fontAsset != null ? fontAsset : TMP_Settings.defaultFontAsset;
+        speakerText.fontSize = 24f;
+        speakerText.color = Color.white;
+        speakerText.alignment = TextAlignmentOptions.TopLeft;
+        speakerText.enableWordWrapping = false;
+        speakerText.raycastTarget = false;
 
-        GameObject textObject = new GameObject("Message", typeof(RectTransform), typeof(TextMeshProUGUI));
-        textObject.transform.SetParent(panelRect, false);
-        messageRect = textObject.GetComponent<RectTransform>();
+        GameObject messageObject = new GameObject("Message", typeof(RectTransform), typeof(TextMeshProUGUI));
+        messageObject.transform.SetParent(panelTransform, false);
+
+        RectTransform messageRect = messageObject.GetComponent<RectTransform>();
         messageRect.anchorMin = Vector2.zero;
         messageRect.anchorMax = Vector2.one;
-        messageRect.offsetMin = new Vector2(PlayerPadding.x, PlayerPadding.y);
-        messageRect.offsetMax = new Vector2(-PlayerPadding.z, -PlayerPadding.w);
+        messageRect.offsetMin = new Vector2(34f, 22f);
+        messageRect.offsetMax = new Vector2(-34f, -22f);
 
-        messageText = textObject.GetComponent<TextMeshProUGUI>();
+        messageText = messageObject.GetComponent<TextMeshProUGUI>();
         messageText.font = fontAsset != null ? fontAsset : TMP_Settings.defaultFontAsset;
-        messageText.fontSize = 40f;
-        messageText.color = Color.white;
+        messageText.fontSize = 31f;
+        messageText.color = DialogueTextColor;
         messageText.enableWordWrapping = true;
         messageText.overflowMode = TextOverflowModes.Overflow;
         messageText.alignment = TextAlignmentOptions.MidlineLeft;
-        messageText.enabled = false;
+        messageText.raycastTarget = false;
     }
 
     private void ApplyStandaloneStyle(Ep3LobbyIntroShotData shot)
     {
+        RectTransform panelRect = panelImage.rectTransform;
+        RectTransform messageRect = messageText.rectTransform;
+        RectTransform speakerRect = speakerText.rectTransform;
         CutsceneBoxType boxType = ResolveCutsceneBoxType(shot);
-        bool showSpeakerName = shot.showSpeakerName && !string.IsNullOrWhiteSpace(shot.speakerName);
 
-        if (panelRect == null || panelImage == null || messageText == null || messageRect == null)
-        {
-            return;
-        }
+        panelRect.anchorMin = new Vector2(0.5f, 0f);
+        panelRect.anchorMax = new Vector2(0.5f, 0f);
+        panelRect.pivot = new Vector2(0.5f, 0f);
+        panelRect.sizeDelta = DialogueBoxSize;
 
-        panelImage.enabled = boxType != CutsceneBoxType.System;
-        if (speakerNameText != null)
-        {
-            speakerNameText.enabled = false;
-            speakerNameText.text = string.Empty;
-        }
+        speakerText.enabled = false;
+        speakerText.text = string.Empty;
+        speakerText.color = ResolveSpeakerColor(shot);
 
         switch (boxType)
         {
+            case CutsceneBoxType.System:
+                panelRect.anchorMin = new Vector2(0.5f, 1f);
+                panelRect.anchorMax = new Vector2(0.5f, 1f);
+                panelRect.pivot = new Vector2(0.5f, 1f);
+                panelRect.anchoredPosition = SystemBoxPosition;
+                panelRect.sizeDelta = SystemBoxSize;
+                panelImage.color = new Color(0.03f, 0.03f, 0.06f, 0.82f);
+                messageRect.offsetMin = new Vector2(30f, 14f);
+                messageRect.offsetMax = new Vector2(-30f, -14f);
+                messageText.fontSize = 32f;
+                messageText.alignment = TextAlignmentOptions.Center;
+                messageText.text = shot.subtitleText;
+                break;
+
             case CutsceneBoxType.Player:
                 panelRect.anchoredPosition = PlayerBoxPosition;
                 panelRect.sizeDelta = DialogueBoxSize;
                 panelImage.color = PlayerPanelColor;
-                messageRect.anchorMin = Vector2.zero;
-                messageRect.anchorMax = Vector2.one;
-                messageRect.pivot = new Vector2(0.5f, 0.5f);
-                messageRect.anchoredPosition = Vector2.zero;
-                messageRect.sizeDelta = Vector2.zero;
-                messageRect.offsetMin = new Vector2(PlayerPadding.x, PlayerPadding.y);
-                messageRect.offsetMax = new Vector2(-PlayerPadding.z, -PlayerPadding.w);
-                messageText.fontSize = 40f;
-                messageText.color = DialogueTextColor;
+                messageRect.offsetMin = new Vector2(36f, 22f);
+                messageRect.offsetMax = new Vector2(-36f, -22f);
+                messageText.fontSize = 31f;
                 messageText.alignment = TextAlignmentOptions.MidlineLeft;
                 messageText.text = shot.subtitleText;
                 break;
 
             case CutsceneBoxType.Voice:
+            default:
                 panelRect.anchoredPosition = VoiceBoxPosition;
                 panelRect.sizeDelta = DialogueBoxSize;
                 panelImage.color = VoicePanelColor;
-                messageRect.anchorMin = Vector2.zero;
-                messageRect.anchorMax = Vector2.one;
-                messageRect.pivot = new Vector2(0.5f, 0.5f);
-                messageRect.anchoredPosition = Vector2.zero;
-                messageRect.sizeDelta = Vector2.zero;
-                Vector4 voicePadding = showSpeakerName ? VoicePaddingWithName : VoicePaddingNoName;
-                messageRect.offsetMin = new Vector2(voicePadding.x, voicePadding.y);
-                messageRect.offsetMax = new Vector2(-voicePadding.z, -voicePadding.w);
-                messageText.fontSize = 40f;
-                messageText.color = DialogueTextColor;
-                messageText.alignment = showSpeakerName ? TextAlignmentOptions.TopLeft : TextAlignmentOptions.MidlineLeft;
-                messageText.text = shot.subtitleText;
-
-                if (speakerNameText != null && showSpeakerName)
-                {
-                    speakerNameText.text = ResolveSpeakerDisplayName(shot);
-                    speakerNameText.color = ResolveSpeakerColor(shot);
-                    speakerNameText.enabled = true;
-                }
-                break;
-
-            default:
-                panelRect.anchoredPosition = SystemBoxPosition;
-                panelRect.sizeDelta = SystemBoxSize;
-                messageRect.anchorMin = new Vector2(0.5f, 0.5f);
-                messageRect.anchorMax = new Vector2(0.5f, 0.5f);
-                messageRect.pivot = new Vector2(0.5f, 0.5f);
-                messageRect.anchoredPosition = new Vector2(0f, -24f);
-                messageRect.sizeDelta = SystemTextSize;
-                messageText.fontSize = 40f;
-                messageText.color = Color.white;
-                messageText.alignment = TextAlignmentOptions.Midline;
+                speakerText.enabled = shot.showSpeakerName && !string.IsNullOrWhiteSpace(ResolveSpeakerDisplayName(shot));
+                speakerText.text = ResolveSpeakerDisplayName(shot);
+                speakerRect.anchoredPosition = new Vector2(34f, -16f);
+                speakerRect.sizeDelta = new Vector2(420f, 38f);
+                messageRect.offsetMin = new Vector2(34f, 22f);
+                messageRect.offsetMax = speakerText.enabled ? new Vector2(-34f, -48f) : new Vector2(-34f, -22f);
+                messageText.fontSize = 31f;
+                messageText.alignment = TextAlignmentOptions.MidlineLeft;
                 messageText.text = shot.subtitleText;
                 break;
         }
-
-        messageText.enabled = true;
     }
 
     private bool TryShowOnCutsceneCanvas(Ep3LobbyIntroShotData shot)
@@ -349,7 +353,7 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 
     private bool HasBoundCutsceneCanvas()
     {
-        if (textboxManager == null)
+        if (textboxManager == null && !forceStandaloneOverlay)
         {
             textboxManager = GetComponentInParent<TextboxManager>();
         }
@@ -411,17 +415,17 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
 
         if (speakerType.Contains("musician"))
         {
-            return "음악가";
+            return "Leon";
         }
 
         if (speakerType.Contains("painter"))
         {
-            return "화가";
+            return "Elio";
         }
 
         if (speakerType.Contains("girl"))
         {
-            return "소녀";
+            return "Luna";
         }
 
         if (speakerType.Contains("core"))
@@ -441,24 +445,24 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
             ? shot.speakerName.Trim().ToLowerInvariant()
             : string.Empty;
 
-        if (speakerType.Contains("musician") || speakerName.Contains("음악") || speakerName.Contains("leon"))
+        if (speakerType.Contains("musician") || speakerName.Contains("leon"))
         {
-            return Color.blue;
+            return new Color(0.48f, 0.76f, 1f, 1f);
         }
 
-        if (speakerType.Contains("painter") || speakerName.Contains("화가") || speakerName.Contains("elio"))
+        if (speakerType.Contains("painter") || speakerName.Contains("elio"))
         {
-            return Color.green;
+            return new Color(0.72f, 1f, 0.62f, 1f);
         }
 
         if (speakerType.Contains("girl") || speakerName.Contains("luna"))
         {
-            return Color.red;
+            return new Color(1f, 0.68f, 0.78f, 1f);
         }
 
         if (speakerType.Contains("core") || speakerName == "???")
         {
-            return Color.gray;
+            return new Color(0.86f, 0.86f, 0.9f, 1f);
         }
 
         return Color.white;

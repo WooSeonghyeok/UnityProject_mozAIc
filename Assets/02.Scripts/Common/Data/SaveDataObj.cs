@@ -40,11 +40,11 @@ public class SaveDataObj
     public bool Played_Space_Clear;             //에피소드 2 Space 퍼즐 클리어 후 복귀
     public bool Played_Paint_Clear;             //에피소드 2 Paint 퍼즐 클리어 후 복귀
     public bool Played_EP2_Ending;              //에피소드 2 엔딩
-    public bool Played_EP3_LobbyIntro;          //에피소드 3 첫 로비 진입 컷씬
-    public bool Played_EP3_Stage3_1Intro;       //에피소드 3-1 진입 컷씬
-    public bool Played_EP3_Stage3_1Completion;  //에피소드 3-1 완료 연출 컷씬
-    public bool Played_EP3_Stage3_2Intro;       //에피소드 3-2 진입 컷씬
-    public bool Played_EP3_ReturnedLobbyIntro;  //에피소드 3-2 완료 후 복귀 로비 컷씬
+    public bool Played_EP3_LobbyIntro;          //에피소드 3 로비 첫 진입 컷씬
+    public bool Played_EP3_Stage3_1Intro;       //에피소드 3 3-1 진입 컷씬
+    public bool Played_EP3_Stage3_1Completion;  //에피소드 3 3-1 클리어 컷씬
+    public bool Played_EP3_Stage3_2Intro;       //에피소드 3 3-2 진입 컷씬
+    public bool Played_EP3_ReturnedLobbyIntro;  //에피소드 3 복귀 로비 컷씬
     public bool isFirstEnterAtEP3Lobby;         //에피소드 3 첫 진입
     public bool isFirstEnterAtEP3_1;            //에피소드 3 악보 퍼즐 진입
     public bool isFirstEnterAtEP3FinalTable;    //에피소드 3 마지막 태그 획득
