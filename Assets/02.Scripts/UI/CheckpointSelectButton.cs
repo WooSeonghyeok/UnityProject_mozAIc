@@ -53,7 +53,7 @@ public class CheckpointSelectButton : MonoBehaviour
 
     private void UpdateLockState()
     {
-        bool isCleared = Checkpoint_Plane.IsCheckpointCleared(cpNum);
+        bool isCleared = Checkpoint_Plane.IsCheckpointCleared(StageNumber, cpNum);
         isLock = !isCleared;
 
 #if UNITY_EDITOR

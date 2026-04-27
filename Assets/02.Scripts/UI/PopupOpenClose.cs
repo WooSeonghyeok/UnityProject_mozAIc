@@ -24,8 +24,7 @@ public class PopupOpenClose : MonoBehaviour
         Can.overrideSorting = true;
         Can.sortingOrder = sort;
         GameManager.Instance.openPopupCnt++;
-        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        GameManager.Instance.OnPopupChanged();
     }
     public void ClosePopup()
     {
@@ -33,7 +32,6 @@ public class PopupOpenClose : MonoBehaviour
         Can.overrideSorting = false;
         Can.sortingOrder = 0;
         GameManager.Instance.openPopupCnt--;
-        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        GameManager.Instance.OnPopupChanged();
     }
 }

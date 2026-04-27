@@ -46,14 +46,14 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
             {
                 CurData.Played_Space_Clear = true;
                 SaveManager.WriteCurJSON(CurData);
-                EP2CutsceneManager.Instance.Play("Space_Clear");
+                EP2CutsceneManager.Instance.Play("Space_Clear", CurData.ep2_spaceClear && CurData.ep2_paintClear);
                 return;
             }
             if (CurData.ep2_paintClear && !CurData.Played_Paint_Clear)
             {
                 CurData.Played_Paint_Clear = true;
                 SaveManager.WriteCurJSON(CurData);
-                EP2CutsceneManager.Instance.Play("Paint_Clear");
+                EP2CutsceneManager.Instance.Play("Paint_Clear", CurData.ep2_spaceClear && CurData.ep2_paintClear);
                 return;
             }
         }

@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 public class QuitManager : MonoBehaviour
@@ -22,11 +21,8 @@ public class QuitManager : MonoBehaviour
     }
     public void OnQuit(InputAction.CallbackContext context)
     {
-        if(context.started)
-        {
-            if (isQuitOpen) return;
-            OpenQuitPopup();
-        }
+        if (isQuitOpen) return;
+        OpenQuitPopup();
     }
     public void OpenQuitPopup()
     {
@@ -36,8 +32,7 @@ public class QuitManager : MonoBehaviour
         Can.overrideSorting = true;
         Can.sortingOrder = 700;
         GameManager.Instance.openPopupCnt++;
-        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        GameManager.Instance.OnPopupChanged();
     }
     public void OnNoButton()
     {
@@ -46,13 +41,12 @@ public class QuitManager : MonoBehaviour
         Can.overrideSorting = false;
         Can.sortingOrder = 0;
         GameManager.Instance.openPopupCnt--;
-        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        GameManager.Instance.OnPopupChanged();
     }
     public void OnYesButton()
     {
 #if UNITY_EDITOR
-        EditorApplication.isPlaying = false;  //에디터 종료
+        UnityEditor.EditorApplication.isPlaying = false;  //에디터 종료
 #else
         Application.Quit();  //앱 종료
 #endif

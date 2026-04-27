@@ -18,8 +18,8 @@ public class EP0_LobbyManager : MonoBehaviour
             return;
         }
         userAct = GameObject.FindGameObjectWithTag(playerTag).GetComponent<InteractManager>();
-        //OnAbilitySelectOpen(false);
-        OnStageSelectOpen(false);
+        //AbilitySelectPanel.SetActive(false);
+        StageSelectPanel.SetActive(false);
         GameManager.Instance.openPopupCnt = 0;
     }
     private void OnEnable()
@@ -35,19 +35,20 @@ public class EP0_LobbyManager : MonoBehaviour
     //private void OnAbilitySelectOpen(bool b)
     //{
     //    aSelectOpen = b;
-    //    byte addOpenPopupCnt = (byte)(b ? 1 : -1);
-    //    GameManager.Instance.openPopupCnt += addOpenPopupCnt;
-    //    GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-    //    GameManager.Instance.MouseStateChange();
+    //    MouseStateRenew(b);
     //    AbilitySelectPanel.SetActive(aSelectOpen);
     //}
     private void OnStageSelectOpen(bool b)
     {
         sSelectOpen = b;
-        byte addOpenPopupCnt = (byte)(b ? 1 : -1);
-        GameManager.Instance.openPopupCnt += addOpenPopupCnt;
-        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        MouseStateRenew(b);
         StageSelectPanel.SetActive(sSelectOpen);
+    }
+
+    private static void MouseStateRenew(bool b)
+    {
+        int addOpenPopupCnt = (b ? 1 : -1);
+        GameManager.Instance.openPopupCnt += addOpenPopupCnt;
+        GameManager.Instance.OnPopupChanged();
     }
 }

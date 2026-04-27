@@ -94,7 +94,7 @@ public class TextboxCtrl_Opening : MonoBehaviour
         yield return _manager.TalkSay(TalkType.system, "잊으면 안 된다는 말이… 발걸음을 움직이게 했다.", 2f);
         user.isJumpLock = false;
         if (SaveManager.instance != null) SaveManager.instance.curData.ep1_open = true;  //Start 신을 거치지 않은 경우 SaveManager가 null이므로 유효성 체크
-        GameManager.Instance.isCutsceneMode = false;
+        GameManager.Instance.CutsceneMode(false);
         SceneManager.LoadScene("Episode1_Scene");
     }
 }
