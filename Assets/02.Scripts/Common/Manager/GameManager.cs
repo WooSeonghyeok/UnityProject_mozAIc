@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.SetAmbientVolume(PlayerPrefs.GetFloat("Ambient_Volume", 1f));
         SoundManager.Instance.SetUIVolume(PlayerPrefs.GetFloat("UI_Volume", 1f));
         SoundManager.Instance.SetSFXVolume(PlayerPrefs.GetFloat("SFX_Volume", 1f));
-        AudioListener.volume = PlayerPrefs.GetFloat("Sensitivity", 0.5f);
     }
     public void OnLookLock(InputAction.CallbackContext context)  //시선 고정 on/off 키 입력
     {
