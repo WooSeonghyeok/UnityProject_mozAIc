@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: c0159efc19b9af54fbbe4e3d9f354bc9, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: ac4aa6252d4fcc94a903a8dcd7d497d7, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 55078b7cd743225409de68ec1e681e9e, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -253,7 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae12a22163e5d0489cde63073c4259c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnType: 0
+  returnType: 1
+  usageType: 0
   nextScene: Space_Puzzle
   stayTime: 1
   cameraTarget: {fileID: 2043568570}
@@ -1964,6 +1965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnType: 0
+  usageType: 0
   nextScene: LobbyScene
   stayTime: 1
   cameraTarget: {fileID: 1868031527}
@@ -4033,7 +4035,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 1.02e-43, y: 7.6e-44, z: 8.37e-42, w: 4.5918e-41}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 7e-45, z: 1.4602e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5502,7 +5504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &650123411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20098,6 +20100,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -29858,7 +29872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae12a22163e5d0489cde63073c4259c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnType: 0
+  returnType: 2
+  usageType: 0
   nextScene: Paint_Puzzle
   stayTime: 1
   cameraTarget: {fileID: 1933833078}

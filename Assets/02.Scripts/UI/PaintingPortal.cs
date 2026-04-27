@@ -6,7 +6,10 @@ using Cinemachine;
 public class PaintingPortal : MonoBehaviour
 {
     public enum PortalReturnType { None, Space, Paint }
+    public enum PortalUsageType { Entry, Exit }
+
     public PortalReturnType returnType;
+    public PortalUsageType usageType;
 
     public string nextScene;
     public float stayTime = 1f;
@@ -30,9 +33,15 @@ public class PaintingPortal : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        mat = rend.material; // 🔥 인스턴스 material
+        mat = rend.material;
 
         mat.SetFloat("_WaveStrength", idleStrength);
+
+        // ⭐ Entry 포탈만 재입장 제한 적용
+        if (usageType == PortalUsageType.Entry && !CanEnterPortal())
+        {
+            DisablePortal();
+        }
     }
 
     void Update()
@@ -43,7 +52,6 @@ public class PaintingPortal : MonoBehaviour
 
             if (timer >= stayTime)
             {
-                Debug.Log("포탈 시작");
                 StartCoroutine(PortalSequence());
                 isTriggered = true;
             }
@@ -70,8 +78,10 @@ public class PaintingPortal : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         yield return StartCoroutine(FadeToWhite());
 
-        // ⭐⭐⭐ 여기 추가: 체크포인트 저장 ⭐⭐⭐
-        if (SaveManager.instance != null && SaveManager.instance.curData != null)
+        // ⭐ 핵심: Exit 포탈에서만 클리어 저장
+        if (usageType == PortalUsageType.Exit &&
+            SaveManager.instance != null &&
+            SaveManager.instance.curData != null)
         {
             if (returnType == PortalReturnType.Space)
             {
@@ -87,7 +97,7 @@ public class PaintingPortal : MonoBehaviour
             SaveManager.instance.WriteCurJSON();
         }
 
-        // 기존 스폰 타입 설정
+        // ⭐ 스폰 위치 설정 (기존 유지)
         if (EP2_PuzzleManager.Instance != null)
         {
             if (returnType == PortalReturnType.Space)
@@ -113,10 +123,42 @@ public class PaintingPortal : MonoBehaviour
         }
     }
 
+    // ⭐ 입장 가능 여부
+    private bool CanEnterPortal()
+    {
+        // Exit 포탈은 항상 허용
+        if (usageType == PortalUsageType.Exit)
+            return true;
+
+        if (SaveManager.instance == null || SaveManager.instance.curData == null)
+            return true;
+
+        if (returnType == PortalReturnType.Space &&
+            SaveManager.instance.curData.ep2_spaceClear)
+            return false;
+
+        if (returnType == PortalReturnType.Paint &&
+            SaveManager.instance.curData.ep2_paintClear)
+            return false;
+
+        return true;
+    }
+
+    private void DisablePortal()
+    {
+        GetComponent<Collider>().enabled = false;
+        mat.SetFloat("_WaveStrength", 0f);
+
+        Debug.Log("이미 클리어된 Entry 포탈 → 비활성화");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if (!CanEnterPortal())
+                return;
+
             isInside = true;
             timer = 0f;
 
@@ -129,6 +171,8 @@ public class PaintingPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (!CanEnterPortal()) return;
+
             Vector3 hitPos = other.transform.position;
 
             Vector3 localPos = transform.InverseTransformPoint(hitPos);
