@@ -1980,6 +1980,8 @@ MonoBehaviour:
   badScore: 50
   goodScore: 100
   excellentScore: 150
+  pointsPerBonusLife: 10000
+  bonusLivesEarned: 0
 --- !u!114 &553173267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3295,6 +3297,8 @@ MonoBehaviour:
   excellentLaneFlashColor: {r: 1, g: 0.97, b: 0.68, a: 1}
   wrongLaneFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   maxAllowedMistakes: 8
+  fadeOutAudioOnComplete: 1
+  completeAudioFadeDurationOverride: -1
 --- !u!1001 &833984862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5992,6 +5996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1705470807}
   audioClip: {fileID: 8300000, guid: 8d63e1074b4b1424ab06d1ae8188e6dd, type: 3}
+  completionFadeOutDuration: 0.9
   bpm: 85
   startOffset: 1
   generateDuration: 0
