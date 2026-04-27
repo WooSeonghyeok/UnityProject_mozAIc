@@ -12,11 +12,17 @@ public class Episode2Manager : MonoBehaviour
     [Header("둘 다 클리어 시 (LobbySet)")]
     public GameObject finalObject;
 
+    [Header("EP2 그림 힌트 대상")]
+    public NPCHintTarget spacePicture; // 구도가 틀어진 그림
+    public NPCHintTarget colorPicture;       // 색이 바랜 그림
+
     public float delay = 1.5f;
 
     void Start()
     {
         ApplyImmediateState();
+        // 저장된 퍼즐 완료 상태를 NPC 힌트 설명에 반영
+        ApplyPictureHintState();
         StartCoroutine(ApplyDelayedState());
     }
 
@@ -89,5 +95,39 @@ public class Episode2Manager : MonoBehaviour
                     fade.SetEmissionOff();
             }
         }
+    }
+    // 그림 완성 여부를 NPCHintTarget 설명에 반영
+    private void ApplyPictureHintState()
+    {
+        if (SaveManager.instance == null || SaveManager.instance.curData == null)
+            return;
+
+        var data = SaveManager.instance.curData;
+
+        if (spacePicture != null)
+        {
+            if (data.ep2_spaceClear)
+            {
+                spacePicture.description = "이미 완성된 그림이다. 구도가 바로잡혀 안정적인 장면이 되었다.";
+            }
+            else
+            {
+                spacePicture.description = "아직 완성되지 않은 그림이다. 구도가 틀어져 있어 바로잡아야 한다.";
+            }
+        }
+
+        if (colorPicture != null)
+        {
+            if (data.ep2_paintClear)
+            {
+                colorPicture.description = "이미 완성된 그림이다. 바랬던 색이 다시 돌아왔다.";
+            }
+            else
+            {
+                colorPicture.description = "아직 완성되지 않은 그림이다. 색이 바래 있어 되찾아야 한다.";
+            }
+        }
+
+        Debug.Log($"[Episode2Manager] 그림 힌트 상태 갱신 - 구도:{data.ep2_spaceClear}, 색:{data.ep2_paintClear}");
     }
 }

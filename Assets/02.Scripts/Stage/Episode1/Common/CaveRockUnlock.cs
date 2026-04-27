@@ -12,8 +12,7 @@ public class CaveRockUnlock : MonoBehaviour
     public GameObject caveRockClosed; // 현재 입구를 막고 있는 돌
     public GameObject caveRockOpened; // 열렸을 때 보여줄 돌(또는 열린 상태 오브젝트)
     [Header("사운드")]
-    public AudioSource source;   
-    public AudioClip openClip;       // 동굴 열릴 때 재생할 사운드
+    public SoundTrigger soundTrigger;
     private bool isUnlocked = false; // 이미 열렸는지 체크
     private void Start()
     {
@@ -52,9 +51,10 @@ public class CaveRockUnlock : MonoBehaviour
         {
             caveRockOpened.SetActive(true);
         }
-        if (source != null && openClip != null)  // 사운드 재생
+        if (soundTrigger != null)  // 사운드 재생
         {
-            StartCoroutine(PlaySoundDelay());
+            soundTrigger.Play();
+           // StartCoroutine(PlaySoundDelay());
         }
         Debug.Log("별을 모두 모아 동굴 입구가 열렸습니다.");
         if (GameManager_Ep1.Instance != null)  // 게임매니저에 알려서 NPC 기억 업데이트
@@ -64,7 +64,7 @@ public class CaveRockUnlock : MonoBehaviour
     }
     IEnumerator PlaySoundDelay()
     {
-        yield return new WaitForSeconds(0.5f);
-        source.PlayOneShot(openClip);
+        yield return new WaitForSeconds(0.1f);
+        soundTrigger.Play();
     }
 }

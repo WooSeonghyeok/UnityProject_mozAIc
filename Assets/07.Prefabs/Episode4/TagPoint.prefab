@@ -46,9 +46,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd3fde503d596648a75dbe2cbb01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: ep4_same_look
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
+    isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
+  TagText: 0
   memoryRateUp: 2
-  tagBubble: {fileID: 7373226982073013477}
   cutscene: {fileID: 0}
   tagHint: 
 --- !u!135 &382105816612913764
@@ -83,7 +125,6 @@ GameObject:
   - component: {fileID: 3516753306350727459}
   - component: {fileID: 1342985572788727374}
   - component: {fileID: 1488146505847206082}
-  - component: {fileID: 5014932456838193436}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -156,24 +197,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5014932456838193436
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7373226982073013477}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
