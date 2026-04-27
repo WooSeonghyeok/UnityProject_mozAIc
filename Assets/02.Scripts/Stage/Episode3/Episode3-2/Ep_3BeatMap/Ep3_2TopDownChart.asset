@@ -1,0 +1,3856 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec4ccfb93a314347b0b8da79c59c44d, type: 3}
+  m_Name: Ep3_2TopDownChart
+  m_EditorClassIdentifier: 
+  beatEvents: []
+  topDownChartNotes:
+  - judgeTimeSeconds: 1.027
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-1
+  - judgeTimeSeconds: 1.376
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 1.753
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 2.13
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 2.258
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 2.531
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 2.949
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 3.175
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 3.407
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 3.605
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 3.785
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 3.936
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 4.052
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 4.162
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 4.377
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 4.539
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 4.859
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-2
+  - judgeTimeSeconds: 5.544
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 5.654
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 6.223
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 6.339
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 6.461
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 6.699
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 6.815
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 7.221
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 7.57
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 7.953
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 8.33
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 8.574
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 8.707
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 8.945
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 9.079
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 9.311
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-3
+  - judgeTimeSeconds: 9.537
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 9.787
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 9.897
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 10.008
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 10.118
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 10.321
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 10.513
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 11.331
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 11.807
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 13.45
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 14.501
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 14.774
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 14.953
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 15.743
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 15.905
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 16.19
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-4
+  - judgeTimeSeconds: 16.329
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 16.463
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 16.765
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 16.881
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 16.991
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.107
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.305
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.438
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.554
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.67
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.786
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 17.908
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 18.024
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 18.152
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 18.268
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 18.384
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-5
+  - judgeTimeSeconds: 18.495
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 18.605
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 18.75
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 19.121
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 19.255
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 19.708
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 20.132
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 20.462
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 20.915
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 21.449
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 21.594
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 22.175
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 22.633
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 22.877
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 23.022
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 23.168
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-6
+  - judgeTimeSeconds: 23.388
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 23.545
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 23.858
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 24.137
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 24.398
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 24.694
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 24.973
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 25.24
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 25.553
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 25.884
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 26.209
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 26.529
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 26.68
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 26.865
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 27.214
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 27.585
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-7
+  - judgeTimeSeconds: 27.968
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 28.38
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 28.845
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 29.315
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 29.768
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 30.25
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 30.789
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 30.9
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 31.045
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 31.213
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 31.463
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 31.881
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 33.489
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 34.029
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 34.383
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 34.528
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-8
+  - judgeTimeSeconds: 35.016
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 35.381
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 35.88
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 36.06
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 36.327
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 36.542
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 36.798
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 37.012
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 37.216
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 37.338
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 37.465
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 37.767
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 38.046
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 38.191
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 38.365
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 38.742
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-9
+  - judgeTimeSeconds: 39.23
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 39.433
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 39.567
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 39.735
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 39.892
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 40.077
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 40.374
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 40.49
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 40.675
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 40.791
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 40.919
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 41.105
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 41.442
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 41.79
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 42.103
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 42.289
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-10
+  - judgeTimeSeconds: 42.423
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 42.678
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 42.893
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 43.148
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 43.311
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 43.439
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 43.63
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 43.955
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 44.17
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 44.286
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 44.443
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 44.582
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 45.302
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 45.499
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 45.853
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 46.202
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-11
+  - judgeTimeSeconds: 46.544
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 46.922
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 47.438
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 47.769
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 47.966
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 48.1
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 48.303
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 48.413
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 48.57
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 48.756
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 48.924
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 49.104
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 49.261
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 49.621
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 50.091
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 50.451
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-12
+  - judgeTimeSeconds: 50.637
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 50.776
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 50.95
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 51.269
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 51.386
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 51.629
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 51.763
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 51.966
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 52.105
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 52.309
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 52.564
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 52.79
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 52.976
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 53.214
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 53.429
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 53.864
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-13
+  - judgeTimeSeconds: 54.097
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 54.323
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 54.456
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 54.735
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 55.101
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 55.484
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 55.652
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 55.78
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 56.146
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 56.326
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 56.482
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 56.813
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 57.086
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 57.672
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 58.177
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 58.346
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-14
+  - judgeTimeSeconds: 58.816
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 59.008
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 59.164
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 59.327
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 59.669
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 59.826
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 59.994
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 60.163
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 60.337
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 60.505
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 60.674
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 61.022
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 61.684
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 61.846
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 62.02
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 62.328
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-15
+  - judgeTimeSeconds: 62.682
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 62.839
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 63.013
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 63.164
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 63.35
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 63.681
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 64.348
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 64.778
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 65.004
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 65.515
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 65.718
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 65.91
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 66.09
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 66.426
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 66.792
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 66.978
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-16
+  - judgeTimeSeconds: 67.158
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 67.396
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 67.761
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 67.883
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 67.999
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 68.145
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 68.296
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 68.731
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 69.05
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 69.184
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 69.317
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 69.648
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 69.787
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 69.898
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 70.054
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 70.397
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-17
+  - judgeTimeSeconds: 70.658
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 70.885
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 71.111
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 71.297
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 71.471
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 71.639
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 71.802
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 72.806
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 73.044
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 73.305
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 73.566
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 73.706
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 74.176
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 74.449
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 74.646
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 74.878
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-18
+  - judgeTimeSeconds: 75.006
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 75.134
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 75.256
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 75.436
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 75.563
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 75.865
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 76.155
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 76.295
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 76.962
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 77.148
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 77.293
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 77.479
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 77.595
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 77.705
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 78.21
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 78.385
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-19
+  - judgeTimeSeconds: 78.634
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 79.104
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 79.354
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 79.766
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 80.312
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 80.474
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 81.084
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 81.345
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 81.467
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 81.699
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 81.856
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 82.03
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 82.164
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 82.344
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 82.686
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 83.092
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-20
+  - judgeTimeSeconds: 83.278
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 83.568
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 83.696
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 83.841
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 84.079
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 84.236
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 84.584
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 84.927
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 85.113
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 85.391
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 85.531
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 85.647
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 85.821
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 86.134
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 86.256
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 86.471
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-21
+  - judgeTimeSeconds: 86.808
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 87.139
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 87.493
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 87.667
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 87.824
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 87.992
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 88.7
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 89.193
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 89.362
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 89.96
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 90.296
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 90.453
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 91.022
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 91.19
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 91.376
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 91.812
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-22
+  - judgeTimeSeconds: 92.044
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 92.229
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 92.735
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 93.338
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 93.594
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 93.768
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 94.023
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 94.215
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 94.551
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 94.888
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 95.759
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 95.869
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 96.072
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 96.241
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 96.444
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 96.659
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-23
+  - judgeTimeSeconds: 96.932
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 97.262
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 97.419
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 97.773
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 98.104
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 98.29
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 98.464
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 98.603
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 98.807
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 98.998
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 99.126
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 99.294
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 99.497
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 99.613
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 99.735
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 99.857
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-24
+  - judgeTimeSeconds: 99.985
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 100.142
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 100.264
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 100.711
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 100.891
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 101.059
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 101.175
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 101.297
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 101.796
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 102.249
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 102.516
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 102.649
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 103.015
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 103.398
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 103.654
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 103.996
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-25
+  - judgeTimeSeconds: 104.147
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 104.35
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 104.501
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 104.826
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 105.035
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 105.5
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 105.871
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 106.045
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 106.399
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 106.736
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 106.899
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 107.067
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 107.241
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 107.415
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 107.584
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 107.758
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-26
+  - judgeTimeSeconds: 107.915
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 108.095
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 108.437
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 108.658
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 108.78
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 109.267
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 109.859
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 110.364
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 110.55
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 111.142
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 111.34
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 111.67
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 111.932
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 112.355
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 112.843
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 113.18
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-27
+  - judgeTimeSeconds: 113.516
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 113.667
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 113.836
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 114.039
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 114.196
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 114.55
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 114.724
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 114.898
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 115.072
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 115.264
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 115.473
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 115.676
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 116.088
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 116.547
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 116.732
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 117.081
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-28
+  - judgeTimeSeconds: 117.295
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 117.493
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 117.725
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 118.05
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 118.305
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 118.886
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 119.484
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 119.763
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 120.006
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 120.384
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 120.564
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 120.726
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 121.26
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 121.452
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 121.881
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 122.16
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-29
+  - judgeTimeSeconds: 122.456
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 122.816
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 123.228
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 123.356
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 123.803
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 124.215
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 124.378
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 124.656
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 125.208
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 125.376
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 125.509
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 125.631
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 125.956
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 126.09
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 126.224
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 126.392
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-30
+  - judgeTimeSeconds: 126.554
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 128.006
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 128.424
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 128.72
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 128.958
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 129.196
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 129.381
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 129.573
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 129.753
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 129.933
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 130.113
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 130.467
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 130.664
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 130.873
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 131.094
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 131.338
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-31
+  - judgeTimeSeconds: 131.616
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 131.825
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 131.982
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.11
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.33
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.452
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.568
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.69
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.835
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 132.981
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 133.108
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 133.236
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 133.369
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 133.503
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 133.648
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 133.758
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-32
+  - judgeTimeSeconds: 133.956
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 134.078
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 134.188
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 134.327
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 134.513
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 134.838
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 135.175
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 135.361
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 135.535
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 135.697
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 135.871
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 136.307
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 136.568
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 136.736
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 136.91
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 137.247
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-33
+  - judgeTimeSeconds: 137.537
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 138.002
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 138.391
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 138.785
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 138.965
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 139.366
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 139.529
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 139.801
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 140.057
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 140.283
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 140.44
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 140.55
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 140.742
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 140.875
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 141.247
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 141.595
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-34
+  - judgeTimeSeconds: 141.752
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 141.938
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 142.472
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 142.797
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 143.308
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 143.65
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 144.318
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 144.428
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 144.66
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 144.782
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 145.165
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 145.287
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 145.583
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 146.216
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 146.466
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 146.628
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-35
+  - judgeTimeSeconds: 146.849
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 147.238
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 147.359
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 147.481
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 147.592
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 147.83
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 148.021
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 148.317
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 149.345
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 149.536
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 149.699
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 149.815
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 150.245
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 150.552
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 150.668
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 150.901
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-36
+  - judgeTimeSeconds: 151.139
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 151.481
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 152.416
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 152.884
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 153.351
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 153.819
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 154.287
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 154.754
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 155.222
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 155.689
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 156.157
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 156.625
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 157.092
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 157.56
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 158.027
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 158.495
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 158.964
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 159.414
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 159.865
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 160.315
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 160.765
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 161.215
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 161.666
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 162.116
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 162.487
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 162.603
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 162.836
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 163.149
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 163.364
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 163.584
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 163.73
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 164.473
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 164.664
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 164.827
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 164.972
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-37
+  - judgeTimeSeconds: 165.129
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 165.396
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 165.552
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 165.883
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 166.098
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 166.295
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 166.516
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 166.771
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 167.021
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 167.329
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 167.66
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 167.938
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 168.246
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 168.821
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 169.204
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 169.854
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-38
+  - judgeTimeSeconds: 170.469
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 171.218
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 171.415
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 171.878
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 172.342
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 172.805
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 173.269
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 173.732
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 174.573
+    judgeWindowOverride: 0
+    laneType: 1
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 175.016
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 175.459
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 175.901
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 176.344
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 176.454
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 176.57
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 176.692
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 176.837
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 176.988
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.151
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.267
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.383
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.511
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.638
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: AUTO-39
+  - judgeTimeSeconds: 177.749
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.87
+    judgeWindowOverride: 0
+    laneType: 0
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 177.987
+    judgeWindowOverride: 0
+    laneType: 2
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 178.108
+    judgeWindowOverride: 0
+    laneType: 3
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 
+  - judgeTimeSeconds: 178.219
+    judgeWindowOverride: 0
+    laneType: 4
+    isHoldNote: 0
+    holdDurationSeconds: 0
+    memo: 

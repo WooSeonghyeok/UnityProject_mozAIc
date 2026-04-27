@@ -51,7 +51,10 @@ public enum Ep3IntroCutsceneSaveKey
 {
     None = -1,
     EP3Lobby = 0,
-    EP3Stage3_1 = 1
+    EP3Stage3_1 = 1,
+    EP3Stage3_1Completion = 2,
+    EP3Stage3_2Intro = 3,
+    EP3ReturnedLobbyIntro = 4
 }
 
 /// <summary>
@@ -74,6 +77,8 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     [SerializeField] private bool playOnlyOncePerSession = false;
     [SerializeField] private string inspectorSequenceId = "EP3_LOBBY_INTRO";
     [SerializeField] private Ep3IntroCutsceneSaveKey playOnceSaveKey = Ep3IntroCutsceneSaveKey.EP3Lobby;
+    [SerializeField] private bool useInspectorPlayedStateOverride = false;
+    [SerializeField] private bool inspectorPlayedState = false;
     [SerializeField] private List<Ep3LobbyIntroShotData> inspectorShots = new List<Ep3LobbyIntroShotData>();
     [SerializeField] private string cutsceneResourcePath = DefaultResourcePath;
     [SerializeField] private string cutsceneAssetResourcePath = DefaultSequenceAssetPath;
@@ -86,6 +91,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     [SerializeField] private bool syncSceneRigWithSequence = true;
     [SerializeField] private bool enableSubtitles = true;
     [SerializeField] private TMP_FontAsset subtitleFont;
+    [SerializeField] private bool forceStandaloneSubtitleOverlay = true;
     [SerializeField] private bool useRuntimeHintOverlay = false;
     [SerializeField] private Button nextButton;
     [SerializeField] private GameObject nextButtonRoot;
@@ -214,7 +220,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             FinishController();
             yield break;
         }
-        GameManager.Instance.CutsceneMode(true);
+        SetGameCutsceneMode(true);
         Ep3LobbyIntroSequenceData sequence = LoadSequenceData();
         if (sequence == null || sequence.shots == null || sequence.shots.Count == 0)
         {
@@ -262,13 +268,20 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return false;
         }
 
+        if (useInspectorPlayedStateOverride)
+        {
+            return !inspectorPlayedState;
+        }
+
         if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
         {
             return true;
         }
 
         SaveDataObj data = ResolveSaveData();
-        return data != null && !HasPlayedCutscene(data);
+        bool hasPlayed = HasPlayedCutscene(data);
+        inspectorPlayedState = hasPlayed;
+        return data != null && !hasPlayed;
     }
 
     private void CachePlayerComponents()
@@ -783,7 +796,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private void FinishController()
     {
-        GameManager.Instance.CutsceneMode(false);
+        SetGameCutsceneMode(false);
         if (destroyWhenFinished)
         {
             Destroy(gameObject);
@@ -793,8 +806,26 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         enabled = false;
     }
 
+    private void SetGameCutsceneMode(bool isCutsceneMode)
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning("[Ep3LobbyIntroCutsceneController] GameManager.Instance가 없어 CutsceneMode를 적용하지 못했습니다.");
+            return;
+        }
+
+        GameManager.Instance.CutsceneMode(isCutsceneMode);
+    }
+
     private void MarkCutscenePlayed()
     {
+        inspectorPlayedState = true;
+
+        if (useInspectorPlayedStateOverride)
+        {
+            return;
+        }
+
         if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
         {
             return;
@@ -856,11 +887,20 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 return false;
 
             case Ep3IntroCutsceneSaveKey.EP3Stage3_1:
-                return data.isFirstEnterAtEP3_1;
+                return data.Played_EP3_Stage3_1Intro;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1Completion:
+                return data.Played_EP3_Stage3_1Completion;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_2Intro:
+                return data.Played_EP3_Stage3_2Intro;
+
+            case Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro:
+                return data.Played_EP3_ReturnedLobbyIntro;
 
             case Ep3IntroCutsceneSaveKey.EP3Lobby:
             default:
-                return data.isFirstEnterAtEP3Lobby;
+                return data.Played_EP3_LobbyIntro;
         }
     }
 
@@ -877,12 +917,24 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
                 break;
 
             case Ep3IntroCutsceneSaveKey.EP3Stage3_1:
-                data.isFirstEnterAtEP3_1 = played;
+                data.Played_EP3_Stage3_1Intro = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_1Completion:
+                data.Played_EP3_Stage3_1Completion = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3Stage3_2Intro:
+                data.Played_EP3_Stage3_2Intro = played;
+                break;
+
+            case Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro:
+                data.Played_EP3_ReturnedLobbyIntro = played;
                 break;
 
             case Ep3IntroCutsceneSaveKey.EP3Lobby:
             default:
-                data.isFirstEnterAtEP3Lobby = played;
+                data.Played_EP3_LobbyIntro = played;
                 break;
         }
     }
@@ -1392,31 +1444,34 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         if (presenters != null && presenters.Length > 0)
         {
             subtitlePresenter = presenters[0];
-            subtitlePresenter.Configure(subtitleFont, FindTextboxManager());
+            subtitlePresenter.Configure(subtitleFont, FindTextboxManager(), forceStandaloneSubtitleOverlay);
             return;
         }
 
-        TextboxManager textboxManager = FindTextboxManager();
-        if (textboxManager != null)
+        if (!forceStandaloneSubtitleOverlay)
         {
-            GameObject subtitleObject = new GameObject("EP3 Lobby Intro Subtitles", typeof(RectTransform));
-            subtitleObject.transform.SetParent(textboxManager.transform, false);
-            subtitlePresenter = subtitleObject.AddComponent<Ep3CutsceneSubtitlePresenter>();
-            subtitlePresenter.Configure(subtitleFont, textboxManager);
-            ownsSubtitlePresenter = true;
-            return;
+            TextboxManager textboxManager = FindTextboxManager();
+            if (textboxManager != null)
+            {
+                GameObject subtitleObject = new GameObject("EP3 Lobby Intro Subtitles", typeof(RectTransform));
+                subtitleObject.transform.SetParent(textboxManager.transform, false);
+                subtitlePresenter = subtitleObject.AddComponent<Ep3CutsceneSubtitlePresenter>();
+                subtitlePresenter.Configure(subtitleFont, textboxManager, false);
+                ownsSubtitlePresenter = true;
+                return;
+            }
         }
 
         subtitlePresenter = FindObjectOfType<Ep3CutsceneSubtitlePresenter>();
         if (subtitlePresenter != null)
         {
-            subtitlePresenter.Configure(subtitleFont);
+            subtitlePresenter.Configure(subtitleFont, null, forceStandaloneSubtitleOverlay);
             return;
         }
 
         GameObject fallbackSubtitleObject = new GameObject("EP3 Lobby Intro Subtitles");
         subtitlePresenter = fallbackSubtitleObject.AddComponent<Ep3CutsceneSubtitlePresenter>();
-        subtitlePresenter.Configure(subtitleFont);
+        subtitlePresenter.Configure(subtitleFont, null, forceStandaloneSubtitleOverlay);
         ownsSubtitlePresenter = true;
     }
 
@@ -1436,8 +1491,21 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             }
 
             string objectName = manager.gameObject.name;
-            if (objectName.IndexOf("Canvas_Cutscene", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                objectName.IndexOf("Canvas_NPC_Chat", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (objectName.IndexOf("Canvas_Cutscene", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return manager;
+            }
+        }
+
+        foreach (TextboxManager manager in managers)
+        {
+            if (manager == null || manager.gameObject == null)
+            {
+                continue;
+            }
+
+            string objectName = manager.gameObject.name;
+            if (objectName.IndexOf("Canvas_NPC_Chat", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return manager;
             }

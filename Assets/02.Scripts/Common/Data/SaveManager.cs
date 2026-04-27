@@ -87,6 +87,11 @@ public class SaveManager : MonoBehaviour
         dataObj.memory_reconstruction_rate[0] = 5;  //기억 재구성 기본 점수 5점으로 시작
         dataObj.CoreTag = CreateDefaultMemoryTags();
         dataObj.npcInformations = LoadDefaultNPCInfo();
+        dataObj.Played_EP3_LobbyIntro = false;
+        dataObj.Played_EP3_Stage3_1Intro = false;
+        dataObj.Played_EP3_Stage3_1Completion = false;
+        dataObj.Played_EP3_Stage3_2Intro = false;
+        dataObj.Played_EP3_ReturnedLobbyIntro = false;
         dataObj.isFirstEnterAtS3CP0 = false;
         dataObj.isFirstEnterAtEP3Lobby = false;
         dataObj.isFirstEnterAtEP3_1 = false;
@@ -163,6 +168,16 @@ public class SaveManager : MonoBehaviour
             {
                 existingNpc.words = CloneMemoryKeywords(defaultNpc.words);
             }
+        }
+
+        if (dataObj.isFirstEnterAtEP3Lobby)
+        {
+            dataObj.Played_EP3_LobbyIntro = true;
+        }
+
+        if (dataObj.isFirstEnterAtEP3_1)
+        {
+            dataObj.Played_EP3_Stage3_1Intro = true;
         }
 
         return dataObj;

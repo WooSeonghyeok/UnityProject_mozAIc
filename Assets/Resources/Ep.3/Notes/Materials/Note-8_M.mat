@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Note-8_M
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_Parent: {fileID: 2100000, guid: 2bb419e593b249f4f90f432179d7ccbe, type: 2}
+  m_Parent: {fileID: 2100000, guid: 427d35f27e6277e4bb861926b1de5531, type: 2}
   m_ModifiedSerializedProperties: 8
   m_ValidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
@@ -41,11 +41,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 532e74fe4085cb0439c95b411a089edd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 57abe2780f6cb6241968dc3b7f98b32f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 532e74fe4085cb0439c95b411a089edd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 57abe2780f6cb6241968dc3b7f98b32f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

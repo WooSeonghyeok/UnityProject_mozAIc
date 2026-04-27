@@ -5135,7 +5135,7 @@ MonoBehaviour:
   playOnStart: 1
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_STAGE3_1_INTRO
-  playOnceSaveKey: 1
+  playOnceSaveKey: 2
   inspectorShots:
   - dialogueId: EP3_001
     speakerType: Narration
