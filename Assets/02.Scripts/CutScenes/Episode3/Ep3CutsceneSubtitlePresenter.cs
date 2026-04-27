@@ -69,8 +69,6 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         ApplyStandaloneStyle(shot);
 
         canvasGroup.alpha = 1f;
-        panelImage.enabled = true;
-        messageText.enabled = true;
     }
 
     public void Hide()
@@ -83,6 +81,23 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
         if (canvasGroup == null)
         {
             return;
+        }
+
+        if (panelImage != null)
+        {
+            panelImage.enabled = false;
+        }
+
+        if (messageText != null)
+        {
+            messageText.text = string.Empty;
+            messageText.enabled = false;
+        }
+
+        if (speakerNameText != null)
+        {
+            speakerNameText.text = string.Empty;
+            speakerNameText.enabled = false;
         }
 
         canvasGroup.alpha = 0f;
@@ -124,6 +139,11 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
                 {
                     speakerText.font = fontAsset;
                 }
+            }
+
+            if (fontAsset != null && speakerNameText != null)
+            {
+                speakerNameText.font = fontAsset;
             }
 
             return;

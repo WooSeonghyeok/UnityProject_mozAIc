@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place: 0000000001000000
   colorBool: 010101
-  cond: 0
+  cond: 2
   value: 7

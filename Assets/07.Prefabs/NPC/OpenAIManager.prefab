@@ -76,15 +76,48 @@ MonoBehaviour:
   serverName: "\uC11C\uBC84"
   model: helpy-pro
   currentNpcData: {fileID: 0}
+  CurData:
+    ID: 0
+    savedTime: 
+    ep1_open: 0
+    ep1_isCaveUnlocked: 0
+    ep1_isPuzzleCleared: 0
+    ep2_open: 0
+    ep2_spaceClear: 0
+    ep2_paintClear: 0
+    ep3_open: 0
+    ep3_jumpClear: 0
+    ep3_paperClear: 0
+    ep4_open: 0
+    ep4_puzzle1Clear: 0
+    ep4_puzzle2Clear: 0
+    ep4_puzzle3Clear: 0
+    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    CoreTag: []
+    npcInformations: []
+    Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
+    Played_Space_Intro: 0
+    Played_Paint_Intro: 0
+    Played_Space_Text: 0
+    Played_Space_Clear_Immediate: 0
+    Played_Paint_Sequences: 0
+    Played_Space_Clear: 0
+    Played_Paint_Clear: 0
+    Played_EP2_Ending: 0
+    isFirstEnterAtEP3Lobby: 0
+    isFirstEnterAtEP3_1: 0
+    isFirstEnterAtS3CP0: 0
   positiveWords:
-  - "\uC30D\uB465\uC774 \uC790\uB9AC"
-  - "\uC30D\uB465\uC774\uC790\uB9AC"
-  - Gemini
+  - "\uB3D9\uB8CC"
+  - "\uC791\uC5C5\uC2E4"
+  - "\uC0C9"
+  - "\uADF8\uB9BC"
+  - "\uBB3C\uAC10"
   negativeWords: []
   PositiveAffinity: 50
   NegativeAffinity: -10
   AffinityText: {fileID: 0}
-  words:
-  - word: "\uC30D\uB465\uC774\uC790\uB9AC"
-    memoryRate: 10
-    isUsed: 0
+  words: []
+  minTalkCountForMemory: 5
+  memoryReward: 5

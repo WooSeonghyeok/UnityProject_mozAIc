@@ -1108,7 +1108,10 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -1119,14 +1122,18 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 1
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_RETURNED_LOBBY_INTRO
   playOnceSaveKey: 4
   inspectorShots:
   - dialogueId: EP3_031_CLEAR_001
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
     subtitleText: "\uB2E4\uC2DC \uC775\uC219\uD574\uC9C4 \uC815\uC801 \uC18D\uC758
       \uB85C\uBE44\uB85C \uB3CC\uC544\uC654\uB2E4."
@@ -1137,7 +1144,7 @@ MonoBehaviour:
     holdDuration: 1.5
     fieldOfView: 50
   - dialogueId: EP3_031_CLEAR_002
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
     subtitleText: "\uB0AF\uC124\uC5C8\uB358 \uB85C\uBE44\uB294, \uAE30\uC5B5\uC774
       \uB418\uC0B4\uC544\uB09C \uC9C0\uAE08 \uC804\uACFC\uB294 \uB2E4\uB978 \uC758\uBBF8\uB85C
@@ -1151,8 +1158,8 @@ MonoBehaviour:
   - dialogueId: EP3_031_CLEAR_003
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uC0C8\uB86D\uAC8C \uC0DD\uACA8 \uD53C\uC544\uB178\uC640 \uBA38\uADF8\uCEF5,
-      \uC0AC\uC9C4 \uC18D\uC5D0 \uB0A8\uC544 \uC788\uB294 \uC791\uC740 \uD754\uC801\uB4E4\uAE4C\uC9C0\uB3C4"
+    subtitleText: "\uD53C\uC544\uB178, \uBA38\uADF8\uCEF5, \uC0AC\uC9C4\uAE4C\uC9C0
+      \uB2E4 \uB0A8\uC544 \uC788\uB124.."
     showSpeakerName: 0
     cameraPosition: {x: 2.828066, y: 1.7436986, z: -15.228457}
     lookAtPosition: {x: 1.905116, y: 1.6334457, z: -11.765167}
@@ -1162,8 +1169,7 @@ MonoBehaviour:
   - dialogueId: EP3_031_CLEAR_004
     speakerType: Monologue
     speakerName: 
-    subtitleText: "\uC774\uC81C\uB294 \uC27D\uAC8C \uC9C0\uB098\uCE60 \uC218 \uC5C6\uB294
-      \uC2DC\uAC04\uC758 \uC870\uAC01\uCC98\uB7FC \uB290\uAEF4\uC9C4\uB2E4."
+    subtitleText: "\uC774\uC81C\uB294 \uADF8\uB0E5 \uB118\uAE38 \uC218\uAC00 \uC5C6\uC5B4.."
     showSpeakerName: 0
     cameraPosition: {x: 0.39131737, y: 1.587537, z: -14.113691}
     lookAtPosition: {x: -0.2495811, y: 1.6733245, z: -14.165891}
@@ -1796,7 +1802,10 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -1807,7 +1816,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
@@ -1887,7 +1900,10 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -1898,8 +1914,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
-  memoryNumber: 7
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   memoryRateUp: 5
 --- !u!1001 &964198057
 PrefabInstance:
@@ -2633,6 +2652,7 @@ MonoBehaviour:
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
+  disableInput: 0
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
@@ -2669,7 +2689,10 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -2680,7 +2703,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_LOBBY_INTRO
@@ -3604,6 +3631,17 @@ MonoBehaviour:
   repathTargetMoveThreshold: 0.5
   animator: {fileID: 1535722165}
   moveThreshold: 0.1
+--- !u!114 &1535722168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7194669207790084412, guid: 1b784c6baddba30469336247b2f53ed3, type: 3}
+  m_PrefabInstance: {fileID: 1535722163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535722164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ca1efe45d933e4b8e0fee3bc0bb38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1575570395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,6 +3761,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589466205}
   - component: {fileID: 1589466204}
+  - component: {fileID: 1589466206}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -3785,6 +3824,36 @@ Transform:
   - {fileID: 495453039}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1589466206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589466203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 73
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 0
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1001 &1593522724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4402,6 +4471,87 @@ MonoBehaviour:
   hintIntensity: 0
   aiInteractionCount: 0
   collectedTags: []
+--- !u!1001 &2030845521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 221.77658
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -107.347015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.620945
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712095729519704970, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: episodeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: targetNpcId
+      value: npc_ep3_musician
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: targetNpcData
+      value: 
+      objectReference: {fileID: 1535722168}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: defaultSceneId
+      value: ep_03_hall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: allClearSceneId
+      value: ep_03_all_puzzle_cleared
+      objectReference: {fileID: 0}
+    - target: {fileID: 4435642360654561897, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: oneClearSceneId
+      value: ep_03_one_puzzle_cleared
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937533805628494818, guid: 453a89277408a1548bb9342f6876c975, type: 3}
+      propertyPath: m_Name
+      value: NpcMemoryProgressManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 453a89277408a1548bb9342f6876c975, type: 3}
 --- !u!1001 &1139851901872243157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5713,3 +5863,4 @@ SceneRoots:
   - {fileID: 265045669}
   - {fileID: 1000921236}
   - {fileID: 422165293}
+  - {fileID: 2030845521}

@@ -74,6 +74,7 @@ public class EP2_InteractObject : MonoBehaviour
     {
         if (isUsed) return;
         isUsed = true;
+
         Episode2ScoreManager.Instance?.AddInteractionScore(1);
 
         if (!string.IsNullOrEmpty(cutsceneName))

@@ -100,18 +100,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (isLocked)
         {
-                     // 수평 이동 즉시 정지
+            // 수평 이동 즉시 정지
             Vector3 velocity = rb.velocity;
             velocity.x = 0f;
             velocity.z = 0f;
             rb.velocity = velocity;
-
-                     // 입력값도 즉시 비움
-            input.moveInput = Vector2.zero;
-            input.jumpTriggered = false;
-            input.isSprint = false;
-
-                     // 애니메이션도 Idle로 고정
+            input.ResetInputState();  // 입력값도 즉시 비움
+            // 애니메이션도 Idle로 고정
             if (animator != null)
             {
                 animator.SetBool(hashCanMove, false);

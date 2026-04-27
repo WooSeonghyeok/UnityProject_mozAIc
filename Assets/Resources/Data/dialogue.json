@@ -115,7 +115,7 @@
         "sceneId": "ep_01_puzzle_clear",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "clear",
-        "text": "전부 기억난 것 같아!",
+        "text": "이제 전부 기억난 것 같아. 너는 내 소꿉친구였어!",
         "emotionTag": "memory_restored",
         "conditionGroupId": "episode_clear",
         "eventGroupId": "memory_recovered"
@@ -126,7 +126,7 @@
         "sceneId": "ep_01_puzzle_clear",
         "speakerId": "npc_ep1_luna",
         "dialogueType": "clear",
-        "text": "내 이름은... 맞아!",
+        "text": "너는 내 소꿉친구였어. 내 이름은... 맞아!",
         "emotionTag": "memory_restored",
         "conditionGroupId": "episode_clear",
         "eventGroupId": "memory_recovered"
@@ -170,18 +170,51 @@
         "sceneId": "ep_03_hall",
         "speakerId": "npc_ep3_musician",
         "dialogueType": "intro",
-        "text": "왜 이렇게, 이 노래가 너한테 닿아야 했다는 기분이 들지?",
+        "text": "어서와.",
         "emotionTag": "shaken",
         "conditionGroupId": "always",
         "eventGroupId": "talk_start"
     },
     {
+        "dialogueId": "ep3_puzzle1_hint_01",
+        "episodeId": "ep_03",
+        "sceneId": "ep_03_paper_puzzle",
+        "speakerId": "npc_ep3_musician",
+        "dialogueType": "puzzle_hint",
+        "text": "흩어진 음표들이 제자리를 찾으면, 멜로디도 다시 이어질 거야.",
+        "emotionTag": "guiding",
+        "conditionGroupId": "puzzle_1",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep3_puzzle2_hint_01",
+        "episodeId": "ep_03",
+        "sceneId": "ep_03_rhythm_puzzle",
+        "speakerId": "npc_ep3_musician",
+        "dialogueType": "puzzle_hint",
+        "text": "이번엔 박자가 중요해. 너무 빠르지도, 너무 늦지도 않게 맞춰야 해.",
+        "emotionTag": "guiding",
+        "conditionGroupId": "puzzle_2",
+        "eventGroupId": "talk_start"
+    },
+    {
+        "dialogueId": "ep3_guide_one_01",
+        "episodeId": "ep_03",
+        "sceneId": "ep_03_one_puzzle_cleared",
+        "speakerId": "npc_ep3_musician",
+        "dialogueType": "one_clear_hint",
+        "text": "조금 더 선명해졌지만 아직 마지막 음이 남아 있어…. 나머지 하나도 들려줘.",
+        "emotionTag": "soft_memory",
+        "conditionGroupId": "one_clear",
+        "eventGroupId": "player_ask_goal"
+    },
+    {
         "dialogueId": "ep3_clear_01",
         "episodeId": "ep_03",
-        "sceneId": "ep_03_hall",
+        "sceneId": "ep_03_all_puzzle_cleared",
         "speakerId": "npc_ep3_musician",
         "dialogueType": "clear",
-        "text": "너는 내 연인이었어. 내가 가장 들려주고 싶었던 사람.",
+        "text": "너는 내 연인이었어. 음악을 가장 들려주고 싶었던 사람.",
         "emotionTag": "confession",
         "conditionGroupId": "episode_clear",
         "eventGroupId": "memory_recovered"

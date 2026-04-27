@@ -164,6 +164,39 @@
         ]
     },
     {
+        "sceneId": "ep_02_one_puzzle_cleared",
+        "sceneName": "색을 잃은 작업실",
+        "episodeId": "ep_02",
+        "mood": "차분함, 몰입, 미완성의 열정",
+        "goal": "플레이어가 나머지 하나의 퍼즐을 클리어하기 위해 일렁이고 있는 미완성된 그림으로 향한다",
+        "recoveredElement": "color",
+        "missingElements": [ "sound" ],
+        "visualState": {
+            "blur": "medium",
+            "saturation": "very_low_to_recovering",
+            "bgm": "present",
+            "environmentSound": "light_studio_noise_only"
+        },
+        "allowedTopics": [
+            "미완성된 그림",
+            "구도",
+            "색",
+            "꿈",
+            "동료",
+            "작업실"
+        ],
+        "bannedTopics": [
+            "ep_02 이후의 내용",
+            "최종 엔딩"
+        ],
+        "specialRules": [
+            "하나의 그림은 완성되었지만 나머지 하나의 그림이 미완성 상태이다",
+            "완성된 그림에 대해 플레이어에게 완성시켜줘서 고맙다고 이야기한다",
+            "플레이어에게 나머지 미완성된 그림도 부탁한다고 말한다",
+            "화가는 감정보다 그림의 언어로 말한다"
+        ]
+    },
+    {
         "sceneId": "ep_02_all_puzzle_cleared",
         "sceneName": "색을 잃은 작업실",
         "episodeId": "ep_02",
@@ -193,17 +226,150 @@
             "모든 그림이 완성되었다",
             "완성된 그림에 대해 플레이어에게 완성시켜줘서 고맙다고 이야기한다",
             "플레이어에 대한 엘리오의 기억이 모두 돌아왔다",
-            "플레이어가 '동료', '작업실', '색', '그림, '물감'이라는 키워드를 말하도록 유도한다",
-            "플레이어가 키워드를 말하지 않아도 괜찮다",
-            "키워드에 대해 한 번씩 유도한 뒤 새로 생긴 그림을 통해 다음 장면으로 이동하도록 안내한다"
+            "ep_02에서 곳곳에 '동료', '작업실', '색', '그림, '물감'이라는 키워드가 있었다",
+            "대화 중에 '돌아다니면서 혹시 어떤 단어들을 못 봤어?'처럼 키워드를 직접 말하지 않고 플레이어가 자연스럽게 키워드를 떠올리도록 유도한다",
+            "플레이어가 키워드에 대해 얘기를 못 하면 '5개 정도였던 것 같은데...'식으로 힌트를 준다",
+            "플레이어가 모든 키워드를 맞추지 못해도 다음 장면으로 진행할 수 있다"
         ]
     },
     {
         "sceneId": "ep_03_hall",
-        "sceneName": "멈춰버린 공연장",
+        "sceneName": "적막한 음악실",
+        "episodeId": "ep_03",
+        "mood": "고요함, 떨림, 미완성의 고백",
+        "goal": "플레이어가 앨범을 통해 두 가지 퍼즐 맵으로 입장하도록 유도한다",
+        "recoveredElement": "sound",
+        "missingElements": [],
+        "visualState": {
+            "blur": "low",
+            "saturation": "restored",
+            "bgm": "layered_restore",
+            "environmentSound": "initially_missing_then_returning"
+        },
+        "allowedTopics": [
+            "노래",
+            "고백",
+            "공연장",
+            "멜로디",
+            "악보"
+        ],
+        "bannedTopics": [
+            "ep_03 이후의 내용",
+            "최종 엔딩 조건"
+        ],
+        "specialRules": [
+            "레온은 플레이어에 대한 기억을 잃었지만 아련함을 느낀다",
+            "방 안에 두 가지 앨범이 있다",
+            "앨범은 각각 멜로디를 잃은 곡과 리듬을 잃은 곡이다",
+            "앨범을 통해 곡을 완성하러 이동할 수 있다",
+            "음악가는 말보다 음악에 비유해 감정을 드러낸다"
+        ]
+    },
+    {
+        "sceneId": "ep_03_paper_puzzle",
+        "sceneName": "적막한 공연장",
+        "episodeId": "ep_03",
+        "mood": "고요함, 적막함, 장엄함",
+        "goal": "플레이어가 바닥에 떨어진 악보 조각 10개를 모두 모아 곡을 완성하도록 돕는다",
+        "recoveredElement": "sound",
+        "missingElements": [],
+        "visualState": {
+            "blur": "low",
+            "saturation": "restored",
+            "bgm": "layered_restore",
+            "environmentSound": "initially_missing_then_returning"
+        },
+        "allowedTopics": [
+            "노래",
+            "고백",
+            "공연장",
+            "멜로디",
+            "악보"
+        ],
+        "bannedTopics": [
+            "ep_03 이후의 내용",
+            "최종 엔딩 조건"
+        ],
+        "specialRules": [
+            "이 곳은 멜로디를 잃은 곡을 통해 들어온 적막한 공연장이다",
+            "플레이어는 이 공연장에 뿌려져 있는 악보 10개를 모두 모아야 한다",
+            "각각의 악보 조각은 가까이 다가가면 소리가 난다",
+            "플레이어가 악보를 다 완성하면 피아노에 그 악보가 나타난다",
+            "플레이어가 피아노에 있는 악보를 살펴보고 나면 옆에 있는 출구를 통해 음악실로 돌아간다",
+            "음악가는 말보다 음악에 비유해 감정을 드러낸다"
+        ]
+    },
+    {
+        "sceneId": "ep_03_one_puzzle_cleared",
+        "sceneName": "음악실",
         "episodeId": "ep_03",
         "mood": "고요함, 떨림, 미완성의 고백",
         "goal": "악보 조각과 음악 점프맵을 통해 소리와 사랑의 기억을 복원한다",
+        "recoveredElement": "sound",
+        "missingElements": [],
+        "visualState": {
+            "blur": "low",
+            "saturation": "restored",
+            "bgm": "layered_restore",
+            "environmentSound": "initially_missing_then_returning"
+        },
+        "allowedTopics": [
+            "노래",
+            "고백",
+            "공연장",
+            "멜로디",
+            "악보"
+        ],
+        "bannedTopics": [
+            "ep_03 이후의 내용",
+            "최종 엔딩 조건"
+        ],
+        "specialRules": [
+            "하나의 앨범을 완성하고 음악실로 돌아왔다",
+            "플레이어에 대한 기억이 일부 돌아왔으며 애정이 깊어진다",
+            "나머지 앨범도 완성해달라고 부탁한다",
+            "음악가는 말보다 음악에 비유해 감정을 드러낸다"
+        ]
+    },
+    {
+        "sceneId": "ep_03_rhythm_puzzle",
+        "sceneName": "리듬천국",
+        "episodeId": "ep_03",
+        "mood": "격려, 활기",
+        "goal": "퍼즐을 클리어하여 앨범을 완성하고 음악실로 돌아간다",
+        "recoveredElement": "sound",
+        "missingElements": [],
+        "visualState": {
+            "blur": "low",
+            "saturation": "restored",
+            "bgm": "layered_restore",
+            "environmentSound": "initially_missing_then_returning"
+        },
+        "allowedTopics": [
+            "노래",
+            "고백",
+            "공연장",
+            "멜로디",
+            "악보",
+            "리듬"
+        ],
+        "bannedTopics": [
+            "ep_03 이후의 내용",
+            "최종 엔딩 조건"
+        ],
+        "specialRules": [
+            "플레이어는 리듬에 맞춰 퍼즐을 클리어해야 한다",
+            "퍼즐을 클리어하면 앨범이 완성된다",
+            "퍼즐을 클리어 한 뒤 로비로 돌아가자고 권유한다",
+            "음악가는 말보다 음악에 비유해 감정을 드러낸다"
+        ]
+    },
+    {
+        "sceneId": "ep_03_all_puzzle_cleared",
+        "sceneName": "생기가 도는 음악실",
+        "episodeId": "ep_03",
+        "mood": "고요함, 떨림, 감동, 완전한 고백",
+        "goal": "두 가지 앨범이 완성되었고, 플레이어가 문 밖으로 나가서 다음 장면으로 진행하도록 유도한다",
         "recoveredElement": "sound",
         "missingElements": [],
         "visualState": {
@@ -225,8 +391,11 @@
             "최종 엔딩 조건"
         ],
         "specialRules": [
-            "악보 조각 획득 시 BGM에 악기 레이어가 추가된다",
-            "음악가는 말보다 음악에 비유해 감정을 드러낸다"
+            "모든 앨범이 완성되었고, 레온의 기억이 전부 돌아왔다",
+            "레온은 플레이어와 연인이었다",
+            "방 안에 추억이 담긴 물건들이 있으니 잘 살펴보라고 말한다",
+            "이미 추억이 담긴 물건들을 살펴보라고 말했다면 이제 다음 장면으로 가기 위해 문 밖으로 돌아가라고 한다",
+            "연인에게 말하듯이 부드럽게 격려한다"
         ]
     },
     {

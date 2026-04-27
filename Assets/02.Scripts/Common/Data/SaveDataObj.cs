@@ -28,6 +28,8 @@ public class SaveDataObj
     public List<NPCInfo> npcInformations;
 
     /* 연출 사용 여부 확인 데이터 */
+    public bool Played_Episode1_Intro;          //에피소드 1 첫 진입
+    public bool Played_StarGet;                 //에피소드 1 별 획득
     public bool Played_Episode2_Intro;          //에피소드 2 첫 진입
     public bool Played_EP2_Text_Intro;          //에피소드 2 인트로
     public bool Played_Space_Intro;             //에피소드 2 Space 퍼즐 첫 진입
@@ -45,7 +47,11 @@ public class SaveDataObj
     public bool Played_EP3_ReturnedLobbyIntro;  //에피소드 3 복귀 로비 컷씬
     public bool isFirstEnterAtEP3Lobby;         //에피소드 3 첫 진입
     public bool isFirstEnterAtEP3_1;            //에피소드 3 악보 퍼즐 진입
+    public bool isFirstEnterAtEP3FinalTable;    //에피소드 3 마지막 태그 획득
     public bool isFirstEnterAtS3CP0;            //에피소드 4 첫 진입
+    public bool isFirstEnterAtS3Tag1;           //에피소드 4 1번째 태그 획득
+    public bool isFirstEnterAtS3Tag2;           //에피소드 4 2번째 태그 획득
+    public bool isFirstEnterAtS3Tag3;           //에피소드 4 3번째 태그 획득
 }
 [Serializable]
 public class IsTagGet  // 진 엔딩 태그 정보(이름, 획득 여부)

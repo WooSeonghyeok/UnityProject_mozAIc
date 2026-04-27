@@ -95,6 +95,11 @@ public class SaveManager : MonoBehaviour
         dataObj.isFirstEnterAtS3CP0 = false;
         dataObj.isFirstEnterAtEP3Lobby = false;
         dataObj.isFirstEnterAtEP3_1 = false;
+        dataObj.Played_EP3_LobbyIntro = false;
+        dataObj.Played_EP3_Stage3_1Intro = false;
+        dataObj.Played_EP3_Stage3_1Completion = false;
+        dataObj.Played_EP3_Stage3_2Intro = false;
+        dataObj.Played_EP3_ReturnedLobbyIntro = false;
         string json = JsonUtility.ToJson(dataObj, true);
         File.WriteAllText(path, json);
     }

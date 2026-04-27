@@ -72,6 +72,8 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private const float DefaultLookDistance = 8f;
     private const string Stage3_1IntroSequenceId = "EP3_STAGE3_1_INTRO";
     private const string Stage3_1CompletionSequenceId = "EP3_STAGE3_1_COMPLETION";
+    private const string Stage3_2IntroSequenceId = "EP3_STAGE3_2_INTRO";
+    private const string ReturnedLobbyIntroSequenceId = "EP3_STAGE3_2_COMPLETION";
 
     [SerializeField] private bool playOnStart = true;
     [SerializeField] private bool playOnlyOncePerSession = false;
@@ -158,6 +160,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
     private void Start()
     {
         CurData = ResolveSaveData();
+        RefreshInspectorPlayedStateFromSave();
         InitializeCutsceneButtons();
         SetCutsceneButtonsVisible(false);
 
@@ -276,6 +279,11 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
         {
             return true;
+        }
+
+        if (useInspectorPlayedStateOverride)
+        {
+            return !inspectorPlayedState;
         }
 
         SaveDataObj data = ResolveSaveData();
@@ -831,6 +839,13 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
+        inspectorPlayedState = true;
+
+        if (useInspectorPlayedStateOverride)
+        {
+            return;
+        }
+
         SaveDataObj data = ResolveSaveData();
         if (data == null)
         {
@@ -869,6 +884,21 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
         return CurData;
     }
 
+    private void RefreshInspectorPlayedStateFromSave()
+    {
+        RefreshInspectorPlayedStateFromSave(ResolveSaveData());
+    }
+
+    private void RefreshInspectorPlayedStateFromSave(SaveDataObj data)
+    {
+        if (useInspectorPlayedStateOverride || playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
+        {
+            return;
+        }
+
+        inspectorPlayedState = data != null && HasPlayedCutscene(data);
+    }
+
     private bool HasPlayedCutscene(SaveDataObj data)
     {
         if (playOnceSaveKey == Ep3IntroCutsceneSaveKey.None)
@@ -898,7 +928,6 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             case Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro:
                 return data.Played_EP3_ReturnedLobbyIntro;
 
-            case Ep3IntroCutsceneSaveKey.EP3Lobby:
             default:
                 return data.Played_EP3_LobbyIntro;
         }
@@ -1295,13 +1324,25 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private bool IsStage3_1IntroSequence()
     {
-        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1 ||
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1Intro ||
                string.Equals(inspectorSequenceId, Stage3_1IntroSequenceId, StringComparison.OrdinalIgnoreCase);
     }
 
     private bool IsStage3_1CompletionSequence()
     {
         return string.Equals(inspectorSequenceId, Stage3_1CompletionSequenceId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsStage3_2IntroSequence()
+    {
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_2Intro ||
+               string.Equals(inspectorSequenceId, Stage3_2IntroSequenceId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsReturnedLobbyIntroSequence()
+    {
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3ReturnedLobbyIntro ||
+               string.Equals(inspectorSequenceId, ReturnedLobbyIntroSequenceId, StringComparison.OrdinalIgnoreCase);
     }
 
     private void ApplyDialogueDefaults(Ep3LobbyIntroSequenceData sequence)
@@ -1440,6 +1481,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
+        TextboxManager textboxManager = forceStandaloneSubtitleOverlay ? null : FindTextboxManager();
         Ep3CutsceneSubtitlePresenter[] presenters = FindObjectsOfType<Ep3CutsceneSubtitlePresenter>(true);
         if (presenters != null && presenters.Length > 0)
         {

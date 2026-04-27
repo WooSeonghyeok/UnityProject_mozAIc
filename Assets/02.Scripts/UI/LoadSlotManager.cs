@@ -80,6 +80,7 @@ public class LoadSlotManager : MonoBehaviour
         }
         SaveManager.instance.curData = slotData;
         File.WriteAllText(Path.Combine(Application.persistentDataPath,$"CurData.json"), JsonUtility.ToJson(SaveManager.instance.curData, true));
+        GameManager.Instance.openPopupCnt = 0;
         SceneManager.LoadSceneAsync($"LobbyScene");
     }
 }

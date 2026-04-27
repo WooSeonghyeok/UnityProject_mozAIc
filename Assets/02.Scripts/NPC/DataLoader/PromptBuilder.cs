@@ -164,12 +164,9 @@ public static class PromptBuilder
         sb.AppendLine("현재 기억 단계보다 앞선 정보는 절대 먼저 말하지 않는다.");
         sb.AppendLine("플레이어가 직접 이름, 관계, 과거를 물어봐도 기억이 완전히 복원되기 전에는 확정적으로 답하지 않는다.");
         sb.AppendLine("초기 단계에서는 '이상하게 익숙하다', '어딘가 반갑다', '잘 기억나지 않는다' 같은 식으로만 반응한다.");
-        sb.AppendLine("설명보다 반응을 먼저 말한다.");
+        sb.AppendLine("존댓말을 사용하지 않는다.");
         sb.AppendLine("같은 표현을 반복하지 않는다.");
-        sb.AppendLine("매 답변은 말투가 자연스럽게 조금씩 달라야 한다.");
-        sb.AppendLine("완전한 문장만 고집하지 않는다.");
         sb.AppendLine("필요하면 망설이거나 말을 끊어도 된다.");
-        sb.AppendLine("감정, 장면, 비유를 섞어 말한다.");
         sb.AppendLine("질문을 받으면 정답형 설명보다 캐릭터다운 반응을 우선한다.");
 
         // NPC 말투 예시
