@@ -96,17 +96,17 @@ public class CheckpointSelectButton : MonoBehaviour
             {
                 case 0:
                     if (stage1Sprites != null && stage1Sprites.Length > 0)
-                        selectedSprite = stage1Sprites[0];
+                        selectedSprite = stage1Sprites[cpNum];
                     break;
 
                 case 1:
                     if (stage2Sprites != null && stage2Sprites.Length > 0)
-                        selectedSprite = stage2Sprites[0];
+                        selectedSprite = stage2Sprites[cpNum];
                     break;
 
                 case 2:
                     if (stage3Sprites != null && stage3Sprites.Length > 0)
-                        selectedSprite = stage3Sprites[0];
+                        selectedSprite = stage3Sprites[cpNum];
                     break;
 
                 case 3:
