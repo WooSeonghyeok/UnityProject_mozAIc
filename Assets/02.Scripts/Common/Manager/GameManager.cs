@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     private readonly string endingScene = "EndingScene";
     private bool cursorHold = true;
     private PlayerInput user;
+    private UnityEngine.InputSystem.PlayerInput input;
     private readonly string playerTag = "Player";
+    private QuitManager quitManager;
     void Awake()
     {
         if (Instance == null)
@@ -26,13 +28,15 @@ public class GameManager : MonoBehaviour
             MouseStateChange();
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
-    }
-    private void OnEnable()
-    {
+        else
+        { 
+            Destroy(gameObject);
+            return;
+        }
+        input = GetComponent<UnityEngine.InputSystem.PlayerInput>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -43,17 +47,39 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         user = FindUser();
+        if (scene.name == startScene) quitManager = FindObjectOfType<QuitManager>(true);
+        else quitManager = null;
         GetOptionValue();
         lookLock = (scene.name == startScene || scene.name == endingScene);  //스타트, 엔딩 신에서는 true : 나머지 신에서는 false로 시작
         MouseStateChange();
         cursorHold = scene.name == startScene || scene.name == openingScene || scene.name == endingScene;
         lookLockImg.gameObject.SetActive(!cursorHold);  //스타트, 오프닝, 엔딩 신에서는 마우스 커서 이미지를 비활성화
+        StartCoroutine(RegisterNextFrame());
+    }
+    private System.Collections.IEnumerator RegisterNextFrame()
+    {
+        yield return null;  // 한 프레임 대기
+        RegisterInputEvents();
     }
     private PlayerInput FindUser()
     {
         var userObj = GameObject.FindGameObjectWithTag(playerTag);
         if (userObj == null) return null;
         else return userObj.GetComponent<PlayerInput>();
+    }
+    private void RegisterInputEvents()
+    {
+        // 기존 바인딩 해제 후 재등록
+        var quitAction = input.actions.FindAction("Quit", throwIfNotFound: false);
+        if (quitAction == null) return;
+        quitAction.performed -= OnQuit;
+        quitAction.performed += OnQuit;
+        quitAction.Enable();
+    }
+    private void OnQuit(InputAction.CallbackContext context)
+    {
+        if (quitManager == null) return;
+        quitManager.OnQuit(context);
     }
     private static void GetOptionValue()
     {
@@ -75,22 +101,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void ShowMouseState(bool x)
+    public void OnPopupChanged()
     {
-        lookLockImg.color = lookLock ? Color.red : Color.green;
-        lookLockImg.gameObject.SetActive(!cursorHold && x);
-        if (user != null && user.cameraSwitcher != null)
-        {
-            zoomCtrlImg.sprite = (user.cameraSwitcher.isFirstPerson) ? zoomOutImg : zoomInImg;
-            zoomCtrlImg.gameObject.SetActive(x);
-        }
-        else zoomCtrlImg.gameObject.SetActive(false);
-        Cursor.visible = lookLock || isCutsceneMode;  //시선 잠금 상태 OR 컷신 재생 중에 커서 노출
-        Debug.Log($"popup : {openPopupCnt}");
+        lookLock = cursorHold || (openPopupCnt > 0);
+        MouseStateChange();
     }
     public void MouseStateChange()
     {
-        if (cursorHold) lookLock = true;
         ShowMouseState(true);
     }
     public void CutsceneMode(bool b)
@@ -102,5 +119,17 @@ public class GameManager : MonoBehaviour
             move.SetMoveLock(b);
         }
         ShowMouseState(!b);
+    }
+    public void ShowMouseState(bool x)
+    {
+        lookLockImg.color = lookLock ? Color.red : Color.green;
+        lookLockImg.gameObject.SetActive(!cursorHold && x);
+        if (user != null && user.cameraSwitcher != null)
+        {
+            zoomCtrlImg.sprite = (user.cameraSwitcher.isFirstPerson) ? zoomOutImg : zoomInImg;
+            zoomCtrlImg.gameObject.SetActive(x);
+        }
+        else zoomCtrlImg.gameObject.SetActive(false);
+        Cursor.visible = lookLock || isCutsceneMode;  //시선 잠금 상태 OR 컷신 재생 중에 커서 노출
     }
 }

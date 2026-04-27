@@ -22,8 +22,6 @@ public class NPCHintHelper
             || msg.Contains("별");
     }
 
-    // 현재 NPC / 씬 / 플레이어 주변 힌트 오브젝트 정보를 바탕으로
-    // AI가 자연스럽게 힌트를 줄 수 있도록 프롬프트용 컨텍스트를 생성
     public static string BuildHintContext(NPCData npcData)
     {
         var db = GameDialogueDatabase.Instance;
@@ -33,7 +31,6 @@ public class NPCHintHelper
         string goal = scene != null ? scene.goal : "";
         string npcName = profile != null ? profile.name : "NPC";
 
-        // 플레이어 찾기
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         StringBuilder sb = new StringBuilder();
@@ -42,17 +39,16 @@ public class NPCHintHelper
         sb.AppendLine($"NPC: {npcName}");
         sb.AppendLine($"현재 목표: {goal}");
 
-        // 플레이어가 있으면 주변 힌트 오브젝트들의 상대 위치를 제공
         if (player != null)
         {
             Transform playerTr = player.transform;
 
-            // 씬 내 모든 힌트 대상 검색
             NPCHintTarget[] hintTargets = GameObject.FindObjectsOfType<NPCHintTarget>();
 
             if (hintTargets != null && hintTargets.Length > 0)
             {
-                sb.AppendLine("현재 보이는 힌트 대상 정보:");
+                // 거리 계산 결과를 담을 리스트 생성
+                List<HintTargetInfo> sortedTargets = new List<HintTargetInfo>();
 
                 foreach (NPCHintTarget target in hintTargets)
                 {
@@ -62,13 +58,34 @@ public class NPCHintHelper
 
                     float distance = Vector3.Distance(playerTr.position, target.transform.position);
 
-                    // 상대 방향 계산
-                    string directionText = NPCHintDirectionHelper.GetRelativeDirection(playerTr, target.transform.position);
+                    // 오브젝트와 거리 정보를 함께 저장
+                    sortedTargets.Add(new HintTargetInfo
+                    {
+                        target = target,
+                        distance = distance
+                    });
+                }
+
+                // 플레이어와 가까운 오브젝트가 먼저 오도록 정렬
+                sortedTargets.Sort((a, b) => a.distance.CompareTo(b.distance));
+
+                sb.AppendLine("현재 보이는 힌트 대상 정보:");
+                sb.AppendLine("아래 목록은 플레이어에게 가까운 순서대로 정렬되어 있다.");
+
+                foreach (HintTargetInfo info in sortedTargets)
+                {
+                    NPCHintTarget target = info.target;
+                    float distance = info.distance;
+
+                    // 플레이어 기준 상대 방향 계산
+                    string directionText = NPCHintDirectionHelper.GetRelativeDirection(
+                        playerTr,
+                        target.transform.position
+                    );
 
                     // 거리 표현 계산
                     string distanceText = NPCHintDirectionHelper.GetDistanceText(distance);
 
-                    // AI가 쉽게 쓰도록 구조화된 문장 제공
                     if (string.IsNullOrEmpty(target.description))
                     {
                         sb.AppendLine($"- {target.targetName}: 플레이어의 {directionText}, {distanceText}");
@@ -81,13 +98,20 @@ public class NPCHintHelper
             }
         }
 
-        // AI 말투 제약 추가
         sb.AppendLine("규칙:");
+        sb.AppendLine("- 가장 가까운 힌트 대상부터 먼저 말한다.");
         sb.AppendLine("- 정답을 직접 말하지 말고, 사람처럼 자연스럽게 방향을 설명한다.");
         sb.AppendLine("- 방향은 '오른쪽', '왼쪽', '앞쪽', '뒤쪽', '오른쪽 앞'처럼 말한다.");
         sb.AppendLine("- 좌표값이나 숫자 벡터는 말하지 않는다.");
-        sb.AppendLine("- 한 번에 전부 알려주기보다, 필요한 만큼만 힌트를 준다.");
+        sb.AppendLine("- 한 번에 전부 알려주기보다, 가까운 대상 1~2개 정도만 먼저 알려준다.");
 
         return sb.ToString();
+    }
+
+    // 힌트 대상과 거리 정보를 묶어서 정렬하기 위한 내부 클래스
+    private class HintTargetInfo
+    {
+        public NPCHintTarget target; // 힌트 대상 오브젝트
+        public float distance;       // 플레이어와의 거리
     }
 }

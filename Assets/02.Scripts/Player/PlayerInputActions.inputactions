@@ -201,7 +201,7 @@
                 {
                     "name": "Quit",
                     "type": "Button",
-                    "id": "b97331ad-5c2a-4dbe-bf69-745c02cdd8ce",
+                    "id": "305874c0-514e-465d-8506-2037d8b79960",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -220,23 +220,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "3ee15f67-cb69-4c1d-b645-f663d7fed169",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Quit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "99b00be7-1c75-4436-a813-f7ccb83e2d95",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "LookLock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5d7b0b12-921e-4af5-8dac-41007892a4c5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
