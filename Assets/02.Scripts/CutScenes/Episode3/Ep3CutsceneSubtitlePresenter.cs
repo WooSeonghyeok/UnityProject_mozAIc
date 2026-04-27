@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -83,23 +83,6 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
             return;
         }
 
-        if (panelImage != null)
-        {
-            panelImage.enabled = false;
-        }
-
-        if (messageText != null)
-        {
-            messageText.text = string.Empty;
-            messageText.enabled = false;
-        }
-
-        if (speakerNameText != null)
-        {
-            speakerNameText.text = string.Empty;
-            speakerNameText.enabled = false;
-        }
-
         canvasGroup.alpha = 0f;
 
         if (panelImage != null)
@@ -139,11 +122,6 @@ public class Ep3CutsceneSubtitlePresenter : MonoBehaviour
                 {
                     speakerText.font = fontAsset;
                 }
-            }
-
-            if (fontAsset != null && speakerNameText != null)
-            {
-                speakerNameText.font = fontAsset;
             }
 
             return;

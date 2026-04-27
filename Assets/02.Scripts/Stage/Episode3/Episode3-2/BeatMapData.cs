@@ -23,14 +23,6 @@ public enum Ep3_2LaneType
     K
 }
 
-public enum Ep3_2LaneType
-{
-    Left,
-    Up,
-    Down,
-    Right
-}
-
 /// <summary>
 /// One rhythm event entry consumed in time order.
 /// Existing platform fields are preserved for backward compatibility.

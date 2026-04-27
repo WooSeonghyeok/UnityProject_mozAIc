@@ -1324,7 +1324,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
 
     private bool IsStage3_1IntroSequence()
     {
-        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1Intro ||
+        return playOnceSaveKey == Ep3IntroCutsceneSaveKey.EP3Stage3_1 ||
                string.Equals(inspectorSequenceId, Stage3_1IntroSequenceId, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -1481,7 +1481,6 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
-        TextboxManager textboxManager = forceStandaloneSubtitleOverlay ? null : FindTextboxManager();
         Ep3CutsceneSubtitlePresenter[] presenters = FindObjectsOfType<Ep3CutsceneSubtitlePresenter>(true);
         if (presenters != null && presenters.Length > 0)
         {
