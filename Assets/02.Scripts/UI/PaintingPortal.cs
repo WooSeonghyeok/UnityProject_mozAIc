@@ -6,10 +6,10 @@ using Cinemachine;
 public class PaintingPortal : MonoBehaviour
 {
     public enum PortalReturnType { None, Space, Paint }
-    public enum PortalUsageType { Entry, Exit } // ⭐ 추가
+    public enum PortalUsageType { Entry, Exit }
 
     public PortalReturnType returnType;
-    public PortalUsageType usageType; // ⭐ 추가
+    public PortalUsageType usageType;
 
     public string nextScene;
     public float stayTime = 1f;
@@ -37,7 +37,7 @@ public class PaintingPortal : MonoBehaviour
 
         mat.SetFloat("_WaveStrength", idleStrength);
 
-        // ⭐ Entry 포탈만 막기
+        // ⭐ Entry 포탈만 재입장 제한 적용
         if (usageType == PortalUsageType.Entry && !CanEnterPortal())
         {
             DisablePortal();
@@ -52,7 +52,6 @@ public class PaintingPortal : MonoBehaviour
 
             if (timer >= stayTime)
             {
-                Debug.Log("포탈 시작");
                 StartCoroutine(PortalSequence());
                 isTriggered = true;
             }
@@ -79,8 +78,8 @@ public class PaintingPortal : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         yield return StartCoroutine(FadeToWhite());
 
-        // ⭐ 클리어 데이터 저장 (Entry 포탈일 때만)
-        if (usageType == PortalUsageType.Entry &&
+        // ⭐ 핵심: Exit 포탈에서만 클리어 저장
+        if (usageType == PortalUsageType.Exit &&
             SaveManager.instance != null &&
             SaveManager.instance.curData != null)
         {
@@ -145,7 +144,6 @@ public class PaintingPortal : MonoBehaviour
         return true;
     }
 
-    // ⭐ 포탈 비활성화
     private void DisablePortal()
     {
         GetComponent<Collider>().enabled = false;
@@ -159,10 +157,7 @@ public class PaintingPortal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (!CanEnterPortal())
-            {
-                Debug.Log("이미 클리어해서 입장 불가");
                 return;
-            }
 
             isInside = true;
             timer = 0f;
