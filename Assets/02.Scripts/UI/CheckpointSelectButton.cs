@@ -20,10 +20,10 @@ public class CheckpointSelectButton : MonoBehaviour
 
     public Image lockImage;
 
-    // ⭐ 추가: Panel 이미지 (Source Image 바꿀 대상)
+    // ⭐ Panel 이미지 (배경)
     public Image panelImage;
 
-    // ⭐ 추가: Stage별 Sprite 데이터
+    // ⭐ Stage별 Sprite 배열
     public Sprite[] stage1Sprites;
     public Sprite[] stage2Sprites;
     public Sprite[] stage3Sprites;
@@ -87,51 +87,42 @@ public class CheckpointSelectButton : MonoBehaviour
     {
         CurData = SaveManager.instance.curData;
 
-        // ⭐⭐⭐ 핵심: Stage + CP 기준으로 Panel 이미지 변경 ⭐⭐⭐
+        // ⭐⭐⭐ Panel 이미지 설정 (핵심 개선)
         if (panelImage != null)
         {
-            Sprite selectedSprite = null;
+            Sprite[] targetArray = null;
 
             switch (StageNumber)
             {
-                case 0:
-                    if (stage1Sprites != null && stage1Sprites.Length > 0)
-                        selectedSprite = stage1Sprites[0];
-                    break;
-
-                case 1:
-                    if (stage2Sprites != null && stage2Sprites.Length > 0)
-                        selectedSprite = stage2Sprites[0];
-                    break;
-
-                case 2:
-                    if (stage3Sprites != null && stage3Sprites.Length > 0)
-                        selectedSprite = stage3Sprites[0];
-                    break;
-
-                case 3:
-                    if (stage4Sprites != null && stage4Sprites.Length > cpNum)
-                        selectedSprite = stage4Sprites[cpNum];
-                    break;
+                case 0: targetArray = stage1Sprites; break;
+                case 1: targetArray = stage2Sprites; break;
+                case 2: targetArray = stage3Sprites; break;
+                case 3: targetArray = stage4Sprites; break;
             }
 
-            if (selectedSprite != null)
-                panelImage.sprite = selectedSprite;
+            if (targetArray != null && targetArray.Length > cpNum)
+                panelImage.sprite = targetArray[cpNum];
         }
 
-        // 🔽 기존 로직 그대로 유지
+        // 🔽 Lock 상태 체크
         switch (StageNumber)
         {
-            case 0: isLock = !CurData.ep1_open; break;
+            case 0:
+                isLock = !CurData.ep1_open;
+                break;
+
             case 1:
                 switch (cpNum)
                 {
-                    case 0: isLock = !CurData.ep2_open; break;          // 시작
-                    case 1: isLock = !CurData.ep2_spaceClear; break;    // Space
-                    case 2: isLock = !CurData.ep2_paintClear; break;    // Paint
+                    case 0: isLock = !CurData.ep2_open; break;
+                    case 1: isLock = !CurData.ep2_spaceClear; break;
+                    case 2: isLock = !CurData.ep2_paintClear; break;
                 }
                 break;
-            case 2: isLock = !CurData.ep3_open; break;
+
+            case 2:
+                isLock = !CurData.ep3_open;
+                break;
 
             case 3:
                 switch (cpNum)
