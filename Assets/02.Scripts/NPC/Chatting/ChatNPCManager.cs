@@ -80,9 +80,6 @@ public class ChatNPCManager : MonoBehaviour
         chatPanel.SetActive(true);
         GameManager.Instance.openPopupCnt++;
         GameManager.Instance.OnPopupChanged();
-        serverChat.ChatReset();
-        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
         serverChat.ClearChatUIOnly();
 
         // 현재 대화 중인 NPCData를 ServerChat에 전달
