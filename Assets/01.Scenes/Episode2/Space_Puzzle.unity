@@ -4977,6 +4977,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtEP3FinalTable: 0
@@ -19152,6 +19157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnType: 1
+  usageType: 1
   nextScene: Episode2_Scene
   stayTime: 1
   cameraTarget: {fileID: 208756759}

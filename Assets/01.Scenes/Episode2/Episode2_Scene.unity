@@ -253,7 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae12a22163e5d0489cde63073c4259c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnType: 0
+  returnType: 1
+  usageType: 0
   nextScene: Space_Puzzle
   stayTime: 1
   cameraTarget: {fileID: 2043568570}
@@ -1964,6 +1965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnType: 0
+  usageType: 0
   nextScene: LobbyScene
   stayTime: 1
   cameraTarget: {fileID: 1868031527}
@@ -20098,6 +20100,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267572237277908297, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -29858,7 +29872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae12a22163e5d0489cde63073c4259c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnType: 0
+  returnType: 2
+  usageType: 0
   nextScene: Paint_Puzzle
   stayTime: 1
   cameraTarget: {fileID: 1933833078}
