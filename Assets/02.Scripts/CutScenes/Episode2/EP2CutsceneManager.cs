@@ -44,7 +44,7 @@ public class EP2CutsceneManager : MonoBehaviour
         }
 
         StopAllCoroutines();
-        StartCoroutine(PlayRoutine(cutsceneDict[name], !cutsceneModeLock));
+        StartCoroutine(PlayRoutine(cutsceneDict[name], cutsceneModeLock));
     }
 
     IEnumerator PlayRoutine(Sprite[] scenes, bool keepCutsceneMode)
@@ -62,7 +62,7 @@ public class EP2CutsceneManager : MonoBehaviour
         }
 
         cutsceneImage.gameObject.SetActive(false);
-        GameManager.Instance.CutsceneMode(!keepCutsceneMode);
+        GameManager.Instance.CutsceneMode(keepCutsceneMode);
         // ⭐ 핵심
         OnCutsceneEnd?.Invoke();
     }
