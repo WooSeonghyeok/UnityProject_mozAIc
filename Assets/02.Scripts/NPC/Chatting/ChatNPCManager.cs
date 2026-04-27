@@ -81,7 +81,7 @@ public class ChatNPCManager : MonoBehaviour
         GameManager.Instance.openPopupCnt++;
         GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
         GameManager.Instance.MouseStateChange();
-        serverChat.ChatReset();
+        serverChat.ClearChatUIOnly();
 
         // 현재 대화 중인 NPCData를 ServerChat에 전달
         serverChat.currentNpcData = npcData;
@@ -174,7 +174,7 @@ public class ChatNPCManager : MonoBehaviour
         }
         if (serverChat != null)
         {
-            serverChat.ChatReset();
+            serverChat.ClearChatUIOnly();
         }
 
         // 대화 종료 시 플레이어 이동 해제

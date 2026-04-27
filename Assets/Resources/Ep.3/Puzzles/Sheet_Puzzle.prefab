@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 3358940379597226900}
   - component: {fileID: 5246991807364176807}
   - component: {fileID: 421446643541582641}
+  - component: {fileID: 8155599066992042328}
   m_Layer: 0
   m_Name: Sheet_Puzzle
   m_TagString: Untagged
@@ -226,6 +227,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &8155599066992042328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868553782919427866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2bb2b455b6ada4c90357f4712c7c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: "\uC644\uC131\uB41C \uC545\uBCF4"
+  includeInHint: 1
+  nearDistance: 2.5
+  hintFlavorText: "\uC545\uBCF4 \uC870\uAC01 10\uAC1C\uB97C \uBAA8\uC544\uC11C \uC644\uC131\uB41C
+    \uC545\uBCF4"
+  description: "\uD50C\uB808\uC774\uC5B4\uAC00 \uC545\uBCF4 \uC870\uAC01 10\uAC1C\uB97C
+    \uBAA8\uC544\uC11C \uC644\uC131\uB41C \uC545\uBCF4\uC774\uB2E4. \uD53C\uC544\uB178
+    \uC704\uC5D0 \uB193\uC5EC\uC838 \uC788\uACE0, \uD50C\uB808\uC774\uC5B4\uAC00
+    \uC0B4\uD3B4\uBCF4\uB3C4\uB85D \uC720\uB3C4\uD55C\uB2E4."
 --- !u!1 &5580740308188177382
 GameObject:
   m_ObjectHideFlags: 0

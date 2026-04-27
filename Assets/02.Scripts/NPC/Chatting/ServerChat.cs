@@ -190,13 +190,35 @@ public class ServerChat : MonoBehaviour
             FinishChat();
             return;
         }
-        string servermsg = res.Choices[0].Message.Content;
+        string servermsg = "";
 
-        // 응답이 비었을 때 fallback 처리
+        // Choices 체크
+        if (res.Choices == null || res.Choices.Count == 0)
+        {
+            Debug.LogWarning("[ServerChat] API 응답 Choices가 비어 있음");
+            servermsg = GetFallbackText("empty_response");
+        }
+        else
+        {
+            //  Message는  Content로 체크
+            if (string.IsNullOrEmpty(res.Choices[0].Message.Content))
+            {
+                Debug.LogWarning("[ServerChat] Message.Content가 비어 있음");
+                servermsg = GetFallbackText("empty_response");
+            }
+            else
+            {
+                // 정상 응답
+                servermsg = res.Choices[0].Message.Content;
+            }
+        }
+
+        // 공백 방어
         if (string.IsNullOrWhiteSpace(servermsg))
         {
             servermsg = GetFallbackText("empty_response");
         }
+
         serverTextObj.SendText($"{serverName} : {servermsg}", chatColor);
 
         // assistant 응답도 기록에 저장
@@ -302,7 +324,14 @@ public class ServerChat : MonoBehaviour
             scrollRect.verticalNormalizedPosition = 0f;
         }
     }
-
+    // 화면에 보이는 채팅 UI만 삭제하고, AI 기억용 chatMessages는 유지
+    public void ClearChatUIOnly()
+    {
+        foreach (Transform message in contentParent)
+        {
+            Destroy(message.gameObject);
+        }
+    }
     public void ChatReset()
     {
         chatMessages.Clear();
