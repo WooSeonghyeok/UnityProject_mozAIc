@@ -48,13 +48,5 @@ public class NextCube : MonoBehaviour
         if (nextCube != null) nextCube.OnColorChanged += UpdateCollider;
         UpdateCollider();
     }
-    private void UpdateCollider()
-    {
-        if (nextCube != null) col.enabled = CanMoveThrough();
-        else  col.enabled = false;
-    }
-    public bool CanMoveThrough()
-    {
-        return (curCube.cubeColor != nextCube.cubeColor);
-    }
+    private void UpdateCollider() => col.enabled = (nextCube != null) && (curCube.cubeColor != nextCube.cubeColor);
 }
