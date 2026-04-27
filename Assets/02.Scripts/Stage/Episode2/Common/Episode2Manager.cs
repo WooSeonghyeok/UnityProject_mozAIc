@@ -9,7 +9,7 @@ public class Episode2Manager : MonoBehaviour
     [Header("Paint Clear 가구")]
     public GameObject[] paintFurniture;
 
-    [Header("둘 다 클리어 시")]
+    [Header("둘 다 클리어 시 (LobbySet)")]
     public GameObject finalObject;
 
     public float delay = 1.5f;
@@ -39,12 +39,7 @@ public class Episode2Manager : MonoBehaviour
             ActivateFurniture(paintFurniture, false);
         }
 
-        // ⭐ 둘 다 클리어 시 FinalObject 활성화
-        if (data.ep2_spaceClear && data.ep2_paintClear)
-        {
-            if (finalObject != null)
-                finalObject.SetActive(true);
-        }
+        // ❌❌❌ 절대 finalObject 건드리지 않음 ❌❌❌
     }
 
     // 🔹 딜레이 후 연출 적용
@@ -68,17 +63,13 @@ public class Episode2Manager : MonoBehaviour
             ActivateFurniture(paintFurniture, true);
         }
 
-        // ⭐ 둘 다 클리어
+        // ⭐ 다음 스테이지만 열기 (OK)
         if (data.ep2_spaceClear && data.ep2_paintClear)
         {
-            // 다음 스테이지 오픈
             SaveManager.instance.curData.ep3_open = true;
-
-            if (finalObject != null)
-            {
-                finalObject.SetActive(true);
-            }
         }
+
+        // ❌ finalObject 절대 건드리지 않음
     }
 
     // 🔹 가구 활성화 + 연출
