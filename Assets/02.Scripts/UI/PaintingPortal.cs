@@ -70,6 +70,24 @@ public class PaintingPortal : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         yield return StartCoroutine(FadeToWhite());
 
+        // ⭐⭐⭐ 여기 추가: 체크포인트 저장 ⭐⭐⭐
+        if (SaveManager.instance != null && SaveManager.instance.curData != null)
+        {
+            if (returnType == PortalReturnType.Space)
+            {
+                SaveManager.instance.curData.ep2_spaceClear = true;
+                Debug.Log("SpacePuzzle 클리어 저장됨");
+            }
+            else if (returnType == PortalReturnType.Paint)
+            {
+                SaveManager.instance.curData.ep2_paintClear = true;
+                Debug.Log("PaintPuzzle 클리어 저장됨");
+            }
+
+            SaveManager.instance.WriteCurJSON();
+        }
+
+        // 기존 스폰 타입 설정
         if (EP2_PuzzleManager.Instance != null)
         {
             if (returnType == PortalReturnType.Space)
@@ -116,7 +134,6 @@ public class PaintingPortal : MonoBehaviour
             Vector3 localPos = transform.InverseTransformPoint(hitPos);
             Vector3 scale = transform.localScale;
 
-            // 🔥 핵심 수정
             float u = (localPos.x / scale.x) + 0.5f;
             float v = (localPos.z / scale.z) + 0.5f;
 

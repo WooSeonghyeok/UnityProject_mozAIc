@@ -57,6 +57,15 @@ public class EP2_PuzzleManager : MonoBehaviour
             if (paintObj != null)
                 paintPortalRenderer = paintObj.GetComponent<MeshRenderer>();
 
+            // ⭐⭐⭐ 핵심: SaveData → 상태 복원 ⭐⭐⭐
+            if (SaveManager.instance != null && SaveManager.instance.curData != null)
+            {
+                spaceClear = SaveManager.instance.curData.ep2_spaceClear;
+                paintClear = SaveManager.instance.curData.ep2_paintClear;
+
+                Debug.Log($"[EP2_PuzzleManager] 로드 복원 - space:{spaceClear}, paint:{paintClear}");
+            }
+
             ApplyPortalMaterials();
         }
     }
@@ -68,16 +77,11 @@ public class EP2_PuzzleManager : MonoBehaviour
 
         spaceClear = true;
         Debug.Log("Space 퍼즐 완료");
-        EP2ProgressData.spaceClear = true;
 
         if (SaveManager.instance != null)
         {
             SaveManager.instance.curData.ep2_spaceClear = true;
         }
-        Debug.Log($"[EP2_PuzzleManager] 저장 상태 - space:{EP2ProgressData.spaceClear}, paint:{EP2ProgressData.paintClear}");
-
-        // ⭐ 클리어 점수 +5
-        //Episode2ScoreManager.Instance?.AddClearScore(5);
 
         ApplyPortalMaterials();
     }
@@ -89,19 +93,11 @@ public class EP2_PuzzleManager : MonoBehaviour
 
         paintClear = true;
         Debug.Log("Paint 퍼즐 완료");
-        EP2ProgressData.paintClear = true;
 
         if (SaveManager.instance != null)
         {
             SaveManager.instance.curData.ep2_paintClear = true;
         }
-        Debug.Log($"[EP2_PuzzleManager] 저장 상태 - space:{EP2ProgressData.spaceClear}, paint:{EP2ProgressData.paintClear}");
-
-        //// ⭐ 클리어 점수 +5
-        //Episode2ScoreManager.Instance?.AddClearScore(5);
-
-        if (SaveManager.instance != null)
-            SaveManager.instance.curData.ep2_paintClear = true;
 
         ApplyPortalMaterials();
     }
@@ -130,7 +126,7 @@ public class EP2_PuzzleManager : MonoBehaviour
         }
     }
 
-    // ⭐ 상태 확인용 (점수 X)
+    // ⭐ 상태 확인용
     public bool AllClear()
     {
         return spaceClear && paintClear;

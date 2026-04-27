@@ -4894,7 +4894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &994869928
 Transform:
   m_ObjectHideFlags: 0
@@ -4965,7 +4965,10 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
+    Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
     Played_Paint_Intro: 0
     Played_Space_Text: 0
@@ -4976,7 +4979,11 @@ MonoBehaviour:
     Played_EP2_Ending: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
+    isFirstEnterAtEP3FinalTable: 0
     isFirstEnterAtS3CP0: 0
+    isFirstEnterAtS3Tag1: 0
+    isFirstEnterAtS3Tag2: 0
+    isFirstEnterAtS3Tag3: 0
 --- !u!4 &1010458451
 Transform:
   m_ObjectHideFlags: 0

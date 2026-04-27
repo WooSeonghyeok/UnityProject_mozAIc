@@ -5445,6 +5445,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
@@ -5466,8 +5468,7 @@ MonoBehaviour:
   - dialogueId: EP3_001
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uD76C\uBBF8\uD55C \uC120\uC728\uC758 \uD754\uC801\uC774 \uAE34
-      \uD640 \uB108\uBA38\uB85C \uC774\uC5B4\uC9C0\uACE0 \uC788\uC5C8\uB2E4."
+    subtitleText: "\uBB50\uC57C..? \uBD84\uBA85 \uC791\uC5C5\uC2E4\uC774\uC5C8\uB294\uB370?"
     showSpeakerName: 0
     cameraPosition: {x: 4.8597326, y: -2.3806152, z: 20.503187}
     lookAtPosition: {x: 5.4538097, y: -2.7240057, z: 17.524256}
@@ -5475,11 +5476,11 @@ MonoBehaviour:
     holdDuration: 1.5
     fieldOfView: 54
   - dialogueId: EP3_002
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
-    subtitleText: "\uD769\uC5B4\uC9C4 \uC545\uBCF4 \uC870\uAC01\uB4E4\uC774, \uC78A\uD78C
-      \uAE30\uC5B5\uC758 \uD30C\uD3B8\uCC98\uB7FC \uACF3\uACF3\uC5D0 \uB0A8\uC544
-      \uC788\uC5C8\uB2E4."
+    subtitleText: "\uACF5\uC5F0\uC7A5\uC5D4 \uD769\uC5B4\uC9C4 \uC545\uBCF4 \uC870\uAC01\uB4E4\uC774,
+      \uC78A\uD78C \uAE30\uC5B5\uC758 \uD30C\uD3B8\uCC98\uB7FC \uACF3\uACF3\uC5D0
+      \uB0A8\uC544 \uC788\uB2E4."
     showSpeakerName: 0
     cameraPosition: {x: 6.3582244, y: -2.0885935, z: 11.246157}
     lookAtPosition: {x: 6.3213096, y: -2.5804086, z: 8.752287}
@@ -5487,7 +5488,7 @@ MonoBehaviour:
     holdDuration: 1.6
     fieldOfView: 49
   - dialogueId: EP3_003
-    speakerType: Narration
+    speakerType: Monologue
     speakerName: 
     subtitleText: "\uB2EB\uD78C \uBB38\uACFC \uB04A\uAE34 \uBA5C\uB85C\uB514\uB294,
       \uC544\uC9C1 \uD480\uB9AC\uC9C0 \uC54A\uC740 \uC774\uC57C\uAE30\uAC00 \uB0A8\uC544
@@ -5501,9 +5502,7 @@ MonoBehaviour:
   - dialogueId: EP3_004
     speakerType: Narration
     speakerName: 
-    subtitleText: "\uADF8\uB9AC\uACE0 \uD640\uC758 \uB05D\uC5D0\uC11C, \uB808\uC628\uC740
-      \uB9D0\uC5C6\uC774 \uC774\uACF3\uC758 \uAE30\uC5B5\uC744 \uC9C0\uD0A4\uACE0
-      \uC788\uC5C8\uB2E4."
+    subtitleText: "\uC548\uCABD\uC5D0 \uB204\uAD70\uAC00\uAC00 \uC788\uC5B4"
     showSpeakerName: 0
     cameraPosition: {x: 9.406369, y: 1.0203038, z: 4.3200746}
     lookAtPosition: {x: 7.060455, y: -1.8923355, z: -4.0589986}
@@ -5513,9 +5512,8 @@ MonoBehaviour:
   - dialogueId: EP3_005
     speakerType: Monologue
     speakerName: 
-    subtitleText: "\uC870\uAC01\uC744 \uBAA8\uC544 \uC774 \uD750\uB984\uC744 \uB530\uB77C\uAC00\uBA74,
-      \uC783\uC5B4\uBC84\uB9B0 \uC120\uC728\uC5D0 \uC870\uAE08 \uB354 \uAC00\uAE4C\uC6CC\uC9C8
-      \uC218 \uC788\uC744 \uAC83 \uAC19\uB2E4."
+    subtitleText: "\uC870\uAC01\uC744 \uBAA8\uC544 \uC774 \uD750\uB984\uC744 \uB530\uB77C\uAC00\uBA74,\uAE30\uC5B5\uC5D0
+      \uC870\uAE08 \uB354 \uAC00\uAE4C\uC6CC\uC9C8 \uC218 \uC788\uC744 \uAC83 \uAC19\uB2E4."
     showSpeakerName: 0
     cameraPosition: {x: 6.5975795, y: -1.8673064, z: 12.0882015}
     lookAtPosition: {x: 6.40379, y: -2.6425843, z: 13.714412}
@@ -5605,6 +5603,8 @@ MonoBehaviour:
     memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     CoreTag: []
     npcInformations: []
+    Played_Episode1_Intro: 0
+    Played_StarGet: 0
     Played_Episode2_Intro: 0
     Played_EP2_Text_Intro: 0
     Played_Space_Intro: 0
