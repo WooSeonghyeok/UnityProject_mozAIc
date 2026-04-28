@@ -1561,6 +1561,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2015874190895057496, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
+      propertyPath: field of view
+      value: 60.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015874190895057496, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
+      propertyPath: m_FocalLength
+      value: 20.78461
+      objectReference: {fileID: 0}
     - target: {fileID: 2017824235352696539, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1619,31 +1627,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.4750013
+      value: 3.475
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8388338
+      value: 1.9222441
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.865538
+      value: 18.614408
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0000002815601
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000018815012
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9977747
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2800798397343678564, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.06667544
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2852565900015163393, guid: 355dbc51502491c4d81547223cdb80cd, type: 3}
       propertyPath: m_Name
@@ -2667,10 +2675,10 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 1527395015}
-  m_Follow: {fileID: 1527395014}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 1527395015}
   m_Lens:
-    FieldOfView: 61.927517
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2697,7 +2705,7 @@ Transform:
   m_GameObject: {fileID: 379394501}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000018811761, y: 0.9977748, z: -0.066675454, w: -0.00000028155992}
-  m_LocalPosition: {x: 6.95, y: -2.3000002, z: 27.92}
+  m_LocalPosition: {x: 6.95, y: -2.2, z: 28.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5313,6 +5321,8 @@ MonoBehaviour:
   spotlightObjects:
   - {fileID: 599265471}
   completedSheetInteractable: {fileID: 0}
+  interactablesToUnlockOnPuzzleClear:
+  - {fileID: 801724585}
   completionImageCutscene: {fileID: 0}
   completionCutsceneController: {fileID: 0}
   doorObject: {fileID: 174836025}
@@ -5343,6 +5353,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 1184578991}
+  interactionPriority: 50
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -6245,7 +6258,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 61.927517
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -6271,8 +6284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894984060}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000018815012, y: 0.9977747, z: -0.06667544, w: -0.0000002815601}
-  m_LocalPosition: {x: 6.9500027, y: -2.3668213, z: 27.422256}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 6.95, y: -2.2, z: 28.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9790,7 +9803,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1527395015 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5778630806066717662, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2801586441996089523, guid: 6bcb9b09689bf7f4bb877b83ca418a40, type: 3}
   m_PrefabInstance: {fileID: 1527395013}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1527395021 stripped
@@ -10278,6 +10291,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 0}
+  interactionPriority: 0
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -10463,6 +10479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5362157704275013654, guid: eb099fe5e53d45c4086a9a3dfd389da6, type: 3}
+    - {fileID: 421446643541582641, guid: eb099fe5e53d45c4086a9a3dfd389da6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -10503,7 +10520,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4, y: 1.2, z: 1.4}
+  m_Size: {x: 3, y: 2, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1594987885
 MonoBehaviour:
@@ -10524,7 +10541,10 @@ MonoBehaviour:
     \uD569\uB2C8\uB2E4."
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
-  interactUI: {fileID: 0}
+  interactUI: {fileID: 1184578991}
+  interactionPriority: 100
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -12848,7 +12868,7 @@ GameObject:
   - component: {fileID: 2020861583}
   - component: {fileID: 2020861586}
   - component: {fileID: 2020861585}
-  - component: {fileID: 2020861584}
+  - component: {fileID: 2020861587}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -12871,28 +12891,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 379394503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2020861584
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020861582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2, z: -3}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!114 &2020861585
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -12932,6 +12930,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2020861587
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020861582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damping: {x: 0.3, y: 0.3, z: 0.3}
+  ShoulderOffset: {x: 0, y: 0.4, z: 0}
+  VerticalArmLength: 0.4
+  CameraSide: 1
+  CameraDistance: 4
+  CameraCollisionFilter:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreTag: 
+  CameraRadius: 0.2
+  DampingIntoCollision: 0
+  DampingFromCollision: 2
 --- !u!1 &2058831349
 GameObject:
   m_ObjectHideFlags: 0
@@ -13644,6 +13666,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 0}
+  interactionPriority: 0
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}

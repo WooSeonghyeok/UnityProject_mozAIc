@@ -12,6 +12,7 @@ public class PuzzleComplete : MonoBehaviour
     [SerializeField] private GameObject completedSheetObject;
     [SerializeField] private GameObject[] spotlightObjects;
     [SerializeField] private InteractableSymbol completedSheetInteractable;
+    [SerializeField] private InteractableSymbol[] interactablesToUnlockOnPuzzleClear;
     [SerializeField] private CutsceneImagePlayer completionImageCutscene;
     [SerializeField] private Ep3LobbyIntroCutsceneController completionCutsceneController;
 
@@ -47,6 +48,8 @@ public class PuzzleComplete : MonoBehaviour
 
         if (completedSheetInteractable != null)
             completedSheetInteractable.SetInteractionEnabled(false);
+
+        SetLockedInteractionsEnabled(false);
 
         if (spotlightObjects != null)
         {
@@ -84,6 +87,10 @@ public class PuzzleComplete : MonoBehaviour
 
         if (completedSheetObject != null)
             completedSheetObject.SetActive(true);
+
+        // 피아노(완료 컷씬 진입 상호작용)는 조각을 모두 모은 즉시 다시 가능해야 한다.
+        // 완료 사운드 대기까지 잠가두면 클리어 후에도 한동안 상호작용이 안 되는 것처럼 느껴진다.
+        SetLockedInteractionsEnabled(true);
 
         if (spotlightObjects != null)
         {
@@ -204,5 +211,29 @@ public class PuzzleComplete : MonoBehaviour
         if (completionImageCutscene == null)
             completionImageCutscene = FindObjectOfType<CutsceneImagePlayer>(true);
 
+    }
+
+    private void SetLockedInteractionsEnabled(bool enabled)
+    {
+        if (interactablesToUnlockOnPuzzleClear == null)
+        {
+            return;
+        }
+
+        foreach (InteractableSymbol interactable in interactablesToUnlockOnPuzzleClear)
+        {
+            if (interactable == null)
+            {
+                continue;
+            }
+
+            interactable.SetColliderEnabled(enabled);
+            interactable.SetInteractionEnabled(enabled);
+
+            if (enabled)
+            {
+                interactable.RefreshInteractionState();
+            }
+        }
     }
 }

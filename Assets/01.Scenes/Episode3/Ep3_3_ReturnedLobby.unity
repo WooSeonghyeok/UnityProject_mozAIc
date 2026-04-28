@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &48326827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &91094611
 Transform:
   m_ObjectHideFlags: 0
@@ -749,8 +749,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000008266152, y: 0.9819564, z: -0.18910751, w: -0.000000042922686}
-  m_LocalPosition: {x: 3.04, y: 3.52, z: -30.2}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 3.04, y: 2.32, z: -31.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -888,6 +888,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 1013295059}
+  interactionPriority: 0
+  disableInteractionAfterUse: 1
+  disableColliderAfterUse: 1
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -1120,6 +1123,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtEP3FinalTable: 0
@@ -1131,6 +1139,8 @@ MonoBehaviour:
   playOnlyOncePerSession: 0
   inspectorSequenceId: EP3_RETURNED_LOBBY_INTRO
   playOnceSaveKey: 4
+  useInspectorPlayedStateOverride: 0
+  inspectorPlayedState: 0
   inspectorShots:
   - dialogueId: EP3_031_CLEAR_001
     speakerType: Monologue
@@ -1181,12 +1191,13 @@ MonoBehaviour:
   startDelay: 0.75
   introCameraPriority: 100
   pathResolution: 24
-  sceneIntroCamera: {fileID: 48326827}
-  sceneIntroPath: {fileID: 1638874475}
-  sceneLookAtTarget: {fileID: 1124191772}
+  sceneIntroCamera: {fileID: 0}
+  sceneIntroPath: {fileID: 0}
+  sceneLookAtTarget: {fileID: 0}
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  forceStandaloneSubtitleOverlay: 1
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
@@ -1354,7 +1365,7 @@ GameObject:
   - component: {fileID: 495453039}
   - component: {fileID: 495453042}
   - component: {fileID: 495453041}
-  - component: {fileID: 495453040}
+  - component: {fileID: 495453043}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1377,28 +1388,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1589466205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &495453040
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495453038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2, z: -5}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!114 &495453041
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1438,6 +1427,249 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &495453043
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495453038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damping: {x: 0.2, y: 0.2, z: 0.2}
+  ShoulderOffset: {x: 0, y: 0.4, z: 0}
+  VerticalArmLength: 0.4
+  CameraSide: 1
+  CameraDistance: 4
+  CameraCollisionFilter:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreTag: 
+  CameraRadius: 0.2
+  DampingIntoCollision: 0
+  DampingFromCollision: 2
+--- !u!1 &529253019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 529253020}
+  - component: {fileID: 529253024}
+  - component: {fileID: 529253023}
+  - component: {fileID: 529253021}
+  - component: {fileID: 529253027}
+  - component: {fileID: 529253026}
+  - component: {fileID: 529253025}
+  m_Layer: 0
+  m_Name: HarmonySymbol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &529253020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.98830897, z: -0, w: 0.15246454}
+  m_LocalPosition: {x: -4.519, y: 1.57, z: -14.089}
+  m_LocalScale: {x: 0.2, y: 0.3, z: 0.10000003}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 845323587}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -162.46, z: 0}
+--- !u!65 &529253021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4837027, y: 4.5574718, z: 15.207331}
+  m_Center: {x: -0.17201392, y: -0.21560252, z: 1.3556708}
+--- !u!23 &529253023
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0b6febbe0090f1f4890833d6f28e159d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &529253024
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &529253025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6e07a5f6e2241d28e2ea8b0f784d16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keywordId: harmony
+  keywordDisplayName: "\uD558\uBAA8\uB2C8"
+  discoverMessage: "\uAC11\uC790\uAE30 \uBA38\uB9BF\uC18D\uC5D0 '\uD558\uBAA8\uB2C8'\uB77C\uB294
+    \uB2E8\uC5B4\uAC00 \uB5A0\uC62C\uB790\uB2E4.\n\uC774 \uD0A4\uC6CC\uB4DC\uB85C
+    \uC74C\uC545\uAC00\uC640 \uB300\uD654\uD574 \uBCF4\uC790."
+  popupDuration: 2.8
+  keywordColor: {r: 1, g: 0.92, b: 0.55, a: 1}
+  messageColor: {r: 1, g: 1, b: 1, a: 1}
+  interactableSymbol: {fileID: 529253026}
+  stage3_1Manager: {fileID: 0}
+  stage3_2Manager: {fileID: 0}
+  stage3_3Manager: {fileID: 0}
+  disableInteractionAfterDiscover: 1
+  hideSymbolAfterDiscover: 1
+--- !u!114 &529253026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843d7875c1e149749a2b1ad1a3c90e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useSceneName: 0
+  sceneNameValue: 
+  lockRequirement: 0
+  lockedMessage: "\uBA3C\uC800 \uD2B9\uC815 \uC870\uAC74\uC744 \uB9CC\uC871\uD574\uC57C
+    \uD569\uB2C8\uB2E4."
+  lockedMessageDuration: 1.5
+  lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
+  interactUI: {fileID: 1013295059}
+  interactionPriority: 100
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
+  playArrivalSequenceOnEnter: 0
+  playArrivalSequenceOnlyOnce: 1
+  arrivalCutscenePlayer: {fileID: 0}
+  arrivalCutsceneStartIndex: 0
+  arrivalCutsceneStepCount: 0
+  autoInteractAfterArrivalSequence: 0
+  playInteractionCutsceneBeforeAction: 0
+  interactionCutscenePlayer: {fileID: 0}
+  interactionCutsceneStartIndex: 0
+  interactionCutsceneStepCount: 0
+  playInteractionCutsceneOnlyOnce: 1
+  teleportNpcOnArrival: 0
+  npcTransform: {fileID: 0}
+  npcTeleportPoint: {fileID: 0}
+  npcLookTarget: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 529253025}
+        m_TargetAssemblyTypeName: Ep3KeywordSymbol, Assembly-CSharp
+        m_MethodName: TriggerKeywordDiscovery
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &529253027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529253019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3136cd1618fffba4ba3cbb09bc955acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useFloatMotion: 1
+  floatHeight: 0.25
+  floatSpeed: 1.2
+  useRotation: 1
+  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: 20
+  randomizeOnStart: 1
+  randomHeightMin: 0.15
+  randomHeightMax: 0.35
+  randomSpeedMin: 0.8
+  randomSpeedMax: 1.5
+  randomRotationMin: 10
+  randomRotationMax: 25
+  useRandomColor: 1
+  targetRenderer: {fileID: 0}
+  minColor: {r: 0.6, g: 0.3, b: 1, a: 1}
+  maxColor: {r: 0.3, g: 0.7, b: 1, a: 1}
+  useEmission: 1
+  emissionIntensity: 1.5
 --- !u!4 &797039689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1200621720377960068, guid: f8a8224df3a993841acd25e983790e60, type: 3}
@@ -1522,6 +1754,111 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824590447}
   m_CullTransparentMesh: 1
+--- !u!1 &845323586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 845323587}
+  - component: {fileID: 845323590}
+  - component: {fileID: 845323589}
+  - component: {fileID: 845323588}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &845323587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845323586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.053}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 529253020}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &845323588
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845323586}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &845323589
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845323586}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 283250ef5a7001d47a1b97ff75b98cc9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &845323590
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845323586}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &883276943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +2078,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 1013295059}
+  interactionPriority: 50
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -1759,6 +2099,18 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1094326327}
+        m_TargetAssemblyTypeName: FinalPianoInteraction, Assembly-CSharp
+        m_MethodName: HideHarmonySymbol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 909546713}
         m_TargetAssemblyTypeName: Ep3LobbyIntroCutsceneController, Assembly-CSharp
         m_MethodName: PlayCutsceneManually
@@ -1814,6 +2166,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtEP3FinalTable: 0
@@ -1823,8 +2180,10 @@ MonoBehaviour:
     isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
-  inspectorSequenceId: EP3_LOBBY_INTRO
+  inspectorSequenceId: EP3_FINAL_TABLE
   playOnceSaveKey: -1
+  useInspectorPlayedStateOverride: 0
+  inspectorPlayedState: 0
   inspectorShots:
   - dialogueId: EP3_001
     speakerType: Monologue
@@ -1861,6 +2220,7 @@ MonoBehaviour:
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  forceStandaloneSubtitleOverlay: 1
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
@@ -1868,7 +2228,19 @@ MonoBehaviour:
   skipButtonRoot: {fileID: 0}
   onCutsceneFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1094326327}
+        m_TargetAssemblyTypeName: FinalPianoInteraction, Assembly-CSharp
+        m_MethodName: RevealHarmonySymbol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &909546714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1912,6 +2284,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtEP3FinalTable: 0
@@ -2495,6 +2872,10 @@ PrefabInstance:
       value: MusicSheet _3-3
       objectReference: {fileID: 0}
     - target: {fileID: 5362157704275013654, guid: f8a8224df3a993841acd25e983790e60, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362157704275013654, guid: f8a8224df3a993841acd25e983790e60, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
@@ -2546,6 +2927,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 1013295059}
+  interactionPriority: 0
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -2570,7 +2954,7 @@ MonoBehaviour:
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2597,6 +2981,7 @@ MonoBehaviour:
   cutscenePanel: {fileID: 0}
   cutsceneImage: {fileID: 0}
   finalDialogueController: {fileID: 386605916}
+  harmonySymbol: {fileID: 529253019}
   autoResolveSceneReferences: 1
   unlockExitAfterCutscene: 1
   fallbackToMusicIfCutsceneUnavailable: 1
@@ -2701,6 +3086,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtEP3FinalTable: 0
@@ -2710,8 +3100,10 @@ MonoBehaviour:
     isFirstEnterAtS3Tag3: 0
   playOnStart: 0
   playOnlyOncePerSession: 0
-  inspectorSequenceId: EP3_LOBBY_INTRO
+  inspectorSequenceId: EP3_FINAL_PIANO
   playOnceSaveKey: -1
+  useInspectorPlayedStateOverride: 0
+  inspectorPlayedState: 0
   inspectorShots:
   - dialogueId: EP3_004
     speakerType: Dialogue
@@ -2751,6 +3143,7 @@ MonoBehaviour:
   syncSceneRigWithSequence: 1
   enableSubtitles: 1
   subtitleFont: {fileID: 0}
+  forceStandaloneSubtitleOverlay: 1
   useRuntimeHintOverlay: 0
   nextButton: {fileID: 0}
   nextButtonRoot: {fileID: 0}
@@ -3787,7 +4180,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 1875159910}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1875159910}
   m_Lens:
     FieldOfView: 60.000004
@@ -3817,7 +4210,7 @@ Transform:
   m_GameObject: {fileID: 1589466203}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000008266151, y: 0.9819564, z: -0.1891075, w: -0.00000004292268}
-  m_LocalPosition: {x: 3.04, y: 3.52, z: -30.2}
+  m_LocalPosition: {x: 3.04, y: 2.32, z: -31.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5849,6 +6242,7 @@ SceneRoots:
   - {fileID: 1921545611}
   - {fileID: 1139851901872243157}
   - {fileID: 1207223883}
+  - {fileID: 529253020}
   - {fileID: 1589466205}
   - {fileID: 235951419}
   - {fileID: 1875159909}
