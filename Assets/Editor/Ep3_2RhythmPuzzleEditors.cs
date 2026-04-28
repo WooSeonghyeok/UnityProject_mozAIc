@@ -135,6 +135,7 @@ public class Ep3_2TopDownRhythmPuzzleEditor : Editor
         });
 
         DrawVisualSection();
+        DrawScoreUiSection();
         DrawJudgementSection();
         DrawFeedbackSection();
 
@@ -219,6 +220,20 @@ public class Ep3_2TopDownRhythmPuzzleEditor : Editor
         DrawProperty("excellentJudgeWindow", "Excellent 판정 범위");
         DrawProperty("goodJudgeWindow", "Good 판정 범위");
         DrawProperty("badJudgeWindow", "Bad 판정 범위");
+        EditorGUILayout.Space(4f);
+    }
+
+    private void DrawScoreUiSection()
+    {
+        EditorGUILayout.LabelField("점수 UI", EditorStyles.boldLabel);
+        DrawProperty("showScorePanel", "오른쪽 위 점수 패널 표시");
+        DrawProperty("scorePanelScreenOffset", "화면 오른쪽 위 오프셋");
+        DrawProperty("scorePanelSize", "점수 패널 크기");
+        DrawProperty("scorePanelBackgroundColor", "점수 패널 배경색");
+        DrawProperty("scorePanelTitleColor", "제목/만 단위 색");
+        DrawProperty("scorePanelMajorDigitColor", "앞자리 강조 색");
+        DrawProperty("scorePanelMinorDigitColor", "나머지 점수 색");
+        DrawProperty("scorePanelHintColor", "설명 문구 색");
         EditorGUILayout.Space(4f);
     }
 

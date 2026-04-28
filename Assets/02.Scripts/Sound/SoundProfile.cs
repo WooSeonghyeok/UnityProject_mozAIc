@@ -3,6 +3,14 @@
 [CreateAssetMenu(fileName = "NewSceneSoundProfile", menuName = "Sound/Scene Sound Profile")]
 public class SoundProfile : ScriptableObject
 {
+    public enum SceneAcousticPreset
+    {
+        [InspectorName("일반")]
+        Normal,
+        [InspectorName("먼 기억")]
+        DistantMemory
+    }
+
     [Header("BGM 설정")]
     public SoundManager.BGMType bgm = SoundManager.BGMType.None;
     public bool bgmLoop = true;
@@ -22,6 +30,13 @@ public class SoundProfile : ScriptableObject
     [Range(0f, 1f)] public float defaultAmbientVolume = 1f;
     [Range(0f, 1f)] public float defaultUIVolume = 1f;
     [Range(0f, 1f)] public float defaultSFXVolume = 1f;
+
+    [Header("공간 음향 프리셋")]
+    [InspectorName("음향 프리셋")]
+    public SceneAcousticPreset acousticPreset = SceneAcousticPreset.Normal;
+    [InspectorName("기억 왜곡 강도")]
+    [Tooltip("값이 클수록 더 멀고 웅웅대는 느낌이 강해집니다.")]
+    [Range(0f, 1f)] public float acousticIntensity = 0f;
 
     [Header("플레이어 사운드 설정")]
     public SoundManager.SFXType playerFootstep = SoundManager.SFXType.None;
