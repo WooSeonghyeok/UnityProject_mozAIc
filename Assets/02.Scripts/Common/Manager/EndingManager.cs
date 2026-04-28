@@ -27,7 +27,6 @@ public class EndingManager : MonoBehaviour
         endSkipButton.SetActive(false);
         RegameButton.SetActive(false);
         AppEndButton.SetActive(false);
-        CtrlReset();
         cutscene = gameObject.GetComponent<TextboxCtrl_Ending>();
     }
     private void OnEnable()  //엔딩 신 활성화 시점에 트루엔딩 판정
@@ -108,15 +107,11 @@ public class EndingManager : MonoBehaviour
     public void EndingClear()
     {
         EndingStop();
-        CtrlReset();
         endingImage.sprite = thankstoSprite;
         GameManager.Instance.CutsceneMode(false);
         endSkipButton.SetActive(false);
         RegameButton.SetActive(true);
         AppEndButton.SetActive(true);
-    }
-    void CtrlReset()
-    {
     }
     private void ApplyEndingSoundProfile(SoundProfile profile)
     {

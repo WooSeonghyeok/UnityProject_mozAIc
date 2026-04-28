@@ -30,7 +30,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             pieceCnt.text = $"{memoryCollected} / {totalCollected}";
-            pieceBox.SetActive(true);
+        //    pieceBox.SetActive(true);
         }
     }
     void MemoryCnt()
@@ -48,7 +48,7 @@ public class Ep4_Puzzle1Manager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            pieceBox.SetActive(false);
+        //    pieceBox.SetActive(false);
         }
         bool MemoryComplete = memoryCollected >= totalCollected;  //조각 전부 수집 시 "split_self" 태그 획득
         var tag = SaveManager.instance.curData.CoreTag.FirstOrDefault(t => t.TagName == "split_self");

@@ -21,14 +21,14 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             pieceCnt.text = $"{collectedPieceCount} / {requiredPieceCount}";
-            pieceBox.SetActive(true);
+        //    pieceBox.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            pieceBox.SetActive(false);
+        //    pieceBox.SetActive(false);
         }
     }
     public void AddPiece()

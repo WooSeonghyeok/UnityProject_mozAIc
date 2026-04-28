@@ -93,7 +93,19 @@ public class StageSelect : MonoBehaviour
         if (cpButtons != null)
             CPButtonsPrint(Mathf.Max(0, stageSelect));
     }
-
+    private int GetCPCount(int stage)
+    {
+        return stage switch
+        {
+            1 => 3,
+            3 => 4,
+            _ => 1
+        };
+    }
+    private int GetValidCPIndex()
+    {
+        return (cpSelect >= 0 && cpSelect < cpButtons.Length) ? cpSelect : -1;
+    }
     public void SelectStage(int index)
     {
         if (stageButtons == null || index < 0 || index >= stageButtons.Length) return;
@@ -123,19 +135,13 @@ public class StageSelect : MonoBehaviour
 
         TouchCPButtonEvent?.Invoke(-1);
 
-        for (int i = 0; i < cpButtons.Length; i++)
+        foreach (var btn in cpButtons)
         {
-            cpButtons[i].OnTouchCPButton(false);
-            cpButtons[i].gameObject.SetActive(false);
+            btn.OnTouchCPButton(false);
+            btn.gameObject.SetActive(false);
         }
 
-        int cpCount;
-        switch (selectNum)
-        {
-            case 1: cpCount = 3; break;
-            case 3: cpCount = 4; break;
-            default: cpCount = 1; break;
-        }
+        int cpCount = GetCPCount(selectNum);
 
         for (int i = 0; i < cpCount; i++)
         {
@@ -148,24 +154,15 @@ public class StageSelect : MonoBehaviour
         if (cpCount == 1)
         {
             if (stageSelect != -1 && cpButtons.Length > 0 && !cpButtons[0].isLock)
-            {
                 SelectCP(selectNum, 0);
-            }
             else
-            {
                 cpSelect = -1;
-                TouchCPButtonEvent?.Invoke(-1);
-            }
-        }
-        else
-        {
-            if (cpSelect >= 0 && cpSelect < cpButtons.Length)
-                TouchCPButtonEvent?.Invoke(cpSelect);
-            else
-                TouchCPButtonEvent?.Invoke(-1);
         }
 
-        EnterCheck();
+        // 기존 선택 유지 또는 -1
+        TouchCPButtonEvent?.Invoke(GetValidCPIndex());
+
+        EnterButton.interactable = EnterCheck();
     }
 
     public void SelectCP(int selectNum, int index)
@@ -173,8 +170,7 @@ public class StageSelect : MonoBehaviour
         if (cpButtons == null || index < 0 || index >= cpButtons.Length) return;
 
         cpSelect = index;
-        TouchCPButtonEvent?.Invoke(cpSelect);
-        EnterCheck();
+        NotifyCPSelected();
     }
 
     public void TouchCPButton()
@@ -182,27 +178,19 @@ public class StageSelect : MonoBehaviour
         if (cpButtons == null) return;
         if (cpSelect < 0 || cpSelect >= cpButtons.Length) return;
 
-        TouchCPButtonEvent?.Invoke(cpSelect);
-        EnterCheck();
+        NotifyCPSelected();
     }
-
-    private void EnterCheck()  //입장 버튼 활성화 여부 체크
+    private void NotifyCPSelected()
     {
-        if (stageSelect < 0 || stageSelect >= stageButtons.Length) //스테이지 범위 오류 시 기본값 false 반환 후 종료
-        {
-            EnterButton.interactable = false;
-            return;
-        }
-
-        if (cpSelect < 0 || cpSelect >= cpButtons.Length)  //체크포인트 범위 오류 시 기본값 false로 후 종료
-        {
-            EnterButton.interactable = false;
-            return;
-        }
-
-        if (EnterButton != null)
-            EnterButton.interactable =
-                !(stageButtons[stageSelect].isLock || cpButtons[cpSelect].isLock);
+        TouchCPButtonEvent?.Invoke(GetValidCPIndex());
+        EnterButton.interactable = EnterCheck();
+    }
+    private bool EnterCheck()  //입장 버튼 활성화 여부 체크
+    {
+        return
+        stageSelect >= 0 && stageSelect < stageButtons.Length &&  //스테이지 범위 오류 시 false 반환
+        cpSelect >= 0 && cpSelect < cpButtons.Length &&  //체크포인트 범위 오류 시 false 반환
+        !stageButtons[stageSelect].isLock && !cpButtons[cpSelect].isLock;    //스테이지, 체크포인트 둘 다 잠금 해제여야 true
     }
 
     public void OnEnterStage()
