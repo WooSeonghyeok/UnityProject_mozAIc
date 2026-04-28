@@ -49,6 +49,7 @@ public class EP0_LobbyManager : MonoBehaviour
     {
         int addOpenPopupCnt = (b ? 1 : -1);
         GameManager.Instance.openPopupCnt += addOpenPopupCnt;
+        if (GameManager.Instance.openPopupCnt < 0) GameManager.Instance.openPopupCnt = 0;
         GameManager.Instance.OnPopupChanged();
     }
 }
