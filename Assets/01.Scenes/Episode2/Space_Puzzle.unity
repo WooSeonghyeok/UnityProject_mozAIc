@@ -2680,7 +2680,7 @@ MonoBehaviour:
   viewPoint: {fileID: 1085249248}
   lookTarget: {fileID: 884798355}
   positionThreshold: 0.3
-  angleThreshold: 1.5
+  angleThreshold: 2
   requiredTime: 5
   effectDelay: 4
   completeObject: {fileID: 865666749}
@@ -20798,7 +20798,7 @@ MonoBehaviour:
   viewPoint: {fileID: 469348612}
   lookTarget: {fileID: 1877426807}
   positionThreshold: 0.3
-  angleThreshold: 1.5
+  angleThreshold: 2
   requiredTime: 5
   effectDelay: 4
   completeObject: {fileID: 1429446664}
@@ -21595,7 +21595,7 @@ MonoBehaviour:
   viewPoint: {fileID: 1015187436}
   lookTarget: {fileID: 27655177}
   positionThreshold: 0.3
-  angleThreshold: 1.5
+  angleThreshold: 2
   requiredTime: 5
   effectDelay: 4
   completeObject: {fileID: 1768289637}
