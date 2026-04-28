@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,7 +13,7 @@ public class PlayerInput : MonoBehaviour
     public event Action Cancel;                  // 나가기 입력이 들어오면 이벤트를 발동
     public bool isJumpLock = false;              // 특정 연출 중 점프 동작이 막힘
     public bool isLookLock = false;              // 특정 연출 중 시선 동작이 막힘
-    public CameraSwitcher cameraSwitcher; // 🔥 추가
+    public CameraSwitcher cameraSwitcher;        // 🔥 추가
 
     private void OnDisable()
     {
