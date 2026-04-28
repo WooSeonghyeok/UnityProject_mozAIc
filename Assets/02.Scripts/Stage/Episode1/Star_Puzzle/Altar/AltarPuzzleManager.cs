@@ -157,7 +157,7 @@ public class AltarPuzzleManager : MonoBehaviour
         puzzlePanel.SetActive(false);
         GameManager.Instance.openPopupCnt--;
         GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        GameManager.Instance.ShowMouseState(true);
         isPuzzleActive = false;
 
         if (playerMovement != null)

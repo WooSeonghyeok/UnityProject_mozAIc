@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public bool isSprint;      // 달리기 여부
     [HideInInspector] public bool jumpTriggered; // 점프 입력이 들어왔는지 저장
     public event Action Interact;                // 상호작용 입력이 들어오면 이벤트를 발동
+    public event Action ChangeLookLock;          // 시점 잠금 입력이 들어오면 이벤트를 발동
     public event Action Cancel;                  // 나가기 입력이 들어오면 이벤트를 발동
     public bool isJumpLock = false;              // 특정 연출 중 점프 동작이 막힘
     public bool isLookLock = false;              // 특정 연출 중 시선 동작이 막힘
@@ -65,6 +66,13 @@ public class PlayerInput : MonoBehaviour
             Interact?.Invoke();
         }
     }
+    public void OnLookLock(InputAction.CallbackContext context)  //시선 고정 on/off 키 입력
+    {
+        if (context.started)
+        {
+            ChangeLookLock?.Invoke();
+        }
+    }
     public void OnCancel(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -80,7 +88,7 @@ public class PlayerInput : MonoBehaviour
             if (cameraSwitcher != null)
             {
                 cameraSwitcher.ToggleCamera();
-                if(!GameManager.Instance.isCutsceneMode) GameManager.Instance.MouseStateChange();
+                if(!GameManager.Instance.isCutsceneMode) GameManager.Instance.ShowMouseState(true);
             }
             else
             {

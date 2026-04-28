@@ -169,7 +169,7 @@ public class ChatNPCManager : MonoBehaviour
             chatPanel.SetActive(false);
             GameManager.Instance.openPopupCnt--;
             GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-            GameManager.Instance.MouseStateChange();
+            GameManager.Instance.ShowMouseState(true);
         }
         if (serverChat != null)
         {
