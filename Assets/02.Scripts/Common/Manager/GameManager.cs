@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public bool lookLock = true;
     public int openPopupCnt = 0;
     public bool isCutsceneMode = false;
+    public GameObject optionBtn;
     public Image lookLockImg;
     public Image zoomCtrlImg;
     public Sprite zoomInImg;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         if (user != null) user.ChangeLookLock += ChangeLookLock;
         if (scene.name == startScene) quitManager = FindObjectOfType<QuitManager>(true);
         else quitManager = null;
+        optionBtn = GameObject.Find("Option_Btn");
         GetOptionValue();
         lookLock = (scene.name == startScene || scene.name == endingScene);  //스타트, 엔딩 신에서만 시점 고정이 활성화된 상태로 시작
         cursorHold = scene.name == startScene || scene.name == openingScene || scene.name == endingScene;  //스타트, 오프닝, 엔딩 신에서는 시점 고정 UI를 비활성화
@@ -111,6 +113,7 @@ public class GameManager : MonoBehaviour
             var move = user.GetComponent<PlayerMovement>();
             move.SetMoveLock(b);
         }
+        if (optionBtn != null) optionBtn.SetActive(!b);
         ShowMouseState(!b);
     }
     public void ShowMouseState(bool x)
