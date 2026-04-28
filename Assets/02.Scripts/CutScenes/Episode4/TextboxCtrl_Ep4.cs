@@ -51,84 +51,80 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         Ep4_StartCutscene.PlayCutscene(false);
         _manager.UserCtrl(false);
         yield return null;
-        yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 1.5f);
-        yield return oneSec;
-        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 <color=#80ffff>기억</color>만 보이는 게 아니다.", 1.5f);
-        yield return oneSec;
-        yield return _manager.TalkSay(TalkType.voice, "이제 거의 다 왔어.", 1.5f, Talker.core);
+        yield return _manager.TalkSay(TalkType.system, "지금까지 지나온 곳들이 전부 섞여 있다.", 2f);
+        yield return _manager.TalkSay(TalkType.system, "이제는 하나의 <color=#80ffff>기억</color>만 보이는 게 아니다.", 2f);
+        yield return _manager.TalkSay(TalkType.voice, "이제 거의 다 왔어, 남은 건 하나뿐이야.", 2f, Talker.core);
         gazeCam.Priority = 25;
-        yield return _manager.TalkSay(TalkType.voice, "남은 건 하나뿐이야.", 2f, Talker.core);
-        yield return oneSec;
-        yield return _manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "되찾는 건 거의 끝났어.\n이제는 이어 붙여야 해.", 2f, Talker.core, true);
         SaveManager.instance.curData.isFirstEnterAtS3CP0 = true;
-        yield return _manager.TalkSay(TalkType.player, "이어 붙인다고? 무엇을?\n기억은 이미 돌아오고 있는 것 같은데...", 1.5f, Talker.self, true);
-        yield return _manager.TalkSay(TalkType.voice, "조각은 모였어.\n하지만 아직 하나의 이야기가 되지 못했지.", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.player, "이어 붙인다고? 무엇을?\n 또 다른 누군가의 기억이 있는거야?...", 2.5f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.voice, "아니야, 기억들은 전부 모였어.\n하지만 아직 하나의 이야기가 되지 못했지.", 2.5f, Talker.core, true);
         gazeCam.Priority = 1;
-        yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", 2f, Talker.core);
+        yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도 따로 남아 있을 뿐이야.", 2f, Talker.core, true);
         yield return _manager.TalkSay(TalkType.voice, "그걸 네 삶으로 받아들여야 해", 2f, Talker.core, true);
         _manager.UserCtrl(true);
-        yield return _manager.TalkSay(TalkType.player, "내 삶.\n정말... 전부 내 이야기였던 걸까.",1.5f);
+        yield return _manager.TalkSay(TalkType.player, "내 삶..?\n그러고보니 나는...",2f, Talker.self, true);
         endSound.Play();
         GameManager.Instance.lookLock = false;
-        yield return _manager.TalkSay(TalkType.voice, "그래. 처음부터 전부 네 이야기였어.", 1.5f, Talker.core);
+        yield return _manager.TalkSay(TalkType.voice, "그래. 처음부터 전부 네 이야기였어.", 2f, Talker.core);
         GameManager.Instance.CutsceneMode(false);
     }
     public IEnumerator Puzzle1Start()
     {
         startSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "이 길... 기억난다.");
-        yield return _manager.TalkSay(TalkType.player, "차갑고 미끄러웠는데,\n이상하게도 그 끝에는 늘 빛이 있었어.");
-        yield return _manager.TalkSay(TalkType.voice, "추억은 장면으로만 남지 않아.\n몸이 먼저 기억하는 길도 있지.", 1f, Talker.core);
-        yield return _manager.TalkSay(TalkType.player, "다시 지나가야 한다.\n그때의 나처럼.");
+        yield return _manager.TalkSay(TalkType.player, "이 길... 기억난다.",2f);
+        yield return _manager.TalkSay(TalkType.player, "차갑고 미끄러웠는데,\n이상하게도 그 끝에는 늘 빛이 있었어.",2f);
+        yield return _manager.TalkSay(TalkType.voice, "추억은 장면으로만 남지 않아.\n몸이 먼저 기억하는 길도 있지.", 2f, Talker.core);
+        yield return _manager.TalkSay(TalkType.player, "다시 지나가야 한다.\n그때의 나처럼.", 2f);
     }
     public IEnumerator Puzzle1Complete()
     {
         startSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "혼자였던 적 없었구나.");
-        yield return _manager.TalkSay(TalkType.voice, "그 시간은 처음부터 네 안에 남아 있었어.", 1f, Talker.core);
+        yield return _manager.TalkSay(TalkType.player, "혼자였던 적 없었구나.", 2f);
+        yield return _manager.TalkSay(TalkType.voice, "그 시간은 처음부터 네 안에 남아 있었어.", 2f, Talker.core);
     }
     public IEnumerator Puzzle2Start()
     {
         startSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "이건... 사라진 게 아니다.");
-        yield return _manager.TalkSay(TalkType.player, "아직 올바른 자리에서 보지 못한 것뿐이다.");
-        yield return _manager.TalkSay(TalkType.voice, "함께 꾸던 꿈은 없어지지 않아.\n다만, 네가 어디에 서서 바라보는지만 잊었을 뿐이지.", 1f, Talker.core);
+        yield return _manager.TalkSay(TalkType.player, "이건... 사라진 게 아니다.", 2f);
+        yield return _manager.TalkSay(TalkType.player, "아직 올바른 자리에서 보지 못한 것뿐이다.", 2f);
+        yield return _manager.TalkSay(TalkType.voice, "함께 꾸던 꿈은 없어지지 않아.\n다만, 네가 어디에 서서 바라보는지만 잊었을 뿐이지.", 2f, Talker.core, true);
     }
     public IEnumerator Ep4_Puzzle2_Mid()
     {
-        yield return _manager.TalkSay(TalkType.player, "그때의 나는… 무엇을 보고 있었지.", 1.5f);
-        yield return _manager.TalkSay(TalkType.player, "그리고 누구와 같은 방향을 바라보고 있었지.");
+        yield return _manager.TalkSay(TalkType.player, "그때의 나는… 무엇을 보고 있었지.", 2f);
+        yield return _manager.TalkSay(TalkType.player, "그리고 누구와 같은 방향을 바라보고 있었지.", 2f);
     }
     public IEnumerator Puzzle2Complete()
     {
         startSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "그래. 혼자가 아니라, 함께 보고 있었구나.");
-        yield return _manager.TalkSay(TalkType.voice, "그래서 더 아팠고, 그래서 더 선명한 거야.", 1f, Talker.core);
+        yield return _manager.TalkSay(TalkType.player, "그래. 혼자가 아니라, 함께 보고 있었구나.", 2f);
+        yield return _manager.TalkSay(TalkType.voice, "맞아, 그래서 더 선명했던 거야.", 2f, Talker.core);
     }
     public IEnumerator Puzzle3Start()
     {
         startSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "이건… 끝내 완성하지 못했던 곡.");
-        yield return _manager.TalkSay(TalkType.voice, "사라진 게 아니야. 아직 다 모이지 못한 거지.", 1f, Talker.core);
+        yield return _manager.TalkSay(TalkType.player, "이건… 끝내 완성하지 못했던 곡.", 2f);
+        yield return _manager.TalkSay(TalkType.voice, "사라진 게 아니야. 아직 다 모이지 못한 거지.", 2f, Talker.core);
     }
     public IEnumerator Puzzle3Complete()
     {
         startSound.Play();
-        yield return _manager.TalkSay(TalkType.voice, "끝난 게 아니었으니까, 여기 남아 있었겠지.", 1f, Talker.core);
-        yield return _manager.TalkSay(TalkType.player, "이제 들린다.");
-        yield return _manager.TalkSay(TalkType.player, "이건 잃어버린 음악이 아니라\n끝내 닿지 못했던 마음이었어.");
+        yield return _manager.TalkSay(TalkType.voice, "끝난 게 아니었으니까, 여기 남아 있었겠지.", 2f, Talker.core);
+        yield return _manager.TalkSay(TalkType.player, "이제 들린다.", 2f);
+        yield return _manager.TalkSay(TalkType.player, "이건 잃어버린 음악이 아니라\n끝내 닿지 못했던 마음이었어.", 2f);
     }
     public IEnumerator Puzzle4Start()
     {
         _manager.UserCtrl(false);
         GameManager.Instance.CutsceneMode(true);
-        yield return _manager.TalkSay(TalkType.player, "이 길은... 아직 나를 받아들이지 못하고 있다.", 1f, Talker.self, true);
-        yield return _manager.TalkSay(TalkType.voice, "마지막은 네가 정해야 해.", 1f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "되찾은 것들을 그냥 바라보는 것과,\n네 것으로 받아들이는 건 다르니까.", 1f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.player, "받아들인다. 이 기억들이 아프더라도.\n이 관계들이 끝내 완전하지 않았더라도.", 1f, Talker.self, true);
-        yield return _manager.TalkSay(TalkType.player, "전부... 내 삶이었다는 걸.", 1f, Talker.self, true);
-        yield return _manager.TalkSay(TalkType.voice, "그래. 좋았던 것만 네가 아니야.", 1f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "놓친 것도, 아팠던 것도, 끝내 다하지 못한 것도 전부 너야.", 1f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.player, "이 길은 지나갈 수가 없는데? 날 받아들이지 않나봐..", 2f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.voice, "아니야, 되찾은 것들을 그냥 바라보는 것과,\n네 것으로 받아들이는 건 다르니까.", 2f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "마지막은 네가 정해야해.", 2f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.player, "받아들인다. 이 기억들이 아프더라도.\n이 관계들이 끝내 완전하지 않았더라도.", 2f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.player, "전부... 내 삶이었다는 걸.", 2f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.voice, "그래. 좋았던 것만 네가 아니야.", 2f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "놓친 것도, 아팠던 것도, 끝내 다하지 못한 것도 전부 너야.", 2f, Talker.core, true);
         _manager.UserCtrl(true);
         GameManager.Instance.CutsceneMode(false);
     }
@@ -142,20 +138,20 @@ public class TextboxCtrl_Ep4 : MonoBehaviour
         otherCanvas.enabled = false;
         Ep4_ClimaxCutscene.PlayCutscene(false);
         yield return _manager.TalkSay(TalkType.voice, "넌 잊은 게 아니야.", 2f, Talker.core);
-        yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 1.5f, Talker.core);
-        yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도… 전부 네가 감당해야 했던 삶이었어.", 1.5f, Talker.core);
+        yield return _manager.TalkSay(TalkType.voice, "버티기 위해, 잠시 나눠 둔 거야.", 2f, Talker.core);
+        yield return _manager.TalkSay(TalkType.voice, "추억도, 꿈도, 사랑도… 전부 네가 감당해야 했던 삶이었어.", 2f, Talker.core);
         yield return new WaitForSecondsRealtime(0.1f);
         climaxCam.Priority = 30;
         yield return null;
         yield return _manager.TalkSay(TalkType.voice, "하지만 그때의 너는 너무 무너져 있었지.", 2f, Talker.core);
-        yield return _manager.TalkSay(TalkType.voice, "그래서 나를 남겨 둔 거야.", 1.5f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 1.5f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.player, "그럼 이 사람은...", 1.5f, Talker.self, true);
+        yield return _manager.TalkSay(TalkType.voice, "그래서 나를 남겨 둔 거야.", 2f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "조각들을 붙잡고 있을 마지막 자리로.", 2f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.player, "그럼 이 사람은...", 2f, Talker.self, true);
         yield return _manager.TalkSay(TalkType.voice, $"그래. 나는 네가 놓아둔 <color=#80ffff>마지막 조각</color>이야.", 2f, Talker.core, true);
-        yield return _manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 1.5f, Talker.core, true);
+        yield return _manager.TalkSay(TalkType.voice, "네가 다시 돌아올 때까지 여기 남아 있었어.", 2f, Talker.core, true);
         climaxCam.Priority = 1;
         endSound.Play();
-        yield return _manager.TalkSay(TalkType.player, "처음부터... 내 목소리였구나.", 2f);
+        yield return _manager.TalkSay(TalkType.player, "이 목소리..처음부터... 내 목소리였구나.", 2f);
         GameManager.Instance.isCutsceneMode = false;
         _manager.UserCtrl(true);
         otherCanvas.enabled = true;
