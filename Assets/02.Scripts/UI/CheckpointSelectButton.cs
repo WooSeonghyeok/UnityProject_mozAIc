@@ -63,8 +63,7 @@ public class CheckpointSelectButton : MonoBehaviour
 
     private void OnCPTouch(int cpSelect)
     {
-        if (isLock) OnTouchCPButton(false);
-        else OnTouchCPButton(cpSelect == cpNum);
+        OnTouchCPButton(!isLock && (cpSelect == cpNum));
     }
 
     public void OnClick()
