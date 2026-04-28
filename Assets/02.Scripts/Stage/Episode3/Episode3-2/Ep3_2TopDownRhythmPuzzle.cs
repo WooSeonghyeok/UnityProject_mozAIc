@@ -29,7 +29,6 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
     [SerializeField] private Transform judgeCenterAnchor;
     [SerializeField] private Vector3 fallbackJudgeCenterOffset = new Vector3(0f, 0.5f, 8f);
     [SerializeField] private float laneSpacing = 1.1f;
-    [SerializeField] private float laneForwardSpacing = 2.6f;
     [SerializeField] private float noteTravelDistance = 22f;
     [SerializeField] private float noteHeightOffset = 0.4f;
 
