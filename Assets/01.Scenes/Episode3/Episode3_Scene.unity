@@ -3676,6 +3676,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+--- !u!114 &1400332342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
+  m_PrefabInstance: {fileID: 1400332341}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1257b2c4047a2438da9a000a0153a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1498801431 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6193273182450067259, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
@@ -4258,6 +4269,14 @@ PrefabInstance:
     - target: {fileID: 5863932155801726778, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
       propertyPath: m_Name
       value: Canvas_NPC_Chat
+      objectReference: {fileID: 0}
+    - target: {fileID: 6361301818407543944, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1400332342}
+    - target: {fileID: 6361301818407543944, guid: 11eb9a097ff9ace469b8e659d73e4293, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndNPCChat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

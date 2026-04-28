@@ -388,7 +388,7 @@ Transform:
   m_GameObject: {fileID: 131414021}
   serializedVersion: 2
   m_LocalRotation: {x: 0.20666882, y: -0.03654921, z: -0.079028875, w: 0.9745289}
-  m_LocalPosition: {x: -2.62, y: -15.82, z: 22.13}
+  m_LocalPosition: {x: -2.69, y: -15.75, z: 22.15}
   m_LocalScale: {x: 0.60928375, y: 0.031287674, z: 3.9507265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2680,7 +2680,7 @@ MonoBehaviour:
   viewPoint: {fileID: 1085249248}
   lookTarget: {fileID: 884798355}
   positionThreshold: 0.3
-  angleThreshold: 1.5
+  angleThreshold: 2
   requiredTime: 5
   effectDelay: 4
   completeObject: {fileID: 865666749}
@@ -3913,7 +3913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &828613416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4977,6 +4977,11 @@ MonoBehaviour:
     Played_Space_Clear: 0
     Played_Paint_Clear: 0
     Played_EP2_Ending: 0
+    Played_EP3_LobbyIntro: 0
+    Played_EP3_Stage3_1Intro: 0
+    Played_EP3_Stage3_1Completion: 0
+    Played_EP3_Stage3_2Intro: 0
+    Played_EP3_ReturnedLobbyIntro: 0
     isFirstEnterAtEP3Lobby: 0
     isFirstEnterAtEP3_1: 0
     isFirstEnterAtEP3FinalTable: 0
@@ -19152,6 +19157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnType: 1
+  usageType: 1
   nextScene: Episode2_Scene
   stayTime: 1
   cameraTarget: {fileID: 208756759}
@@ -20792,7 +20798,7 @@ MonoBehaviour:
   viewPoint: {fileID: 469348612}
   lookTarget: {fileID: 1877426807}
   positionThreshold: 0.3
-  angleThreshold: 1.5
+  angleThreshold: 2
   requiredTime: 5
   effectDelay: 4
   completeObject: {fileID: 1429446664}
@@ -21589,7 +21595,7 @@ MonoBehaviour:
   viewPoint: {fileID: 1015187436}
   lookTarget: {fileID: 27655177}
   positionThreshold: 0.3
-  angleThreshold: 1.5
+  angleThreshold: 2
   requiredTime: 5
   effectDelay: 4
   completeObject: {fileID: 1768289637}

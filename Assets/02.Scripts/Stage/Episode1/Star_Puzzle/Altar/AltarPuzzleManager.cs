@@ -157,7 +157,8 @@ public class AltarPuzzleManager : MonoBehaviour
         puzzlePanel.SetActive(false);
         GameManager.Instance.openPopupCnt--;
         GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-        GameManager.Instance.MouseStateChange();
+        if (GameManager.Instance.openPopupCnt < 0) GameManager.Instance.openPopupCnt = 0;
+        GameManager.Instance.ShowMouseState(true);
         isPuzzleActive = false;
 
         if (playerMovement != null)
@@ -359,11 +360,11 @@ public class AltarPuzzleManager : MonoBehaviour
         }
         ApplyGradientTexture();  // 퍼즐 클리어 순간 맵의 머터리얼을 그라디언트 텍스처로 교체
         ApplySkybox(clearedSkybox);  // 퍼즐 클리어 순간 스카이박스를 별 하늘로 교체
-        yield return clearWs;
         if (GameManager_Ep1.Instance != null)
         {
             GameManager_Ep1.Instance.OnPuzzleCleared();
         }
+        yield return clearWs;
         ClosePuzzle();
     }
 }

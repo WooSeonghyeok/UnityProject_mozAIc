@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 6838682503969377359}
   - component: {fileID: 8202959068442214609}
   - component: {fileID: 8137805553557694354}
+  - component: {fileID: 5657433577795375498}
   m_Layer: 5
   m_Name: Sound_Icon
   m_TagString: Untagged
@@ -565,6 +566,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5657433577795375498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642301168251491647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d5bf19c990554ca3c3389fd2e698f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSound: 1
+  playHoverSound: 1
+  clickSound: 1
+  hoverSound: 2
+  clickVolumeScale: 1
+  hoverVolumeScale: 0.6
 --- !u!1 &720469808919251422
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +596,7 @@ GameObject:
   - component: {fileID: 329031371072001404}
   - component: {fileID: 5459554297779022071}
   - component: {fileID: 9148225243656126797}
+  - component: {fileID: 2477700521042430648}
   m_Layer: 5
   m_Name: V_Title
   m_TagString: Untagged
@@ -757,6 +777,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2477700521042430648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720469808919251422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d5bf19c990554ca3c3389fd2e698f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSound: 1
+  playHoverSound: 1
+  clickSound: 1
+  hoverSound: 2
+  clickVolumeScale: 1
+  hoverVolumeScale: 0.6
 --- !u!1 &918765432109876543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3237,6 +3275,7 @@ GameObject:
   - component: {fileID: 5897139572966791095}
   - component: {fileID: 4739780310320268482}
   - component: {fileID: 6660628526188497369}
+  - component: {fileID: 700351128182204892}
   m_Layer: 5
   m_Name: V_Title
   m_TagString: Untagged
@@ -3417,6 +3456,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &700351128182204892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743702800496036756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d5bf19c990554ca3c3389fd2e698f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSound: 1
+  playHoverSound: 1
+  clickSound: 1
+  hoverSound: 2
+  clickVolumeScale: 1
+  hoverVolumeScale: 0.6
 --- !u!1 &3756812293912120365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,6 +3486,7 @@ GameObject:
   - component: {fileID: 2269284238925277339}
   - component: {fileID: 7624625842704473545}
   - component: {fileID: 906319314230264765}
+  - component: {fileID: 5824668585766134840}
   m_Layer: 5
   m_Name: V_Title
   m_TagString: Untagged
@@ -3609,6 +3667,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5824668585766134840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3756812293912120365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d5bf19c990554ca3c3389fd2e698f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSound: 1
+  playHoverSound: 1
+  clickSound: 1
+  hoverSound: 2
+  clickVolumeScale: 1
+  hoverVolumeScale: 0.6
 --- !u!1 &3774634506578436039
 GameObject:
   m_ObjectHideFlags: 0
@@ -6025,6 +6101,7 @@ GameObject:
   - component: {fileID: 4011320113224632163}
   - component: {fileID: 2625657092392498229}
   - component: {fileID: 1702508116222219460}
+  - component: {fileID: 5933728552088963927}
   m_Layer: 5
   m_Name: V_Title
   m_TagString: Untagged
@@ -6205,3 +6282,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5933728552088963927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995847573543917765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d5bf19c990554ca3c3389fd2e698f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playClickSound: 1
+  playHoverSound: 1
+  clickSound: 1
+  hoverSound: 2
+  clickVolumeScale: 1
+  hoverVolumeScale: 0.6

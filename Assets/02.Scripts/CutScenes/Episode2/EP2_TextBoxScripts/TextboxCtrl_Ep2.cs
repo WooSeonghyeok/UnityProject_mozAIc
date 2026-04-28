@@ -132,17 +132,17 @@ public class TextboxCtrl_Ep2 : MonoBehaviour
             if (i == 0)
             {
                 yield return _manager.TalkSay(TalkType.voice,
-                    "너는 옛날부터 다양한 각도로 그림을 바라봤어.", 2f, Talker.core, false);
+                    "너는 옛날부터 다양한 각도로 그림을 바라봤어.", 2f, Talker.core, true);
             }
             else if (i == 1)
             {
                 yield return _manager.TalkSay(TalkType.voice,
-                    "네가 구도를 잡을 때 기억을 떠올려봐.", 2f, Talker.core, false);
+                    "네가 구도를 잡을 때 기억을 떠올려봐.", 2f, Talker.core, true);
             }
             else if (i == 2)
             {
                 yield return _manager.TalkSay(TalkType.voice,
-                    "넌 찾아낼 수 있을거야.", 2f, Talker.core, false);
+                    "하늘을 유심히 보면 \n예전처럼 찾아낼 수 있을거야.", 2.5f, Talker.core, true);
             }
         }
 

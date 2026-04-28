@@ -41,6 +41,7 @@ public class QuitManager : MonoBehaviour
         Can.overrideSorting = false;
         Can.sortingOrder = 0;
         GameManager.Instance.openPopupCnt--;
+        if (GameManager.Instance.openPopupCnt < 0) GameManager.Instance.openPopupCnt = 0;
         GameManager.Instance.OnPopupChanged();
     }
     public void OnYesButton()
