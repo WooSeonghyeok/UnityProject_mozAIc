@@ -2,6 +2,7 @@ using System.Collections;
 using Episode3.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 
 public class Ep3KeywordSymbol : MonoBehaviour
@@ -17,7 +18,7 @@ public class Ep3KeywordSymbol : MonoBehaviour
 
     [Header("표시 연출")]
     [SerializeField] private Color keywordColor = new(1f, 0.92f, 0.55f, 1f);
-    [SerializeField] private Color messageColor = new(1f, 1f, 1f, 1f);
+    [SerializeField] private Color messageColor = Color.white;
 
     [Header("참조")]
     [SerializeField] private InteractableSymbol interactableSymbol;
@@ -34,9 +35,7 @@ public class Ep3KeywordSymbol : MonoBehaviour
     private void Awake()
     {
         interactableSymbol ??= GetComponent<InteractableSymbol>();
-        stage3_1Manager ??= FindFirstObjectByType<Ep3_1Manager>();
-        stage3_2Manager ??= FindFirstObjectByType<Ep3_2Manager>();
-        stage3_3Manager ??= FindFirstObjectByType<Ep3_3Manager>();
+        ResolveStageManagersIfNeeded();
     }
 
     public void TriggerKeywordDiscovery()
@@ -47,19 +46,18 @@ public class Ep3KeywordSymbol : MonoBehaviour
         }
 
         isDiscovered = true;
+        ResolveStageManagersIfNeeded();
 
-        if (!string.IsNullOrWhiteSpace(keywordId) && TryRegisterKeywordTag(keywordId))
-        {
-        }
-        else
+        if (!string.IsNullOrWhiteSpace(keywordId) && !TryRegisterKeywordTag(keywordId))
         {
             Debug.LogWarning($"[Ep3KeywordSymbol] 스테이지 매니저를 찾지 못해 키워드 '{keywordId}'를 저장하지 못했습니다.");
         }
 
         string resolvedMessage = string.IsNullOrWhiteSpace(discoverMessage)
-            ? $"갑자기 머릿속에 '{keywordDisplayName}'이라는 단어가 떠올랐다.\n이 키워드로 음악가와 대화해 보자."
+            ? $"갑자기 머릿속에 '{keywordDisplayName}'라는 단어가 떠올랐다.\n이 키워드로 음악가와 대화해 보자."
             : discoverMessage;
 
+        Debug.Log($"[Ep3KeywordSymbol] 키워드 UI 표시 요청: {keywordDisplayName}");
         Ep3KeywordDiscoveryUI.Show(keywordDisplayName, resolvedMessage, popupDuration, keywordColor, messageColor);
 
         if (disableInteractionAfterDiscover && interactableSymbol != null)
@@ -71,6 +69,13 @@ public class Ep3KeywordSymbol : MonoBehaviour
         {
             StartCoroutine(HideSymbolAtEndOfFrame());
         }
+    }
+
+    private void ResolveStageManagersIfNeeded()
+    {
+        stage3_1Manager ??= FindFirstObjectByType<Ep3_1Manager>();
+        stage3_2Manager ??= FindFirstObjectByType<Ep3_2Manager>();
+        stage3_3Manager ??= FindFirstObjectByType<Ep3_3Manager>();
     }
 
     private IEnumerator HideSymbolAtEndOfFrame()
@@ -107,10 +112,15 @@ public sealed class Ep3KeywordDiscoveryUI : MonoBehaviour
 {
     private static Ep3KeywordDiscoveryUI instance;
 
+    private const string PreferredFontAssetName = "Maplestory Bold SDF";
+    private const string PreferredFontFileName = "Maplestory Bold";
+    private const string FallbackTmpResourcePath = "Fonts & Materials/LiberationSans SDF";
+
     private Canvas rootCanvas;
     private TMP_Text keywordText;
     private TMP_Text messageText;
     private Coroutine hideCoroutine;
+    private TMP_FontAsset resolvedFontAsset;
 
     public static void Show(string keyword, string message, float duration, Color keywordColor, Color messageColor)
     {
@@ -130,14 +140,15 @@ public sealed class Ep3KeywordDiscoveryUI : MonoBehaviour
         GameObject root = new("Ep3KeywordDiscoveryUI");
         DontDestroyOnLoad(root);
         instance = root.AddComponent<Ep3KeywordDiscoveryUI>();
-        instance.BuildUI();
+        instance.BuildUi();
     }
 
-    private void BuildUI()
+    private void BuildUi()
     {
         rootCanvas = gameObject.AddComponent<Canvas>();
         rootCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        rootCanvas.sortingOrder = 1300;
+        rootCanvas.overrideSorting = true;
+        rootCanvas.sortingOrder = 5000;
 
         CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -147,18 +158,20 @@ public sealed class Ep3KeywordDiscoveryUI : MonoBehaviour
 
         keywordText = CreateText(
             "KeywordTitle",
-            new Vector2(0.5f, 0.58f),
-            new Vector2(1200f, 110f),
+            new Vector2(0.5f, 0.57f),
+            new Vector2(1200f, 120f),
             70f,
             FontStyles.Bold);
 
         messageText = CreateText(
             "KeywordMessage",
             new Vector2(0.5f, 0.47f),
-            new Vector2(1300f, 160f),
+            new Vector2(1320f, 180f),
             34f,
             FontStyles.Normal);
 
+        ResolveFontAssetIfNeeded();
+        ApplyResolvedFont();
         SetTextsVisible(false);
     }
 
@@ -166,6 +179,12 @@ public sealed class Ep3KeywordDiscoveryUI : MonoBehaviour
     {
         GameObject textObject = new(objectName);
         textObject.transform.SetParent(transform, false);
+
+        int uiLayer = LayerMask.NameToLayer("UI");
+        if (uiLayer >= 0)
+        {
+            textObject.layer = uiLayer;
+        }
 
         RectTransform rect = textObject.AddComponent<RectTransform>();
         rect.anchorMin = anchor;
@@ -192,16 +211,25 @@ public sealed class Ep3KeywordDiscoveryUI : MonoBehaviour
     {
         if (keywordText == null || messageText == null)
         {
-            BuildUI();
+            BuildUi();
         }
+
+        ResolveFontAssetIfNeeded();
+        ApplyResolvedFont();
 
         keywordText.text = keyword;
         keywordText.color = keywordColor;
-
         messageText.text = message;
         messageText.color = messageColor;
 
+        if (rootCanvas != null)
+        {
+            rootCanvas.sortingOrder = 5000;
+            rootCanvas.gameObject.SetActive(true);
+        }
+
         SetTextsVisible(true);
+        Debug.Log($"[Ep3KeywordDiscoveryUI] 표시: {keyword} / duration={duration:0.00}");
 
         if (hideCoroutine != null)
         {
@@ -220,14 +248,141 @@ public sealed class Ep3KeywordDiscoveryUI : MonoBehaviour
 
     private void SetTextsVisible(bool visible)
     {
+        if (rootCanvas != null)
+        {
+            rootCanvas.gameObject.SetActive(visible);
+            rootCanvas.enabled = visible;
+        }
+
         if (keywordText != null)
         {
             keywordText.enabled = visible;
+            keywordText.gameObject.SetActive(visible);
         }
 
         if (messageText != null)
         {
             messageText.enabled = visible;
+            messageText.gameObject.SetActive(visible);
+        }
+    }
+
+    private void ResolveFontAssetIfNeeded()
+    {
+        if (resolvedFontAsset != null)
+        {
+            return;
+        }
+
+        TMP_FontAsset[] allTmpFonts = Resources.FindObjectsOfTypeAll<TMP_FontAsset>();
+        foreach (TMP_FontAsset fontAsset in allTmpFonts)
+        {
+            if (fontAsset == null)
+            {
+                continue;
+            }
+
+            if (fontAsset.name.Equals(PreferredFontAssetName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                resolvedFontAsset = fontAsset;
+                return;
+            }
+        }
+
+        foreach (TMP_FontAsset fontAsset in allTmpFonts)
+        {
+            if (fontAsset == null)
+            {
+                continue;
+            }
+
+            if (fontAsset.name.Contains("Maplestory", System.StringComparison.OrdinalIgnoreCase))
+            {
+                resolvedFontAsset = fontAsset;
+                return;
+            }
+        }
+
+        Font sourceFont = FindPreferredSourceFont();
+        if (sourceFont != null)
+        {
+            resolvedFontAsset = TMP_FontAsset.CreateFontAsset(
+                sourceFont,
+                90,
+                9,
+                GlyphRenderMode.SDFAA,
+                1024,
+                1024,
+                AtlasPopulationMode.Dynamic);
+
+            if (resolvedFontAsset != null)
+            {
+                resolvedFontAsset.name = $"{PreferredFontFileName} Runtime SDF";
+                return;
+            }
+        }
+
+        resolvedFontAsset = Resources.Load<TMP_FontAsset>(FallbackTmpResourcePath);
+        resolvedFontAsset ??= TMP_Settings.defaultFontAsset;
+    }
+
+    private Font FindPreferredSourceFont()
+    {
+        Font[] allFonts = Resources.FindObjectsOfTypeAll<Font>();
+        foreach (Font font in allFonts)
+        {
+            if (font == null)
+            {
+                continue;
+            }
+
+            if (font.name.Contains(PreferredFontFileName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return font;
+            }
+        }
+
+        string[] osFontCandidates =
+        {
+            PreferredFontFileName,
+            "Malgun Gothic",
+            "맑은 고딕"
+        };
+
+        foreach (string osFontName in osFontCandidates)
+        {
+            try
+            {
+                Font osFont = Font.CreateDynamicFontFromOSFont(osFontName, 90);
+                if (osFont != null)
+                {
+                    return osFont;
+                }
+            }
+            catch
+            {
+                // Ignore OS font lookup failures and try the next candidate.
+            }
+        }
+
+        return null;
+    }
+
+    private void ApplyResolvedFont()
+    {
+        if (resolvedFontAsset == null)
+        {
+            return;
+        }
+
+        if (keywordText != null)
+        {
+            keywordText.font = resolvedFontAsset;
+        }
+
+        if (messageText != null)
+        {
+            messageText.font = resolvedFontAsset;
         }
     }
 }

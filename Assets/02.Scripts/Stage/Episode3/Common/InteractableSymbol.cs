@@ -1,6 +1,7 @@
 ﻿namespace Episode3.Common
 {
     using System.Collections;
+    using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
     using UnityEngine.AI;
@@ -50,6 +51,17 @@
         [Tooltip("플레이어가 범위에 있을 때 보여줄 UI 오브젝트")]
         [SerializeField] private GameObject interactUI;
 
+        [Header("상호작용 우선순위")]
+        [Tooltip("겹친 상호작용 오브젝트 중 더 큰 값이 우선 반응합니다.")]
+        [SerializeField] private int interactionPriority = 0;
+
+        [Header("1회 사용 후 비활성화")]
+        [Tooltip("한 번 상호작용하면 이 심볼의 상호작용을 비활성화합니다.")]
+        [SerializeField] private bool disableInteractionAfterUse = false;
+
+        [Tooltip("한 번 상호작용하면 이 오브젝트의 콜라이더를 비활성화합니다.")]
+        [SerializeField] private bool disableColliderAfterUse = false;
+
         [Header("도착 연출")]
         [Tooltip("플레이어가 범위에 처음 들어왔을 때 컷씬/연출을 실행합니다.")]
         [SerializeField] private bool playArrivalSequenceOnEnter = false;
@@ -92,6 +104,8 @@
         /// Player 오브젝트에서 `PlayerInput`의 Interact 이벤트를 구독합니다.
         /// </summary>
         private PlayerInput user;
+        private Transform playerTransform;
+        private Collider playerCollider;
 
         /// <summary>
         /// 플레이어 태그 (찾기용)
@@ -109,6 +123,9 @@
         private bool interactionCutscenePlayed;
         private bool interactionCutsceneRunning;
         private bool interactionCutsceneListenerAdded;
+        private Collider cachedCollider;
+
+        private static readonly System.Collections.Generic.List<InteractableSymbol> ActiveSymbols = new();
 
         private void Awake()
         {
@@ -118,6 +135,13 @@
             if (playerObject != null)
             {
                 user = playerObject.GetComponent<PlayerInput>();
+                playerTransform = playerObject.transform;
+                playerCollider = playerObject.GetComponent<Collider>();
+
+                if (playerCollider == null)
+                {
+                    playerCollider = playerObject.GetComponentInChildren<Collider>();
+                }
             }
             else
             {
@@ -129,19 +153,31 @@
             {
                 interactUI.SetActive(false);
             }
+
+            cachedCollider = ResolvePreferredCollider();
         }
 
         private void OnEnable()
         {
+            if (!ActiveSymbols.Contains(this))
+            {
+                ActiveSymbols.Add(this);
+            }
+
             // PlayerInput의 Interact 이벤트 구독
             if (user != null)
             {
                 user.Interact += SymbolInteract;
             }
+
+            SyncPlayerInRangeState();
+            RefreshAllInteractUI();
         }
 
         private void OnDisable()
         {
+            ActiveSymbols.Remove(this);
+
             // 이벤트 구독 해제
             if (user != null)
             {
@@ -150,6 +186,7 @@
 
             RemoveArrivalCutsceneListener();
             RemoveInteractionCutsceneListener();
+            RefreshAllInteractUI();
         }
 
         private void OnDestroy()
@@ -174,7 +211,7 @@
             if (!other.CompareTag(playerTag)) return;
 
             playerInRange = true;
-            UpdateInteractUI();
+            RefreshAllInteractUI();
             TryStartArrivalSequence();
         }
 
@@ -184,7 +221,7 @@
             if (!other.CompareTag(playerTag)) return;
 
             playerInRange = false;
-            UpdateInteractUI();
+            RefreshAllInteractUI();
         }
 
         /// <summary>
@@ -196,6 +233,7 @@
             if (!interactionEnabled) return;
             if (IsAnySequenceRunning()) return;
             if (!playerInRange) return;
+            if (!IsTopPriorityInteractionCandidate()) return;
 
             PerformInteraction();
         }
@@ -203,7 +241,29 @@
         public void SetInteractionEnabled(bool enabled)
         {
             interactionEnabled = enabled;
-            UpdateInteractUI();
+            cachedCollider ??= ResolvePreferredCollider();
+            SyncPlayerInRangeState();
+            RefreshAllInteractUI();
+        }
+
+        public void SetColliderEnabled(bool enabled)
+        {
+            cachedCollider ??= ResolvePreferredCollider();
+
+            if (cachedCollider != null)
+            {
+                cachedCollider.enabled = enabled;
+            }
+
+            SyncPlayerInRangeState();
+            RefreshAllInteractUI();
+        }
+
+        public void RefreshInteractionState()
+        {
+            cachedCollider ??= ResolvePreferredCollider();
+            SyncPlayerInRangeState();
+            RefreshAllInteractUI();
         }
 
         /// <summary>
@@ -234,6 +294,7 @@
         private void ExecuteInteractionAction()
         {
             HideInteractUI();
+            HandlePostInteractionDisable();
 
             // 씬 전환 또는 이벤트 호출
             if (useSceneName)
@@ -251,6 +312,26 @@
             {
                 onInteract?.Invoke();
             }
+        }
+
+        private void HandlePostInteractionDisable()
+        {
+            if (disableInteractionAfterUse)
+            {
+                interactionEnabled = false;
+                playerInRange = false;
+            }
+
+            if (disableColliderAfterUse)
+            {
+                cachedCollider ??= GetComponent<Collider>();
+                if (cachedCollider != null)
+                {
+                    cachedCollider.enabled = false;
+                }
+            }
+
+            RefreshAllInteractUI();
         }
 
         /// <summary>
@@ -272,10 +353,207 @@
 
         private void UpdateInteractUI()
         {
-            if (interactUI != null)
+            RefreshAllInteractUI();
+        }
+
+        private bool ShouldDisplayInteractUI()
+        {
+            return interactUI != null
+                && interactionEnabled
+                && playerInRange
+                && !IsAnySequenceRunning()
+                && IsTopPriorityInteractionCandidate();
+        }
+
+        private bool IsTopPriorityInteractionCandidate()
+        {
+            if (!interactionEnabled || !playerInRange || IsAnySequenceRunning())
             {
-                interactUI.SetActive(interactionEnabled && playerInRange && !IsAnySequenceRunning());
+                return false;
             }
+
+            float myDistance = GetInteractionDistance();
+
+            foreach (InteractableSymbol symbol in ActiveSymbols)
+            {
+                if (symbol == null || symbol == this)
+                {
+                    continue;
+                }
+
+                if (!symbol.gameObject.activeInHierarchy || !symbol.interactionEnabled || !symbol.playerInRange || symbol.IsAnySequenceRunning())
+                {
+                    continue;
+                }
+
+                if (symbol.interactionPriority > interactionPriority)
+                {
+                    return false;
+                }
+
+                if (symbol.interactionPriority == interactionPriority)
+                {
+                    float otherDistance = symbol.GetInteractionDistance();
+                    if (otherDistance + 0.01f < myDistance)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private float GetInteractionDistance()
+        {
+            if (playerTransform == null)
+            {
+                return float.MaxValue;
+            }
+
+            if (cachedCollider != null)
+            {
+                Vector3 closestPoint = cachedCollider.bounds.ClosestPoint(playerTransform.position);
+                return Vector3.SqrMagnitude(playerTransform.position - closestPoint);
+            }
+
+            return Vector3.SqrMagnitude(playerTransform.position - transform.position);
+        }
+
+        private Collider ResolvePreferredCollider()
+        {
+            Collider[] colliders = GetComponents<Collider>();
+            Collider fallbackCollider = null;
+
+            foreach (Collider candidate in colliders)
+            {
+                if (candidate == null)
+                {
+                    continue;
+                }
+
+                fallbackCollider ??= candidate;
+
+                if (!candidate.isTrigger)
+                {
+                    continue;
+                }
+
+                if (candidate is BoxCollider || candidate is SphereCollider || candidate is CapsuleCollider)
+                {
+                    return candidate;
+                }
+
+                if (candidate is MeshCollider meshCollider && meshCollider.convex)
+                {
+                    return candidate;
+                }
+            }
+
+            return fallbackCollider;
+        }
+
+        private void SyncPlayerInRangeState()
+        {
+            if (!interactionEnabled || playerCollider == null || cachedCollider == null || !cachedCollider.enabled || !gameObject.activeInHierarchy)
+            {
+                playerInRange = false;
+                return;
+            }
+
+            playerInRange = cachedCollider.bounds.Intersects(playerCollider.bounds);
+        }
+
+        private static void RefreshAllInteractUI()
+        {
+            Dictionary<GameObject, InteractableSymbol> bestByInteractUi = new();
+            HashSet<GameObject> encounteredUiObjects = new();
+
+            for (int i = ActiveSymbols.Count - 1; i >= 0; i--)
+            {
+                InteractableSymbol symbol = ActiveSymbols[i];
+                if (symbol == null)
+                {
+                    ActiveSymbols.RemoveAt(i);
+                    continue;
+                }
+
+                if (symbol.interactUI == null)
+                {
+                    continue;
+                }
+
+                encounteredUiObjects.Add(symbol.interactUI);
+
+                if (!symbol.ShouldDisplayInteractUI())
+                {
+                    continue;
+                }
+
+                if (!bestByInteractUi.TryGetValue(symbol.interactUI, out InteractableSymbol currentBest))
+                {
+                    bestByInteractUi[symbol.interactUI] = symbol;
+                    continue;
+                }
+
+                if (ComparePriority(symbol, currentBest) > 0)
+                {
+                    bestByInteractUi[symbol.interactUI] = symbol;
+                }
+            }
+
+            foreach (GameObject uiObject in encounteredUiObjects)
+            {
+                if (uiObject != null)
+                {
+                    uiObject.SetActive(false);
+                }
+            }
+
+            foreach (KeyValuePair<GameObject, InteractableSymbol> pair in bestByInteractUi)
+            {
+                if (pair.Key != null)
+                {
+                    pair.Key.SetActive(true);
+                }
+            }
+        }
+
+        private static int ComparePriority(InteractableSymbol candidate, InteractableSymbol currentBest)
+        {
+            if (candidate == null && currentBest == null)
+            {
+                return 0;
+            }
+
+            if (candidate == null)
+            {
+                return -1;
+            }
+
+            if (currentBest == null)
+            {
+                return 1;
+            }
+
+            if (candidate.interactionPriority != currentBest.interactionPriority)
+            {
+                return candidate.interactionPriority.CompareTo(currentBest.interactionPriority);
+            }
+
+            float candidateDistance = candidate.GetInteractionDistance();
+            float currentBestDistance = currentBest.GetInteractionDistance();
+            if (candidateDistance + 0.01f < currentBestDistance)
+            {
+                return 1;
+            }
+
+            if (currentBestDistance + 0.01f < candidateDistance)
+            {
+                return -1;
+            }
+
+            return 0;
         }
 
         private bool IsAnySequenceRunning()

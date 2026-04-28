@@ -1,4 +1,5 @@
 ﻿using System;
+using Episode3.Common;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class FinalPianoInteraction : MonoBehaviour
     [SerializeField] private GameObject cutscenePanel;
     [SerializeField] private Image cutsceneImage;
     [SerializeField] private FinalDialogueController finalDialogueController;
+    [SerializeField] private GameObject harmonySymbol;
     [SerializeField] private bool autoResolveSceneReferences = true;
     [SerializeField] private bool unlockExitAfterCutscene = true;
     [SerializeField] private bool fallbackToMusicIfCutsceneUnavailable = true;
@@ -40,6 +42,7 @@ public class FinalPianoInteraction : MonoBehaviour
     {
         ResolveReferences();
         BindCutsceneFinished();
+        SetHarmonySymbolVisible(false);
     }
 
     private void OnDestroy()
@@ -192,6 +195,18 @@ public class FinalPianoInteraction : MonoBehaviour
         isSequenceRunning = false;
     }
 
+    public void RevealHarmonySymbol()
+    {
+        ResolveHarmonySymbolReferenceIfNeeded();
+        SetHarmonySymbolVisible(true);
+    }
+
+    public void HideHarmonySymbol()
+    {
+        ResolveHarmonySymbolReferenceIfNeeded();
+        SetHarmonySymbolVisible(false);
+    }
+
     public void StopMusic()
     {
         if (audioSource == null)
@@ -340,6 +355,48 @@ public class FinalPianoInteraction : MonoBehaviour
 
         cutscenePlayer.RemoveFinishedListener(HandleCutsceneFinished);
         cutscenePlayer.AddFinishedListener(HandleCutsceneFinished);
+    }
+
+    private void SetHarmonySymbolVisible(bool visible)
+    {
+        ResolveHarmonySymbolReferenceIfNeeded();
+
+        if (harmonySymbol == null)
+        {
+            if (debugLog)
+            {
+                Debug.LogWarning("[FinalPianoInteraction] HarmonySymbol 참조를 찾지 못했습니다.");
+            }
+            return;
+        }
+
+        harmonySymbol.SetActive(visible);
+
+        InteractableSymbol interactableSymbol = harmonySymbol.GetComponent<InteractableSymbol>();
+        if (interactableSymbol != null)
+        {
+            interactableSymbol.SetInteractionEnabled(visible);
+            interactableSymbol.RefreshInteractionState();
+        }
+
+        if (debugLog)
+        {
+            Debug.Log($"[FinalPianoInteraction] HarmonySymbol 활성 상태 변경: {visible}");
+        }
+    }
+
+    private void ResolveHarmonySymbolReferenceIfNeeded()
+    {
+        if (harmonySymbol != null)
+        {
+            return;
+        }
+
+        GameObject resolvedSymbol = FindSceneGameObject("HarmonySymbol");
+        if (resolvedSymbol != null)
+        {
+            harmonySymbol = resolvedSymbol;
+        }
     }
 
     private void MarkEpisode4Open()

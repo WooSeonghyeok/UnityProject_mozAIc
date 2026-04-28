@@ -2703,7 +2703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379394501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000096546025, y: 0.9673247, z: -0.25354084, w: -0.00000036834834}
+  m_LocalRotation: {x: -0.000000018811761, y: 0.9977748, z: -0.066675454, w: -0.00000028155992}
   m_LocalPosition: {x: 6.95, y: -2.2, z: 28.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5290,6 +5290,8 @@ MonoBehaviour:
   spotlightObjects:
   - {fileID: 599265471}
   completedSheetInteractable: {fileID: 0}
+  interactablesToUnlockOnPuzzleClear:
+  - {fileID: 801724585}
   completionImageCutscene: {fileID: 0}
   completionCutsceneController: {fileID: 0}
   doorObject: {fileID: 174836025}
@@ -5320,6 +5322,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 1184578991}
+  interactionPriority: 50
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -10255,6 +10260,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 0}
+  interactionPriority: 0
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -10440,6 +10448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5362157704275013654, guid: eb099fe5e53d45c4086a9a3dfd389da6, type: 3}
+    - {fileID: 421446643541582641, guid: eb099fe5e53d45c4086a9a3dfd389da6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -10480,7 +10489,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4, y: 1.2, z: 1.4}
+  m_Size: {x: 3, y: 2, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1594987885
 MonoBehaviour:
@@ -10501,7 +10510,10 @@ MonoBehaviour:
     \uD569\uB2C8\uB2E4."
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
-  interactUI: {fileID: 0}
+  interactUI: {fileID: 1184578991}
+  interactionPriority: 100
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
@@ -12896,6 +12908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2020861583}
   - component: {fileID: 2020861586}
+  - component: {fileID: 2020861585}
   - component: {fileID: 2020861587}
   m_Layer: 0
   m_Name: cm
@@ -12919,7 +12932,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 379394503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2020861586
+--- !u!114 &2020861585
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12943,6 +12956,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2020861587
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020861582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Damping: {x: 0.3, y: 0.3, z: 0.3}
   ShoulderOffset: {x: 0, y: 0.4, z: 0}
   VerticalArmLength: 0.4
@@ -12950,8 +12975,8 @@ MonoBehaviour:
   CameraDistance: 4
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 192
-  IgnoreTag: Player
+    m_Bits: 0
+  IgnoreTag: 
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
@@ -13667,6 +13692,9 @@ MonoBehaviour:
   lockedMessageDuration: 1.5
   lockedPopupResourcePath: Prefabs/UI/Episode3SymbolLockPopup
   interactUI: {fileID: 0}
+  interactionPriority: 0
+  disableInteractionAfterUse: 0
+  disableColliderAfterUse: 0
   playArrivalSequenceOnEnter: 0
   playArrivalSequenceOnlyOnce: 1
   arrivalCutscenePlayer: {fileID: 0}
