@@ -38,6 +38,21 @@ public class RhythmScoreManager : MonoBehaviour
     public int ExcellentCount => excellentCount;
     public RhythmJudgeGrade LastJudgeGrade => lastJudgeGrade;
     public int BonusLivesEarned => bonusLivesEarned;
+    public int PointsPerBonusLife => Mathf.Max(0, pointsPerBonusLife);
+    public int ScoreWithinCurrentBonusCycle => pointsPerBonusLife <= 0 ? score : score % pointsPerBonusLife;
+    public int ScoreToNextBonusLife
+    {
+        get
+        {
+            if (pointsPerBonusLife <= 0)
+            {
+                return 0;
+            }
+
+            int currentCycleScore = score % pointsPerBonusLife;
+            return currentCycleScore == 0 && score > 0 ? pointsPerBonusLife : pointsPerBonusLife - currentCycleScore;
+        }
+    }
 
     // 점수 관련 상태를 초기값으로 리셋한다.
     // 새 퍼즐 시작 시 호출된다.

@@ -20,10 +20,12 @@ MonoBehaviour:
   playAmbientOnEnter: 1
   applyVolumeDefaultsOnEnter: 1
   defaultMasterVolume: 1
-  defaultBGMVolume: 0.78
-  defaultAmbientVolume: 0.64
+  defaultBGMVolume: 0.4
+  defaultAmbientVolume: 0.56
   defaultUIVolume: 0.88
-  defaultSFXVolume: 0.9
+  defaultSFXVolume: 0.82
+  acousticPreset: 1
+  acousticIntensity: 0.65
   playerFootstep: 5
   playerJump: 1
   playerLand: 2

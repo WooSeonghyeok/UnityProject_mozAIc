@@ -91,6 +91,14 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
     [SerializeField] private Color downLaneColor = new Color(0.48f, 0.88f, 0.96f, 1f);
     [SerializeField] private Color rightLaneColor = new Color(0.73f, 0.62f, 1f, 1f);
     [SerializeField] private Color extraLaneColor = new Color(0.62f, 1f, 0.72f, 1f);
+    [SerializeField] private bool showScorePanel = true;
+    [SerializeField] private Vector2 scorePanelScreenOffset = new Vector2(132f, 40f);
+    [SerializeField] private Vector2 scorePanelSize = new Vector2(360f, 170f);
+    [SerializeField] private Color scorePanelBackgroundColor = new Color(0f, 0f, 0f, 0.6f);
+    [SerializeField] private Color scorePanelTitleColor = new Color(1f, 0.95f, 0.73f, 1f);
+    [SerializeField] private Color scorePanelMajorDigitColor = new Color(1f, 0.86f, 0.42f, 1f);
+    [SerializeField] private Color scorePanelMinorDigitColor = new Color(1f, 1f, 1f, 1f);
+    [SerializeField] private Color scorePanelHintColor = new Color(0.91f, 0.91f, 0.91f, 1f);
 
     [Header("실패 조건")]
     [SerializeField] [Min(0.02f)] private float excellentJudgeWindow = 0.08f;
@@ -150,6 +158,14 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
     private Transform judgeInfoRoot;
     private TextMeshProUGUI judgeGradeText;
     private TextMeshProUGUI remainingMistakeText;
+    private RectTransform scorePanelRoot;
+    private TextMeshProUGUI scorePanelText;
+    private OptionPopupManager cachedOptionPopupManager;
+    private GameObject cachedOptionPopupObject;
+    private GameObject cachedOptionButtonObject;
+    private bool cachedOptionPopupWasActive;
+    private bool cachedOptionButtonWasActive;
+    private bool hasCachedOptionUiState;
 
     private BeatMapData runtimeBeatMap;
     private Transform cachedPlayerTransform;
@@ -204,6 +220,7 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         UpdateLanePadFeedbacks(Time.deltaTime);
         UpdatePuzzleCameraPose();
         UpdateJudgeInfoPanels();
+        UpdateScorePanel();
         ProcessScoreLifeRecovery();
 
         if (scoreManager != null && GetUsedMistakeCount() >= GetTotalAllowedMistakes())
@@ -246,6 +263,7 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
 
         CachePlayerState();
         LockPlayer();
+        SetOptionUiHiddenForPuzzle(true);
         BuildRuntimeVisuals();
         SetRuntimeVisualRootActive(true);
         EnablePuzzleCamera();
@@ -320,6 +338,7 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         SetRuntimeVisualRootActive(false);
         DisablePuzzleCamera();
         UnlockPlayer();
+        SetOptionUiHiddenForPuzzle(false);
         isCompleting = false;
     }
 
@@ -623,8 +642,10 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         GetOrCreateLanePad(Ep3_2LaneType.J);
         GetOrCreateLanePad(Ep3_2LaneType.K);
         EnsureJudgeInfoPanels();
+        EnsureScorePanel();
         UpdateLanePadLayout();
         UpdateJudgeInfoPanels();
+        UpdateScorePanel();
     }
 
     private void EnsureRuntimeVisualRoot()
@@ -2047,6 +2068,85 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         }
     }
 
+    private void EnsureScorePanel()
+    {
+        if (!showScorePanel || runtimeVisualRoot == null)
+        {
+            return;
+        }
+
+        if (scorePanelRoot == null)
+        {
+            GameObject canvasObject = new GameObject("ScorePanelCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            canvasObject.transform.SetParent(runtimeVisualRoot, false);
+
+            Canvas canvas = canvasObject.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 620;
+
+            CanvasScaler scaler = canvasObject.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            scaler.matchWidthOrHeight = 0.5f;
+
+            GraphicRaycaster raycaster = canvasObject.GetComponent<GraphicRaycaster>();
+            raycaster.enabled = false;
+
+            RectTransform canvasRect = canvasObject.GetComponent<RectTransform>();
+            canvasRect.anchorMin = Vector2.zero;
+            canvasRect.anchorMax = Vector2.one;
+            canvasRect.offsetMin = Vector2.zero;
+            canvasRect.offsetMax = Vector2.zero;
+
+            GameObject panelObject = new GameObject("ScorePanel", typeof(Image));
+            panelObject.transform.SetParent(canvasObject.transform, false);
+            scorePanelRoot = panelObject.GetComponent<RectTransform>();
+            scorePanelRoot.anchorMin = new Vector2(1f, 1f);
+            scorePanelRoot.anchorMax = new Vector2(1f, 1f);
+            scorePanelRoot.pivot = new Vector2(1f, 1f);
+
+            Image background = panelObject.GetComponent<Image>();
+            background.color = scorePanelBackgroundColor;
+            background.raycastTarget = false;
+
+            GameObject textObject = new GameObject("ScoreText", typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(panelObject.transform, false);
+            scorePanelText = textObject.GetComponent<TextMeshProUGUI>();
+            scorePanelText.alignment = TextAlignmentOptions.TopRight;
+            scorePanelText.enableWordWrapping = false;
+            scorePanelText.richText = true;
+            scorePanelText.color = scorePanelMinorDigitColor;
+            scorePanelText.outlineWidth = 0.12f;
+            scorePanelText.outlineColor = new Color(0f, 0f, 0f, 0.92f);
+            scorePanelText.fontStyle = FontStyles.Bold;
+            scorePanelText.enableAutoSizing = false;
+            scorePanelText.fontSize = 30f;
+
+            if (laneLabelFontAsset == null)
+            {
+                laneLabelFontAsset = TMP_Settings.defaultFontAsset;
+            }
+
+            if (laneLabelFontAsset == null)
+            {
+                laneLabelFontAsset = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+            }
+
+            if (laneLabelFontAsset != null)
+            {
+                scorePanelText.font = laneLabelFontAsset;
+            }
+
+            RectTransform textRect = scorePanelText.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(24f, 18f);
+            textRect.offsetMax = new Vector2(-24f, -18f);
+        }
+    }
+
     private TextMeshProUGUI CreateJudgeInfoPanel(string panelName)
     {
         if (judgeInfoRoot == null)
@@ -2153,6 +2253,127 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         remainingMistakeText.color = GetDisplayRemainingMistakeTextColor();
     }
 
+    private void UpdateScorePanel()
+    {
+        if (!showScorePanel)
+        {
+            if (scorePanelRoot != null)
+            {
+                scorePanelRoot.gameObject.SetActive(false);
+            }
+
+            return;
+        }
+
+        EnsureScorePanel();
+        if (scorePanelRoot == null || scorePanelText == null)
+        {
+            return;
+        }
+
+        scorePanelRoot.gameObject.SetActive(true);
+        scorePanelRoot.sizeDelta = scorePanelSize;
+        scorePanelRoot.anchoredPosition = new Vector2(-Mathf.Abs(scorePanelScreenOffset.x), -Mathf.Abs(scorePanelScreenOffset.y));
+
+        Image background = scorePanelRoot.GetComponent<Image>();
+        if (background != null)
+        {
+            background.color = scorePanelBackgroundColor;
+        }
+
+        scorePanelText.text = BuildScorePanelRichText();
+    }
+
+    private void SetOptionUiHiddenForPuzzle(bool isHidden)
+    {
+        CacheOptionUiReferences();
+
+        if (isHidden)
+        {
+            if (!hasCachedOptionUiState)
+            {
+                cachedOptionPopupWasActive = cachedOptionPopupObject != null && cachedOptionPopupObject.activeSelf;
+                cachedOptionButtonWasActive = cachedOptionButtonObject != null && cachedOptionButtonObject.activeSelf;
+                hasCachedOptionUiState = true;
+            }
+
+            if (cachedOptionPopupObject != null)
+            {
+                cachedOptionPopupObject.SetActive(false);
+            }
+
+            if (cachedOptionButtonObject != null)
+            {
+                cachedOptionButtonObject.SetActive(false);
+            }
+
+            return;
+        }
+
+        if (cachedOptionPopupObject != null)
+        {
+            cachedOptionPopupObject.SetActive(hasCachedOptionUiState && cachedOptionPopupWasActive);
+        }
+
+        if (cachedOptionButtonObject != null)
+        {
+            cachedOptionButtonObject.SetActive(!hasCachedOptionUiState || cachedOptionButtonWasActive);
+        }
+
+        hasCachedOptionUiState = false;
+    }
+
+    private void CacheOptionUiReferences()
+    {
+        if (cachedOptionPopupManager == null)
+        {
+            OptionPopupManager[] popupManagers = Resources.FindObjectsOfTypeAll<OptionPopupManager>();
+            if (popupManagers != null && popupManagers.Length > 0)
+            {
+                cachedOptionPopupManager = popupManagers[0];
+            }
+        }
+
+        if (cachedOptionPopupObject == null && cachedOptionPopupManager != null)
+        {
+            cachedOptionPopupObject = cachedOptionPopupManager.OptionPopup != null
+                ? cachedOptionPopupManager.OptionPopup
+                : cachedOptionPopupManager.gameObject;
+        }
+
+        if (cachedOptionButtonObject == null)
+        {
+            cachedOptionButtonObject = FindSceneObjectByName("Option_Btn");
+        }
+    }
+
+    private GameObject FindSceneObjectByName(string objectName)
+    {
+        Transform[] transforms = Resources.FindObjectsOfTypeAll<Transform>();
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            Transform candidate = transforms[i];
+            if (candidate == null || candidate.hideFlags != HideFlags.None)
+            {
+                continue;
+            }
+
+            if (candidate.name != objectName)
+            {
+                continue;
+            }
+
+            if (!candidate.gameObject.scene.IsValid())
+            {
+                continue;
+            }
+
+            return candidate.gameObject;
+        }
+
+        return null;
+    }
+
     private void PositionJudgeInfoPanel(TextMeshProUGUI textMesh, Vector2 anchoredPosition)
     {
         if (textMesh == null)
@@ -2180,6 +2401,40 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
                 background.color = judgeInfoPanelBackgroundColor;
             }
         }
+    }
+
+    private string BuildScorePanelRichText()
+    {
+        int currentScore = scoreManager != null ? Mathf.Max(0, scoreManager.Score) : 0;
+        int pointsPerLife = scoreManager != null ? Mathf.Max(1, scoreManager.PointsPerBonusLife) : 10000;
+        int majorUnit = currentScore / pointsPerLife;
+        int cycleScore = scoreManager != null ? Mathf.Max(0, scoreManager.ScoreWithinCurrentBonusCycle) : currentScore % pointsPerLife;
+        int scoreToNextLife = scoreManager != null ? Mathf.Max(0, scoreManager.ScoreToNextBonusLife) : Mathf.Max(0, pointsPerLife - cycleScore);
+
+        string titleColorHtml = ColorUtility.ToHtmlStringRGB(scorePanelTitleColor);
+        string majorColorHtml = ColorUtility.ToHtmlStringRGB(scorePanelMajorDigitColor);
+        string minorColorHtml = ColorUtility.ToHtmlStringRGB(scorePanelMinorDigitColor);
+        string hintColorHtml = ColorUtility.ToHtmlStringRGB(scorePanelHintColor);
+
+        string scoreLine;
+        if (pointsPerLife == 10000)
+        {
+            scoreLine = $"<size=38><color=#{titleColorHtml}>SCORE</color></size>\n"
+                + $"<size=84><color=#{majorColorHtml}>{majorUnit}</color></size>"
+                + $"<size=40><color=#{titleColorHtml}>만</color></size> "
+                + $"<size=58><color=#{minorColorHtml}>{cycleScore:0000}</color></size>";
+        }
+        else
+        {
+            scoreLine = $"<size=38><color=#{titleColorHtml}>SCORE</color></size>\n"
+                + $"<size=84><color=#{majorColorHtml}>{majorUnit}</color></size>"
+                + $"<size=40><color=#{titleColorHtml}> | </color></size>"
+                + $"<size=58><color=#{minorColorHtml}>{cycleScore:0000}</color></size>";
+        }
+
+        string hintLine = $"<size=27><color=#{hintColorHtml}>{pointsPerLife:N0}점마다 라이프 회복</color></size>";
+        string nextLifeLine = $"<size=27><color=#{hintColorHtml}>다음 회복까지 {scoreToNextLife:N0}점</color></size>";
+        return $"{scoreLine}\n{hintLine}\n{nextLifeLine}";
     }
 
     private string GetJudgeInfoLabel(RhythmJudgeGrade judgeGrade)

@@ -1481,6 +1481,7 @@ public class Ep3LobbyIntroCutsceneController : MonoBehaviour
             return;
         }
 
+        TextboxManager textboxManager = forceStandaloneSubtitleOverlay ? null : FindTextboxManager();
         Ep3CutsceneSubtitlePresenter[] presenters = FindObjectsOfType<Ep3CutsceneSubtitlePresenter>(true);
         if (presenters != null && presenters.Length > 0)
         {

@@ -610,6 +610,22 @@ MonoBehaviour:
   uiSource: {fileID: 1820929959144015762}
   sfxSource: {fileID: 7546765425923134473}
   loopSfxSource: {fileID: 6627404428511012620}
+  sceneAudioMixer: {fileID: 24100000, guid: 5d3559ff7545784438db156713990773, type: 2}
+  bgmMixerGroup: {fileID: -3652863811986397261, guid: 5d3559ff7545784438db156713990773, type: 2}
+  ambientMixerGroup: {fileID: 5984130926050591385, guid: 5d3559ff7545784438db156713990773, type: 2}
+  uiMixerGroup: {fileID: 6860677442182116423, guid: 5d3559ff7545784438db156713990773, type: 2}
+  sfxMixerGroup: {fileID: -7412646561215677014, guid: 5d3559ff7545784438db156713990773, type: 2}
+  loopSfxMixerGroup: {fileID: -7412646561215677014, guid: 5d3559ff7545784438db156713990773, type: 2}
+  acousticSnapshotTransitionTime: 0.75
+  distantBgmLowPassCutoff: 2600
+  distantAmbientLowPassCutoff: 2200
+  distantSfxLowPassCutoff: 3000
+  distantLoopSfxLowPassCutoff: 2800
+  distant3DSfxLowPassCutoff: 3000
+  distantReverbPreset: 14
+  distantReverbDryLevel: -2000
+  distantReverbRoom: -1000
+  distantReverbDecayTime: 1.45
   masterVolume: 1
   bgmVolume: 1
   ambientVolume: 0.5

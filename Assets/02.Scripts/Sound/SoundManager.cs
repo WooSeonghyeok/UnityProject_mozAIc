@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 /// <summary>
 /// 프로젝트 전체의 사운드를 총괄하는 매니저
@@ -165,6 +166,26 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;      // �Ϲ� ȿ���� ����
     [SerializeField] private AudioSource loopSfxSource;   // ���� ȿ���� ����
 
+    [Header("오디오 믹서")]
+    [SerializeField] private AudioMixer sceneAudioMixer;
+    [SerializeField] private AudioMixerGroup bgmMixerGroup;
+    [SerializeField] private AudioMixerGroup ambientMixerGroup;
+    [SerializeField] private AudioMixerGroup uiMixerGroup;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] private AudioMixerGroup loopSfxMixerGroup;
+    [SerializeField] private float acousticSnapshotTransitionTime = 0.75f;
+
+    [Header("기억 왜곡 필터")]
+    [SerializeField] private float distantBgmLowPassCutoff = 2600f;
+    [SerializeField] private float distantAmbientLowPassCutoff = 2200f;
+    [SerializeField] private float distantSfxLowPassCutoff = 3000f;
+    [SerializeField] private float distantLoopSfxLowPassCutoff = 2800f;
+    [SerializeField] private float distant3DSfxLowPassCutoff = 3000f;
+    [SerializeField] private AudioReverbPreset distantReverbPreset = AudioReverbPreset.StoneCorridor;
+    [SerializeField] private float distantReverbDryLevel = -2000f;
+    [SerializeField] private float distantReverbRoom = -1000f;
+    [SerializeField] private float distantReverbDecayTime = 1.45f;
+
     [Header("����")]
     [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
     [Range(0f, 1f)][SerializeField] private float bgmVolume = 1f;
@@ -213,6 +234,12 @@ public class SoundManager : MonoBehaviour
     public bool isUIMute = false;
     public bool isSFXMute = false;
     private bool audioCustomizedByUser;
+    private readonly Dictionary<AudioSource, AudioLowPassFilter> lowPassFilters = new Dictionary<AudioSource, AudioLowPassFilter>();
+    private readonly Dictionary<AudioSource, AudioReverbFilter> reverbFilters = new Dictionary<AudioSource, AudioReverbFilter>();
+    private SoundProfile.SceneAcousticPreset currentAcousticPreset = SoundProfile.SceneAcousticPreset.Normal;
+    private float currentAcousticIntensity;
+    private AudioMixerSnapshot normalSnapshot;
+    private AudioMixerSnapshot distantSnapshot;
     #endregion
     #region Unity Life Cycle
     private void Awake()
@@ -229,6 +256,11 @@ public class SoundManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+        EnsureDedicatedAudioSources();
+        AssignMixerOutputs();
+        CacheMixerSnapshots();
+        EnsureAcousticFilters();
+        ApplySceneAcousticPreset(SoundProfile.SceneAcousticPreset.Normal, 0f, true);
         BuildDictionaries();
         BuildSceneSoundDictionary();
         SetResetTargetsToProjectDefaults();
@@ -299,6 +331,245 @@ public class SoundManager : MonoBehaviour
 
             sceneSoundDict.Add(entry.sceneName, entry.profile);
         }
+    }
+
+    private void EnsureDedicatedAudioSources()
+    {
+        bgmSource = EnsureDedicatedAudioSource(bgmSource, "BGMSource");
+        ambientSource = EnsureDedicatedAudioSource(ambientSource, "AmbientSource");
+        uiSource = EnsureDedicatedAudioSource(uiSource, "UISource");
+        sfxSource = EnsureDedicatedAudioSource(sfxSource, "SFXSource");
+        loopSfxSource = EnsureDedicatedAudioSource(loopSfxSource, "LoopSFXSource");
+    }
+
+    private AudioSource EnsureDedicatedAudioSource(AudioSource source, string childName)
+    {
+        if (source == null)
+        {
+            return null;
+        }
+
+        if (source.gameObject != gameObject)
+        {
+            return source;
+        }
+
+        Transform existingChild = transform.Find(childName);
+        if (existingChild != null)
+        {
+            AudioSource existingSource = existingChild.GetComponent<AudioSource>();
+            if (existingSource != null)
+            {
+                source.enabled = false;
+                source.playOnAwake = false;
+                return existingSource;
+            }
+        }
+
+        GameObject child = new GameObject(childName);
+        child.transform.SetParent(transform, false);
+
+        AudioSource dedicatedSource = child.AddComponent<AudioSource>();
+        CopyAudioSourceSettings(source, dedicatedSource);
+
+        source.enabled = false;
+        source.playOnAwake = false;
+        source.clip = null;
+
+        return dedicatedSource;
+    }
+
+    private void CopyAudioSourceSettings(AudioSource source, AudioSource target)
+    {
+        if (source == null || target == null)
+        {
+            return;
+        }
+
+        target.clip = source.clip;
+        target.outputAudioMixerGroup = source.outputAudioMixerGroup;
+        target.playOnAwake = source.playOnAwake;
+        target.loop = source.loop;
+        target.mute = source.mute;
+        target.bypassEffects = source.bypassEffects;
+        target.bypassListenerEffects = source.bypassListenerEffects;
+        target.bypassReverbZones = source.bypassReverbZones;
+        target.priority = source.priority;
+        target.volume = source.volume;
+        target.pitch = source.pitch;
+        target.panStereo = source.panStereo;
+        target.spatialBlend = source.spatialBlend;
+        target.reverbZoneMix = source.reverbZoneMix;
+        target.dopplerLevel = source.dopplerLevel;
+        target.spread = source.spread;
+        target.rolloffMode = source.rolloffMode;
+        target.minDistance = source.minDistance;
+        target.maxDistance = source.maxDistance;
+        target.spatialize = source.spatialize;
+        target.spatializePostEffects = source.spatializePostEffects;
+        target.SetCustomCurve(AudioSourceCurveType.CustomRolloff, source.GetCustomCurve(AudioSourceCurveType.CustomRolloff));
+        target.SetCustomCurve(AudioSourceCurveType.Spread, source.GetCustomCurve(AudioSourceCurveType.Spread));
+        target.SetCustomCurve(AudioSourceCurveType.SpatialBlend, source.GetCustomCurve(AudioSourceCurveType.SpatialBlend));
+        target.SetCustomCurve(AudioSourceCurveType.ReverbZoneMix, source.GetCustomCurve(AudioSourceCurveType.ReverbZoneMix));
+    }
+
+    private void AssignMixerOutputs()
+    {
+        if (bgmSource != null && bgmMixerGroup != null)
+        {
+            bgmSource.outputAudioMixerGroup = bgmMixerGroup;
+        }
+
+        if (ambientSource != null && ambientMixerGroup != null)
+        {
+            ambientSource.outputAudioMixerGroup = ambientMixerGroup;
+        }
+
+        if (uiSource != null && uiMixerGroup != null)
+        {
+            uiSource.outputAudioMixerGroup = uiMixerGroup;
+        }
+
+        if (sfxSource != null && sfxMixerGroup != null)
+        {
+            sfxSource.outputAudioMixerGroup = sfxMixerGroup;
+        }
+
+        if (loopSfxSource != null)
+        {
+            AudioMixerGroup group = loopSfxMixerGroup != null ? loopSfxMixerGroup : sfxMixerGroup;
+            if (group != null)
+            {
+                loopSfxSource.outputAudioMixerGroup = group;
+            }
+        }
+    }
+
+    private void CacheMixerSnapshots()
+    {
+        if (sceneAudioMixer == null)
+        {
+            normalSnapshot = null;
+            distantSnapshot = null;
+            return;
+        }
+
+        normalSnapshot = sceneAudioMixer.FindSnapshot("Normal");
+        distantSnapshot = sceneAudioMixer.FindSnapshot("Distant");
+    }
+
+    private void EnsureAcousticFilters()
+    {
+        EnsureAcousticFiltersForSource(bgmSource);
+        EnsureAcousticFiltersForSource(ambientSource);
+        EnsureAcousticFiltersForSource(sfxSource);
+        EnsureAcousticFiltersForSource(loopSfxSource);
+    }
+
+    private void EnsureAcousticFiltersForSource(AudioSource source)
+    {
+        if (source == null)
+        {
+            return;
+        }
+
+        if (!lowPassFilters.TryGetValue(source, out AudioLowPassFilter lowPass) || lowPass == null)
+        {
+            lowPass = source.GetComponent<AudioLowPassFilter>();
+            if (lowPass == null)
+            {
+                lowPass = source.gameObject.AddComponent<AudioLowPassFilter>();
+            }
+
+            lowPass.enabled = false;
+            lowPassFilters[source] = lowPass;
+        }
+
+        if (!reverbFilters.TryGetValue(source, out AudioReverbFilter reverb) || reverb == null)
+        {
+            reverb = source.GetComponent<AudioReverbFilter>();
+            if (reverb == null)
+            {
+                reverb = source.gameObject.AddComponent<AudioReverbFilter>();
+            }
+
+            reverb.enabled = false;
+            reverbFilters[source] = reverb;
+        }
+    }
+
+    private void ApplySceneAcousticPreset(SoundProfile.SceneAcousticPreset preset, float intensity, bool immediate = false)
+    {
+        currentAcousticPreset = preset;
+        currentAcousticIntensity = Mathf.Clamp01(intensity);
+
+        bool useDistantMemoryFilters = preset == SoundProfile.SceneAcousticPreset.DistantMemory && currentAcousticIntensity > 0.001f;
+
+        AudioMixerSnapshot targetSnapshot = useDistantMemoryFilters && currentAcousticIntensity > 0.4f
+            ? distantSnapshot
+            : normalSnapshot;
+
+        if (targetSnapshot != null)
+        {
+            targetSnapshot.TransitionTo(immediate ? 0f : acousticSnapshotTransitionTime);
+        }
+
+        ConfigureAcousticFilters(bgmSource, useDistantMemoryFilters, Mathf.Lerp(22000f, distantBgmLowPassCutoff, currentAcousticIntensity));
+        ConfigureAcousticFilters(ambientSource, useDistantMemoryFilters, Mathf.Lerp(22000f, distantAmbientLowPassCutoff, currentAcousticIntensity));
+        ConfigureAcousticFilters(sfxSource, useDistantMemoryFilters, Mathf.Lerp(22000f, distantSfxLowPassCutoff, currentAcousticIntensity));
+        ConfigureAcousticFilters(loopSfxSource, useDistantMemoryFilters, Mathf.Lerp(22000f, distantLoopSfxLowPassCutoff, currentAcousticIntensity));
+        ApplyVolumes();
+    }
+
+    private void ConfigureAcousticFilters(AudioSource source, bool enabled, float lowPassCutoff)
+    {
+        if (source == null)
+        {
+            return;
+        }
+
+        EnsureAcousticFiltersForSource(source);
+
+        if (!lowPassFilters.TryGetValue(source, out AudioLowPassFilter lowPass) || lowPass == null)
+        {
+            return;
+        }
+
+        if (!reverbFilters.TryGetValue(source, out AudioReverbFilter reverb) || reverb == null)
+        {
+            return;
+        }
+
+        lowPass.enabled = enabled;
+        lowPass.cutoffFrequency = lowPassCutoff;
+        lowPass.lowpassResonanceQ = 1.1f;
+
+        reverb.enabled = enabled;
+        if (enabled)
+        {
+            reverb.reverbPreset = distantReverbPreset;
+            reverb.dryLevel = Mathf.Lerp(0f, distantReverbDryLevel, currentAcousticIntensity);
+            reverb.room = Mathf.RoundToInt(Mathf.Lerp(0f, distantReverbRoom, currentAcousticIntensity));
+            reverb.decayTime = Mathf.Lerp(1f, distantReverbDecayTime, currentAcousticIntensity);
+        }
+    }
+
+    private void ConfigureTempSourceAcousticFilters(AudioSource source)
+    {
+        if (source == null || currentAcousticPreset != SoundProfile.SceneAcousticPreset.DistantMemory || currentAcousticIntensity <= 0.001f)
+        {
+            return;
+        }
+
+        AudioLowPassFilter lowPass = source.gameObject.AddComponent<AudioLowPassFilter>();
+        lowPass.cutoffFrequency = Mathf.Lerp(22000f, distant3DSfxLowPassCutoff, currentAcousticIntensity);
+        lowPass.lowpassResonanceQ = 1.1f;
+
+        AudioReverbFilter reverb = source.gameObject.AddComponent<AudioReverbFilter>();
+        reverb.reverbPreset = distantReverbPreset;
+        reverb.dryLevel = Mathf.Lerp(0f, distantReverbDryLevel, currentAcousticIntensity);
+        reverb.room = Mathf.RoundToInt(Mathf.Lerp(0f, distantReverbRoom, currentAcousticIntensity));
+        reverb.decayTime = Mathf.Lerp(1f, distantReverbDecayTime, currentAcousticIntensity);
     }
     /// <summary>
     /// 각 소스에 볼륨 적용
@@ -381,10 +652,14 @@ public class SoundManager : MonoBehaviour
     public void ApplyVolumes()
     {
         AudioListener.volume = masterVolume * (isMasterMute ? 0 : 1);
-        if (bgmSource != null) bgmSource.volume = masterVolume * bgmVolume * (isBGMMute ? 0 : 1);
-        if (ambientSource != null) ambientSource.volume = masterVolume * ambientVolume * (isAmbientMute ? 0 : 1);
+        float bgmAcousticMultiplier = Mathf.Lerp(1f, 0.62f, currentAcousticIntensity);
+        float ambientAcousticMultiplier = Mathf.Lerp(1f, 0.58f, currentAcousticIntensity);
+        float sfxAcousticMultiplier = Mathf.Lerp(1f, 0.72f, currentAcousticIntensity);
+        if (bgmSource != null) bgmSource.volume = masterVolume * bgmVolume * bgmAcousticMultiplier * (isBGMMute ? 0 : 1);
+        if (ambientSource != null) ambientSource.volume = masterVolume * ambientVolume * ambientAcousticMultiplier * (isAmbientMute ? 0 : 1);
         if (uiSource != null) uiSource.volume = masterVolume * uiVolume * (isUIMute ? 0 : 1);
-        if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume * (isSFXMute ? 0 : 1);
+        if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume * sfxAcousticMultiplier * (isSFXMute ? 0 : 1);
+        if (loopSfxSource != null) loopSfxSource.volume = masterVolume * sfxVolume * sfxAcousticMultiplier * (isSFXMute ? 0 : 1);
     }
     #endregion
     #region Scene Loaded
@@ -401,6 +676,7 @@ public class SoundManager : MonoBehaviour
         }
 
         SetResetTargetsToProjectDefaults();
+        ApplySceneAcousticPreset(SoundProfile.SceneAcousticPreset.Normal, 0f);
 
         if (useAutoSceneBGM)
         {
@@ -426,6 +702,8 @@ public class SoundManager : MonoBehaviour
         {
             ApplySceneVolumeDefaults(profile);
         }
+
+        ApplySceneAcousticPreset(profile.acousticPreset, profile.acousticIntensity);
 
         if (useAutoSceneBGM)
         {
@@ -659,6 +937,10 @@ public class SoundManager : MonoBehaviour
         tempObj.transform.position = position;
         AudioSource tempSource = tempObj.AddComponent<AudioSource>();
         tempSource.clip = clip;
+        if (sfxMixerGroup != null)
+        {
+            tempSource.outputAudioMixerGroup = sfxMixerGroup;
+        }
         tempSource.volume = masterVolume * sfxVolume * volumeScale;
         tempSource.spatialBlend = 1f; // 3D 사운드
         tempSource.rolloffMode = AudioRolloffMode.Linear;
@@ -666,6 +948,7 @@ public class SoundManager : MonoBehaviour
         tempSource.maxDistance = 15f;
         if (useRandomPitchForSFX)
             tempSource.pitch = Random.Range(sfxPitchMin, sfxPitchMax);
+        ConfigureTempSourceAcousticFilters(tempSource);
         tempSource.Play();
         Destroy(tempObj, clip.length + 0.1f);
     }

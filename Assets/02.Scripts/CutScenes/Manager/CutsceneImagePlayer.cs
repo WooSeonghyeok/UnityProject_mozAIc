@@ -218,7 +218,10 @@ public class CutsceneImagePlayer : MonoBehaviour
         isPlaying = true;
         advanceRequested = false;
         skipRequested = false;
-        GameManager.Instance.CutsceneMode(true);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.CutsceneMode(true);
+        }
         if (cutscenePanel != null)
             cutscenePanel.SetActive(true);
 
@@ -300,7 +303,10 @@ public class CutsceneImagePlayer : MonoBehaviour
         isPlaying = false;
         advanceRequested = false;
         skipRequested = false;
-        GameManager.Instance.CutsceneMode(!isCutsceneOnly);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.CutsceneMode(!isCutsceneOnly);
+        }
         onCutsceneFinished?.Invoke();
     }
 
