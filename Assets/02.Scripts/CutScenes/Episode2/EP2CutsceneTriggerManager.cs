@@ -131,13 +131,13 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         if (ctrl == null) yield break;
 
         // 1️⃣ 이미지1
-        yield return StartCoroutine(PlayCutsceneAndWait("Paint_Clear_Immediate_1"));
+        yield return StartCoroutine(PlayCutsceneAndWait("Paint_Clear_Immediate_1", true));
 
         // 2️⃣ 텍스트1
         yield return StartCoroutine(ctrl.PaintStep3());
 
         // 3️⃣ 이미지2
-        yield return StartCoroutine(PlayCutsceneAndWait("Paint_Clear_Immediate_2"));
+        yield return StartCoroutine(PlayCutsceneAndWait("Paint_Clear_Immediate_2", true));
 
         // 4️⃣ 텍스트2
         yield return StartCoroutine(ctrl.PaintPuzzleComplete());
@@ -151,20 +151,20 @@ public class EP2CutsceneTriggerManager : MonoBehaviour
         if (ctrl == null) yield break;
 
         // ⭐ 이미지 끝날 때까지 기다림
-        yield return StartCoroutine(PlayCutsceneAndWait("Space_Intro"));
+        yield return StartCoroutine(PlayCutsceneAndWait("Space_Intro", false));
 
         // ⭐ 텍스트 실행
         yield return StartCoroutine(ctrl.SpacePuzzleStart());
     }
 
-    IEnumerator PlayCutsceneAndWait(string name)
+    IEnumerator PlayCutsceneAndWait(string name, bool b)
     {
         bool done = false;
 
         System.Action callback = () => { done = true; };
 
         EP2CutsceneManager.Instance.OnCutsceneEnd += callback;
-        EP2CutsceneManager.Instance.Play(name);
+        EP2CutsceneManager.Instance.Play(name, b);
 
         yield return new WaitUntil(() => done);
 

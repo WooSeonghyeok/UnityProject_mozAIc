@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public bool lookLock = true;
     public int openPopupCnt = 0;
     public bool isCutsceneMode = false;
+    public GameObject optionBtn;
     public Image lookLockImg;
     public Image zoomCtrlImg;
     public Sprite zoomInImg;
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            MouseStateChange();
+            ShowMouseState(true);
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        if (user != null) user.ChangeLookLock -= ChangeLookLock;
     }
     private void Start()
     {
@@ -47,13 +49,14 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         user = FindUser();
+        if (user != null) user.ChangeLookLock += ChangeLookLock;
         if (scene.name == startScene) quitManager = FindObjectOfType<QuitManager>(true);
         else quitManager = null;
+        optionBtn = GameObject.Find("Option_Btn");
         GetOptionValue();
-        lookLock = (scene.name == startScene || scene.name == endingScene);  //스타트, 엔딩 신에서는 true : 나머지 신에서는 false로 시작
-        MouseStateChange();
-        cursorHold = scene.name == startScene || scene.name == openingScene || scene.name == endingScene;
-        lookLockImg.gameObject.SetActive(!cursorHold);  //스타트, 오프닝, 엔딩 신에서는 마우스 커서 이미지를 비활성화
+        lookLock = (scene.name == startScene || scene.name == endingScene);  //스타트, 엔딩 신에서만 시점 고정이 활성화된 상태로 시작
+        cursorHold = scene.name == startScene || scene.name == openingScene || scene.name == endingScene;  //스타트, 오프닝, 엔딩 신에서는 시점 고정 UI를 비활성화
+        ShowMouseState(true);
         StartCoroutine(RegisterNextFrame());
     }
     private System.Collections.IEnumerator RegisterNextFrame()
@@ -89,24 +92,17 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.SetUIVolume(PlayerPrefs.GetFloat("UI_Volume", 1f));
         SoundManager.Instance.SetSFXVolume(PlayerPrefs.GetFloat("SFX_Volume", 1f));
     }
-    public void OnLookLock(InputAction.CallbackContext context)  //시선 고정 on/off 키 입력
+    public void ChangeLookLock()  //시선 고정 on/off 키 입력
     {
-        if (context.started)
+        if (!cursorHold && !isCutsceneMode)  //컷신 재생 중이 아닌 경우에 동작함
         {
-            if (!cursorHold && !isCutsceneMode)  //컷신 재생 중이 아닌 경우에 동작함
-            {
-                lookLock = !lookLock;
-                MouseStateChange();
-            }
+            lookLock = !lookLock;
+            ShowMouseState(true);
         }
     }
     public void OnPopupChanged()
     {
         lookLock = cursorHold || (openPopupCnt > 0);
-        MouseStateChange();
-    }
-    public void MouseStateChange()
-    {
         ShowMouseState(true);
     }
     public void CutsceneMode(bool b)
@@ -117,6 +113,7 @@ public class GameManager : MonoBehaviour
             var move = user.GetComponent<PlayerMovement>();
             move.SetMoveLock(b);
         }
+        if (optionBtn != null) optionBtn.SetActive(!b);
         ShowMouseState(!b);
     }
     public void ShowMouseState(bool x)
