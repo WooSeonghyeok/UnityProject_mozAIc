@@ -68,6 +68,11 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.started)
         {
+            if (isLookLock)
+            {
+                return;
+            }
+
             ChangeLookLock?.Invoke();
         }
     }

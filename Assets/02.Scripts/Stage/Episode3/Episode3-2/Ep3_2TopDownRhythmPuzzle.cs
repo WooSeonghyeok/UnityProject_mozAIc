@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cinemachine;
+using Episode3.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -165,6 +166,7 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
     private bool cachedOptionPopupWasActive;
     private bool cachedOptionButtonWasActive;
     private bool hasCachedOptionUiState;
+    private InteractableSymbol cachedStartPuzzleInteractable;
 
     private BeatMapData runtimeBeatMap;
     private Transform cachedPlayerTransform;
@@ -263,6 +265,8 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         CachePlayerState();
         LockPlayer();
         SetOptionUiHiddenForPuzzle(true);
+        SetStartPuzzleInteractionActive(false);
+        InteractableSymbol.HideAllInteractUi();
         BuildRuntimeVisuals();
         SetRuntimeVisualRootActive(true);
         EnablePuzzleCamera();
@@ -338,7 +342,20 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         DisablePuzzleCamera();
         UnlockPlayer();
         SetOptionUiHiddenForPuzzle(false);
+        SetStartPuzzleInteractionActive(true);
+        InteractableSymbol.RefreshAllInteractUiState();
         isCompleting = false;
+    }
+
+    private void SetStartPuzzleInteractionActive(bool active)
+    {
+        if (cachedStartPuzzleInteractable == null)
+        {
+            return;
+        }
+
+        cachedStartPuzzleInteractable.SetInteractionEnabled(active);
+        cachedStartPuzzleInteractable.SetColliderEnabled(active);
     }
 
     private void AutoResolveDependencies()
@@ -386,6 +403,11 @@ public class Ep3_2TopDownRhythmPuzzle : MonoBehaviour
         if (startPuzzleController == null)
         {
             startPuzzleController = FindFirstObjectByType<Ep3_2StartPuzzle>();
+        }
+
+        if (cachedStartPuzzleInteractable == null && startPuzzleController != null)
+        {
+            cachedStartPuzzleInteractable = startPuzzleController.GetComponent<InteractableSymbol>();
         }
 
         if (cachedPlayerTransform == null)

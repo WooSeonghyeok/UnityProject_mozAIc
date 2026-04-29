@@ -186,7 +186,7 @@ public class ChatNPC : MonoBehaviour
     private static bool HasObjectInteractionComponent(Transform target)
     {
         InteractableSymbol interactableSymbol = target.GetComponentInParent<InteractableSymbol>();
-        if (interactableSymbol != null && interactableSymbol.isActiveAndEnabled)
+        if (interactableSymbol != null && interactableSymbol.isActiveAndEnabled && interactableSymbol.HasPriorityOverNpcInteraction())
         {
             return true;
         }

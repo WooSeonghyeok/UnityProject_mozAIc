@@ -78,8 +78,7 @@ public class ChatNPCManager : MonoBehaviour
 
         isTalking = true;
         chatPanel.SetActive(true);
-        GameManager.Instance.openPopupCnt++;
-        GameManager.Instance.OnPopupChanged();
+        ApplyPopupStateOnChatStart();
         serverChat.ClearChatUIOnly();
 
         // 현재 대화 중인 NPCData를 ServerChat에 전달
@@ -167,10 +166,7 @@ public class ChatNPCManager : MonoBehaviour
         if (chatPanel != null)
         {
             chatPanel.SetActive(false);
-            GameManager.Instance.openPopupCnt--;
-            GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
-            if (GameManager.Instance.openPopupCnt < 0) GameManager.Instance.openPopupCnt = 0;
-            GameManager.Instance.ShowMouseState(true);
+            ApplyPopupStateOnChatEnd();
         }
         if (serverChat != null)
         {
@@ -330,6 +326,37 @@ public class ChatNPCManager : MonoBehaviour
             subscribedUser.Cancel += EndNPCChat;
         }
     }
+
+    private void ApplyPopupStateOnChatStart()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning("[ChatNPCManager] GameManager.Instance가 없어 팝업 시작 상태를 갱신하지 못했습니다.");
+            return;
+        }
+
+        GameManager.Instance.openPopupCnt++;
+        GameManager.Instance.OnPopupChanged();
+    }
+
+    private void ApplyPopupStateOnChatEnd()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning("[ChatNPCManager] GameManager.Instance가 없어 팝업 종료 상태를 갱신하지 못했습니다.");
+            return;
+        }
+
+        GameManager.Instance.openPopupCnt--;
+        if (GameManager.Instance.openPopupCnt < 0)
+        {
+            GameManager.Instance.openPopupCnt = 0;
+        }
+
+        GameManager.Instance.lookLock = (GameManager.Instance.openPopupCnt > 0);
+        GameManager.Instance.ShowMouseState(true);
+    }
+
     #region 말풍선 관련 메서드
     // 이벤트성 말풍선 출력
     public void PlayNpcBubbleDialogue(NPCData npcData, string dialogueType)

@@ -266,6 +266,31 @@
             RefreshAllInteractUI();
         }
 
+        public static void HideAllInteractUi()
+        {
+            for (int i = ActiveSymbols.Count - 1; i >= 0; i--)
+            {
+                InteractableSymbol symbol = ActiveSymbols[i];
+                if (symbol == null)
+                {
+                    ActiveSymbols.RemoveAt(i);
+                    continue;
+                }
+
+                symbol.HideInteractUI();
+            }
+        }
+
+        public static void RefreshAllInteractUiState()
+        {
+            RefreshAllInteractUI();
+        }
+
+        public bool HasPriorityOverNpcInteraction()
+        {
+            return ShouldDisplayInteractUI();
+        }
+
         /// <summary>
         /// 실제 상호작용 처리:
         /// 1. UI 숨김
