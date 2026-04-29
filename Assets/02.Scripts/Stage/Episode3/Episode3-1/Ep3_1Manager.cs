@@ -25,7 +25,14 @@ public class Ep3_1Manager : MonoBehaviour
     [SerializeField] private List<string> collectedTags = new List<string>();
     private bool isCleared = false;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
-
+    private void OnEnable()
+    {
+        PieceCollect.OnPieceCollected += AddPiece;
+    }
+    private void OnDisable()
+    {
+        PieceCollect.OnPieceCollected -= AddPiece;
+    }
     private void Start()
     {
         Ep_3Manager.Instance?.MarkStage3_1Visited();

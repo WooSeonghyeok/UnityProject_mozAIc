@@ -16,6 +16,15 @@ public class Ep4_Puzzle3Manager : MonoBehaviour
     public UnityEvent onAllCollected;
     public CutsceneImagePlayer puzzle3Cutscene;
     private bool _allPiecesEventRaised = false;  // 이벤트가 중복 호출되지 않도록 보호
+    private void OnEnable()
+    {
+        PieceCollect.OnPieceCollected += AddPiece;
+    }
+
+    private void OnDisable()
+    {
+        PieceCollect.OnPieceCollected -= AddPiece;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))

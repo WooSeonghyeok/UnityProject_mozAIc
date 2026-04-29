@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 /// <summary>
 /// 플레이어가 닿으면 악보 조각을 수집하고 Ep3_1Manager에 수집을 보고합니다.
 /// 루트 오브젝트에 붙여서 사용하세요.
@@ -16,6 +17,7 @@ public class PieceCollect : MonoBehaviour
     [SerializeField] private GameObject visualRoot;   // 실제 보이는 자식 오브젝트
     [SerializeField] private float flyDuration = 0.8f;
     private bool _collected = false;
+    public static event Action OnPieceCollected;
     private void Reset()
     {
         // 루트 콜라이더는 기본적으로 Trigger로 사용
@@ -51,21 +53,7 @@ public class PieceCollect : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, effectSpawnPos);
         }
         // 4. 매니저에 수집 보고
-        Ep3_1Manager manager = FindObjectOfType<Ep3_1Manager>();
-        if (manager != null)
-        {
-            manager.AddPiece();
-        }
-        else
-        {
-            Debug.LogWarning("[PieceCollect] Ep3_1Manager를 찾을 수 없습니다.");
-            var mgr4 = FindObjectOfType<Ep4_Puzzle3Manager>();
-            if (mgr4 != null) mgr4.AddPiece();
-            else
-            {
-                Debug.LogWarning("[PieceCollect] Ep4_Puzzle3Manager를 찾을 수 없습니다.");
-            }
-        }
+        OnPieceCollected?.Invoke();
         // 5. 원본 숨기고 삭제
         HideAndDestroy();
     }
