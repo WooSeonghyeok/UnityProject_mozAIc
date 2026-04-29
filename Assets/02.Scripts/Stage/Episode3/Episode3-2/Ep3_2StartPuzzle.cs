@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Episode3.Common;
 using TMPro;
 using UnityEngine.UI;
 
@@ -28,9 +29,11 @@ public class Ep3_2StartPuzzle : MonoBehaviour
     private bool isStarted = false;
     private Coroutine startSequenceCoroutine;
     private bool ownsRuntimeCountdownCanvas;
+    private InteractableSymbol cachedInteractableSymbol;
 
     private void Awake()
     {
+        cachedInteractableSymbol = GetComponent<InteractableSymbol>();
         EnsureCountdownUi();
         HideCountdownPanel();
     }
@@ -64,6 +67,8 @@ public class Ep3_2StartPuzzle : MonoBehaviour
             interactableToDisable.SetActive(true);
         }
 
+        SetStartInteractableEnabled(true);
+
         if (backgroundDecorController != null)
         {
             backgroundDecorController.SendMessage("StopFlow", SendMessageOptions.DontRequireReceiver);
@@ -74,6 +79,7 @@ public class Ep3_2StartPuzzle : MonoBehaviour
     private IEnumerator CoBeginStartSequence()
     {
         isStarting = true;
+        SetStartInteractableEnabled(false);
 
         if (interactableToDisable != null)
         {
@@ -220,6 +226,22 @@ public class Ep3_2StartPuzzle : MonoBehaviour
         if (countdownText != null)
         {
             countdownText.text = value;
+        }
+    }
+
+    private void SetStartInteractableEnabled(bool enabled)
+    {
+        if (cachedInteractableSymbol == null)
+        {
+            return;
+        }
+
+        cachedInteractableSymbol.SetInteractionEnabled(enabled);
+        cachedInteractableSymbol.SetColliderEnabled(enabled);
+
+        if (!enabled)
+        {
+            InteractableSymbol.HideAllInteractUi();
         }
     }
 
