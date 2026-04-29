@@ -25,12 +25,14 @@ public class SaveManager : MonoBehaviour
     }
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
+            return;
         }
-        else Destroy(gameObject);
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
         curData = ReadCurJSON();
     }
     public void CreateSaveData(int slotNumber)
@@ -53,7 +55,7 @@ public class SaveManager : MonoBehaviour
         }
         string json = File.ReadAllText(path);
         SaveDataObj data = JsonUtility.FromJson<SaveDataObj>(json);
-        return data;
+        return NormalizeSaveData(data);
     }
     public string GetSavePath(int slot)
     {

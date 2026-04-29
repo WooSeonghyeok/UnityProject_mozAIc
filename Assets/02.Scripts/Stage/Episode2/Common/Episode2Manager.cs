@@ -72,7 +72,11 @@ public class Episode2Manager : MonoBehaviour
         // ⭐ 다음 스테이지만 열기 (OK)
         if (data.ep2_spaceClear && data.ep2_paintClear)
         {
-            SaveManager.instance.curData.ep3_open = true;
+            if (!data.ep3_open)
+            {
+                data.ep3_open = true;
+                SaveManager.instance.WriteCurJSON();
+            }
         }
 
         // ❌ finalObject 절대 건드리지 않음
