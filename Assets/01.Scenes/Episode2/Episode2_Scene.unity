@@ -4184,7 +4184,7 @@ PrefabInstance:
       addedObject: {fileID: 431945126}
     - targetCorrespondingSourceObject: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 431945127}
+      addedObject: {fileID: 431945132}
   m_SourcePrefab: {fileID: 100100000, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
 --- !u!1 &431945125 stripped
 GameObject:
@@ -4235,7 +4235,12 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &431945127
+--- !u!20 &431945130 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
+  m_PrefabInstance: {fileID: 431945124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &431945132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4244,14 +4249,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 431945125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5129ef40df6ca7344be66c10469d8529, type: 3}
+  m_Script: {fileID: 11500000, guid: b9d35bbb8457fac41937f4519346085c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 3, z: -5}
-  isChatCamMode: 0
-  isCamModePos: {fileID: 0}
-  movespeed: 4
-  rotationSpeed: 4
+  chatVirtualCamera: {fileID: 782197403}
+  playerVirtualCamera: {fileID: 842237644}
+  normalPriority: 10
+  chatPriority: 50
+  mainCamera: {fileID: 431945130}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &438141789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4396,8 +4404,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482449857}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000029802322, y: 0.9876884, z: -0.15643448, w: -0.000000044703484}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.98768836, z: -0.1564345, w: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6151,6 +6159,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 617078094646546846, guid: 6da09df7b950f9f469acab2b9d48d114, type: 3}
   m_PrefabInstance: {fileID: 1447561372}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &782197403 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3682804824641083495, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+  m_PrefabInstance: {fileID: 1635692552}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &798578880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19387,7 +19406,7 @@ PrefabInstance:
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: followCam
       value: 
-      objectReference: {fileID: 431945127}
+      objectReference: {fileID: 0}
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: playerMovement
       value: 
@@ -26473,6 +26492,63 @@ MonoBehaviour:
   target: {fileID: 160457456}
   finalObject: {fileID: 277729006}
   duration: 1.2
+--- !u!1001 &1635692552
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.69603556
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.12463763
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.69603556
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.12463763
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989654064730940206, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_Name
+      value: Virtual Camera-Chat
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
 --- !u!4 &1641154943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494322, guid: bfb5063a60f6ab946b7818053c46d9d2, type: 3}
@@ -30408,6 +30484,7 @@ SceneRoots:
   - {fileID: 391814241}
   - {fileID: 431945124}
   - {fileID: 256497842}
+  - {fileID: 1635692552}
   - {fileID: 564177029}
   - {fileID: 223982617}
   - {fileID: 1268081820}

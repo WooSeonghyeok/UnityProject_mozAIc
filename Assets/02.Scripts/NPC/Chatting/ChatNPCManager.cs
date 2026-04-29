@@ -9,8 +9,7 @@ public class ChatNPCManager : MonoBehaviour
 
     [SerializeField] private GameObject chatPanel;
     [SerializeField] private ServerChat serverChat;
-    [SerializeField] private FollowCamera followCam;
-
+    [SerializeField] private VcmChat vcmChat;
     [Header("플레이어 제어")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerInput user;
@@ -143,15 +142,9 @@ public class ChatNPCManager : MonoBehaviour
             playerMovement.SetMoveLock(true);
         }
 
-        // 카메라 전환
-        if (followCam != null)
+        if (vcmChat != null)
         {
-            followCam.isCamModePos = pos;
-            followCam.isChatCamMode = true;
-        }
-        else
-        {
-            Debug.LogWarning("[ChatNPCManager] FollowCamera 참조가 없어 대화 카메라 전환을 건너뜁니다.");
+            vcmChat.StartChatCamera(pos);
         }
     }
 
@@ -159,9 +152,9 @@ public class ChatNPCManager : MonoBehaviour
     {
         if (isTalking == false) return;
         isTalking = false;
-        if (followCam != null)
+        if (vcmChat != null)
         {
-            followCam.isChatCamMode = false;
+            vcmChat.EndChatCamera();
         }
         if (chatPanel != null)
         {
@@ -301,9 +294,9 @@ public class ChatNPCManager : MonoBehaviour
             }
         }
 
-        if (followCam == null)
+        if (vcmChat == null)
         {
-            followCam = FindObjectOfType<FollowCamera>();
+            vcmChat = FindObjectOfType<VcmChat>();
         }
     }
     private void RefreshCancelSubscription(bool clearSubscription = false)

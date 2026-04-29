@@ -2346,6 +2346,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1494195010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &293150778
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.69603556
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.12463763
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.69603556
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.12463763
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455610085081980624, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989654064730940206, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+      propertyPath: m_Name
+      value: Virtual Camera-Chat
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
 --- !u!1 &297260486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,7 +2851,7 @@ PrefabInstance:
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: followCam
       value: 
-      objectReference: {fileID: 894984066}
+      objectReference: {fileID: 0}
     - target: {fileID: 6953571745335777917, guid: 600e1d21dc498df4d955931425d9048d, type: 3}
       propertyPath: playerMovement
       value: 
@@ -6060,6 +6117,14 @@ PrefabInstance:
       propertyPath: playerTr
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4570159033687171165, guid: 1b784c6baddba30469336247b2f53ed3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570159033687171165, guid: 1b784c6baddba30469336247b2f53ed3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5035498886704239644, guid: 1b784c6baddba30469336247b2f53ed3, type: 3}
       propertyPath: m_Constraints
       value: 0
@@ -6347,14 +6412,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 894984060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5129ef40df6ca7344be66c10469d8529, type: 3}
+  m_Script: {fileID: 11500000, guid: b9d35bbb8457fac41937f4519346085c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 3, z: -5}
-  isChatCamMode: 0
-  isCamModePos: {fileID: 0}
-  movespeed: 4
-  rotationSpeed: 4
+  chatVirtualCamera: {fileID: 1187916998}
+  playerVirtualCamera: {fileID: 379394502}
+  normalPriority: 10
+  chatPriority: 50
+  mainCamera: {fileID: 894984062}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &898480977
 GameObject:
   m_ObjectHideFlags: 0
@@ -7973,6 +8041,17 @@ MonoBehaviour:
   hintSpread: 0
   hintRolloffMode: 0
   hintDopplerLevel: 0
+--- !u!114 &1187916998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3682804824641083495, guid: cf880886d7d5f3c4c8ac8e82706caaa4, type: 3}
+  m_PrefabInstance: {fileID: 293150778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1190807709
 GameObject:
   m_ObjectHideFlags: 0
@@ -13889,6 +13968,7 @@ SceneRoots:
   - {fileID: 1768758115}
   - {fileID: 1186178587}
   - {fileID: 379394503}
+  - {fileID: 293150778}
   - {fileID: 1880369492}
   - {fileID: 1846653233}
   - {fileID: 1515507291}
