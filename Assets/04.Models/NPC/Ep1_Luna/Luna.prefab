@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 2255304285890681751}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.98768836, z: -0.1564345, w: 0}
-  m_LocalPosition: {x: 0, y: 1.838, z: 1.501}
+  m_LocalPosition: {x: 0, y: 2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -816,6 +816,7 @@ MonoBehaviour:
   user: {fileID: 0}
   playerMovement: {fileID: 0}
   lookAtPlayer: 1
+  higherPriorityInteractCheckRadius: 1.1
   isChat: 0
 --- !u!114 &2420912099928970868
 MonoBehaviour:
