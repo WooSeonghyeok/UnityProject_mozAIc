@@ -6,7 +6,7 @@ public class Ep3_3InteractPoint : MonoBehaviour
     private readonly string playerTag = "Player";
     private PlayerInput user;
 
-    public SaveDataObj CurData;
+    [NonSerialized] private SaveDataObj currentSaveData;
     public int memoryRateUp;  // 기억 재구성 점수 값
 
     private bool isContact = false;
@@ -56,21 +56,21 @@ public class Ep3_3InteractPoint : MonoBehaviour
             return;
         }
 
-        if (!isContact || CurData.isFirstEnterAtEP3FinalTable)
+        if (!isContact || currentSaveData.isFirstEnterAtEP3FinalTable)
         {
             return;
         }
 
-        int newPoint = CurData.memory_reconstruction_rate[7] + memoryRateUp;
-        CurData.memory_reconstruction_rate[7] = Math.Clamp(newPoint, 0, 10);
-        CurData.isFirstEnterAtEP3FinalTable = true;
+        int newPoint = currentSaveData.memory_reconstruction_rate[7] + memoryRateUp;
+        currentSaveData.memory_reconstruction_rate[7] = Math.Clamp(newPoint, 0, 10);
+        currentSaveData.isFirstEnterAtEP3FinalTable = true;
 
         if (SaveManager.instance != null)
         {
-            SaveManager.instance.curData = CurData;
+            SaveManager.instance.curData = currentSaveData;
         }
 
-        SaveManager.WriteCurJSON(CurData);
+        SaveManager.WriteCurJSON(currentSaveData);
     }
 
     private bool ResolveReferences()
@@ -84,13 +84,20 @@ public class Ep3_3InteractPoint : MonoBehaviour
             }
         }
 
-        if (CurData == null)
+        if (SaveManager.instance != null)
         {
-            CurData = SaveManager.instance != null
-                ? SaveManager.instance.curData
-                : SaveManager.ReadCurJSON();
+            if (SaveManager.instance.curData == null)
+            {
+                SaveManager.instance.curData = SaveManager.ReadCurJSON();
+            }
+
+            currentSaveData = SaveManager.instance.curData;
+        }
+        else
+        {
+            currentSaveData = SaveManager.ReadCurJSON();
         }
 
-        return user != null && CurData != null;
+        return user != null && currentSaveData != null;
     }
 }
