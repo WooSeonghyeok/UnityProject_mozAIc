@@ -13,7 +13,6 @@ public class StageSelectButton : MonoBehaviour
     public Image lockImage;
     private void OnEnable()
     {
-        if (StageSelect.instance != null) StageSelect.instance.TouchStageButtonEvent += OnStageTouch;
         StartCoroutine(ButtonDelay());
     }
     private IEnumerator ButtonDelay()
@@ -21,21 +20,31 @@ public class StageSelectButton : MonoBehaviour
         yield return null;
         Refresh();
     }
-    private void OnDisable()
-    {
-        if (StageSelect.instance != null) StageSelect.instance.TouchStageButtonEvent -= OnStageTouch;
-    }
-    private void OnStageTouch(int stageSelect) => OnTouchStageButton(stageSelect == StageNumber);
     public void OnClick()
     {
-        if (StageSelect.instance != null) StageSelect.instance.SelectStage(StageNumber);
-        else OnTouchStageButton(true);
+        if (StageSelect.instance != null)
+        {
+            StageSelect.instance.SelectStage(StageNumber);
+            RefreshAll();
+        }
     }
     public void OnTouchStageButton(bool b)
     {
         if (isLock) return;
-        isSelect = b;
-        SelectImgCheck();
+        SelectImgCheck(b);
+    }
+    private void SelectImgCheck(bool isSelect)
+    {
+        if (selectImage != null) selectImage.enabled = isSelect;
+    }
+    private void LockImgCheck()
+    {
+        if (lockImage != null) lockImage.enabled = isLock;
+    }
+    private void RefreshAll()
+    {
+        foreach (var btn in StageSelect.instance.stageButtons)
+            btn.Refresh();
     }
     public void Refresh()
     {
@@ -49,15 +58,10 @@ public class StageSelectButton : MonoBehaviour
             case 3: isLock = !CurData.ep4_open; break;
         }
         if (stageName != null) stageName.text = $"Stage {StageNumber + 1}";
-        SelectImgCheck();
         LockImgCheck();
-    }
-    private void SelectImgCheck()
-    {
-        if (selectImage != null) selectImage.enabled = isSelect;
-    }
-    private void LockImgCheck()
-    {
-        if (lockImage != null) lockImage.enabled = isLock;
+        bool isSelected = (StageSelect.instance != null &&
+                   StageSelect.instance.stageSelect == StageNumber &&
+                   !isLock);
+        SelectImgCheck(isSelected);
     }
 }

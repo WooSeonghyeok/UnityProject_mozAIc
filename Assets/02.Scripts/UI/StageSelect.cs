@@ -12,15 +12,11 @@ public class StageSelect : MonoBehaviour
 
     public VerticalLayoutGroup stageList;  //스테이지 리스트
     public StageSelectButton[] stageButtons;  //스테이지 리스트에 출력되는 스테이지
-
     public int stageSelect = 0;  //현재 선택한 스테이지 번호
-    public event Action<int> TouchStageButtonEvent;  //스테이지 선택 이벤트
 
     public LayoutGroup checkpointList;  //체크포인트 리스트 구역
     public CheckpointSelectButton[] cpButtons;  //체크포인트 버튼 리스트
-
     public int cpSelect = -1;  //현재 선택한 체크포인트 번호
-    public event Action<int> TouchCPButtonEvent;  //체크포인트 선택 이벤트
 
     public Button EnterButton;  //입장 버튼
     public SoundTrigger EnterSound;  //입장 시 사운드 출력
@@ -86,10 +82,6 @@ public class StageSelect : MonoBehaviour
             }
         }
 
-        if (stageButtons != null && stageButtons.Length > 0 &&
-            stageSelect >= 0 && stageSelect < stageButtons.Length)
-            TouchStageButtonEvent?.Invoke(stageSelect);
-
         if (cpButtons != null)
             CPButtonsPrint(Mathf.Max(0, stageSelect));
     }
@@ -102,18 +94,19 @@ public class StageSelect : MonoBehaviour
             _ => 1
         };
     }
-    private int GetValidCPIndex()
-    {
-        return (cpSelect >= 0 && cpSelect < cpButtons.Length) ? cpSelect : -1;
-    }
     public void SelectStage(int index)
     {
         if (stageButtons == null || index < 0 || index >= stageButtons.Length) return;
 
         stageSelect = index;
+        RefreshStageButtons();
         CPReset();
     }
-
+    private void RefreshStageButtons()
+    {
+        foreach (var btn in stageButtons)
+            btn.Refresh();
+    }
     public void TouchStageButton()
     {
         if (stageButtons == null || stageButtons.Length <= 0 ||
@@ -124,7 +117,6 @@ public class StageSelect : MonoBehaviour
 
     private void CPReset()
     {
-        TouchStageButtonEvent?.Invoke(stageSelect);
         cpSelect = -1;
         CPButtonsPrint(stageSelect);
     }
@@ -132,8 +124,6 @@ public class StageSelect : MonoBehaviour
     void CPButtonsPrint(int selectNum)
     {
         if (cpButtons == null || cpButtons.Length == 0) return;
-
-        TouchCPButtonEvent?.Invoke(-1);
 
         foreach (var btn in cpButtons)
         {
@@ -158,9 +148,11 @@ public class StageSelect : MonoBehaviour
             else
                 cpSelect = -1;
         }
-
-        // 기존 선택 유지 또는 -1
-        TouchCPButtonEvent?.Invoke(GetValidCPIndex());
+        else
+        {
+            if (cpSelect < 0 || cpSelect >= cpCount || cpButtons[cpSelect].isLock)
+                cpSelect = -1;
+        }
 
         EnterButton.interactable = EnterCheck();
     }
@@ -182,7 +174,6 @@ public class StageSelect : MonoBehaviour
     }
     private void NotifyCPSelected()
     {
-        TouchCPButtonEvent?.Invoke(GetValidCPIndex());
         EnterButton.interactable = EnterCheck();
     }
     private bool EnterCheck()  //입장 버튼 활성화 여부 체크

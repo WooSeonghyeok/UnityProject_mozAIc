@@ -31,11 +31,6 @@ public class CheckpointSelectButton : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateLockState();
-
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchCPButtonEvent += OnCPTouch;
-
         StartCoroutine(ButtonDelay());
     }
 
@@ -45,49 +40,37 @@ public class CheckpointSelectButton : MonoBehaviour
         Refresh();
     }
 
-    private void OnDisable()
-    {
-        if (StageSelect.instance != null)
-            StageSelect.instance.TouchCPButtonEvent -= OnCPTouch;
-    }
-
-    private void UpdateLockState()
-    {
-        bool isCleared = Checkpoint_Plane.IsCheckpointCleared(StageNumber, cpNum);
-        isLock = !isCleared;
-
-#if UNITY_EDITOR
-        AssetDatabase.SaveAssets();
-#endif
-    }
-
-    private void OnCPTouch(int cpSelect)
-    {
-        OnTouchCPButton(!isLock && (cpSelect == cpNum));
-    }
-
     public void OnClick()
     {
         if (StageSelect.instance != null)
+        {
             StageSelect.instance.SelectCP(StageNumber, cpNum);
-        else
-            OnTouchCPButton(true);
+            RefreshAll();
+        }
     }
 
     public void OnTouchCPButton(bool b)
     {
-        if (isLock) return;
+        if (!b)  // 선택 해제는 잠금 여부 무관하게 항상 처리
+        {
+            isSelect = false;
+            SelectImgCheck();
+            return;
+        }
 
+        if (isLock) return;
         isSelect = b;
         SelectImgCheck();
     }
-
+    private void RefreshAll()
+    {
+        foreach (var btn in StageSelect.instance.cpButtons)
+            btn.Refresh();
+    }
     public void Refresh()
     {
         CurData = SaveManager.instance.curData;
-
-        // ⭐⭐⭐ Panel 이미지 설정 (핵심 개선)
-        if (panelImage != null)
+        if (panelImage != null)  // ⭐⭐⭐ Panel 이미지 설정 (핵심 개선)
         {
             Sprite[] targetArray = null;
 
@@ -102,9 +85,7 @@ public class CheckpointSelectButton : MonoBehaviour
             if (targetArray != null && targetArray.Length > cpNum)
                 panelImage.sprite = targetArray[cpNum];
         }
-
-        // 🔽 Lock 상태 체크
-        switch (StageNumber)
+        switch (StageNumber)  // 🔽 Lock 상태 체크
         {
             case 0:
                 isLock = !CurData.ep1_open;
@@ -133,10 +114,15 @@ public class CheckpointSelectButton : MonoBehaviour
                 }
                 break;
         }
+        if (CheckpointNumber != null) CheckpointNumber.text = $"{cpNum}";
 
-        if (CheckpointNumber != null)
-            CheckpointNumber.text = $"{cpNum}";
+        bool isSelected =
+        StageSelect.instance != null &&
+        StageSelect.instance.cpSelect == cpNum &&
+        StageSelect.instance.stageSelect == StageNumber &&
+        !isLock;
 
+        isSelect = isSelected;
         SelectImgCheck();
         LockImgCheck();
     }
