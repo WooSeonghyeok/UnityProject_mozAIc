@@ -472,7 +472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e406a36e4db986340a4ecb3fb1f7cd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuitPopup: {fileID: 5613279490785366846}
+  Popup: {fileID: 5613279490785366846}
+  sort: 700
 --- !u!1 &7141131265977882607
 GameObject:
   m_ObjectHideFlags: 0

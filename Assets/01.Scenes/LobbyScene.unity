@@ -4060,6 +4060,7 @@ MonoBehaviour:
   lookLock: 1
   openPopupCnt: 0
   isCutsceneMode: 0
+  optionBtn: {fileID: 0}
   lookLockImg: {fileID: 0}
   zoomCtrlImg: {fileID: 0}
   zoomInImg: {fileID: 0}
@@ -4108,6 +4109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 866636447}
   speed: 3
+  minAlpha: 0.2
+  maxAlpha: 0.6
 --- !u!114 &1316864405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4122,6 +4125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 1429123511}
   speed: 3
+  minAlpha: 0.2
+  maxAlpha: 0.6
 --- !u!114 &1316864406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4136,6 +4141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 2008202147}
   speed: 3
+  minAlpha: 0.2
+  maxAlpha: 0.6
 --- !u!1001 &1358792334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5146,7 +5153,7 @@ PrefabInstance:
       objectReference: {fileID: 1620368615}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenQuitPopup
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -7007,6 +7014,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 316430604}
   speed: 3
+  minAlpha: 0.2
+  maxAlpha: 0.6
 --- !u!1001 &3579223523158683474
 PrefabInstance:
   m_ObjectHideFlags: 0

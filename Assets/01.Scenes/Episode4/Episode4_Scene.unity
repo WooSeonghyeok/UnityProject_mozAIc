@@ -12801,7 +12801,7 @@ PrefabInstance:
       objectReference: {fileID: 735318929}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenQuitPopup
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -55627,11 +55627,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9086929519606799158, guid: 8776074dff6c59943b80af58f0d2266f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 69.78137
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9086929519606799158, guid: 8776074dff6c59943b80af58f0d2266f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1055.5078
+      value: -1055
       objectReference: {fileID: 0}
     - target: {fileID: 9086929519606799158, guid: 8776074dff6c59943b80af58f0d2266f, type: 3}
       propertyPath: m_LocalPosition.z

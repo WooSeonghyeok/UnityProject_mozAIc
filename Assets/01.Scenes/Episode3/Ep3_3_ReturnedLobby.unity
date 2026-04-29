@@ -2314,49 +2314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276ed384c35ff154c8007063a01ed35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurData:
-    ID: 0
-    savedTime: 
-    ep1_open: 0
-    ep1_isCaveUnlocked: 0
-    ep1_isPuzzleCleared: 0
-    ep2_open: 0
-    ep2_spaceClear: 0
-    ep2_paintClear: 0
-    ep3_open: 0
-    ep3_jumpClear: 0
-    ep3_paperClear: 0
-    ep4_open: 0
-    ep4_puzzle1Clear: 0
-    ep4_puzzle2Clear: 0
-    ep4_puzzle3Clear: 0
-    memory_reconstruction_rate: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    CoreTag: []
-    npcInformations: []
-    Played_Episode1_Intro: 0
-    Played_StarGet: 0
-    Played_Episode2_Intro: 0
-    Played_EP2_Text_Intro: 0
-    Played_Space_Intro: 0
-    Played_Paint_Intro: 0
-    Played_Space_Text: 0
-    Played_Space_Clear_Immediate: 0
-    Played_Paint_Sequences: 0
-    Played_Space_Clear: 0
-    Played_Paint_Clear: 0
-    Played_EP2_Ending: 0
-    Played_EP3_LobbyIntro: 0
-    Played_EP3_Stage3_1Intro: 0
-    Played_EP3_Stage3_1Completion: 0
-    Played_EP3_Stage3_2Intro: 0
-    Played_EP3_ReturnedLobbyIntro: 0
-    isFirstEnterAtEP3Lobby: 0
-    isFirstEnterAtEP3_1: 0
-    isFirstEnterAtEP3FinalTable: 0
-    isFirstEnterAtS3CP0: 0
-    isFirstEnterAtS3Tag1: 0
-    isFirstEnterAtS3Tag2: 0
-    isFirstEnterAtS3Tag3: 0
   memoryRateUp: 5
 --- !u!1001 &964198057
 PrefabInstance:
@@ -3463,7 +3420,7 @@ PrefabInstance:
       objectReference: {fileID: 1593522726}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenQuitPopup
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 7761824413807411666, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y

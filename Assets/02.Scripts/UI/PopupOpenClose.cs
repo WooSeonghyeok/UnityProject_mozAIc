@@ -18,7 +18,7 @@ public class PopupOpenClose : MonoBehaviour
             Popup.AddComponent<GraphicRaycaster>();
         }
     }
-    public void OpenPopup()
+    public virtual void OpenPopup()
     {
         Popup.SetActive(true);
         Can.overrideSorting = true;
@@ -26,7 +26,7 @@ public class PopupOpenClose : MonoBehaviour
         GameManager.Instance.openPopupCnt++;
         GameManager.Instance.OnPopupChanged();
     }
-    public void ClosePopup()
+    public virtual void ClosePopup()
     {
         Popup.SetActive(false);
         Can.overrideSorting = false;

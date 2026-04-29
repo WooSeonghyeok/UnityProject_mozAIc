@@ -1,48 +1,21 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
-public class QuitManager : MonoBehaviour
+public class QuitManager : PopupOpenClose
 {
-    public GameObject QuitPopup;
     private bool isQuitOpen = false; 
-    private Canvas Can;
-    private void Awake()
-    {
-        Can = QuitPopup.GetComponent<Canvas>();
-        if (Can == null)
-        {
-            Can = QuitPopup.AddComponent<Canvas>();
-        }
-        var raycaster = QuitPopup.GetComponent<GraphicRaycaster>();
-        if (raycaster == null)
-        {
-            QuitPopup.AddComponent<GraphicRaycaster>();
-        }
-    }
     public void OnQuit(InputAction.CallbackContext context)
     {
-        if (isQuitOpen) return;
-        OpenQuitPopup();
+        if (! isQuitOpen) OpenPopup();
     }
-    public void OpenQuitPopup()
+    public override void OpenPopup()
     {
-        if (isQuitOpen) return;
-        QuitPopup.SetActive(true);
+        base.OpenPopup();
         isQuitOpen = true;
-        Can.overrideSorting = true;
-        Can.sortingOrder = 700;
-        GameManager.Instance.openPopupCnt++;
-        GameManager.Instance.OnPopupChanged();
     }
     public void OnNoButton()
     {
-        QuitPopup.SetActive(false);
+        base.ClosePopup();
         isQuitOpen = false;
-        Can.overrideSorting = false;
-        Can.sortingOrder = 0;
-        GameManager.Instance.openPopupCnt--;
-        if (GameManager.Instance.openPopupCnt < 0) GameManager.Instance.openPopupCnt = 0;
-        GameManager.Instance.OnPopupChanged();
     }
     public void OnYesButton()
     {

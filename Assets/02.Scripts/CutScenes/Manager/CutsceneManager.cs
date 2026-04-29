@@ -1,12 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 public class CutsceneManager : MonoBehaviour
 {
-    private const float FadeDuration = 1f;
-    private const float SceneHoldDuration = 2f;
+    private const float fadeDuration = 1f;
+    private const float holdDuration = 2f;
 
     [Header("Cutscene UI")]
     public Image cutsceneImage;
@@ -113,7 +113,7 @@ public class CutsceneManager : MonoBehaviour
 
             if (!advanceRequested)
             {
-                yield return WaitInterruptible(SceneHoldDuration);
+                yield return WaitInterruptible(holdDuration);
             }
 
             if (skipRequested)
@@ -145,7 +145,7 @@ public class CutsceneManager : MonoBehaviour
     {
         float t = 0;
 
-        while (t < FadeDuration)
+        while (t < fadeDuration)
         {
             PollCutsceneInput();
             if (skipRequested || advanceRequested)
@@ -154,7 +154,7 @@ public class CutsceneManager : MonoBehaviour
                 yield break;
             }
 
-            float a = Mathf.Lerp(start, end, t / FadeDuration);
+            float a = Mathf.Lerp(start, end, t / fadeDuration);
             cutsceneImage.color = new Color(1, 1, 1, a);
             t += Time.unscaledDeltaTime;
             yield return null;

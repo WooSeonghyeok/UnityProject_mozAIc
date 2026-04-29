@@ -17509,7 +17509,7 @@ PrefabInstance:
       objectReference: {fileID: 936451545}
     - target: {fileID: 7657999702730997515, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenQuitPopup
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 7761824413807411666, guid: df7e8b9bd68688e489ea9e813889cc71, type: 3}
       propertyPath: m_AnchorMax.y
@@ -29458,7 +29458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e406a36e4db986340a4ecb3fb1f7cd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuitPopup: {fileID: 2068327278}
+  Popup: {fileID: 0}
+  sort: 0
 --- !u!1 &2080827537
 GameObject:
   m_ObjectHideFlags: 0
