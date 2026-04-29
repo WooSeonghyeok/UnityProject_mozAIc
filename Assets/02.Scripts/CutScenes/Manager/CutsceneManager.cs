@@ -5,8 +5,11 @@ using System.Collections.Generic;
 
 public class CutsceneManager : MonoBehaviour
 {
-    private const float fadeDuration = 1f;
-    private const float holdDuration = 2f;
+    [SerializeField] protected float fadeDuration = 1f;
+    [SerializeField] protected float holdDuration = 2f;
+    [SerializeField] protected bool useCutsceneMode = false;
+    [SerializeField] protected bool keepCutsceneMode = false;
+    public System.Action OnCutsceneEnd;
 
     [Header("Cutscene UI")]
     public Image cutsceneImage;
@@ -141,7 +144,7 @@ public class CutsceneManager : MonoBehaviour
         playRoutine = null;
     }
 
-    IEnumerator Fade(float start, float end)
+    protected virtual IEnumerator Fade(float start, float end)
     {
         float t = 0;
 
@@ -178,7 +181,19 @@ public class CutsceneManager : MonoBehaviour
             yield return null;
         }
     }
+    public virtual IEnumerator PlayCutsceneAndWait(string name)
+    {
+        bool done = false;
 
+        System.Action callback = () => { done = true; };
+
+        OnCutsceneEnd += callback;
+        Play(name);
+
+        yield return new WaitUntil(() => done);
+
+        OnCutsceneEnd -= callback;
+    }
     private void PollCutsceneInput()
     {
         if (!skipRequested && CutsceneInputHelper.IsSkipPressedThisFrame())

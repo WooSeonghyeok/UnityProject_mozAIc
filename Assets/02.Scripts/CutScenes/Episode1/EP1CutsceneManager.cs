@@ -3,20 +3,16 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EP1CutsceneManager : MonoBehaviour
+public class EP1CutsceneManager : CutsceneManager
 {
     public static EP1CutsceneManager Instance;
-
-    public System.Action OnCutsceneEnd;
-
-    [Header("UI")]
-    public Image cutsceneImage;
-
-    [Header("Cutscene Data")]
-    public List<CutsceneData> cutscenes;
-
     private Dictionary<string, Sprite[]> cutsceneDict;
-
+    private void Reset()
+    {
+        fadeDuration = 0.5f;
+        holdDuration = 2f;
+        useCutsceneMode = false;
+    }
     void Awake()
     {
         // 싱글톤
@@ -45,7 +41,7 @@ public class EP1CutsceneManager : MonoBehaviour
     }
 
     // 컷씬 실행
-    public void Play(string name)
+    public new void Play(string name)
     {
         if (!cutsceneDict.ContainsKey(name))
         {
@@ -83,34 +79,14 @@ public class EP1CutsceneManager : MonoBehaviour
     }
 
     // 컷씬 끝날 때까지 기다리기 (코루틴용)
-    public IEnumerator PlayCutsceneAndWait(string name)
+    public override IEnumerator PlayCutsceneAndWait(string name)
     {
-        bool done = false;
-
-        System.Action callback = () => { done = true; };
-
-        OnCutsceneEnd += callback;
-        Play(name);
-
-        yield return new WaitUntil(() => done);
-
-        OnCutsceneEnd -= callback;
+        return base.PlayCutsceneAndWait(name);
     }
 
     // 페이드
-    IEnumerator Fade(float start, float end)
+    protected override IEnumerator Fade(float start, float end)
     {
-        float t = 0;
-        float duration = 0.5f;
-
-        while (t < duration)
-        {
-            float a = Mathf.Lerp(start, end, t / duration);
-            cutsceneImage.color = new Color(1, 1, 1, a);
-            t += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
-        cutsceneImage.color = new Color(1, 1, 1, end);
+        return base.Fade(start, end);
     }
 }

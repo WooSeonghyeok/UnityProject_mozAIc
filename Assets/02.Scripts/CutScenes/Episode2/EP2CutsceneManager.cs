@@ -3,20 +3,17 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EP2CutsceneManager : MonoBehaviour
+public class EP2CutsceneManager : CutsceneManager
 {
     public static EP2CutsceneManager Instance;
-
-    public System.Action OnCutsceneEnd; // ⭐ 추가
-
-    [Header("UI")]
-    public Image cutsceneImage;
-
-    [Header("Cutscene Data")]
-    public List<CutsceneData> cutscenes;
-
     private Dictionary<string, Sprite[]> cutsceneDict;
-
+    private void Reset()
+    {
+        fadeDuration = 0.5f;
+        holdDuration = 2f;
+        useCutsceneMode = true;
+        keepCutsceneMode = false;
+    }
     void Awake()
     {
         Instance = this;
@@ -66,32 +63,12 @@ public class EP2CutsceneManager : MonoBehaviour
         // ⭐ 핵심
         OnCutsceneEnd?.Invoke();
     }
-    public IEnumerator PlayCutsceneAndWait(string name)
+    public override IEnumerator PlayCutsceneAndWait(string name)
     {
-        bool done = false;
-
-        System.Action callback = () => { done = true; };
-
-        OnCutsceneEnd += callback;
-        Play(name);
-
-        yield return new WaitUntil(() => done);
-
-        OnCutsceneEnd -= callback;
+        return base.PlayCutsceneAndWait(name);
     }
-    IEnumerator Fade(float start, float end)
+    protected override IEnumerator Fade(float start, float end)
     {
-        float t = 0;
-        float duration = 0.5f;
-
-        while (t < duration)
-        {
-            float a = Mathf.Lerp(start, end, t / duration);
-            cutsceneImage.color = new Color(1, 1, 1, a);
-            t += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
-        cutsceneImage.color = new Color(1, 1, 1, end);
+        return base.Fade(start, end);
     }
 }
