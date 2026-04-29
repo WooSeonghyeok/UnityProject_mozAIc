@@ -75,11 +75,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -117,12 +117,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutscenePanel: {fileID: 9162778020125430607}
   cutsceneImage: {fileID: 245097402053715088}
+  cutsceneText: {fileID: 0}
+  subtitleFont: {fileID: 0}
+  autoCreateSubtitleUi: 1
+  subtitlePanelSize: {x: 1280, y: 156}
+  subtitlePanelOffset: {x: 0, y: 42}
+  subtitlePadding: {x: 34, y: 24, z: 34, w: 24}
+  subtitleBackgroundColor: {r: 0.05, g: 0.05, b: 0.08, a: 0.78}
+  subtitleFontSize: 34
+  cutsceneTexts: []
   cutsceneSprites:
   - {fileID: 21300000, guid: ec1a4f23494b0ec489787aa1a972dcab, type: 3}
   imageShowTime: 3
   fadeDuration: 1
   playerMovement: {fileID: 0}
   isEndCutscene: 1
+  onCutsceneFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  disableInput: 0
+  useRuntimeHintOverlay: 0
+  nextButton: {fileID: 0}
+  nextButtonRoot: {fileID: 0}
+  skipButton: {fileID: 0}
+  skipButtonRoot: {fileID: 0}
 --- !u!1 &8728688581552303187
 GameObject:
   m_ObjectHideFlags: 0
